@@ -1,0 +1,39 @@
+@startuml Asset Management component diagram
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!include DEVICONS/react.puml
+!include DEVICONS/dotnet.puml
+!include DEVICONS/msql_server.puml
+
+Container(spaAlias, "SPA", "React", "Provide all the interface what allow end user to perform CRUD on user/asset data", $sprite="react")
+
+Boundary(apiSytem, "API Application") {
+    Container(authorityControllerAlias, "Authority Controller", "Asp.Net Core API", "Allow login with user account to API")
+    Container(userControllerAlias, "User Controller", "Asp.Net Core API", "Handles CRUD on user data")
+    Container(assetControllerAlias, "Asset Controller", "Asp.Net Core API", "Handles CRUD on asset data")
+    Container(assignmentControllerAlias, "Assignment Controller", "Asp.Net Core API", "Handles CRUD on assignment data")
+    Container(returnRequestAlias, "Return Request controller", "Asp.Net Core API", "Handles CRUD on asset return request data")
+    Container(reportAlias, "Report Controller", "Asp.Net Core API", "Provide feature to generate reports")
+
+    Container(repositoryAlias, "Repository", "EF Core", "Handle database read and write logics")
+}
+
+ContainerDb(dbAlias, "Database", "Microsoft SQL Server", "Holds assets, assignments and users information", $sprite="msql_server")
+
+Rel(spaAlias, authorityControllerAlias, "Make API call to", "JSON/HTTPS")
+Rel(spaAlias, userControllerAlias, "Make API call to", "JSON/HTTPS")
+Rel(spaAlias, assetControllerAlias, "Make API call to", "JSON/HTTPS")
+Rel(spaAlias, assignmentControllerAlias, "Make API call to", "JSON/HTTPS")
+Rel(spaAlias, returnRequestAlias, "Make API call to", "JSON/HTTPS")
+Rel(spaAlias, reportAlias, "Make API call to", "JSON/HTTPS")
+
+Rel(authorityControllerAlias, repositoryAlias, "Make API call to", "JSON/HTTPS")
+Rel(userControllerAlias, repositoryAlias, "Make API call to", "JSON/HTTPS")
+Rel(assetControllerAlias, repositoryAlias, "Make API call to", "JSON/HTTPS")
+Rel(assignmentControllerAlias, repositoryAlias, "Make API call to", "JSON/HTTPS")
+Rel(returnRequestAlias, repositoryAlias, "Make API call to", "JSON/HTTPS")
+Rel(reportAlias, repositoryAlias, "Make API call to", "JSON/HTTPS")
+
+Rel(repositoryAlias, dbAlias, "Reads/Writes")
+@enduml

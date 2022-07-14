@@ -1,0 +1,20 @@
+@startuml Asset Management component diagram
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!include DEVICONS/react.puml
+!include DEVICONS/dotnet.puml
+!include DEVICONS/msql_server.puml
+
+Person(adminAlias, "Asset Admin", "Employee that manages asset data in the company")
+Person(userAlias, "User", "Employee that want to see and return assigned assets")
+
+Container(spaAlias, "SPA", "React", "The main interface that admin and user perform CRUD on user/asset data", $sprite="react")
+Container(apiAlias, "API Application", "Asp.Net Core API, EF Core, C#", "Handles all business logic", $sprite="dotnet")
+ContainerDb(dbAlias, "Database", "Microsoft SQL Server", "Holds assets, assignments and users information", $sprite="msql_server")
+
+Rel(adminAlias, spaAlias, "Manage Asset and User information", "HTTPS")
+Rel(userAlias, spaAlias, "View and return assigned asset", "HTTPS")
+Rel(spaAlias, apiAlias, "Make API call to", "JSON/HTTPS")
+Rel_R(apiAlias, dbAlias, "Reads/Writes")
+@enduml

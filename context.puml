@@ -1,0 +1,11 @@
+@startuml Asset Management component diagram
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(adminAlias, "Asset Administrator", "Employee that manages asset data in the company")
+Person(userAlias, "User", "Employee that want to see and return assigned assets")
+
+Container(assetManagementAlias, "Asset Management System", ".Net, React", "System allow user to manage assets in an organization")
+
+Rel(adminAlias, assetManagementAlias, "Manage Asset and User informations")
+Rel(userAlias, assetManagementAlias, "View and return assigned asset")
+@enduml
