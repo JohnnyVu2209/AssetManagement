@@ -12,7 +12,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AssetManagement.Contracts\AssetManagement.Contracts.csproj" />
-    <ProjectReference Include="..\AssetManagement.Repository\AssetManagement.Repository.csproj" />
+    <ProjectReference Include="..\AssetManagement.Data\AssetManagement.Data.csproj" />
+    <ProjectReference Include="..\AssetManagement.Domain\AssetManagement.Domain.csproj" />
   </ItemGroup>
 
 </Project>
