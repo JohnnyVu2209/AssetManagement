@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetManagement.Domain", "A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetManagement.Contracts", "AssetManagement.Contracts\AssetManagement.Contracts.csproj", "{DC7B55F7-6CCB-48ED-BDFD-0C296093E1D4}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "AssetManagement.App", "AssetManagement.App\AssetManagement.App.esproj", "{B0ACABFC-D951-4D9B-884F-8257A6F7941B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetManagement.Data", "AssetManagement.Data\AssetManagement.Data.csproj", "{698ABF37-E64E-4328-ABAA-71DFB16647A9}"
 EndProject
 Global
