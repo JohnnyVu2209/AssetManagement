@@ -1,0 +1,80 @@
+.login-container {
+  position: absolute;
+  background-color: #eff1f5;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-side-img {
+  margin-right: 50px;
+}
+
+.login-form {
+  background-color: white;
+  max-width: 500px;
+  max-height: 275px;
+  height: 300px;
+  width: 400px;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.login-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-top p {
+  text-align: center;
+  margin: 0;
+  font-size: 20px;
+}
+
+.login-logo {
+  max-width: 300px;
+}
+
+.login-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-input input {
+  max-width: 300px;
+  width: 300px;
+  height: 40px;
+  margin: 10px;
+  border: none;
+  border-bottom: solid 2px rgb(212, 212, 212);
+  transition: border 0.5s ease-out;
+}
+
+.login-input input:placeholder-shown {
+  font-family: "Nunito Sans";
+}
+
+.login-input input:focus {
+  outline: none;
+  border-bottom: 2px black solid;
+  transition: border 0.5s ease-out;
+}
+
+.login-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.login-button {
+  width: 300px;
+  height: 40px;
+}

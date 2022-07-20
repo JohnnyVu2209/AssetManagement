@@ -1,0 +1,85 @@
+.modal-container {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.1);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  min-width: 400px;
+  max-width: 400px;
+  max-height: 500px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.modal-form-top {
+  display: flex;
+  margin-bottom: 20px;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+
+.modal-form-top h2 {
+  margin: 0;
+}
+
+.modal-form-exit-button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  font-size: 20px;
+}
+
+.modal-form-exit-button:hover {
+  color: rgba(207, 35, 56, 1);
+}
+
+.modal-form-input-container {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+}
+
+.modal-form-input-container input {
+  border: none;
+  border-bottom: 2px solid gray;
+  margin-bottom: 20px;
+  height: 20px;
+  font-size: 18px;
+  transition: border 0.2s ease-in-out;
+  font-family: "Nunito Sans";
+}
+
+.modal-form-input-container input:focus {
+  outline: none;
+  border-bottom: 2px solid black;
+}
+
+.modal-form-input-container textarea {
+  min-width: 395px;
+  min-height: 100px;
+  max-width: 395px;
+  max-height: 300px;
+  font-size: 18px;
+}
+
+.modal-form-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-form-buttons button {
+  margin-left: 20px;
+}

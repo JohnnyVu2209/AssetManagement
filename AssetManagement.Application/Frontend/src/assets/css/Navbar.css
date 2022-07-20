@@ -1,0 +1,75 @@
+.navbar-container {
+  display: flex;
+  padding: 20px;
+}
+
+.navbar-left {
+  flex-basis: 100%;
+}
+
+.navbar-right {
+  display: flex;
+  flex-basis: 20%;
+  align-items: center;
+  font-size: 20px;
+  justify-content: space-between;
+}
+
+.navbar-right-icon-container {
+  display: flex;
+}
+
+.navbar-right-icon {
+  margin-right: 25px;
+  cursor: pointer;
+  position: relative;
+}
+
+.navbar-right-icon-number {
+  position: absolute;
+  top: -5px;
+  font-size: 12px;
+  right: -10px;
+  background-color: red;
+  max-height: 20px;
+  max-width: 20px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+.navbar-right-icon-number p {
+  margin: 0;
+  color: white;
+}
+
+.navbar-user {
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 10px 20px;
+  margin-right: 30px;
+  width: 40%;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.navbar-user-left {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-user-img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.navbar-user-name {
+  margin: 0;
+  font-weight: bold;
+  font-size: 15;
+}

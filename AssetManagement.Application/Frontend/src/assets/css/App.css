@@ -1,0 +1,64 @@
+input {
+  font-family: "Nunito Sans";
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+textarea {
+  font-family: "Nunito Sans";
+}
+
+.app-content {
+  margin-left: 250px;
+  padding: 50px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.button {
+  background-color: rgba(207, 35, 56, 1);
+  font-family: "Nunito Sans";
+  font-size: 15px;
+  font-weight: bold;
+  border: solid 2px transparent;
+  border-radius: 10px;
+  width: 150px;
+  height: 50px;
+  cursor: pointer;
+  color: white;
+  transition: 0.2s;
+}
+
+.button:hover {
+  border: solid 2px rgba(207, 35, 56, 1);
+  background-color: white;
+  color: rgba(207, 35, 56, 1);
+  transition: 0.2s;
+}
+
+.button-reverse {
+  background-color: white;
+  font-family: "Nunito Sans";
+  font-size: 15px;
+  font-weight: bold;
+  border: solid 2px rgba(207, 35, 56, 1);
+  border-radius: 10px;
+  width: 150px;
+  height: 50px;
+  cursor: pointer;
+  color: rgba(207, 35, 56, 1);
+  transition: 0.2s;
+}
+
+.button-reverse:hover {
+  border: solid 2px rgba(207, 35, 56, 1);
+  background-color: rgba(207, 35, 56, 1);
+  color: white;
+  transition: 0.2s;
+}
