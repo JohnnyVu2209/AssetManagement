@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AssetManagement.Data.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -167,17 +167,22 @@ namespace AssetManagement.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { 1, "8353e667-9d7e-48e0-a825-09eee18c6335", "Admin", "ADMIN" });
+                values: new object[] { 1, "1ef79992-4865-4b4c-b253-34072badf079", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { 2, "3df9b864-12d1-4b97-a31e-694f45d69f72", "User", "USER" });
+                values: new object[] { 2, "5df79a64-3a9e-474f-9acb-02a178c7a519", "User", "USER" });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedDate", "DateOfBirth", "Email", "EmailConfirmed", "FirstName", "Gender", "IsDisabled", "JoinedDate", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UpdatedDate", "UserName" },
-                values: new object[] { 1, 0, "6bbce496-499b-4bba-9cbe-911b5860f515", new DateTime(2022, 7, 20, 16, 42, 16, 120, DateTimeKind.Local).AddTicks(2629), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, false, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEIfgg43+vuRa/wx//52LPC9gbbgUPimgzjb7l3PeWGFQ4nXIRKUXm/MrFvQt3und/A==", null, false, null, false, new DateTime(2022, 7, 20, 16, 42, 16, 120, DateTimeKind.Local).AddTicks(2641), "Admin" });
+                values: new object[] { 1, 0, "7bdbc188-6fe9-49d9-b489-8c2b3883d474", new DateTime(2022, 7, 21, 12, 25, 22, 535, DateTimeKind.Local).AddTicks(2930), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, false, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEOTUt1bE8UdC6bn22YWs7aDkROZycxn4FZWofFVq8c/hUp10ZMcxLc9X64A9y9DoTw==", null, false, "30fca24b-6a12-4fea-aa3f-a909a26350d9", false, new DateTime(2022, 7, 21, 12, 25, 22, 535, DateTimeKind.Local).AddTicks(2941), "Admin" });
+
+            migrationBuilder.InsertData(
+                table: "UserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { 1, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoleClaims_RoleId",

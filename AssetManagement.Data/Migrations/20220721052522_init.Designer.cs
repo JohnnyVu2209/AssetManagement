@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AssetManagement.Data.Migrations
 {
     [DbContext(typeof(AssetManagementDbContext))]
-    [Migration("20220720094216_Init")]
-    partial class Init
+    [Migration("20220721052522_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -57,14 +57,14 @@ namespace AssetManagement.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "8353e667-9d7e-48e0-a825-09eee18c6335",
+                            ConcurrencyStamp = "1ef79992-4865-4b4c-b253-34072badf079",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "3df9b864-12d1-4b97-a31e-694f45d69f72",
+                            ConcurrencyStamp = "5df79a64-3a9e-474f-9acb-02a178c7a519",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -166,8 +166,8 @@ namespace AssetManagement.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6bbce496-499b-4bba-9cbe-911b5860f515",
-                            CreatedDate = new DateTime(2022, 7, 20, 16, 42, 16, 120, DateTimeKind.Local).AddTicks(2629),
+                            ConcurrencyStamp = "7bdbc188-6fe9-49d9-b489-8c2b3883d474",
+                            CreatedDate = new DateTime(2022, 7, 21, 12, 25, 22, 535, DateTimeKind.Local).AddTicks(2930),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             Gender = false,
@@ -175,10 +175,11 @@ namespace AssetManagement.Data.Migrations
                             JoinedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIfgg43+vuRa/wx//52LPC9gbbgUPimgzjb7l3PeWGFQ4nXIRKUXm/MrFvQt3und/A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOTUt1bE8UdC6bn22YWs7aDkROZycxn4FZWofFVq8c/hUp10ZMcxLc9X64A9y9DoTw==",
                             PhoneNumberConfirmed = false,
+                            SecurityStamp = "30fca24b-6a12-4fea-aa3f-a909a26350d9",
                             TwoFactorEnabled = false,
-                            UpdatedDate = new DateTime(2022, 7, 20, 16, 42, 16, 120, DateTimeKind.Local).AddTicks(2641),
+                            UpdatedDate = new DateTime(2022, 7, 21, 12, 25, 22, 535, DateTimeKind.Local).AddTicks(2941),
                             UserName = "Admin"
                         });
                 });
@@ -265,6 +266,13 @@ namespace AssetManagement.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("UserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            RoleId = 1
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
