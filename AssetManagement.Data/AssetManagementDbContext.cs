@@ -91,7 +91,7 @@ namespace AssetManagement.Data
                 UpdatedDate = DateTime.Now,
                 UserName = "Admin",
                 NormalizedUserName = "ADMIN",
-                SecurityStamp = Guid.NewGuid().ToString()
+                SecurityStamp = Guid.NewGuid().ToString("D")
             };
             admin.PasswordHash = passwordHasher.HashPassword(admin, "Admin123");
             base.OnModelCreating(modelBuilder);

@@ -55,14 +55,14 @@ namespace AssetManagement.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "8353e667-9d7e-48e0-a825-09eee18c6335",
+                            ConcurrencyStamp = "e81ae1a3-9dc7-409b-8398-b85571a21ece",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "3df9b864-12d1-4b97-a31e-694f45d69f72",
+                            ConcurrencyStamp = "9a23b183-141c-4cf0-9d35-03046cda6a62",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -164,8 +164,8 @@ namespace AssetManagement.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6bbce496-499b-4bba-9cbe-911b5860f515",
-                            CreatedDate = new DateTime(2022, 7, 20, 16, 42, 16, 120, DateTimeKind.Local).AddTicks(2629),
+                            ConcurrencyStamp = "2647b8cd-b321-4a52-b75a-80b06277c58b",
+                            CreatedDate = new DateTime(2022, 7, 21, 11, 7, 33, 798, DateTimeKind.Local).AddTicks(676),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             Gender = false,
@@ -173,10 +173,11 @@ namespace AssetManagement.Data.Migrations
                             JoinedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIfgg43+vuRa/wx//52LPC9gbbgUPimgzjb7l3PeWGFQ4nXIRKUXm/MrFvQt3und/A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEA5dIxZMI33S+3Al0ul1Cvl9GcEEEovjIZb0e2Qp/ikGBNCcJ6ta6u9iDfGfCnsnQA==",
                             PhoneNumberConfirmed = false,
+                            SecurityStamp = "5df32322-3ac5-47e4-87c2-9db13e8d6763",
                             TwoFactorEnabled = false,
-                            UpdatedDate = new DateTime(2022, 7, 20, 16, 42, 16, 120, DateTimeKind.Local).AddTicks(2641),
+                            UpdatedDate = new DateTime(2022, 7, 21, 11, 7, 33, 798, DateTimeKind.Local).AddTicks(688),
                             UserName = "Admin"
                         });
                 });
@@ -263,6 +264,13 @@ namespace AssetManagement.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("UserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            RoleId = 1
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
