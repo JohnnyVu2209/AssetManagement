@@ -5,7 +5,9 @@ using AssetManagement.Contracts.Request;
 using AssetManagement.Contracts.Utilities;
 using AssetManagement.Contracts.ViewModels;
 using AssetManagement.Data;
+using AssetManagement.Domain.Model;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
@@ -16,12 +18,15 @@ namespace AssetManagement.Application.Application.Services
         private readonly AssetManagementDbContext _context;
         private readonly IMapper _mapper;
         private readonly ICurrentUser _currentUser;
-        public UserService(AssetManagementDbContext context, IMapper mapper)
+        private readonly UserManager<User> _userManager;
+        public UserService(AssetManagementDbContext context, IMapper mapper, UserManager<User> userManager, ICurrentUser currentUser)
         {
             _context = context;
             _mapper = mapper;
+            _userManager = userManager;
+            _currentUser = currentUser;
         }
-        
+
         public async Task<List<UserViewModel>> GetAllAsync()
         {
             return await _context.Users.Select(user => _mapper.Map<UserViewModel>(user)).ToListAsync();
@@ -81,8 +86,8 @@ namespace AssetManagement.Application.Application.Services
                 result = result.Where(p => request.Type.Contains(p.Type));
             }
             //Location check
-            //int location = await GetLocationOfRequest();
-            //result = result.Where(p => (p.LocationId == location));
+            int location = await GetLocationOfRequest();
+            result = result.Where(p => (p.LocationId == location));
 
             //Pagination
             int totalRow = result.Count();
@@ -135,11 +140,57 @@ namespace AssetManagement.Application.Application.Services
             return pagedResult;
         }
 
-        //private async Task<int> GetLocationOfRequest()
-        //{
-        //    var userName = _currentUser.UserName;
-        //    var user = await _context.Users.Where(x => x.UserName == userName).FirstOrDefaultAsync();
-        //    return user.LocationId;
-        //}
+        private async Task<int> GetLocationOfRequest()
+        {
+            var userName = _currentUser.UserName;
+            var user = await _context.Users.Where(x => x.UserName == userName).FirstOrDefaultAsync();
+            return user.LocationId;
+        }
+
+        public async Task<bool> UpdateAsync(UpdateUserRequest request)
+        {
+            string staffCode = request.StaffCode;
+
+            var user = await _context.Users.Where(x => x.StaffCode == staffCode && x.IsDisabled==false).FirstOrDefaultAsync();
+            if (user == null) return false;
+
+            if (await GetLocationOfRequest() != user.LocationId)
+            {
+                return false;
+            }
+
+            var currentDate = DateTime.Now;
+            var dob = request.DateOfBirth;
+            var joinedDate = request.JoinedDate;
+            if (currentDate.Year - dob.Year < 18) return false;
+            if (joinedDate.DayOfWeek == DayOfWeek.Saturday || joinedDate.DayOfWeek == DayOfWeek.Sunday) return false;
+
+            user.DateOfBirth = request.DateOfBirth;
+            user.JoinedDate = request.JoinedDate;
+            if (request.Gender == 1) user.Gender = true;
+            else user.Gender = false;
+            user.UpdatedDate = DateTime.Now;
+            await _context.SaveChangesAsync();
+
+            var currentRole = await _context.UserRoles.Where(ur=> ur.UserId == user.Id).FirstOrDefaultAsync();
+            if (currentRole.RoleId != request.TypeId)
+            {
+                var oldRole = await _userManager.GetRolesAsync(user);
+                var newRole = await _context.Roles.Where(r => r.Id == request.TypeId).FirstOrDefaultAsync();
+                await _userManager.RemoveFromRolesAsync(user, oldRole);
+                await _userManager.AddToRoleAsync(user, newRole.Name);
+            }
+
+            return true;
+        }
+
+        public async Task<List<RoleViewModel>> GetRolesAsync()
+        {
+            return await _context.Roles.Select(r => new RoleViewModel()
+            {
+                Id = r.Id,
+                RoleName = r.Name
+            }).ToListAsync();
+        }
     }
 }

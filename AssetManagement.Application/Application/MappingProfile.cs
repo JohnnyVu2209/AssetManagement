@@ -1,4 +1,5 @@
-﻿using AssetManagement.Contracts.ViewModels;
+﻿using AssetManagement.Contracts.Request;
+using AssetManagement.Contracts.ViewModels;
 using AssetManagement.Domain.Model;
 using AutoMapper;
 

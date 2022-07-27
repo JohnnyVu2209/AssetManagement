@@ -10,12 +10,12 @@ namespace AssetManagement.Contracts.Identity
 {
     public class CurrentUser : ICurrentUser
     {
+        public string UserName { get => _httpContextAccessor.HttpContext.User.Claims.Single(x => x.Type == ClaimTypes.Name).Value; }
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public CurrentUser(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
         }
-        public string UserName { get => _httpContextAccessor.HttpContext.User.Identity.Name; }
     }
 }

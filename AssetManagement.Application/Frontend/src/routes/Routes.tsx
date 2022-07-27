@@ -22,7 +22,7 @@ function Routes() {
           <Sidebar />
           <Navbar />
           <Switch>
-            <RouteGuard path="/" exact component={Dashboard} />
+            <RouteGuard exact path="/" component={Dashboard} />
             <RouteGuard path="/list-view" component={ListView} />
             <UserDetailProvider>
               <ManageUserProvider>

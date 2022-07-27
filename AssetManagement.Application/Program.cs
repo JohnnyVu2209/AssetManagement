@@ -10,6 +10,7 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using AssetManagement.Application.Application.Services;
 using AssetManagement.Application.Application.Interfaces;
+using AssetManagement.Contracts.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,8 +26,12 @@ builder.Services.AddDbContext<AssetManagementDbContext>(options => options
 //Add automapper
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
+//Add HttpContextAccessor
+builder.Services.AddHttpContextAccessor();
+
 //Add DI
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<ICurrentUser, CurrentUser>();
 
 //Add Asp Net Identity
 builder.Services.AddIdentity<User, Role>(options =>
