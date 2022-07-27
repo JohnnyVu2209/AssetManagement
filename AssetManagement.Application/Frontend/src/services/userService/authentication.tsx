@@ -1,5 +1,6 @@
-import axios from "axios";
+import axiosInstance from "../axiosInstance";
 import { setAuthToken } from "./setAuthToken";
+import { openPopup } from "../../components/MessagePopup";
 
 function login(Username: string, Password: string) {
   const loginPayload = {
@@ -7,17 +8,20 @@ function login(Username: string, Password: string) {
     Password: Password,
   };
   // Login request
-  axios
-    .post("api/authentication/login", loginPayload)
+  axiosInstance
+    .post("authentication/login", loginPayload)
     .then((response) => {
       // Get token from response
       const token = response.data.token;
       const role = response.data.role;
+      const isPasswordChanged = response.data.isPasswordChanged;
       //   console.log(token);
 
       // Set JWT token to local
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);
+      if (!isPasswordChanged)
+        localStorage.setItem("isPasswordChanged", "false");
 
       // Set token to axios common header
       setAuthToken(token);
@@ -25,12 +29,47 @@ function login(Username: string, Password: string) {
       // Redirect user to Home page
       window.location.href = "/";
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      let statusCode = error.response.status;
+      if (statusCode === 400) {
+        openPopup("Your account is disabled. Please contact with IT Team");
+      }
+      if (statusCode === 401) {
+        openPopup("Username or password is incorrect. Please try again");
+      }
+    });
 }
 
 function logout() {
-  localStorage.removeItem("token");
+  localStorage.clear();
   window.location.href = "/login";
 }
 
-export { login, logout };
+async function changePassword(oldPassword: string, newPassword: string) {
+  const changePasswordPayload = {
+    oldPassword: oldPassword,
+    newPassword: newPassword,
+  };
+  return await axiosInstance
+    .put("Authentication/changePassword", changePasswordPayload)
+    .then((res) => {
+      alert("Your password has been changed successfully");
+      if (localStorage.getItem("isPasswordChanged"))
+        localStorage.removeItem("isPasswordChanged");
+      window.location.href = "/";
+    })
+    .catch((error) => {
+      let statusCode = error.response.status;
+      if (statusCode === 401) {
+        alert("Token Expired. Please re-login to continue");
+        logout();
+      }
+      if (statusCode === 400) {
+        openPopup("Wrong Password");
+        return error;
+      }
+      // }
+    });
+}
+
+export { login, logout, changePassword };

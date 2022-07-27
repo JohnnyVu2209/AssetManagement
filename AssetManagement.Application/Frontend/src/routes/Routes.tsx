@@ -7,6 +7,9 @@ import Sidebar from "../components/Sidebar";
 import Dashboard from "../pages/Dashboard";
 import ListView from "../pages/ListView";
 import Login from "../pages/Login";
+import UserDetailProvider from "../context/UserDetailContext";
+import ManageUser from "../pages/ManageUser";
+import ManageUserProvider from "../context/ManageUserContext";
 
 function Routes() {
   return (
@@ -19,8 +22,14 @@ function Routes() {
           <Sidebar />
           <Navbar />
           <Switch>
-            <RouteGuard path="/list-view" component={ListView} />
             <RouteGuard path="/" exact component={Dashboard} />
+            <RouteGuard path="/list-view" component={ListView} />
+            <UserDetailProvider>
+              <ManageUserProvider>
+                <RouteGuard path="/manage-user" component={ManageUser} />
+              </ManageUserProvider>
+            </UserDetailProvider>
+            <RouteGuard path="/list-view" component={ListView} />
           </Switch>
         </div>
       </Router>

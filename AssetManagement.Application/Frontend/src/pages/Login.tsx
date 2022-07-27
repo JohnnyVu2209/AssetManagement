@@ -1,33 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import "../assets/css/Login.css";
 import { login } from "../services/userService/authentication";
 
-function loginHandle(e: React.FormEvent<HTMLInputElement>) {
-  e.preventDefault();
-  let username = "";
-  let password = "";
-  const usernameInput = document.getElementById("username") as HTMLInputElement;
-  const passwordInput = document.getElementById("password") as HTMLInputElement;
-  if (!usernameInput.value || !passwordInput.value) {
-    alert("Please fill in Username and Password");
-    return;
-  }
-  if (usernameInput.value) {
-    username = usernameInput.value;
-  }
-  if (passwordInput.value) {
-    password = passwordInput.value;
-  }
-  login(username, password);
-}
-
 function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const loginButton = document.getElementById("login-button");
+
+  const handleChangeUsername = (e: any) => {
+    setUsername(e.target.value);
+  };
+
+  const handleChangePassword = (e: any) => {
+    setPassword(e.target.value);
+  };
+
+  const checkEmpty = () => {
+    if (loginButton) {
+      if (username != "" && password != "")
+        loginButton.removeAttribute("disabled");
+      if (username == "" || password == "")
+        loginButton.setAttribute("disabled", "");
+    }
+  };
+
+  function loginHandle(e: any) {
+    e.preventDefault();
+    login(username, password);
+  }
+
   return (
     <div className="login-container">
       <div className="login-side-img">
         <img src="/Logo.png" alt="" className="login-logo" />
       </div>
-      <form className="login-form">
+      <form className="login-form" onSubmit={loginHandle}>
         <div className="login-top">
           <p>
             Welcome to Page<br></br>
@@ -35,15 +42,30 @@ function Login() {
           </p>
         </div>
         <div className="login-input">
-          <input type="text" placeholder="Username" id="username" />
-          <input type="password" placeholder="Password" id="password" />
+          <input
+            type="text"
+            placeholder="Username"
+            id="username"
+            onChange={handleChangeUsername}
+            onKeyUp={checkEmpty}
+            value={username}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            id="password"
+            onChange={handleChangePassword}
+            onKeyUp={checkEmpty}
+            value={password}
+          />
         </div>
         <div className="login-buttons">
           <input
             type="submit"
             className="button login-button"
             value="Sign In"
-            onClick={(e: React.FormEvent<HTMLInputElement>) => loginHandle(e)}
+            disabled
+            id="login-button"
           />
         </div>
       </form>

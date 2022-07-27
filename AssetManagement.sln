@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetManagement.Api", "AssetManagement.Api\AssetManagement.Api.csproj", "{4A2C65AE-00C8-41EA-BF64-99D193A3B93F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetManagement.Domain", "AssetManagement.Domain\AssetManagement.Domain.csproj", "{889AB370-2CE8-46F1-92FC-F1E30C716A42}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetManagement.Contracts", "AssetManagement.Contracts\AssetManagement.Contracts.csproj", "{DC7B55F7-6CCB-48ED-BDFD-0C296093E1D4}"
@@ -13,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetManagement.Data", "Ass
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetManagement.Application", "AssetManagement.Application\AssetManagement.Application.csproj", "{CE303EE2-7B2C-44FB-B6B5-74F3A6D4428E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetManagement.Application.Tests", "AssetManagement.Application.Tests\AssetManagement.Application.Tests.csproj", "{4BBA0695-C713-4352-9A6A-F67FACCD7BDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetManagement.Application.Tests", "AssetManagement.Application.Tests\AssetManagement.Application.Tests.csproj", "{4BBA0695-C713-4352-9A6A-F67FACCD7BDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4A2C65AE-00C8-41EA-BF64-99D193A3B93F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4A2C65AE-00C8-41EA-BF64-99D193A3B93F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4A2C65AE-00C8-41EA-BF64-99D193A3B93F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4A2C65AE-00C8-41EA-BF64-99D193A3B93F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{889AB370-2CE8-46F1-92FC-F1E30C716A42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{889AB370-2CE8-46F1-92FC-F1E30C716A42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{889AB370-2CE8-46F1-92FC-F1E30C716A42}.Release|Any CPU.ActiveCfg = Release|Any CPU
