@@ -1,6 +1,6 @@
-﻿using AssetManagement.Contracts.Constant;
-using AssetManagement.Contracts.Request;
-using AssetManagement.Contracts.Response;
+﻿using AssetManagement.Contracts;
+using AssetManagement.Contracts.Authentication;
+using AssetManagement.Contracts.Constant;
 using AssetManagement.Domain.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -26,9 +26,9 @@ namespace AssetManagement.Application.Controllers
             this.configuration = configuration;
         }
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginModel loginModel)
+        public async Task<IActionResult> Login(LoginDTO loginModel)
         {
-            var user = await userManager.FindByNameAsync(loginModel.UserName);
+            var user = await userManager.FindByNameAsync(loginModel.Username);
             if (user != null && await userManager.CheckPasswordAsync(user, loginModel.Password))
             {
                 if (user.IsDisabled)
@@ -43,7 +43,7 @@ namespace AssetManagement.Application.Controllers
 
                 await userManager.SetAuthenticationTokenAsync(user, TokenConstant.TokenProvider, TokenConstant.RefreshToken, refreshToken);
 
-                return Ok(new JwtResponse { Token = new JwtSecurityTokenHandler().WriteToken(token), Expiration = token.ValidTo, Username = user.UserName, RefreshToken = refreshToken, Role = userRole.First() });
+                return Ok(new JwtResponse { Token = new JwtSecurityTokenHandler().WriteToken(token), Expiration = token.ValidTo, Username = user.UserName, RefreshToken = refreshToken, Role = userRole.First(), IsPasswordChanged = user.IsPasswordChanged });
             }
             return Unauthorized(ErrorCode.USERNAME_OR_PASSWORD_NOT_CORRECT);
 
@@ -53,12 +53,12 @@ namespace AssetManagement.Application.Controllers
         public async Task<IActionResult> RefreshToken(string accessToken, string refreshToken)
         {
             if (refreshToken is null)
-                return BadRequest();
+                return BadRequest(ErrorCode.REFRESH_TOKEN_INVALID);
 
             var principal = GetPrincipalFromExpiredToken(accessToken);
 
             if (principal == null)
-                return BadRequest();
+                return BadRequest(ErrorCode.TOKEN_INVALID);
 
             var user = await userManager.FindByNameAsync(principal.Identity.Name);
 
@@ -76,7 +76,7 @@ namespace AssetManagement.Application.Controllers
 
                 await userManager.SetAuthenticationTokenAsync(user, TokenConstant.TokenProvider, TokenConstant.RefreshToken, newRefreshToken);
 
-                return Ok(new JwtResponse { Token = new JwtSecurityTokenHandler().WriteToken(token), Expiration = token.ValidTo, Username = user.UserName, RefreshToken = refreshToken, Role = userRole.First() });
+                return Ok(new JwtResponse { Token = new JwtSecurityTokenHandler().WriteToken(token), Expiration = token.ValidTo, Username = user.UserName, RefreshToken = refreshToken, Role = userRole.First(), IsPasswordChanged = user.IsPasswordChanged });
             }
 
             return BadRequest(ErrorCode.REFRESH_TOKEN_NOT_VALID);
@@ -101,6 +101,11 @@ namespace AssetManagement.Application.Controllers
 
                 if (!result.Succeeded)
                     return BadRequest(ErrorCode.CHANGE_PASSWORD_FAILED);
+
+                if (!user.IsPasswordChanged)
+                    user.IsPasswordChanged = true;
+
+                await userManager.UpdateAsync(user);
 
                 return Ok(SuccessCode.CHANGE_PASSWORD_SUCCESSFULLY);
             }
@@ -128,7 +133,7 @@ namespace AssetManagement.Application.Controllers
             var token = new JwtSecurityToken(
                 issuer: configuration["JWT:ValidIssuer"],
                 audience: configuration["JWT:ValidAudience"],
-                expires: DateTime.Now.AddMinutes(1),
+                expires: DateTime.Now.AddMinutes(30),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                 );
@@ -138,26 +143,29 @@ namespace AssetManagement.Application.Controllers
 
         private ClaimsPrincipal? GetPrincipalFromExpiredToken(string? token)
         {
-            var tokenValidationParameters = new TokenValidationParameters
+            if(token is not null)
             {
-                ValidateAudience = true,
-                ValidateIssuer = true,
-                ValidAudience = configuration["JWT:ValidAudience"],
-                ValidIssuer = configuration["JWT:ValidIssuer"],
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"])),
-                ValidateLifetime = false
-            };
+                var tokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateAudience = true,
+                    ValidateIssuer = true,
+                    ValidAudience = configuration["JWT:ValidAudience"],
+                    ValidIssuer = configuration["JWT:ValidIssuer"],
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"])),
+                    ValidateLifetime = false
+                };
 
-            var tokenHandler = new JwtSecurityTokenHandler();
+                var tokenHandler = new JwtSecurityTokenHandler();
 
-            var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
+                var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
 
-            if (securityToken is not JwtSecurityToken jwtSecurityToken || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
-                throw new SecurityTokenException("Invalid token");
+                if (securityToken is not JwtSecurityToken jwtSecurityToken || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+                    throw new SecurityTokenException("Invalid token");
 
-            return principal;
-
+                return principal;
+            }
+            return null;
         }
     }
 }

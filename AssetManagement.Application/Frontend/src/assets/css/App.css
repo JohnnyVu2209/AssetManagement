@@ -42,6 +42,11 @@ textarea {
   transition: 0.2s;
 }
 
+.button:disabled {
+  pointer-events: none;
+  background-color: gray;
+}
+
 .button-reverse {
   background-color: white;
   font-family: "Nunito Sans";

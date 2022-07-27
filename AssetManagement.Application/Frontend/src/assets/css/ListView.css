@@ -3,3 +3,29 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.input-searching{
+  border: solid 2px black;
+  border-radius: 10px;
+  width: 150px;
+  height: 50px;
+  font-family: "Nunito Sans";
+  font-size: 15px;
+  font-weight: bold;
+  justify-content: center;
+  text-align: center;
+}
+
+.search-button{
+  background-color: rgba(207, 35, 56, 1);
+  font-family: "Nunito Sans";
+  font-size: 15px;
+  font-weight: bold;
+  border: solid 2px transparent;
+  border-radius: 10px;
+  width: 80px;
+  height: 50px;
+  cursor: pointer;
+  color: white;
+  transition: 0.2s;
+}

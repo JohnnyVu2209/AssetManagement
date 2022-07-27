@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using AssetManagement.Application.Application.Services;
+using AssetManagement.Application.Application.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,12 @@ builder.Services.AddCors();
 builder.Services.AddDbContext<AssetManagementDbContext>(options => options
 .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")
 ));
+
+//Add automapper
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
+
+//Add DI
+builder.Services.AddTransient<IUserService, UserService>();
 
 //Add Asp Net Identity
 builder.Services.AddIdentity<User, Role>(options =>
@@ -34,6 +42,8 @@ builder.Services.AddIdentity<User, Role>(options =>
                 .AddTokenProvider(TokenConstant.TokenProvider, typeof(DataProtectorTokenProvider<User>))
                 .AddEntityFrameworkStores<AssetManagementDbContext>()
                 .AddDefaultTokenProviders();
+
+builder.Services.AddAutoMapper(typeof(Program));
 
 // Adding Authentication
 builder.Services.AddAuthentication(options =>
@@ -121,6 +131,8 @@ app.UseHttpsRedirection();
 app.UseSpaStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
