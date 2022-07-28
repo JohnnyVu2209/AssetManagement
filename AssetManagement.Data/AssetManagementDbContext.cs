@@ -12,7 +12,6 @@ namespace AssetManagement.Data
 
         }
 
-        public DbSet<Location> Location { get; set; }
         public override int SaveChanges()
         {
             var entries = ChangeTracker
@@ -90,10 +89,16 @@ namespace AssetManagement.Data
 
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Location>().HasData(
+            var locations = new List<Location>() {
                 new Location() { Id = 1, LocationName = "Hồ Chí Minh" },
                 new Location() { Id = 2, LocationName = "Đà Nẵng" },
                 new Location() { Id = 3, LocationName = "Hà Nội" }
+            };
+
+            modelBuilder.Entity<Location>().HasData(
+                locations[0],
+                locations[1],
+                locations[2]
             );
             var admin = new User()
             {
@@ -284,6 +289,83 @@ namespace AssetManagement.Data
             );
 
             modelBuilder.Entity<User>().ToTable("Users");
+
+            List<State> states = new List<State>(){
+                new State { Id = 1, Name = "Assigned" },
+                new State { Id = 2, Name = "Available" },
+                new State { Id = 3, Name = "Not available" },
+                new State { Id = 4, Name = "Waiting for recycling" },
+                new State { Id = 5, Name = "Recycled" }
+            };
+
+            modelBuilder.Entity<State>(b =>
+            {
+                b.ToTable("State");
+                b.HasData(
+                    states[0],
+                    states[1],
+                    states[2],
+                    states[3],
+                    states[4]
+                );
+            });
+
+            List<Category> categories = new List<Category>(){
+                new Category { Id = 1, Name = "Laptop" },
+                new Category { Id = 2, Name = "Monitor" },
+                new Category { Id = 3, Name = "Personal Computer" }
+            };
+
+            modelBuilder.Entity<Category>(b =>
+            {
+                b.ToTable("Category");
+                b.HasData(
+                    categories[0],
+                    categories[1],
+                    categories[2]
+                );
+            });
+
+            modelBuilder.Entity<Asset>(
+                entity =>
+                {
+                    entity.HasOne(d => d.State)
+                        .WithMany(p => p.Assets)
+                        .HasForeignKey("StateID");
+                });
+
+            modelBuilder.Entity<Asset>(
+                entity =>
+                {
+                    entity.HasOne(d => d.Category)
+                        .WithMany(p => p.Assets)
+                        .HasForeignKey("CategoryID");
+                });
+
+            modelBuilder.Entity<Asset>(
+                entity =>
+                {
+                    entity.HasOne(d => d.Location)
+                        .WithMany(p => p.Assets)
+                        .HasForeignKey("LocationID");
+                });
+
+            modelBuilder.Entity<Asset>(
+                entity => entity.HasData
+                (
+                    new Asset
+                    {
+                        Id = 1,
+                        Code = "LA000001",
+                        Name = "Laptop HP Probook 450 G1",
+                        Specification = "Dummy Spec",
+                        InstalledDate = DateTime.Now,
+                        CategoryID = categories[0].Id,
+                        StateID = states[1].Id,
+                        LocationID = locations[0].Id
+                    }
+                )
+            );
 
         }
     }
