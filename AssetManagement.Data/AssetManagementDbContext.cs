@@ -99,6 +99,7 @@ namespace AssetManagement.Data
             var adminHCM = new User()
             {
                 Id = 1,
+                StaffCode = "SD0001",
                 CreatedDate = DateTime.Now,
                 UpdatedDate = DateTime.Now,
                 UserName = "AdminHCM",
@@ -110,6 +111,7 @@ namespace AssetManagement.Data
             {
                 Id = 2,
                 CreatedDate = DateTime.Now,
+                StaffCode = "SD0002",
                 UpdatedDate = DateTime.Now,
                 UserName = "AdminDN",
                 NormalizedUserName = "ADMINDN",
@@ -124,15 +126,29 @@ namespace AssetManagement.Data
                 UserName = "AdminHN",
                 NormalizedUserName = "ADMINHN",
                 SecurityStamp = Guid.NewGuid().ToString("D"),
+                StaffCode = "SD0003",
                 LocationId = 3
+            };
+            var disableUser = new User()
+            {
+                Id = 11,
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now,
+                UserName = "AdminDisable",
+                NormalizedUserName = "ADMINDISABLE",
+                SecurityStamp = Guid.NewGuid().ToString("D"),
+                StaffCode = "SD0011",
+                LocationId = 1,
+                IsDisabled=true
             };
             adminHCM.PasswordHash = passwordHasher.HashPassword(adminHCM, "Admin123");
             adminDN.PasswordHash = passwordHasher.HashPassword(adminDN, "Admin123");
             adminHN.PasswordHash = passwordHasher.HashPassword(adminHN, "Admin123");
+            disableUser.PasswordHash = passwordHasher.HashPassword(disableUser, "Admin123");
             modelBuilder.Entity<User>(b =>
             {
                 b.ToTable("Users");
-                b.HasData(adminHCM, adminDN, adminHN);
+                b.HasData(adminHCM, adminDN, adminHN,disableUser);
 
             });
 
