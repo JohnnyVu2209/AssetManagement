@@ -10,6 +10,7 @@ import Login from "../pages/Login";
 import UserDetailProvider from "../context/UserDetailContext";
 import ManageUser from "../pages/ManageUser";
 import ManageUserProvider from "../context/ManageUserContext";
+import EditUser from "../pages/EditUser";
 
 function Routes() {
   return (
@@ -23,6 +24,7 @@ function Routes() {
           <Navbar />
           <Switch>
             <RouteGuard exact path="/" component={Dashboard} />
+            <RouteGuard path="/edit-user/:staffCode?" component={EditUser} />
             <RouteGuard path="/list-view" component={ListView} />
             <UserDetailProvider>
               <ManageUserProvider>

@@ -46,9 +46,10 @@ namespace AssetManagement.Application.Application.Services
                               LastName = u.LastName,
                               UserName = u.UserName,
                               DateOfBirth = u.DateOfBirth,
-                              Gender = u.Gender,
+                              Gender = u.Gender ==true ? 1:0,
                               JoinedDate = u.JoinedDate,
                               Type = r.Name,
+                              TypeId = r.Id,
                               LocationId = u.LocationId,
                               LocationName = u.Location.LocationName
                           }).FirstOrDefaultAsync();
@@ -69,9 +70,10 @@ namespace AssetManagement.Application.Application.Services
                               LastName = u.LastName,
                               UserName = u.UserName,
                               DateOfBirth = u.DateOfBirth,
-                              Gender = u.Gender,
+                              Gender = u.Gender==true?1:0,
                               JoinedDate = u.JoinedDate,
                               Type = r.Name,
+                              TypeId=r.Id,
                               LocationId = u.LocationId,
                               LocationName = u.Location.LocationName
                           }).AsSplitQuery();

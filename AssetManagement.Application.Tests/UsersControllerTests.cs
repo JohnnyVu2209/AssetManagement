@@ -62,7 +62,7 @@ namespace AssetManagement.Application.Tests
                 LastName = "Lam",
                 UserName = "lamnt",
                 DateOfBirth = DateTime.Now,
-                Gender = false,
+                Gender = 0,
                 JoinedDate = DateTime.Now,
                 Type = "User",
                 LocationId = 1,

@@ -4,7 +4,7 @@
   justify-content: space-between;
 }
 
-.input-searching{
+.input-searching {
   border: solid 2px black;
   border-radius: 10px;
   width: 150px;
@@ -16,7 +16,7 @@
   text-align: center;
 }
 
-.search-button{
+.search-button {
   background-color: rgba(207, 35, 56, 1);
   font-family: "Nunito Sans";
   font-size: 15px;
@@ -28,4 +28,14 @@
   cursor: pointer;
   color: white;
   transition: 0.2s;
+}
+
+.search-bar {
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: 235px;
+  top: 15px;
 }
