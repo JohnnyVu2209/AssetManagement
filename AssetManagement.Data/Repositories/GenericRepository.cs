@@ -30,7 +30,11 @@ namespace AssetManagement.Data.Repositories
 
             if (includeProperties != null)
             {
-                query = query.Include(includeProperties);
+                foreach (var includeProperty in includeProperties.Split
+                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProperty);
+                }
             }
 
             if (orderBy != null)
@@ -94,7 +98,8 @@ namespace AssetManagement.Data.Repositories
             dbSet.Remove(entityToDelete);
         }
 
-        public void RemoveRange(IEnumerable<T> entitiesToDelete){
+        public void RemoveRange(IEnumerable<T> entitiesToDelete)
+        {
             dbSet.RemoveRange(entitiesToDelete);
         }
     }

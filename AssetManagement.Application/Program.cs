@@ -10,6 +10,7 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using AssetManagement.Application.Application.Services;
 using AssetManagement.Application.Application.Interfaces;
+using AssetManagement.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,8 +26,16 @@ builder.Services.AddDbContext<AssetManagementDbContext>(options => options
 //Add automapper
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
-//Add DI
+// Add DI Repositories
+builder.Services.AddTransient(typeof(IGenericRpository<>), typeof(GenericRepository<>));
+builder.Services.AddTransient<IAssetRepository, AssetRepository>();
+builder.Services.AddTransient<IStateRepository, StateRepository>();
+builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+//Add DI Services
 builder.Services.AddTransient<IUserService, UserService>();
+// builder.Services.AddTransient<IAssetService, AssetService>();
 
 //Add Asp Net Identity
 builder.Services.AddIdentity<User, Role>(options =>
