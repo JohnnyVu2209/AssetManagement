@@ -5,9 +5,9 @@ namespace AssetManagement.Data.Repositories
 {
     public class GenericRepository<T> : IGenericRpository<T> where T : class
     {
-        private readonly AssetManagementDbContext _context;
+        protected readonly AssetManagementDbContext _context;
 
-        private readonly DbSet<T> dbSet;
+        protected readonly DbSet<T> dbSet;
 
         public GenericRepository(AssetManagementDbContext context)
         {
