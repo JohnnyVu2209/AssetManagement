@@ -108,7 +108,10 @@ function ManageUser() {
               onChange={handleChangeSearching}
             />
             <a onClick={goSearching}>
-              <SearchIcon className="search-icon" />
+              <SearchIcon
+                className="search-icon"
+                style={{ cursor: "pointer" }}
+              />
             </a>
           </div>
           {/* <div>

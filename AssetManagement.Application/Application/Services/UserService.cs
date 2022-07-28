@@ -94,7 +94,7 @@ namespace AssetManagement.Application.Application.Services
             //Pagination
             int totalRow = result.Count();
 
-            request.Limit = request.Limit > 0 ? request.Limit : 10;
+            request.Limit = request.Limit > 0 ? request.Limit : 1000;
             request.Page = request.Page > (int)Math.Ceiling((double)totalRow / request.Limit) ? (int)Math.Ceiling((double)totalRow / request.Limit) : request.Page;
             request.Page = request.Page > 0 ? request.Page : 1;
 

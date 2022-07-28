@@ -17,6 +17,7 @@ async function updateUser(userInfo: any) {
     .put("Users", userInfo)
     .then((res) => {
       console.log(res);
+      alert("User information updated");
       window.location.href = "/manage-user";
     })
     .catch((error) => {

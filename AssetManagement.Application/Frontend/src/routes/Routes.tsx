@@ -10,6 +10,7 @@ import Login from "../pages/Login";
 import UserDetailProvider from "../context/UserDetailContext";
 import ManageUser from "../pages/ManageUser";
 import ManageUserProvider from "../context/ManageUserContext";
+import CreateUser from "../pages/CreateUser";
 import EditUser from "../pages/EditUser";
 
 function Routes() {
@@ -26,6 +27,7 @@ function Routes() {
             <RouteGuard exact path="/" component={Dashboard} />
             <RouteGuard path="/edit-user/:staffCode?" component={EditUser} />
             <RouteGuard path="/list-view" component={ListView} />
+            <RouteGuard path="/create-user" component={CreateUser} />
             <UserDetailProvider>
               <ManageUserProvider>
                 <RouteGuard path="/manage-user" component={ManageUser} />

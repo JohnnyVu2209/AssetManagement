@@ -4,7 +4,7 @@ namespace AssetManagement.Domain.Model
 {
     public class User : IdentityUser<int>
     {
-        public string StaffCode { get; set; }
+        public string? StaffCode { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public DateTime DateOfBirth { get; set; }

@@ -1,7 +1,9 @@
 ﻿using AssetManagement.Contracts;
 using AssetManagement.Contracts.Authentication;
 using AssetManagement.Contracts.Constant;
+using AssetManagement.Contracts.UserDTO;
 using AssetManagement.Domain.Model;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -111,7 +113,6 @@ namespace AssetManagement.Application.Controllers
             }
             return BadRequest(ErrorCode.USER_NOT_VALID);
         }
-
         private async Task<JwtSecurityToken> GetToken(User user)
         {
             var userRoles = await userManager.GetRolesAsync(user);
