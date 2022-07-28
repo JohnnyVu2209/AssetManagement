@@ -11,5 +11,7 @@ namespace AssetManagement.Domain.Model
         public int Id { get; set; }
         public string LocationName { get; set; }
         public virtual List<User> Users { get; set; }
+
+        public virtual List<Asset> Assets {get; set;}
     }
 }
