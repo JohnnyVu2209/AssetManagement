@@ -3,7 +3,7 @@ import "../assets/css/Modal.css";
 import "../assets/css/CreateUser.css";
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
-import { differenceInYears } from "date-fns";
+import { differenceInYears, isSaturday, isSunday } from "date-fns";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -19,14 +19,81 @@ type FormValues = {
 
 
 const CreateUser = () => {
-  const schema = yup.object().shape({
-    dateOfBirth: yup
-      .date()
-      .required("DOB REQUIRED")
-      .test("dob", "Message DOB", (value: any) => {
-        return differenceInYears(new Date(), value) >= 6;
-      }),
-  });
+  //VALIDATION
+  const schema = yup
+    .object()
+    .shape({
+      firstName: yup
+        .string()
+        .required("Please enter first name")
+        .matches(/^[a-zA-Z ]+$/,"First name only contains English characters"),
+      lastName: yup
+        .string()
+        .required("Please enter last name")
+        .matches(/^[a-zA-Z ]+$/,"Last name only contains English characters"),
+      dateOfBirth: yup
+        .date()
+        .required("Please Select Date of Birth")
+        .nullable()
+        .transform((curr, orig) => (orig === "" ? null : curr))
+        .test(
+          "dob",
+          "User is under 18. Please select a different date",
+          (value: any) => {
+            return differenceInYears(new Date(), value) >= 18;
+          }
+        ),
+      joinedDate: yup
+        .date()
+        .required("Join date is required")
+        .when("dateOfBirth", {
+          is: (value: any) => differenceInYears(new Date(), value) < 18,
+          then: yup
+            .date()
+            .nullable()
+            .transform((curr, orig) => (orig === "" ? null : curr))
+            .required("User is under 18. Please select a different date"),
+          otherwise: yup
+            .date()
+            .nullable()
+            .transform((curr, orig) => (orig === "" ? null : curr))
+            .when("dateOfBirth", {
+              is: (value: any) => differenceInYears(new Date(), value) >= 18,
+              then: yup
+                .date()
+
+                .test(
+                  "dj",
+                  "Joined date is Saturday or Sunday. Please select a different date",
+                  (value: any) => {
+                    return !isSaturday(value);
+                  }
+                )
+                .test(
+                  "dj",
+                  "Joined date is Saturday or Sunday. Please select a different date",
+                  (value: any) => {
+                    return !isSunday(value);
+                  }
+                )
+                .nullable()
+                .transform((curr, orig) => (orig === "" ? null : curr)),
+            }),
+        }),
+
+      // .test("dj", "Date joined should be greater", (value) => {
+      //   // const { dateOfBirth } = this.parent;
+      //   return isAfter(dateOfBirth, value)
+      //   );
+      // }),
+    })
+    .test(
+      "gloablok",
+      "User under the age of 18 may not join company. Please select a different date",
+      (value: any) => {
+        return differenceInYears(value.joinedDate, value.dateOfBirth) >= 18;
+      }
+    );
 
   const {
     register,
@@ -73,12 +140,18 @@ const CreateUser = () => {
                 required: "First name is required",
               })}type="text" placeholder="First Name" />
           </div>
+          <p className="form-page-form-error-message">
+              {errors.firstName?errors.firstName.message:""}
+            </p>
           <div className="form-page-form-input">
             <label htmlFor="">Last name</label>
             <input {...register("lastName", {
                 required: "Last name is required",
               })}type="text" placeholder="Last Name" />
           </div>
+          <p className="form-page-form-error-message">
+              {errors.lastName?errors.lastName.message:""}
+            </p>
           <div className="form-page-form-input">
             <label htmlFor="">Date of Birth</label>
             <input
@@ -89,7 +162,9 @@ const CreateUser = () => {
               placeholder="Last Name"
             />
           </div>
-          {errors.dateOfBirth && <p>This field is required</p>}
+          <p className="form-page-form-error-message">
+              {errors.dateOfBirth?errors.dateOfBirth.message:""}
+            </p>
           <div className="form-page-form-input">
           <label htmlFor="">Gender</label>
           <div className="form-page-form-input-radio-container">
@@ -119,14 +194,16 @@ const CreateUser = () => {
             <label htmlFor="">Joined Date</label>
             <input
               type="date"
-              placeholder="Last Name"
+              placeholder="Joined Date"
               {...register("joinedDate", {
                 required: true,
               })}
             />
           </div>
 
-          {errors.dateOfBirth && <p>This field is required</p>}
+          <p className="form-page-form-error-message">
+              {errors.joinedDate?errors.joinedDate.message:""}
+            </p>
 
           <div className="form-page-form-input">
             <label htmlFor="">Type</label>
