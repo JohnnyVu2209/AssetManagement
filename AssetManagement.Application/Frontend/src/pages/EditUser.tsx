@@ -57,6 +57,7 @@ const EditUser = () => {
   const [userGender, setUserGender] = useState(1);
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [dateJoined, setDateJoined] = useState("");
+  const [type, setType] = useState(2);
   const saveButton = document.getElementById("edit-user-save-button");
 
   const params: any = useParams();
@@ -82,6 +83,7 @@ const EditUser = () => {
   useEffect(() => {
     setDateOfBirth(datetimeToDate(userInfo.dateOfBirth));
     setDateJoined(datetimeToDate(userInfo.joinedDate));
+    setType(userInfo.typeId);
     if (!userInfo.gender) userInfo.gender = 0;
   }, [userInfo]);
 
@@ -98,6 +100,7 @@ const EditUser = () => {
     if (saveButton) saveButton.removeAttribute("disabled");
   };
   const handleTypeChange = (event: any) => {
+    setType(event.target.value);
     if (saveButton) saveButton.removeAttribute("disabled");
   };
 
@@ -320,9 +323,9 @@ const EditUser = () => {
             <label htmlFor="">Type</label>
             <select
               id="type"
-              defaultValue={userInfo.typeId}
+              value={type}
               {...register("typeId", { required: true, valueAsNumber: true })}
-              onChange={(e) => handleTypeChange(e.target.value)}
+              onChange={(e) => handleTypeChange(e)}
             >
               <option value={1}>Admin</option>
               <option value={2}>User</option>

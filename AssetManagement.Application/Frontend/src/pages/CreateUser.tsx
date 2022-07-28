@@ -9,14 +9,13 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 type FormValues = {
-  firstName: string,
-  lastName: string,
-  dateOfBirth:Date,
-  joinedDate:Date,
-  gender:boolean,
-  type:number,
-}
-
+  firstName: string;
+  lastName: string;
+  dateOfBirth: Date;
+  joinedDate: Date;
+  gender: boolean;
+  type: number;
+};
 
 const CreateUser = () => {
   //VALIDATION
@@ -26,11 +25,11 @@ const CreateUser = () => {
       firstName: yup
         .string()
         .required("Please enter first name")
-        .matches(/^[a-zA-Z ]+$/,"First name only contains English characters"),
+        .matches(/^[a-zA-Z ]+$/, "First name only contains English characters"),
       lastName: yup
         .string()
         .required("Please enter last name")
-        .matches(/^[a-zA-Z ]+$/,"Last name only contains English characters"),
+        .matches(/^[a-zA-Z ]+$/, "Last name only contains English characters"),
       dateOfBirth: yup
         .date()
         .required("Please Select Date of Birth")
@@ -101,10 +100,12 @@ const CreateUser = () => {
     formState: { errors },
     getValues,
     /* setValue, */
-  } = useForm<FormValues>({ resolver: yupResolver(schema),
+  } = useForm<FormValues>({
+    resolver: yupResolver(schema),
     defaultValues: {
-      gender:true,
-    }});
+      gender: true,
+    },
+  });
 
   const selectOptions = ["User", "Admin"];
   const [typeValue, setTypeValue] = useState(selectOptions[1]);
@@ -113,45 +114,53 @@ const CreateUser = () => {
     return new Date(value).getFullYear();
   };
 
-  const onSubmit:SubmitHandler<FormValues> = (data:any) =>{
+  const onSubmit: SubmitHandler<FormValues> = (data: any) => {
     console.log(data);
-   const token = localStorage.getItem("token");
-   axios.post("https://localhost:7019/api/User/createUser",data,{
-      headers:{authorization: "Bearer " + token}
-    }).then((data) => {
-      console.log(data);
-      window.location.reload();
-    });
-  }
+    const token = localStorage.getItem("token");
+    axios
+      .post("https://localhost:7019/api/User/createUser", data, {
+        headers: { authorization: "Bearer " + token },
+      })
+      .then((data) => {
+        console.log(data);
+        alert("Created new user successfully.");
+        window.location.reload();
+      });
+  };
 
   return (
     <div className="form-page-container app-content">
-      <form
-        className="form-page-form"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <form className="form-page-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="form-page-form-title">
           <h2>Create new user</h2>
         </div>
         <div className="form-page-form-input-container">
           <div className="form-page-form-input">
             <label htmlFor="">First name</label>
-            <input {...register("firstName", {
+            <input
+              {...register("firstName", {
                 required: "First name is required",
-              })}type="text" placeholder="First Name" />
+              })}
+              type="text"
+              placeholder="First Name"
+            />
           </div>
           <p className="form-page-form-error-message">
-              {errors.firstName?errors.firstName.message:""}
-            </p>
+            {errors.firstName ? errors.firstName.message : ""}
+          </p>
           <div className="form-page-form-input">
             <label htmlFor="">Last name</label>
-            <input {...register("lastName", {
+            <input
+              {...register("lastName", {
                 required: "Last name is required",
-              })}type="text" placeholder="Last Name" />
+              })}
+              type="text"
+              placeholder="Last Name"
+            />
           </div>
           <p className="form-page-form-error-message">
-              {errors.lastName?errors.lastName.message:""}
-            </p>
+            {errors.lastName ? errors.lastName.message : ""}
+          </p>
           <div className="form-page-form-input">
             <label htmlFor="">Date of Birth</label>
             <input
@@ -163,11 +172,11 @@ const CreateUser = () => {
             />
           </div>
           <p className="form-page-form-error-message">
-              {errors.dateOfBirth?errors.dateOfBirth.message:""}
-            </p>
+            {errors.dateOfBirth ? errors.dateOfBirth.message : ""}
+          </p>
           <div className="form-page-form-input">
-          <label htmlFor="">Gender</label>
-          <div className="form-page-form-input-radio-container">
+            <label htmlFor="">Gender</label>
+            <div className="form-page-form-input-radio-container">
               <div className="form-page-form-input-radio">
                 <label htmlFor="gender-male">Male</label>
                 <input
@@ -185,7 +194,6 @@ const CreateUser = () => {
                   value={0}
                   checked
                   {...register("gender", { required: true })}
-
                 />
               </div>
             </div>
@@ -202,8 +210,8 @@ const CreateUser = () => {
           </div>
 
           <p className="form-page-form-error-message">
-              {errors.joinedDate?errors.joinedDate.message:""}
-            </p>
+            {errors.joinedDate ? errors.joinedDate.message : ""}
+          </p>
 
           <div className="form-page-form-input">
             <label htmlFor="">Type</label>
@@ -227,7 +235,6 @@ const CreateUser = () => {
       </form>
     </div>
   );
-
-}
+};
 
 export default CreateUser;
