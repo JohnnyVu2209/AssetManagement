@@ -84,7 +84,10 @@ const EditUser = () => {
     setDateOfBirth(datetimeToDate(userInfo.dateOfBirth));
     setDateJoined(datetimeToDate(userInfo.joinedDate));
     setType(userInfo.typeId);
-    if (!userInfo.gender) userInfo.gender = 0;
+    if (!userInfo.gender) {
+      window.location.href = "/manage-user";
+      alert("This admin cannot be edit");
+    }
   }, [userInfo]);
 
   const handleGenderChange = (event: any) => {
