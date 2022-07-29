@@ -1,12 +1,9 @@
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
 
 namespace AssetManagement.Domain.Model
 {
-    public class Asset
+    public class Asset : BaseEntity
     {
-        public int Id { get; set; }
-
         [Required]
         public string? Code { get; set; }
 
