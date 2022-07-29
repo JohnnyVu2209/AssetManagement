@@ -8,8 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
-using AssetManagement.Application.Application.Services;
+using AssetManagement.Application;
+using AssetManagement.Data.Repository.Interface;
+using AssetManagement.Data.Repository;
 using AssetManagement.Application.Application.Interfaces;
+using AssetManagement.Application.Application.Services;
+using AssetManagement.Contracts.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,14 +23,19 @@ builder.Services.AddControllers();
 builder.Services.AddCors();
 //Add db context
 builder.Services.AddDbContext<AssetManagementDbContext>(options => options
-.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")
+.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+x => x.MigrationsAssembly("AssetManagement.Data")
 ));
 
 //Add automapper
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
+//Add HttpContextAccessor
+builder.Services.AddHttpContextAccessor();
+
 //Add DI
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<ICurrentUser, CurrentUser>();
 
 //Add Asp Net Identity
 builder.Services.AddIdentity<User, Role>(options =>
@@ -43,7 +52,17 @@ builder.Services.AddIdentity<User, Role>(options =>
                 .AddEntityFrameworkStores<AssetManagementDbContext>()
                 .AddDefaultTokenProviders();
 
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(c =>
+    c.AddProfile(new MappingProfile())
+);
+
+//Add Repository
+builder.Services.AddTransient<IRoleRepository, RoleRepository>();
+builder.Services.AddHttpContextAccessor();
+
+//Add DI
+builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<ICurrentUser, CurrentUser>();
 
 // Adding Authentication
 builder.Services.AddAuthentication(options =>

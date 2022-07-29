@@ -46,7 +46,9 @@ namespace AssetManagement.Application.Tests
             var result = await controller.Login(new LoginDTO { Username = "Admin", Password = "Admin123" });
 
             var okResult = result as OkObjectResult;
+
             Assert.IsType<OkObjectResult>(okResult);
+
             Assert.IsType<JwtResponse>(okResult.Value);
 
         }

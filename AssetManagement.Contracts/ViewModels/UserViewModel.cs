@@ -19,7 +19,8 @@ namespace AssetManagement.Contracts.ViewModels
         public DateTime DateOfBirth { get; set; }
 
         public string Type { get; set; }
-        public bool Gender { get; set; }
+        public int TypeId { get; set; }
+        public int Gender { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime JoinedDate { get; set; }

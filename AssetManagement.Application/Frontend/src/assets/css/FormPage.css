@@ -1,0 +1,99 @@
+.form-page-form-error-message {
+  color: red;
+  margin: 0;
+  margin-top: -20px;
+  margin-bottom: 20px;
+  padding-left: 29%;
+}
+
+.form-page-title {
+  display: flex;
+  margin-bottom: 20px;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+
+.form-page-form {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  min-width: 400px;
+  max-width: 500px;
+  max-height: 500px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.form-page-form-title h2 {
+  color: rgba(207, 35, 56, 1);
+}
+
+.form-page-form-input-container {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+}
+
+.form-page-form-input {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.form-page-form-input label {
+  font-size: 18px;
+  flex-basis: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.form-page-form-input-radio-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-basis: 100%;
+}
+
+.form-page-form-input-radio {
+  display: flex;
+  margin-right: 20px;
+}
+
+.form-page-form-input-container input {
+  border: none;
+  border-bottom: 2px solid gray;
+  width: 100%;
+  height: 30px;
+  font-size: 18px;
+  transition: border 0.2s ease-in-out;
+  font-family: "Nunito Sans";
+  display: flex;
+  align-items: center;
+}
+
+.form-page-form-input-container select {
+  border: none;
+  border-bottom: 2px solid gray;
+  /* margin-top: 10px; */
+  width: 100%;
+  height: 40px;
+  font-size: 18px;
+  transition: border 0.2s ease-in-out;
+  font-family: "Nunito Sans";
+  display: flex;
+}
+
+.form-page-form-input-container input:focus {
+  outline: none;
+  border-bottom: 2px solid black;
+}
+
+.form-page-form-input-container input:disabled {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+.form-page-form-input-container select:focus {
+  outline: none;
+  border-bottom: 2px solid black;
+}
