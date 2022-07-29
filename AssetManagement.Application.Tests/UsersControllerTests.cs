@@ -31,7 +31,7 @@ namespace AssetManagement.Application.Tests
 
             var controller = new UsersController(mockUserService.Object);
 
-            OkObjectResult result = await controller.GetPaginationAsync(new ViewUserRequest()) as OkObjectResult;
+            OkObjectResult result = await controller.GetPagination(new ViewUserRequest()) as OkObjectResult;
 
             var content = result.Value;
 
@@ -46,7 +46,7 @@ namespace AssetManagement.Application.Tests
 
             var controller = new UsersController(mockUserService.Object);
 
-            var result = await controller.GetPaginationAsync(new ViewUserRequest());
+            var result = await controller.GetPagination(new ViewUserRequest());
 
             Assert.IsType<BadRequestResult>(result);
         }
@@ -62,7 +62,7 @@ namespace AssetManagement.Application.Tests
                 LastName = "Lam",
                 UserName = "lamnt",
                 DateOfBirth = DateTime.Now,
-                Gender = false,
+                Gender = 0,
                 JoinedDate = DateTime.Now,
                 Type = "User",
                 LocationId = 1,
@@ -91,6 +91,30 @@ namespace AssetManagement.Application.Tests
             var result = await controller.GetByStaffCode("SD0002");
 
             Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public async void UpdateUser_ReturnsOk()
+        {
+            var mockUserService = new MockUserService().MockUpdateUsers_Ok(true);
+
+            var controller = new UsersController(mockUserService.Object);
+
+            OkObjectResult result = await controller.Update(new UpdateUserRequest()) as OkObjectResult;
+
+            Assert.IsType<OkObjectResult>(result);
+        }
+
+        [Fact]
+        public async void UpdateUser_ReturnsBadRequest()
+        {
+            var mockUserService = new MockUserService().MockUpdateUsers_BadRequest();
+
+            var controller = new UsersController(mockUserService.Object);
+
+            var result = await controller.Update(new UpdateUserRequest());
+
+            Assert.IsType<BadRequestObjectResult>(result);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AssetManagement.Application.Application.Interfaces;
 using AssetManagement.Contracts.Request;
 using AssetManagement.Contracts.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,8 +29,9 @@ namespace AssetManagement.Application.Controllers
             return Ok(data);
         }
 
-        [HttpGet("")]
-        public async Task<ActionResult> GetPaginationAsync([FromQuery] ViewUserRequest request)
+        [Authorize(Roles = "Admin")]
+        [HttpGet()]
+        public async Task<ActionResult> GetPagination([FromQuery] ViewUserRequest request)
         {
             var data = await _service.GetPaginationAsync(request);
             if (data == null)
@@ -38,5 +40,24 @@ namespace AssetManagement.Application.Controllers
             }
             return Ok(data);
         }
+
+        [Authorize(Roles ="Admin")]
+        [HttpPut]
+        public async Task<ActionResult> Update([FromBody] UpdateUserRequest request)
+        {
+            var res = await _service.UpdateAsync(request);
+            if (res == true)
+                return Ok(res);
+            else
+                return BadRequest(res);
+        }
+
+        [HttpGet("roles")]
+        public async Task<ActionResult> GetRoles()
+        {
+            var res = await _service.GetRolesAsync();
+            if(res == null) return BadRequest();
+            return Ok(res);
+        }   
     }
 }

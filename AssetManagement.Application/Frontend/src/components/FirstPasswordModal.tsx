@@ -3,7 +3,7 @@ import "../assets/css/Modal.css";
 import "../assets/css/FirstPasswordModal.css";
 import { changePassword } from "../services/userService/authentication";
 
-function Modal() {
+function FirstPasswordModal() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const saveButton = document.getElementById("first-password-save-button");
@@ -94,4 +94,4 @@ function Modal() {
   );
 }
 
-export default Modal;
+export default FirstPasswordModal;

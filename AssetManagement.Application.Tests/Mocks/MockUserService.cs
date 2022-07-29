@@ -2,6 +2,7 @@
 using AssetManagement.Contracts.Constant;
 using AssetManagement.Contracts.Request;
 using AssetManagement.Contracts.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,20 @@ namespace AssetManagement.Application.Tests.Mocks
         public MockUserService MockGetByStaffCode_NotFound()
         {
             Setup(x => x.GetByStaffCodeAsync(It.IsAny<string>()));
+
+            return this;
+        }
+
+        public MockUserService MockUpdateUsers_Ok(bool result)
+        {
+            Setup(x => x.UpdateAsync(It.IsAny<UpdateUserRequest>())).ReturnsAsync(result);
+
+            return this;
+        }
+
+        public MockUserService MockUpdateUsers_BadRequest()
+        {
+            Setup(x => x.UpdateAsync(It.IsAny<UpdateUserRequest>()));
 
             return this;
         }
