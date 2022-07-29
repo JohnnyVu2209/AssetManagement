@@ -2,10 +2,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AssetManagement.Domain.Model
 {
-    public class State
+    public class State : BaseEntity
     {
-        public int Id { get; set; }
-
         [Required]
         public string? Name { get; set; }
 
