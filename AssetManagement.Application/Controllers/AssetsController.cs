@@ -23,10 +23,25 @@ namespace AssetManagement.Application.Controllers
         public async Task<ActionResult> GetAllSync()
         {
             var data = _mapper.Map<List<AssetDTO>>((await _service.GetAllAsync()).ToList());
+
             if (data == null)
             {
                 return NotFound();
             }
+            
+            return Ok(data);
+        }
+
+        [HttpGet("{assetCode}")]
+        public async Task<ActionResult> GetByStaffCode(string assetCode)
+        {
+            var data = _mapper.Map<AssetDetailDTO>((await _service.GetByAssetCodeAsync(assetCode)));
+
+            if (data == null)
+            {
+                return NotFound();
+            }
+
             return Ok(data);
         }
     }

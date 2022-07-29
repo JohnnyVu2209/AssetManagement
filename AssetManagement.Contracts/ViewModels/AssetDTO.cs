@@ -6,10 +6,10 @@ namespace AssetManagement.Contracts.ViewModels
 
         public string? Name { get; set; }
 
-        public string Category { get; set; } = string.Empty;
+        public string? Category { get; set; }
 
-        public string State { get; set; } = string.Empty;
+        public string? State { get; set; }
 
-        public string Location { get; set; } = string.Empty;
+        public string? Location { get; set; }
     }
 }

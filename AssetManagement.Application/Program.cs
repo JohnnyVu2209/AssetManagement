@@ -8,13 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
-using AssetManagement.Application;
 using AssetManagement.Data.Repository.Interface;
 using AssetManagement.Data.Repository;
 using AssetManagement.Application.Application.Interfaces;
 using AssetManagement.Data.Repositories;
 using AssetManagement.Application.Application.Services;
-using AssetManagement.Contracts.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -7,14 +7,26 @@ namespace AssetManagement.Application.Application.Interfaces
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public AssetService(IUnitOfWork unitOfWork)
+        private readonly ICurrentUser _currentUser;
+
+        public AssetService(IUnitOfWork unitOfWork, ICurrentUser currentUser)
         {
             _unitOfWork = unitOfWork;
+            _currentUser = currentUser;
         }
 
         public async Task<IEnumerable<Asset>> GetAllAsync()
         {
-            return await _unitOfWork.Assets.FindAsync(null, null, includeProperties: "State,Category,Location");
+
+            return await _unitOfWork.Assets
+                                .FindAsync(
+                                    asset => asset.LocationID == _currentUser.LocationId,
+                                    null, "State,Category,Location");
+        }
+
+        public async Task<Asset?> GetByAssetCodeAsync(string code)
+        {
+            return await _unitOfWork.Assets.GetByAssetCodeAsync(code);
         }
     }
 }
