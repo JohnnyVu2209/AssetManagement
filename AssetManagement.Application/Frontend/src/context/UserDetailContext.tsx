@@ -13,7 +13,7 @@ const UserDetailProvider: React.FC<React.PropsWithChildren> = ({ children }) => 
         lastName: '',
         userName: '',
         dateOfBirth: '',
-        gender: false,
+        gender: 0,
         joinedDate: '',
         type: '',
         locationName: '',
