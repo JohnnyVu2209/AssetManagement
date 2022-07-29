@@ -16,6 +16,10 @@ function login(Username: string, Password: string) {
       const role = response.data.role;
       const isPasswordChanged = response.data.isPasswordChanged;
       //   console.log(token);
+      if (role === "User") {
+        alert("User interface is in developing");
+        window.location.href = "/login";
+      }
 
       // Set JWT token to local
       localStorage.setItem("token", token);
