@@ -321,9 +321,9 @@ namespace AssetManagement.Data
             });
 
             List<Category> categories = new List<Category>(){
-                new Category { Id = 1, Name = "Laptop" },
-                new Category { Id = 2, Name = "Monitor" },
-                new Category { Id = 3, Name = "Personal Computer" }
+                new Category { Id = 1, Name = "Laptop", Prefix = "LA" },
+                new Category { Id = 2, Name = "Monitor", Prefix = "MO" },
+                new Category { Id = 3, Name = "Personal Computer", Prefix = "PC" }
             };
 
             modelBuilder.Entity<Category>(b =>
