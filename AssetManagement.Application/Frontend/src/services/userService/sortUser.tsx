@@ -1,11 +1,21 @@
 import axiosInstance from "../axiosInstance";
+import {logout} from "./authentication";
 
 async function getUserSorting(Keyword: string) {
-  return await axiosInstance.get(`Users?Keyword=${Keyword}`)
+  return await 
+    axiosInstance.get(`Users?Keyword=${Keyword}`)
                     .then((res) => {
                         return res;
-                        window.location.href="/";
-                    })
+                    }).catch((error) => {
+                      let statusCode = error.response.status;
+                      if (statusCode === 401) {
+                        alert("Token Expired. Please re-login to continue");
+                        logout();
+                      }
+                      return error;
+                      
+                      // }
+                    });
 }
 
 export { getUserSorting };

@@ -59,7 +59,7 @@ export default function UserDetail() {
                     Gender
                 </div>
                 <div className="dig-data-data">
-                    {`${userDetail.gender ? "Female" : "Male"}`}
+                    {`${(userDetail.gender == 0 ) ? "Female" : "Male"}`}
                 </div>
             </DialogContent>
             <DialogContent className="dig-data">

@@ -1,4 +1,5 @@
 import axiosInstance from "../axiosInstance";
+import {logout} from "./authentication";
 
 async function getUserByStaffCode(staffCode: string) {
   return await axiosInstance
@@ -21,8 +22,30 @@ async function updateUser(userInfo: any) {
       window.location.href = "/manage-user";
     })
     .catch((error) => {
-      console.log(error);
+      let statusCode = error.response.status;
+      if (statusCode === 401) {
+        alert("Token Expired. Please re-login to continue");
+        logout();
+      }
     });
 }
 
-export { getUserByStaffCode, updateUser };
+async function createUser(data:any){
+  axiosInstance
+    .post("User/createUser",data)
+    .then((data) => {
+      console.log(data);
+      alert("Created new user successfully.");
+      window.location.reload();
+    })
+    .catch((error) => {
+      let statusCode = error.response.status;
+      if (statusCode === 401) {
+        alert("Token Expired. Please re-login to continue");
+        logout();
+      }
+    });
+};
+
+
+export { getUserByStaffCode, updateUser, createUser };
