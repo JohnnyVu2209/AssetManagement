@@ -1,4 +1,5 @@
 using AssetManagement.Data.Repositories;
+using AssetManagement.Data.Repositories.Implementations;
 
 namespace AssetManagement.Data
 {

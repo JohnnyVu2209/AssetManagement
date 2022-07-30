@@ -1,17 +1,18 @@
+using System.Text;
+
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
-using AssetManagement.Contracts.Constant;
-using AssetManagement.Data;
-using AssetManagement.Domain.Model;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Text;
-using AssetManagement.Data.Repository.Interface;
-using AssetManagement.Data.Repository;
-using AssetManagement.Application.Application.Interfaces;
+
+using AssetManagement.Domain.Model;
+using AssetManagement.Data;
 using AssetManagement.Data.Repositories;
+using AssetManagement.Data.Repositories.Implementations;
+using AssetManagement.Contracts.Constant;
+using AssetManagement.Application.Application.Interfaces;
 using AssetManagement.Application.Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);

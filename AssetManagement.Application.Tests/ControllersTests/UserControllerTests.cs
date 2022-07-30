@@ -1,7 +1,7 @@
 ﻿using AssetManagement.Application.Controllers;
 using AssetManagement.Contracts.Constant;
 using AssetManagement.Contracts.UserDTO;
-using AssetManagement.Data.Repository.Interface;
+using AssetManagement.Data.Repositories;
 using AssetManagement.Domain.Model;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;

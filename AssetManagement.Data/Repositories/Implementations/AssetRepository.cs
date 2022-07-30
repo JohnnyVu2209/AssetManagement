@@ -1,7 +1,7 @@
 using AssetManagement.Domain.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace AssetManagement.Data.Repositories
+namespace AssetManagement.Data.Repositories.Implementations
 {
     public class AssetRepository : GenericRepository<Asset>, IAssetRepository
     {
