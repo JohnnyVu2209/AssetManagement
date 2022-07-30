@@ -5,8 +5,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { differenceInYears, isSaturday, isSunday } from "date-fns";
 import { yupResolver } from "@hookform/resolvers/yup";
-import axios from "axios";
 import { Link } from "react-router-dom";
+import {createUser} from "../services/userService/userManagement";
 
 type FormValues = {
   firstName: string;
@@ -117,15 +117,7 @@ const CreateUser = () => {
   const onSubmit: SubmitHandler<FormValues> = (data: any) => {
     console.log(data);
     const token = localStorage.getItem("token");
-    axios
-      .post("https://localhost:7019/api/User/createUser", data, {
-        headers: { authorization: "Bearer " + token },
-      })
-      .then((data) => {
-        console.log(data);
-        alert("Created new user successfully.");
-        window.location.reload();
-      });
+    createUser(data);
   };
 
   return (

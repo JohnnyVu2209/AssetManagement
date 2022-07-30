@@ -6,7 +6,7 @@ export interface UserDetailType {
     lastName: string
     userName: string
     dateOfBirth: string
-    gender: boolean
+    gender: number
     joinedDate: string
     type: string
     locationName: string
