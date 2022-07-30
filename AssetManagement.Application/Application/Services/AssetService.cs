@@ -18,6 +18,11 @@ namespace AssetManagement.Application.Application.Interfaces
         public async Task<IEnumerable<Asset>> GetAllAsync()
         {
 
+            return await _unitOfWork.Assets.GetAllAsync();
+        }
+
+        public async Task<IEnumerable<Asset>> GetAllByCurrentAdminLocationAsync()
+        {
             return await _unitOfWork.Assets
                                 .FindAsync(
                                     asset => asset.LocationID == _currentUser.LocationId,

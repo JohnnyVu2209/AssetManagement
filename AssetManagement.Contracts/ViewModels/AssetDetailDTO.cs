@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AssetManagement.Contracts.ViewModels
 {
-    public class AssetDetailDTO : AssetDTO
+    public record AssetDetailDTO : AssetDTO
     {
         public int CategoryID { get; set; }
 

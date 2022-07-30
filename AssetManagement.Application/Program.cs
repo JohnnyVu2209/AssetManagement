@@ -59,6 +59,8 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ICurrentUser, CurrentUser>();
 builder.Services.AddTransient<IAssetService, AssetService>();
+builder.Services.AddTransient<IStateService, StateService>();
+builder.Services.AddTransient<ICategoryService, CategoryService>();
 
 // Adding Authentication
 builder.Services.AddAuthentication(options =>

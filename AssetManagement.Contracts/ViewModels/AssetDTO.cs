@@ -1,6 +1,6 @@
 namespace AssetManagement.Contracts.ViewModels
 {
-    public class AssetDTO
+    public record AssetDTO
     {
         public string? Code { get; set; }
 

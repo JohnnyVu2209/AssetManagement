@@ -6,6 +6,8 @@ namespace AssetManagement.Application.Application.Interfaces
     {
         Task<IEnumerable<Asset>> GetAllAsync();
 
+        Task<IEnumerable<Asset>> GetAllByCurrentAdminLocationAsync();
+
         Task<Asset?> GetByAssetCodeAsync(string code);
     }
 }
