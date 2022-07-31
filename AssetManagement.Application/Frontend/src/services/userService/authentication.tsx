@@ -1,6 +1,7 @@
 import axiosInstance from "../axiosInstance";
 import { setAuthToken } from "./setAuthToken";
 import { openPopup } from "../../components/MessagePopup";
+import Swal from "sweetalert2";
 
 function login(Username: string, Password: string) {
   const loginPayload = {
@@ -17,29 +18,48 @@ function login(Username: string, Password: string) {
       const isPasswordChanged = response.data.isPasswordChanged;
       //   console.log(token);
       if (role === "User") {
-        alert("User interface is in developing");
-        window.location.href = "/login";
+        Swal.fire({
+          text: "User interface is in developing",
+          customClass: {
+            confirmButton: "button",
+          },
+          buttonsStyling: false,
+        }).then(() => {
+          logout();
+        });
+      } else {
+        // Set JWT token to local
+        localStorage.setItem("token", token);
+        localStorage.setItem("role", role);
+        if (!isPasswordChanged)
+          localStorage.setItem("isPasswordChanged", "false");
+
+        // Set token to axios common header
+        setAuthToken(token);
+
+        // Redirect user to Home page
+        window.location.href = "/";
       }
-
-      // Set JWT token to local
-      localStorage.setItem("token", token);
-      localStorage.setItem("role", role);
-      if (!isPasswordChanged)
-        localStorage.setItem("isPasswordChanged", "false");
-
-      // Set token to axios common header
-      setAuthToken(token);
-
-      // Redirect user to Home page
-      window.location.href = "/";
     })
     .catch((error) => {
       let statusCode = error.response.status;
       if (statusCode === 400) {
-        openPopup("Your account is disabled. Please contact with IT Team");
+        Swal.fire({
+          text: "Your account is disabled. Please contact with IT Team",
+          customClass: {
+            confirmButton: "button",
+          },
+          buttonsStyling: false,
+        });
       }
       if (statusCode === 401) {
-        openPopup("Username or password is incorrect. Please try again");
+        Swal.fire({
+          text: "Username or password is incorrect. Please try again",
+          customClass: {
+            confirmButton: "button",
+          },
+          buttonsStyling: false,
+        });
       }
     });
 }
@@ -57,19 +77,46 @@ async function changePassword(oldPassword: string, newPassword: string) {
   return await axiosInstance
     .put("Authentication/changePassword", changePasswordPayload)
     .then((res) => {
-      alert("Your password has been changed successfully");
-      if (localStorage.getItem("isPasswordChanged"))
-        localStorage.removeItem("isPasswordChanged");
-      window.location.href = "/";
+      // alert("Your password has been changed successfully");
+      // openPopup("Your password has been changed successfully").then(() => {
+      //   if (localStorage.getItem("isPasswordChanged"))
+      //     localStorage.removeItem("isPasswordChanged");
+      //   window.location.href = "/";
+      // });
+      Swal.fire({
+        text: "Your password has been changed successfully",
+        customClass: {
+          confirmButton: "button",
+        },
+        buttonsStyling: false,
+      }).then(() => {
+        if (localStorage.getItem("isPasswordChanged"))
+          localStorage.removeItem("isPasswordChanged");
+        window.location.href = "/";
+      });
     })
+
     .catch((error) => {
       let statusCode = error.response.status;
       if (statusCode === 401) {
-        alert("Token Expired. Please re-login to continue");
-        logout();
+        Swal.fire({
+          text: "Token Expired. Please re-login to continue",
+          customClass: {
+            confirmButton: "button",
+          },
+          buttonsStyling: false,
+        }).then(() => {
+          logout();
+        });
       }
       if (statusCode === 400) {
-        openPopup("Wrong Password");
+        Swal.fire({
+          text: "Wrong Password",
+          customClass: {
+            confirmButton: "button",
+          },
+          buttonsStyling: false,
+        });
         return error;
       }
       // }
