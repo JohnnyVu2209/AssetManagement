@@ -44,16 +44,7 @@ const EditUser = () => {
     staffCode: string;
   }
 
-  const [userInfo, setUserInfo] = useState<userInterface>({
-    firstName: "Vinh",
-    lastName: "Bui",
-    dateOfBirth: new Date(1905, 12, 12),
-    gender: 0,
-    joinedDate: new Date(),
-    type: "string",
-    typeId: 1,
-    staffCode: "string",
-  });
+  const [userInfo, setUserInfo] = useState<userInterface>();
   const [userGender, setUserGender] = useState(1);
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [dateJoined, setDateJoined] = useState("");
@@ -61,10 +52,23 @@ const EditUser = () => {
   const saveButton = document.getElementById("edit-user-save-button");
 
   const params: any = useParams();
-  // const [userInfo, setUserInfo] = useState([]);
-  // let userInfo: FormValues;
 
   //LOAD DATA WHEN PAGE LOADED
+  useEffect(() => {
+    setType(userInfo ? userInfo.typeId : type);
+
+    if (userInfo) {
+      setDateOfBirth(datetimeToDate(userInfo.dateOfBirth));
+      setDateJoined(datetimeToDate(userInfo.joinedDate));
+      setValue("dateOfBirth", userInfo.dateOfBirth);
+      setValue("joinedDate", userInfo.joinedDate);
+    }
+
+    // if (!userInfo.gender) {
+    //   window.location.href = "/manage-user";
+    //   alert("This admin cannot be edit");
+    // }
+  }, [userInfo]);
   useEffect(() => {
     getUserByStaffCode(params.staffCode).then((res) => {
       setUserInfo(res.data);
@@ -72,23 +76,14 @@ const EditUser = () => {
     });
   }, [params.staffCode]);
 
+
   const datetimeToDate = (datetime: Date) => {
     let dateParse = new Date(datetime);
     let date = String(getDate(dateParse)).padStart(2, "0");
-    let month = String(getMonth(dateParse)).padStart(2, "0");
+    let month = String(getMonth(dateParse) + 1).padStart(2, "0");
     let year = getYear(dateParse);
     return year + "-" + month + "-" + date;
   };
-
-  useEffect(() => {
-    setDateOfBirth(datetimeToDate(userInfo.dateOfBirth));
-    setDateJoined(datetimeToDate(userInfo.joinedDate));
-    setType(userInfo.typeId);
-    // if (!userInfo.gender) {
-    //   window.location.href = "/manage-user";
-    //   alert("This admin cannot be edit");
-    // }
-  }, [userInfo]);
 
   const handleGenderChange = (event: any) => {
     setUserGender(event.target.value);
@@ -110,7 +105,8 @@ const EditUser = () => {
   //VALIDATION
   const schema = yup
     .object()
-    .shape({
+    .shape
+    ({
       dateOfBirth: yup
         .date()
         .required("Please Select Date of Birth")
@@ -123,90 +119,67 @@ const EditUser = () => {
             return differenceInYears(new Date(), value) >= 18;
           }
         ),
-      joinedDate: yup
-        .date()
+      joinedDate: yup.date()
         .required("Join date is required")
-        .when("dateOfBirth", {
-          is: (value: any) => differenceInYears(new Date(), value) < 18,
-          then: yup
-            .date()
-            .nullable()
-            .transform((curr, orig) => (orig === "" ? null : curr))
-            .required("User is under 18. Please select a different date"),
-          otherwise: yup
-            .date()
-            .nullable()
-            .transform((curr, orig) => (orig === "" ? null : curr))
-            .when("dateOfBirth", {
-              is: (value: any) => differenceInYears(new Date(), value) >= 18,
-              then: yup
-                .date()
-
-                .test(
-                  "dj",
-                  "Joined date is Saturday or Sunday. Please select a different date",
-                  (value: any) => {
-                    return !isSaturday(value);
-                  }
-                )
-                .test(
-                  "dj",
-                  "Joined date is Saturday or Sunday. Please select a different date",
-                  (value: any) => {
-                    return !isSunday(value);
-                  }
-                )
-                .nullable()
-                .transform((curr, orig) => (orig === "" ? null : curr)),
-            }),
-        }),
-
-      // .test("dj", "Date joined should be greater", (value) => {
-      //   // const { dateOfBirth } = this.parent;
-      //   return isAfter(dateOfBirth, value)
-      //   );
-      // }),
+        .test(
+          "dj",
+          "User under the age of 18 may not join company. Please select a different date",
+          (value: any) => {
+            return differenceInYears(new Date(value), new Date(dateOfBirth)) >= 18;
+          }
+        )
+        .test(
+          "dj",
+          "Joined date is Saturday or Sunday. Please select a different date",
+          (value: any) => {
+            return !isSaturday(value);
+          }
+        )
+        .test(
+          "dj",
+          "Joined date is Saturday or Sunday. Please select a different date",
+          (value: any) => {
+            return !isSunday(value);
+          }
+        ),
     })
-    .test(
-      "gloablok",
-      "User under the age of 18 may not join company. Please select a different date",
-      (value: any) => {
-        return differenceInYears(value.joinedDate, value.dateOfBirth) >= 18;
-      }
-    );
+    ;
 
   const {
     register,
     handleSubmit,
     watch,
+    setValue,
+    getValues,
+    setError,
+    clearErrors,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
-    defaultValues: {
-      dateOfBirth: userInfo.dateOfBirth
-        ? new Date(userInfo.dateOfBirth)
-        : new Date(),
-      joinedDate: userInfo.joinedDate
-        ? new Date(userInfo.joinedDate)
-        : new Date(),
-    },
   });
 
   const checking = () => {
+    let jdInput = document.getElementById("edit-joined-date-input");
+    if (jdInput) {
+      jdInput.setAttribute("autofocus", "");
+    }
     console.log(errors);
   };
+
+  const onSubmit = (data: any) => {
+    let sendData = { ...data };
+    sendData.dateOfBirth.setDate(sendData.dateOfBirth.getDate() + 1);
+    sendData.joinedDate.setDate(sendData.joinedDate.getDate() + 1);
+    console.log(sendData);
+    updateUser(sendData);
+  }
 
   // RETURN
   return (
     <div className="form-page-container app-content">
       <form
         className="form-page-form"
-        onSubmit={handleSubmit((data) => {
-          updateUser(data);
-          // let time = data.dateOfBirth;
-          // // let year = time.getFullYear();
-          // console.log(time);
-        })}
+        onSubmit={handleSubmit(onSubmit)}
       >
         <div className="form-page-form-title">
           <h2>Edit User</h2>
@@ -225,7 +198,7 @@ const EditUser = () => {
               disabled
               type="text"
               placeholder="First Name"
-              value={userInfo.firstName ? userInfo.firstName : "Vinh"}
+              value={userInfo ? userInfo.firstName : "Vinh"}
               {...register("firstName", {
                 required: "First name is required",
               })}
@@ -242,7 +215,7 @@ const EditUser = () => {
               disabled
               type="text"
               placeholder="Last Name"
-              value={userInfo.lastName ? userInfo.lastName : "Bui"}
+              value={userInfo ? userInfo.lastName : "Bui"}
               {...register("lastName", {
                 required: "First name is required",
               })}
@@ -256,11 +229,10 @@ const EditUser = () => {
           <div className="form-page-form-input">
             <label htmlFor="">Date of Birth</label>
             <input
-              {...register("dateOfBirth", {
-                required: "Date of Birth is required",
-              })}
+              {...register("dateOfBirth")}
               type="date"
-              placeholder="Last Name"
+              id="edit-date-of-birth-input"
+              // placeholder="Last Name"
               value={dateOfBirth}
               onChange={(e: any) => handleDOBChange(e)}
             />
@@ -294,7 +266,6 @@ const EditUser = () => {
                   id="gender-female"
                   value={0}
                   checked={userGender == 0}
-                  // onChange={handleGenderChange}
                   {...register("gender", {
                     required: true,
                     valueAsNumber: true,
@@ -309,9 +280,8 @@ const EditUser = () => {
             <input
               type="date"
               value={dateJoined}
-              {...register("joinedDate", {
-                required: true,
-              })}
+              id="edit-joined-date-input"
+              {...register("joinedDate", {})}
               onChange={(e: any) => handleDJChange(e)}
             />
           </div>

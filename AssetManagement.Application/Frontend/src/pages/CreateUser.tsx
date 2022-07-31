@@ -6,7 +6,7 @@ import * as yup from "yup";
 import { differenceInYears, isSaturday, isSunday } from "date-fns";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link } from "react-router-dom";
-import {createUser} from "../services/userService/userManagement";
+import { createUser } from "../services/userService/userManagement";
 
 type FormValues = {
   firstName: string;
@@ -117,7 +117,10 @@ const CreateUser = () => {
   const onSubmit: SubmitHandler<FormValues> = (data: any) => {
     console.log(data);
     const token = localStorage.getItem("token");
-    createUser(data);
+    let sendData = { ...data };
+    sendData.dateOfBirth.setDate(sendData.dateOfBirth.getDate() + 1);
+    sendData.joinedDate.setDate(sendData.joinedDate.getDate() + 1);
+    createUser(sendData);
   };
 
   return (

@@ -1,5 +1,6 @@
+import Swal from "sweetalert2";
 import axiosInstance from "../axiosInstance";
-import {logout} from "./authentication";
+import { logout } from "./authentication";
 
 async function getUserByStaffCode(staffCode: string) {
   return await axiosInstance
@@ -17,35 +18,60 @@ async function updateUser(userInfo: any) {
   axiosInstance
     .put("Users", userInfo)
     .then((res) => {
-      console.log(res);
-      alert("User information updated");
-      window.location.href = "/manage-user";
+      Swal.fire({
+        text: "User information updated",
+        customClass: {
+          confirmButton: "button",
+        },
+        buttonsStyling: false,
+      }).then(() => {
+        window.location.href = "/manage-user";
+      });
     })
     .catch((error) => {
       let statusCode = error.response.status;
       if (statusCode === 401) {
-        alert("Token Expired. Please re-login to continue");
-        logout();
+        Swal.fire({
+          text: "Token Expired. Please re-login to continue",
+          customClass: {
+            confirmButton: "button",
+          },
+          buttonsStyling: false,
+        }).then(() => {
+          logout();
+        });
       }
     });
 }
 
-async function createUser(data:any){
+async function createUser(data: any) {
   axiosInstance
-    .post("User/createUser",data)
+    .post("User/createUser", data)
     .then((data) => {
-      console.log(data);
-      alert("Created new user successfully.");
-      window.location.reload();
+      Swal.fire({
+        text: "Created new user successfully.",
+        customClass: {
+          confirmButton: "button",
+        },
+        buttonsStyling: false,
+      }).then(() => {
+        window.location.href = "/manage-user";
+      });
     })
     .catch((error) => {
       let statusCode = error.response.status;
       if (statusCode === 401) {
-        alert("Token Expired. Please re-login to continue");
-        logout();
+        Swal.fire({
+          text: "Token Expired. Please re-login to continue",
+          customClass: {
+            confirmButton: "button",
+          },
+          buttonsStyling: false,
+        }).then(() => {
+          logout();
+        });
       }
     });
-};
-
+}
 
 export { getUserByStaffCode, updateUser, createUser };

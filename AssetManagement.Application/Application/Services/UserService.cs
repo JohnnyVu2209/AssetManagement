@@ -80,7 +80,7 @@ namespace AssetManagement.Application.Application.Services
             //Search
             if (!string.IsNullOrEmpty(request.Keyword))
             {
-                result = result.Where(p => (p.LastName + " " + p.FirstName).Contains(request.Keyword) || (p.StaffCode).Contains(request.Keyword));
+                result = result.Where(p => (p.FirstName + " " + p.LastName).Contains(request.Keyword) || (p.StaffCode).Contains(request.Keyword));
             }
             //Type check
             if (request.Type != null && request.Type.Count > 0)
