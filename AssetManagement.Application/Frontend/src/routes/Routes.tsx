@@ -12,6 +12,7 @@ import ManageUser from "../pages/ManageUser";
 import ManageUserProvider from "../context/ManageUserContext";
 import CreateUser from "../pages/CreateUser";
 import EditUser from "../pages/EditUser";
+import AssignmentList from "../pages/AssignmentList";
 
 function Routes() {
   return (
@@ -28,6 +29,7 @@ function Routes() {
             <RouteGuard path="/edit-user/:staffCode?" component={EditUser} />
             <RouteGuard path="/list-view" component={ListView} />
             <RouteGuard path="/create-user" component={CreateUser} />
+            <RouteGuard path="/assignment-list" component={AssignmentList} />
             <UserDetailProvider>
               <ManageUserProvider>
                 <RouteGuard path="/manage-user" component={ManageUser} />
