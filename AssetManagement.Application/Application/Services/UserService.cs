@@ -1,6 +1,5 @@
 ﻿using AssetManagement.Application.Application.Interfaces;
 using AssetManagement.Contracts.Constant;
-using AssetManagement.Contracts.Identity;
 using AssetManagement.Contracts.Request;
 using AssetManagement.Contracts.Utilities;
 using AssetManagement.Contracts.ViewModels;
@@ -9,7 +8,6 @@ using AssetManagement.Domain.Model;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace AssetManagement.Application.Application.Services
 {

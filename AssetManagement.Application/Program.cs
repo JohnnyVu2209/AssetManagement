@@ -1,19 +1,19 @@
+using System.Text;
+
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
-using AssetManagement.Contracts.Constant;
-using AssetManagement.Data;
-using AssetManagement.Domain.Model;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Text;
-using AssetManagement.Application;
-using AssetManagement.Data.Repository.Interface;
-using AssetManagement.Data.Repository;
+
+using AssetManagement.Domain.Model;
+using AssetManagement.Data;
+using AssetManagement.Data.Repositories;
+using AssetManagement.Data.Repositories.Implementations;
+using AssetManagement.Contracts.Constant;
 using AssetManagement.Application.Application.Interfaces;
 using AssetManagement.Application.Application.Services;
-using AssetManagement.Contracts.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,16 +26,6 @@ builder.Services.AddDbContext<AssetManagementDbContext>(options => options
 .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
 x => x.MigrationsAssembly("AssetManagement.Data")
 ));
-
-//Add automapper
-builder.Services.AddAutoMapper(typeof(Program).Assembly);
-
-//Add HttpContextAccessor
-builder.Services.AddHttpContextAccessor();
-
-//Add DI
-builder.Services.AddTransient<IUserService, UserService>();
-builder.Services.AddTransient<ICurrentUser, CurrentUser>();
 
 //Add Asp Net Identity
 builder.Services.AddIdentity<User, Role>(options =>
@@ -52,17 +42,26 @@ builder.Services.AddIdentity<User, Role>(options =>
                 .AddEntityFrameworkStores<AssetManagementDbContext>()
                 .AddDefaultTokenProviders();
 
-builder.Services.AddAutoMapper(c =>
-    c.AddProfile(new MappingProfile())
-);
+//Add automapper
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 //Add Repository
 builder.Services.AddTransient<IRoleRepository, RoleRepository>();
+builder.Services.AddTransient(typeof(IGenericRpository<>), typeof(GenericRepository<>));
+builder.Services.AddTransient<IAssetRepository, AssetRepository>();
+builder.Services.AddTransient<IStateRepository, StateRepository>();
+builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+//Add HttpContextAccessor
 builder.Services.AddHttpContextAccessor();
 
 //Add DI
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ICurrentUser, CurrentUser>();
+builder.Services.AddTransient<IAssetService, AssetService>();
+builder.Services.AddTransient<IStateService, StateService>();
+builder.Services.AddTransient<ICategoryService, CategoryService>();
 
 // Adding Authentication
 builder.Services.AddAuthentication(options =>
