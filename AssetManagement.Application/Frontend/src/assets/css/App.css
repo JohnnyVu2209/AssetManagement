@@ -47,6 +47,10 @@ textarea {
   background-color: gray;
 }
 
+.button:focus {
+  outline: none;
+}
+
 .button-reverse {
   background-color: white;
   font-family: "Nunito Sans";
