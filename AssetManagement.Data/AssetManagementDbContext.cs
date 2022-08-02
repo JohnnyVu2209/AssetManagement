@@ -12,6 +12,11 @@ namespace AssetManagement.Data
 
         }
 
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<State> States { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Asset> Assets { get; set; }
+
         public override int SaveChanges()
         {
             var entries = ChangeTracker
