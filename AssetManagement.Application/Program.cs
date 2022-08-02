@@ -51,6 +51,7 @@ builder.Services.AddTransient(typeof(IGenericRpository<>), typeof(GenericReposit
 builder.Services.AddTransient<IAssetRepository, AssetRepository>();
 builder.Services.AddTransient<IStateRepository, StateRepository>();
 builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+builder.Services.AddTransient<IAssignmentRepository, AssignmentRepository>();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 //Add HttpContextAccessor
@@ -62,6 +63,7 @@ builder.Services.AddTransient<ICurrentUser, CurrentUser>();
 builder.Services.AddTransient<IAssetService, AssetService>();
 builder.Services.AddTransient<IStateService, StateService>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
+
 
 // Adding Authentication
 builder.Services.AddAuthentication(options =>

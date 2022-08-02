@@ -32,5 +32,7 @@ namespace AssetManagement.Domain.Model
 
         [Required]
         public virtual Location? Location { get; set; }
+        public virtual List<Assignment> Assignments { get; set; } = new List<Assignment>();
+
     }
 }
