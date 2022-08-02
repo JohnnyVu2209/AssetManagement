@@ -196,8 +196,8 @@ namespace AssetManagement.Data
                 b.ToTable("UserRoles");
                 b.HasData(
                     new IdentityUserRole<int>() { RoleId = 1, UserId = 1 },
-                    new IdentityUserRole<int>() { RoleId = 2, UserId = 2 },
-                    new IdentityUserRole<int>() { RoleId = 2, UserId = 3 },
+                    new IdentityUserRole<int>() { RoleId = 1, UserId = 2 },
+                    new IdentityUserRole<int>() { RoleId = 1, UserId = 3 },
                     new IdentityUserRole<int>() { RoleId = 2, UserId = 4 },
                     new IdentityUserRole<int>() { RoleId = 2, UserId = 5 },
                     new IdentityUserRole<int>() { RoleId = 2, UserId = 6 },
@@ -377,7 +377,9 @@ namespace AssetManagement.Data
                         InstalledDate = DateTime.Now,
                         CategoryID = categories[0].Id,
                         StateID = states[1].Id,
-                        LocationID = locations[0].Id
+                        LocationID = locations[0].Id,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
                     },
                     new Asset
                     {
@@ -388,7 +390,9 @@ namespace AssetManagement.Data
                         InstalledDate = DateTime.Now,
                         CategoryID = categories[0].Id,
                         StateID = states[1].Id,
-                        LocationID = locations[1].Id
+                        LocationID = locations[1].Id,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
                     },
                     new Asset
                     {
@@ -399,7 +403,9 @@ namespace AssetManagement.Data
                         InstalledDate = DateTime.Now,
                         CategoryID = categories[0].Id,
                         StateID = states[1].Id,
-                        LocationID = locations[2].Id
+                        LocationID = locations[2].Id,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
                     },
                     new Asset
                     {
@@ -410,7 +416,9 @@ namespace AssetManagement.Data
                         InstalledDate = DateTime.Now,
                         CategoryID = categories[0].Id,
                         StateID = states[1].Id,
-                        LocationID = locations[0].Id
+                        LocationID = locations[0].Id,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
                     },
                     new Asset
                     {
@@ -421,7 +429,9 @@ namespace AssetManagement.Data
                         InstalledDate = DateTime.Now,
                         CategoryID = categories[0].Id,
                         StateID = states[1].Id,
-                        LocationID = locations[1].Id
+                        LocationID = locations[1].Id,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
                     },
                     new Asset
                     {
@@ -432,7 +442,61 @@ namespace AssetManagement.Data
                         InstalledDate = DateTime.Now,
                         CategoryID = categories[0].Id,
                         StateID = states[1].Id,
-                        LocationID = locations[2].Id
+                        LocationID = locations[2].Id,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
+                    },
+                    new Asset
+                    {
+                        Id = 7,
+                        Code = "LA000003",
+                        Name = "Laptop HP Probook 450 G1",
+                        Specification = "Dummy Spec 4",
+                        InstalledDate = DateTime.Now,
+                        CategoryID = categories[0].Id,
+                        StateID = states[1].Id,
+                        LocationID = locations[0].Id,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
+                    },
+                    new Asset
+                    {
+                        Id = 8,
+                        Code = "LA000004",
+                        Name = "Laptop HP Probook 450 G1",
+                        Specification = "Dummy Spec 4",
+                        InstalledDate = DateTime.Now,
+                        CategoryID = categories[0].Id,
+                        StateID = states[1].Id,
+                        LocationID = locations[0].Id,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
+                    },
+                    new Asset
+                    {
+                        Id = 9,
+                        Code = "MO000003",
+                        Name = "Moninor Dell UltraSharp",
+                        Specification = "Dummy Spec 2",
+                        InstalledDate = DateTime.Now,
+                        CategoryID = categories[0].Id,
+                        StateID = states[1].Id,
+                        LocationID = locations[0].Id,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
+                    },
+                    new Asset
+                    {
+                        Id = 10,
+                        Code = "MO000004",
+                        Name = "Moninor Dell UltraSharp",
+                        Specification = "Dummy Spec 2",
+                        InstalledDate = DateTime.Now,
+                        CategoryID = categories[0].Id,
+                        StateID = states[1].Id,
+                        LocationID = locations[0].Id,
+                        CreatedDate = DateTime.Now,
+                        UpdatedDate = DateTime.Now
                     }
                 )
             );

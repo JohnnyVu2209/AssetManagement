@@ -14,6 +14,8 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
+using AssetManagement.Contracts.CategoryDTO;
+using AssetManagement.Contracts.StateDTO;
 
 namespace AssetManagement.Application.Controllers
 {
@@ -84,9 +86,27 @@ namespace AssetManagement.Application.Controllers
                 assetParameters.Category
             };
 
-            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+            Response.Headers.Add("Pagination", JsonConvert.SerializeObject(metadata));
 
             return Ok(pageList);
+        }
+
+        [HttpGet("GetCategories")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetCategories()
+        {
+            var categories = await _unitOfWork.Catagories.GetAllAsync();
+            var dto = _mapper.Map<List<CategoryDTO>>(categories);
+            return Ok(dto);
+        }
+        
+        [HttpGet("GetStates")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetStates()
+        {
+            var states = await _unitOfWork.States.GetAllAsync();
+            var dto = _mapper.Map<List<StateDTO>>(states);
+            return Ok(dto);
         }
     }
 }

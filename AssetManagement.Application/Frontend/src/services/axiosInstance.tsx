@@ -1,4 +1,5 @@
 import axios from "axios";
+import { logout } from "./userService/authentication";
 
 const axiosInstance = axios.create({
   baseURL: "/api/",
@@ -21,5 +22,15 @@ axiosInstance.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+// axiosInstance.interceptors.response.use(
+//   (res) => {
+//     return res;
+//   },
+//   async (err) => {
+//     if(err.response?.status === 401)
+//       logout();
+//   }
+// )
 
 export default axiosInstance;

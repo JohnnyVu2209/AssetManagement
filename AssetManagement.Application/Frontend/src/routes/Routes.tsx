@@ -12,6 +12,7 @@ import ManageUser from "../pages/ManageUser";
 import ManageUserProvider from "../context/ManageUserContext";
 import CreateUser from "../pages/CreateUser";
 import EditUser from "../pages/EditUser";
+import ManageAsset from "../pages/ManageAsset";
 
 function Routes() {
   return (
@@ -31,6 +32,7 @@ function Routes() {
             <UserDetailProvider>
               <ManageUserProvider>
                 <RouteGuard path="/manage-user" component={ManageUser} />
+                <RouteGuard path="/manage-asset" component={ManageAsset} />
               </ManageUserProvider>
             </UserDetailProvider>
             <RouteGuard path="/list-view" component={ListView} />

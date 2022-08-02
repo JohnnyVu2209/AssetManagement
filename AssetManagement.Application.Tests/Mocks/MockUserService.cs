@@ -1,6 +1,6 @@
 ﻿using AssetManagement.Application.Application.Interfaces;
 using AssetManagement.Contracts.Constant;
-using AssetManagement.Contracts.Request;
+using AssetManagement.Contracts.UserDTO;
 using AssetManagement.Contracts.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Moq;

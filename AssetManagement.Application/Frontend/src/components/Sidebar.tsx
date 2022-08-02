@@ -16,6 +16,9 @@ function Sidebar() {
         <Link to="/manage-user">
           <i className="fa-solid fa-bars-progress"></i>Manage User
         </Link>
+        <Link to="/manage-asset">
+          <i className="fa-solid fa-bars-progress"></i>Manage Asset
+        </Link>
         <Link to="/list-view">
           <i className="fa-solid fa-apple-whole"></i>List View
         </Link>

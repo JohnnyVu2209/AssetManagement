@@ -10,7 +10,7 @@ namespace AssetManagement.Application.Tests
 {
     public class AssetControllerTests
     {
-        [Fact]
+        /*[Fact]
         public async void CanGetAllByCurrentAdminLocationAsync_NotFound()
         {
             // Arrange
@@ -131,6 +131,6 @@ namespace AssetManagement.Application.Tests
 
             var assertValue = MockData.mapper.Map<AssetDetailDTO>(MockData.assets[0]);
             Assert.Equal(resultValue, assertValue);
-        }
+        }*/
     }
 }

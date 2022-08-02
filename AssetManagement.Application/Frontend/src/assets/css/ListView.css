@@ -4,6 +4,13 @@
   justify-content: space-between;
 }
 
+.page-top-custom {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
 .input-searching {
   border: solid 2px black;
   border-radius: 10px;

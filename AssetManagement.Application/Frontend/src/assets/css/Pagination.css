@@ -1,0 +1,51 @@
+.css-10w330c-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
+    background-color: #e30c18 !important;
+    color: #fff;
+}
+
+.MuiPagination-root .MuiPagination-ul {
+    flex-wrap: nowrap;
+}
+
+.MuiPagination-root .MuiPagination-ul li:first-child {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.MuiPagination-root .MuiPagination-ul li:last-child {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.MuiPagination-ul li:first-child button::after {
+    margin-left: 10px;
+    content: 'Previous';
+    color: #e30c18;
+}
+
+.MuiPagination-ul li:first-child button.Mui-disabled::after {
+    color: gray;
+}
+
+.MuiPagination-ul li:last-child button::after {
+    margin-left: 10px;
+    content: 'Next';
+    color: #e30c18;
+}
+
+.MuiPagination-ul li:last-child button.Mui-disabled::after {
+    color: gray;
+}
+
+/* button.MuiButtonBase-root.Mui-disabled.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.MuiPaginationItem-text.MuiPaginationItem-rounded.Mui-disabled.MuiPaginationItem-previousNext.css-10w330c-MuiButtonBase-root-MuiPaginationItem-root::after {
+    color: gray;
+} */
+
+/* 
+button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.MuiPaginationItem-text.MuiPaginationItem-rounded.MuiPaginationItem-previousNext.css-10w330c-MuiButtonBase-root-MuiPaginationItem-root::after {
+    color: gray;
+} */

@@ -2,6 +2,8 @@
 using AssetManagement.Domain.Model;
 using AssetManagement.Contracts.UserDTO;
 using AutoMapper;
+using AssetManagement.Contracts.CategoryDTO;
+using AssetManagement.Contracts.StateDTO;
 
 namespace AssetManagement.Application.Application
 {
@@ -27,6 +29,22 @@ namespace AssetManagement.Application.Application
             
             CreateMap<Asset, AssetDetailDTO>()
                 .IncludeBase<Asset, AssetDTO>();
+        }
+    }
+
+    public class MapCategoryDTOs: Profile
+    {
+        public MapCategoryDTOs()
+        {
+            CreateMap<Category, CategoryDTO>();
+        }
+    }
+
+    public class MapStateDTOs: Profile
+    {
+        public MapStateDTOs()
+        {
+            CreateMap<State, StateDTO>();
         }
     }
 }

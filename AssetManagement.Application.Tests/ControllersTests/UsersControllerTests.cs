@@ -2,7 +2,7 @@
 using AssetManagement.Application.Controllers;
 using AssetManagement.Application.Tests.Mocks;
 using AssetManagement.Contracts.Constant;
-using AssetManagement.Contracts.Request;
+using AssetManagement.Contracts.UserDTO;
 using AssetManagement.Contracts.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Moq;

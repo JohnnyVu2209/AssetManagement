@@ -1,8 +1,6 @@
 ﻿using AssetManagement.Application.Application.Interfaces;
-using AssetManagement.Contracts.Request;
-using AssetManagement.Contracts.ViewModels;
+using AssetManagement.Contracts.UserDTO;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AssetManagement.Application.Controllers

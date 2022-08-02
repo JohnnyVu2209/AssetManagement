@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using AssetManagement.Contracts.Constant;
-using AssetManagement.Contracts.Request;
+﻿using AssetManagement.Contracts.Constant;
+using AssetManagement.Contracts.UserDTO;
 using AssetManagement.Contracts.ViewModels;
 namespace AssetManagement.Application.Application.Interfaces
 {
