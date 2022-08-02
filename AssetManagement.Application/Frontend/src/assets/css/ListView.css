@@ -61,6 +61,10 @@
   align-items: center;
 }
 
-.page-filter-right * {
+.page-filter-right button {
   margin-left: 20px;
+}
+
+.empty-collumn-header {
+  background-color: none !important;
 }

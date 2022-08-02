@@ -1,12 +1,7 @@
 // @ts-nocheck
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import {
-  DataGrid,
-  GridColDef,
-  GridFilterAltIcon,
-  GridToolbar,
-} from "@mui/x-data-grid";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import "../assets/css/ListView.css";
 import Modal from "../components/Modal";
 import { Link } from "react-router-dom";
@@ -19,60 +14,49 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
-import { FilterAlt } from "@mui/icons-material";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { makeStyles } from "@mui/material/styles";
+import { CustomPagination } from "../components/CustomPagination";
 
 const columns: GridColDef[] = [
-  { field: "id", headerName: "No", width: 100 },
+  { field: "id", headerName: "No", width: 120 },
   {
     field: "assetCode",
     headerName: "Asset Code",
     width: 200,
-    editable: true,
   },
   {
     field: "assetName",
     headerName: "Asset Name",
     width: 300,
-    editable: true,
   },
   {
     field: "assignTo",
     headerName: "Assign to",
-    type: "number",
-    width: 150,
-    editable: true,
+    width: 200,
   },
   {
     field: "assignBy",
     headerName: "Assign by",
-    type: "number",
-    width: 150,
-    editable: true,
+    width: 200,
   },
   {
     field: "assignDate",
     headerName: "Assign Date",
-    type: "number",
     width: 150,
-    editable: true,
+    type: "date",
   },
   {
     field: "state",
     headerName: "State",
-    type: "number",
-    width: 250,
-    editable: true,
+    width: 240,
   },
   {
     field: "",
-    sortable: false,
+    type: "actions",
     width: 100,
     renderCell: () => {
       return (
@@ -108,20 +92,70 @@ const rows = [
     assignDate: "2022-08-10",
     state: "Waiting for Acceptance",
   },
+  {
+    id: 3,
+    assetCode: "PC0002",
+    assetName: "Personal Computer",
+    assignTo: "vuhk",
+    assignBy: "vinz",
+    assignDate: "2022-08-10",
+    state: "Waiting for Acceptance",
+  },
+  {
+    id: 4,
+    assetCode: "PC0002",
+    assetName: "Personal Computer",
+    assignTo: "vuhk",
+    assignBy: "vinz",
+    assignDate: "2022-08-10",
+    state: "Waiting for Acceptance",
+  },
+  {
+    id: 5,
+    assetCode: "PC0002",
+    assetName: "Personal Computer",
+    assignTo: "vuhk",
+    assignBy: "vinz",
+    assignDate: "2022-08-10",
+    state: "Waiting for Acceptance",
+  },
+  {
+    id: 6,
+    assetCode: "PC0002",
+    assetName: "Personal Computer",
+    assignTo: "vuhk",
+    assignBy: "vinz",
+    assignDate: "2022-08-10",
+    state: "Waiting for Acceptance",
+  },
+  {
+    id: 7,
+    assetCode: "PC0002",
+    assetName: "Personal Computer",
+    assignTo: "vuhk",
+    assignBy: "vinz",
+    assignDate: "2022-08-10",
+    state: "Waiting for Acceptance",
+  },
+  {
+    id: 7,
+    assetCode: "PC0002",
+    assetName: "Personal Computer",
+    assignTo: "vuhk",
+    assignBy: "vinz",
+    assignDate: "2022-08-10",
+    state: "Waiting for Acceptance",
+  },
 ];
 
 function ListView() {
-  const [stateData, setStateData] = useState([
-    { name: "All", check: false },
-    { name: "Accepted", check: false },
-    { name: "Waiting for acceptance", check: false },
-  ]);
-
   const [filterContent, setFilterContent] = useState({
     assignDate: "",
     state: [],
     keyword: "",
   });
+  const options = ["Accepted", "Waiting for acceptance"];
+  const [selected, setSelected] = useState([]);
 
   const testSearch = (e: any) => {
     e.preventDefault();
@@ -136,29 +170,17 @@ function ListView() {
     setFilterContent({ ...filterContent, assignDate: e.target.value });
   };
 
-  // const handleStateChange = (e: any) => {
-  //   const allSelected = stateData.find((x) => (x.name = "All"));
-  //   const newState = stateData.map((obj) => {
-  //     if (e.target.name === "All")
-  //       return { ...obj, check: allSelected ? !allSelected.check : false };
-  //     else if (e.target.name === obj.name) return { ...obj, check: !obj.check };
-  //     return obj;
-  //   });
-
-  //   setStateData(newState);
-  //   // setFilterContent(...filterContent,state:newState)
-  //   console.log(stateData);
-  // };
-
-  const options = ["Acceepted", "Waiting for acceptance"];
-  const [selected, setSelected] = useState([]);
   const isAllSelected =
     options.length > 0 && selected.length === options.length;
 
   const handleChange = (event: any) => {
     const value = event.target.value;
-    if (value[value.length - 1] === "all") {
+    if (value[value.length - 1] === "All") {
       setSelected(selected.length === options.length ? [] : options);
+      setFilterContent({
+        ...filterContent,
+        state: selected.length === options.length ? [] : options,
+      });
       return;
     }
     setSelected(value);
@@ -174,42 +196,7 @@ function ListView() {
         </div>
         <div className="page-filter">
           <div className="page-filter-left">
-            <div>
-              <TextField
-                id="date"
-                label="Assign Date"
-                type="date"
-                sx={{ width: 220 }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={handleAsignDateChange}
-              />
-            </div>
-
-            {/* <FormControl fullWidth>
-              <InputLabel id="state-select-label">State</InputLabel>
-              <Select
-                IconComponent={GridFilterAltIcon}
-                labelId="state-select-label"
-              >
-                {stateData.map((item) => (
-                  <MenuItem>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          name={item.name}
-                          checked={item.check}
-                          onChange={handleStateChange}
-                        />
-                      }
-                      label={item.name}
-                    />
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl> */}
-            <FormControl fullWidth>
+            <FormControl sx={{ width: 300 }}>
               <InputLabel id="mutiple-select-label">Multiple Select</InputLabel>
               <Select
                 labelId="mutiple-select-label"
@@ -218,7 +205,7 @@ function ListView() {
                 onChange={handleChange}
                 renderValue={(selected) => selected.join(", ")}
               >
-                <MenuItem value="all">
+                <MenuItem value="All">
                   <ListItemIcon>
                     <Checkbox
                       checked={isAllSelected}
@@ -239,6 +226,18 @@ function ListView() {
                 ))}
               </Select>
             </FormControl>
+            <div>
+              <TextField
+                id="date"
+                label="Assign Date"
+                type="date"
+                sx={{ width: 220 }}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                onChange={handleAsignDateChange}
+              />
+            </div>
           </div>
 
           <div className="page-filter-right">
@@ -271,15 +270,21 @@ function ListView() {
           </div>
         </div>
 
-        <Box sx={{ height: 667, width: "100%" }}>
+        <Box sx={{ height: 526.5, width: "100%" }}>
           <DataGrid
             sx={{
               fontFamily: "Nunito Sans",
               fontSize: 15,
+              ".MuiDataGrid-columnSeparator": {
+                display: "none",
+              },
+            }}
+            components={{
+              Pagination: CustomPagination,
             }}
             rows={rows}
             columns={columns}
-            pageSize={5}
+            pageSize={8}
             // rowsPerPageOptions={[5]}
             disableSelectionOnClick
           />
