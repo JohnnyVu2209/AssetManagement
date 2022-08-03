@@ -5,6 +5,7 @@ import {
   FormControl,
   FormControlLabel,
   Grid,
+  IconButton,
   InputAdornment,
   InputLabel,
   makeStyles,
@@ -38,7 +39,7 @@ import { useAppDispatch, useAppSelector } from '../features/hooks';
 import { getCategories, FilterSelect, getStates } from '../features/AssetSlice';
 import assetService from '../services/assetService';
 
-const assetData = [
+const assetMockData = [
   {
     "code": "LA000001",
     "name": "Laptop HP Probook 450 G1",
@@ -304,6 +305,7 @@ const ManageAsset = () => {
                 id="demo-simple-select"
                 label="State"
                 IconComponent={FilterAltIcon}
+              // sx={{'.MuiSelect-iconOpen' :{transform:'none'}}}
               // onChange={handleChange}
               >
                 {stateData.map(item => (
@@ -351,7 +353,7 @@ const ManageAsset = () => {
                 id="outlined-basic"
                 variant="outlined"
                 value={filterName}
-                onChange={(event:any) => setFilterName(event.target.value)}
+                onChange={(event: any) => setFilterName(event.target.value)}
                 InputProps={{
                   endAdornment: <InputAdornment position='end'>
                     <SearchIcon />
@@ -360,7 +362,7 @@ const ManageAsset = () => {
             </FormControl>
           </Grid>
           <Grid item xs={3}>
-            <Link to="/create-user">
+            <Link to="/create-asset">
               <button className="page-create-button button">
                 Create new asset
               </button>
@@ -385,12 +387,18 @@ const ManageAsset = () => {
                   <TableCell>{item.category}</TableCell>
                   <TableCell>{item.state}</TableCell>
                   <TableCell>
-                    <Link to={"/edit-user/" + item.code}>
-                      <EditIcon style={{ color: "black" }} />
-                    </Link>
-                    <Link to={"/manage-user/"} >
-                      <HighlightOffIcon style={{ color: "red" }} />
-                    </Link>
+                    <IconButton disabled={item.state === stateData[1].name} >
+                      <Link to={"/edit-asset/" + item.code}>
+                        <EditIcon
+                          style={item.state === stateData[1].name ? { color: "gray" } : { color: "black" }}
+                        />
+                      </Link>
+                    </IconButton>
+                    <IconButton disabled={item.state === stateData[1].name} >
+                      <HighlightOffIcon style={item.state === stateData[1].name ? { color: "#dc6b79" } : { color: "red" }} />
+                      {/* <Link to={"/manage-asset/"} >
+                      </Link> */}
+                    </IconButton>
                   </TableCell>
                 </TableRow>
               ))}

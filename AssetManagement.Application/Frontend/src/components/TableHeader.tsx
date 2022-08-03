@@ -1,5 +1,6 @@
 import { TableCell, TableHead, TableSortLabel } from '@mui/material';
 import React from 'react'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 export type Order = 'asc' | 'desc';
 
@@ -64,11 +65,14 @@ const TableHeader = (props: TableProps) => {
           <TableCell
             key={item.id}
             sortDirection={orderBy === item.id ? order : false}
+            sx={{fontWeight:"bold"}}
           >
             <TableSortLabel
               active={orderBy === item.id}
               direction={orderBy === item.id ? order : 'asc'}
               onClick={createSortHandler(item.id)}
+              IconComponent={ArrowDropDownIcon}
+              // sx={{fontSize:"30px"}}
             >
               {item.label}
               {/* {orderBy === item.id ? (

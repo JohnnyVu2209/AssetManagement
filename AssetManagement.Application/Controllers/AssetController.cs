@@ -61,7 +61,7 @@ namespace AssetManagement.Application.Controllers
             var assets = (await _unitOfWork.Assets.GetAllAsync()).Where(x => x.LocationID == user.LocationId).AsQueryable();
 
             if (assets.Any() && !string.IsNullOrWhiteSpace(assetParameters.Searching))
-                assets = assets.Where(x => x.Name.Contains(assetParameters.Searching) || x.Code.Contains(assetParameters.Searching));
+                assets = assets.Where(x => x.Name.ToLower().Contains(assetParameters.Searching.Trim().ToLower()) || x.Code.ToLower().Contains(assetParameters.Searching.Trim().ToLower()));
 
             if(assets.Any() && assetParameters.State != null && assetParameters.State.Count != 0)
                 assets = assets.Where(x => assetParameters.State.Contains(x.StateID));

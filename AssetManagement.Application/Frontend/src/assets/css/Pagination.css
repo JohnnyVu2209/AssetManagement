@@ -3,6 +3,7 @@
     color: #fff;
 }
 
+
 .MuiPagination-root .MuiPagination-ul {
     flex-wrap: nowrap;
 }
@@ -39,6 +40,11 @@
 
 .MuiPagination-ul li:last-child button.Mui-disabled::after {
     color: gray;
+}
+
+
+.MuiSelect-icon.MuiSelect-iconOutlined.MuiSelect-iconOpen {
+    transform: none
 }
 
 /* button.MuiButtonBase-root.Mui-disabled.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.MuiPaginationItem-text.MuiPaginationItem-rounded.Mui-disabled.MuiPaginationItem-previousNext.css-10w330c-MuiButtonBase-root-MuiPaginationItem-root::after {
