@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import "../assets/css/ListView.css";
@@ -20,6 +20,9 @@ import Checkbox from "@mui/material/Checkbox";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { CustomPagination } from "../components/CustomPagination";
+import { getAssignmentList } from "../services/assignmentService/assignmentManagement";
+import { format } from "date-fns";
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "No", width: 120 },
@@ -48,11 +51,20 @@ const columns: GridColDef[] = [
     headerName: "Assign Date",
     width: 150,
     type: "date",
+    valueFormatter: (params) => {
+      const valueFormatted = format(new Date(params.value), "dd/MM/yyyy");
+      return `${valueFormatted}`;
+    },
   },
   {
-    field: "state",
+    field: "assignmentState",
     headerName: "State",
     width: 240,
+    valueFormatter: (params) => {
+      const valueFormatted =
+        params.value === 1 ? "Accepted" : "Waiting for acceptance";
+      return `${valueFormatted}`;
+    },
   },
   {
     field: "",
@@ -61,11 +73,14 @@ const columns: GridColDef[] = [
     renderCell: () => {
       return (
         <>
-          <Link to={"/"}>
+          <Link to={"/assignment-list"}>
             <EditIcon style={{ color: "black" }} />
           </Link>
-          <Link to={"/"}>
+          <Link to={"/assignment-list"}>
             <HighlightOffIcon style={{ color: "red" }} />
+          </Link>
+          <Link to={"/assignment-list"}>
+            <RestartAltIcon style={{ color: "CornflowerBlue" }} />
           </Link>
         </>
       );
@@ -73,97 +88,29 @@ const columns: GridColDef[] = [
   },
 ];
 
-const rows = [
-  {
-    id: 1,
-    assetCode: "PC0001",
-    assetName: "Personal Computer",
-    assignTo: "vuhk",
-    assignBy: "vinz",
-    assignDate: "2022-08-10",
-    state: "Accepted",
-  },
-  {
-    id: 2,
-    assetCode: "PC0002",
-    assetName: "Personal Computer",
-    assignTo: "vuhk",
-    assignBy: "vinz",
-    assignDate: "2022-08-10",
-    state: "Waiting for Acceptance",
-  },
-  {
-    id: 3,
-    assetCode: "PC0002",
-    assetName: "Personal Computer",
-    assignTo: "vuhk",
-    assignBy: "vinz",
-    assignDate: "2022-08-10",
-    state: "Waiting for Acceptance",
-  },
-  {
-    id: 4,
-    assetCode: "PC0002",
-    assetName: "Personal Computer",
-    assignTo: "vuhk",
-    assignBy: "vinz",
-    assignDate: "2022-08-10",
-    state: "Waiting for Acceptance",
-  },
-  {
-    id: 5,
-    assetCode: "PC0002",
-    assetName: "Personal Computer",
-    assignTo: "vuhk",
-    assignBy: "vinz",
-    assignDate: "2022-08-10",
-    state: "Waiting for Acceptance",
-  },
-  {
-    id: 6,
-    assetCode: "PC0002",
-    assetName: "Personal Computer",
-    assignTo: "vuhk",
-    assignBy: "vinz",
-    assignDate: "2022-08-10",
-    state: "Waiting for Acceptance",
-  },
-  {
-    id: 7,
-    assetCode: "PC0002",
-    assetName: "Personal Computer",
-    assignTo: "vuhk",
-    assignBy: "vinz",
-    assignDate: "2022-08-10",
-    state: "Waiting for Acceptance",
-  },
-  {
-    id: 7,
-    assetCode: "PC0002",
-    assetName: "Personal Computer",
-    assignTo: "vuhk",
-    assignBy: "vinz",
-    assignDate: "2022-08-10",
-    state: "Waiting for Acceptance",
-  },
-];
-
 function ListView() {
   const [filterContent, setFilterContent] = useState({
     assignDate: "",
     state: [],
-    keyword: "",
+    searching: "",
   });
-  const options = ["Accepted", "Waiting for acceptance"];
+  const options = [true, false];
   const [selected, setSelected] = useState([]);
+  const [assignmentList, setAssignmentList] = useState([]);
+  useEffect(() => {
+    getAssignmentList(filterContent).then((res) => {
+      setAssignmentList(res.data);
+    });
+  }, [filterContent]);
 
   const testSearch = (e: any) => {
     e.preventDefault();
-    console.log(filterContent);
+    // console.log(filterContent);
   };
 
   const handleSearchChange = (e: any) => {
-    setFilterContent({ ...filterContent, keyword: e.target.value });
+    setFilterContent({ ...filterContent, searching: e.target.value });
+    console.log(filterContent);
   };
 
   const handleAsignDateChange = (e: any) => {
@@ -221,7 +168,9 @@ function ListView() {
                     <ListItemIcon>
                       <Checkbox checked={selected.indexOf(option) > -1} />
                     </ListItemIcon>
-                    <ListItemText primary={option} />
+                    <ListItemText
+                      primary={option ? "Accept" : "Waiting for acceptance"}
+                    />
                   </MenuItem>
                 ))}
               </Select>
@@ -282,7 +231,7 @@ function ListView() {
             components={{
               Pagination: CustomPagination,
             }}
-            rows={rows}
+            rows={assignmentList}
             columns={columns}
             pageSize={8}
             // rowsPerPageOptions={[5]}

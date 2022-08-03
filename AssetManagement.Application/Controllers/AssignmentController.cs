@@ -1,6 +1,7 @@
 ﻿using AssetManagement.Contracts.AssignmentDTO;
 using AssetManagement.Data.Repositories;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +21,7 @@ namespace AssetManagement.Application.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAssignments([FromQuery] AssignmentParameters assignmentParameters)
         {
             try
@@ -31,7 +33,7 @@ namespace AssetManagement.Application.Controllers
                 if (getAssignments.Any() && assignmentParameters.State != null && assignmentParameters.State.Count != 0)
                     getAssignments = getAssignments.Where(x => assignmentParameters.State.Contains(x.AssignmentState));
                 if (getAssignments.Any() && assignmentParameters.AssignDate != null)
-                    getAssignments = getAssignments.Where(x => x.AssignDate == assignmentParameters.AssignDate);
+                    getAssignments = getAssignments.Where(x =>x.AssignDate.Date == assignmentParameters.AssignDate.Value.Date);
                 var assignmentListDTO = _mapper.Map<List<AssignmentDTO>>(getAssignments);
                 return Ok(assignmentListDTO);
             }
@@ -39,8 +41,6 @@ namespace AssetManagement.Application.Controllers
             {
                 return BadRequest("Something went wrong");
             }
-
-
         }
     }
 }

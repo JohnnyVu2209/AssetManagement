@@ -12,6 +12,7 @@ namespace AssetManagement.Data
 
         }
 
+        public DbSet<Assignment> Assignments { get; set; }
         public override int SaveChanges()
         {
             var entries = ChangeTracker
@@ -431,6 +432,72 @@ namespace AssetManagement.Data
                     }
                 )
             );
+
+            modelBuilder.Entity<Assignment>().ToTable("Assignments");
+
+            //modelBuilder.Entity<Assignment>(
+            //    entity =>
+            //    {
+            //        entity.HasOne(d => d.User)
+            //            .WithMany(p => p.Assignments)
+            //            .HasForeignKey("StaffCode");
+            //    });
+
+            //modelBuilder.Entity<Assignment>(
+            //    entity =>
+            //    {
+            //        entity.HasOne(d => d.Asset)
+            //            .WithMany(p => p.Assignments)
+            //            .HasForeignKey("AssetCode");
+            //    });
+
+            modelBuilder.Entity<Assignment>(
+                entity => entity.HasData
+                (
+                    new Assignment
+                    {
+                        Id = 1,
+                        AssetId=1,
+                        UserId=2,
+                        AssetCode = "LA000001",
+                        AssetName = "Laptop HP Probook 450 G1",
+                        StaffCode = "SD0002",
+                        AssignTo="admindn",
+                        AssignBy="adminhcm",
+                        AssignDate= DateTime.Now,
+                        AssignmentState=true
+                    },
+                    new Assignment
+                    {
+                        Id = 2,
+                        AssetId = 1,
+                        UserId = 3,
+                        AssetCode = "LA000001",
+                        AssetName = "Laptop HP Probook 450 G1",
+                        StaffCode = "SD0003",
+                        AssignTo = "adminhn",
+                        AssignBy = "adminhcm",
+                        AssignDate = DateTime.Now,
+                        AssignmentState = false
+                    },
+                    new Assignment
+                    {
+                        Id = 3,
+                        AssetId = 1,
+                        UserId = 4,
+                        AssetCode = "LA000001",
+                        AssetName = "Laptop HP Probook 450 G1",
+                        StaffCode = "SD0003",
+                        AssignTo = "vinhbx",
+                        AssignBy = "adminhcm",
+                        AssignDate = DateTime.Now,
+                        AssignmentState = true
+                    }
+
+                )
+            );
+
+
         }
     }
 }
