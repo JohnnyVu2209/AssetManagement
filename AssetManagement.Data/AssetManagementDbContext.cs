@@ -16,6 +16,8 @@ namespace AssetManagement.Data
         public DbSet<State> States { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Asset> Assets { get; set; }
+        public DbSet<Assignment> Assignments { get; set; }
+
         public override int SaveChanges()
         {
             var entries = ChangeTracker
@@ -93,6 +95,8 @@ namespace AssetManagement.Data
             modelBuilder.SeedUser();
 
             modelBuilder.SeedAsset();
+
+            modelBuilder.SeedAssignment();
         }
     }
 }

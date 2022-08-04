@@ -38,12 +38,40 @@
   transition: 0.2s;
 } */
 
-.search-bar{
+.search-bar {
   position: relative;
 }
 
-.search-icon{
+.search-icon {
   position: absolute;
   left: 235px;
   top: 15px;
+}
+
+.page-filter {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.page-filter-left {
+  display: flex;
+  flex-basis: 35%;
+}
+
+.page-filter-left div {
+  margin-right: 10px;
+}
+
+.page-filter-right {
+  display: flex;
+  align-items: center;
+}
+
+.page-filter-right button {
+  margin-left: 20px;
+}
+
+.empty-collumn-header {
+  background-color: none !important;
 }

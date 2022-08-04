@@ -446,5 +446,58 @@ namespace AssetManagement.Data.Extensions
             );
         }
         #endregion
+
+        #region Assignment
+        public static void SeedAssignment(this ModelBuilder modelBuilder) {
+            modelBuilder.Entity<Assignment>().ToTable("Assignments");
+
+            modelBuilder.Entity<Assignment>(
+                entity => entity.HasData
+                (
+                    new Assignment
+                    {
+                        Id = 1,
+                        AssetId = 1,
+                        UserId = 2,
+                        AssetCode = "LA000001",
+                        AssetName = "Laptop HP Probook 450 G1",
+                        StaffCode = "SD0002",
+                        AssignTo = "admindn",
+                        AssignBy = "adminhcm",
+                        AssignDate = DateTime.Now,
+                        AssignmentState = Domain.Model.Enums.AssignmentStateEnums.Accepted
+                    },
+                    new Assignment
+                    {
+                        Id = 2,
+                        AssetId = 1,
+                        UserId = 3,
+                        AssetCode = "LA000001",
+                        AssetName = "Laptop HP Probook 450 G1",
+                        StaffCode = "SD0003",
+                        AssignTo = "adminhn",
+                        AssignBy = "adminhcm",
+                        AssignDate = DateTime.Now,
+                        AssignmentState = Domain.Model.Enums.AssignmentStateEnums.Waiting
+                    },
+                    new Assignment
+                    {
+                        Id = 3,
+                        AssetId = 1,
+                        UserId = 4,
+                        AssetCode = "LA000001",
+                        AssetName = "Laptop HP Probook 450 G1",
+                        StaffCode = "SD0003",
+                        AssignTo = "vinhbx",
+                        AssignBy = "adminhcm",
+                        AssignDate = DateTime.Now,
+                        AssignmentState = Domain.Model.Enums.AssignmentStateEnums.Accepted
+                    }
+
+                )
+            );
+        }
+        #endregion
+
     }
 }

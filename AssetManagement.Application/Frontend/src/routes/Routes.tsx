@@ -14,6 +14,7 @@ import CreateUser from "../pages/CreateUser";
 import EditUser from "../pages/EditUser";
 import ManageAsset from "../pages/ManageAsset";
 import Error from "../pages/Error";
+import AssignmentList from "../pages/AssignmentList";
 
 function Routes() {
   return (
@@ -33,6 +34,7 @@ function Routes() {
             <RouteGuard path="/manage-asset" component={ManageAsset} />
             <RouteGuard path="/error" component={Error} />
             <Redirect from="*" to="/error"/>
+            <RouteGuard path="/assignment-list" component={AssignmentList} />
             <UserDetailProvider>
               <ManageUserProvider>
                 <RouteGuard path="/manage-user" component={ManageUser} />
