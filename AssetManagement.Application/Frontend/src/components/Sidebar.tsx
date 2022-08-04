@@ -22,10 +22,10 @@ function Sidebar() {
         <Link to="/assignment-list">
           <i className="fa-solid fa-bars-progress"></i>Manage Assingment
         </Link>
-        <Link to="/">
+        <Link to="/return-request">
           <i className="fa-solid fa-bars-progress"></i>Request for Returning
         </Link>
-        <Link to="/">
+        <Link to="/reports">
           <i className="fa-solid fa-bars-progress"></i>Report
         </Link>
         {/* <Link to="/list-view">

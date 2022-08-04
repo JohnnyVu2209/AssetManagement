@@ -14,7 +14,7 @@ function Dashboard() {
   return (
     <div className="app-content">
       <FirstPasswordModal />
-      Dash
+      Sorry, we are updating this feature...
     </div>
   );
 }

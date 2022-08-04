@@ -64,7 +64,7 @@ namespace AssetManagement.Application.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetCategories()
         {
-            var categories = await categoryRepository.GetAllAsync();
+            var categories = await categoryRepository.GetAllCategoriesAsync();
             var dto = mapper.Map<List<AssetCategoryDTO>>(categories);
             return Ok(dto);
         }
@@ -78,5 +78,17 @@ namespace AssetManagement.Application.Controllers
             return Ok(dto);
         }
 
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> CreateAsync(CreateAssetRequest request)
+        {
+            var result = await assetRepository.CreateAsync(request);
+            if (result.StatusCode == 400)
+            {
+                return BadRequest(result.Message);
+            }
+            return Ok(result.Message);
+        }
     }
 }

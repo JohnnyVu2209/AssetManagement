@@ -48,6 +48,7 @@ builder.Services.AddTransient<IRoleRepository, RoleRepository>();
 builder.Services.AddTransient<IAssetRepository, AssetRepository>();
 builder.Services.AddTransient<IStateRepository, StateRepository>();
 builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+builder.Services.AddTransient<ICurrentUser, CurrentUser>();
 builder.Services.AddTransient<IAssignmentRepository, AssignmentRepository>();
 
 //Add HttpContextAccessor
