@@ -103,6 +103,7 @@ namespace AssetManagement.Data.Extensions
                 CreatedDate = DateTime.Now,
                 UpdatedDate = DateTime.Now,
                 FirstName = "Yen",
+                LastName = "Jennie",
                 UserName = "AdminHN",
                 NormalizedUserName = "ADMINHN",
                 SecurityStamp = Guid.NewGuid().ToString("D"),
