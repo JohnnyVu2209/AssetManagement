@@ -12,8 +12,6 @@ using AssetManagement.Data;
 using AssetManagement.Data.Repositories;
 using AssetManagement.Data.Repositories.Implementations;
 using AssetManagement.Contracts.Constant;
-using AssetManagement.Application.Application.Interfaces;
-using AssetManagement.Application.Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,21 +45,12 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 //Add Repository
 builder.Services.AddTransient<IRoleRepository, RoleRepository>();
-builder.Services.AddTransient(typeof(IGenericRpository<>), typeof(GenericRepository<>));
 builder.Services.AddTransient<IAssetRepository, AssetRepository>();
 builder.Services.AddTransient<IStateRepository, StateRepository>();
 builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
-builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 //Add HttpContextAccessor
 builder.Services.AddHttpContextAccessor();
-
-//Add DI
-builder.Services.AddTransient<IUserService, UserService>();
-builder.Services.AddTransient<ICurrentUser, CurrentUser>();
-builder.Services.AddTransient<IAssetService, AssetService>();
-builder.Services.AddTransient<IStateService, StateService>();
-builder.Services.AddTransient<ICategoryService, CategoryService>();
 
 // Adding Authentication
 builder.Services.AddAuthentication(options =>
@@ -82,7 +71,6 @@ builder.Services.AddAuthentication(options =>
         ValidAudience = builder.Configuration["JWT:ValidAudience"],
         ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"])),
-        ClockSkew = TimeSpan.Zero
     };
 });
 
@@ -142,7 +130,8 @@ app.UseCors(x => x
             .AllowAnyMethod()
             .AllowAnyHeader()
             .SetIsOriginAllowed(origin => true) // allow any origin
-            .AllowCredentials()); // allow credentials
+            .AllowCredentials()
+            .WithExposedHeaders("Pagination")); // allow credentials
 
 app.UseHttpsRedirection();
 

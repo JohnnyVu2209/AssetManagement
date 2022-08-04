@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AssetManagement.Contracts.Request
+namespace AssetManagement.Contracts.UserDTO
 {
     public class UpdateUserRequest
     {

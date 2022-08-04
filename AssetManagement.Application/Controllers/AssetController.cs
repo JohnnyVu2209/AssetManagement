@@ -1,7 +1,13 @@
-using AssetManagement.Application.Application.Interfaces;
-using AssetManagement.Contracts.ViewModels;
-using Microsoft.AspNetCore.Mvc;
+using AssetManagement.Contracts;
+using AssetManagement.Contracts.AssetDTO;
+using AssetManagement.Data.Repositories;
+using AssetManagement.Domain.Model;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Security.Claims;
 
 namespace AssetManagement.Application.Controllers
 {
@@ -9,55 +15,47 @@ namespace AssetManagement.Application.Controllers
     [ApiController]
     public class AssetController : ControllerBase
     {
-        private readonly IAssetService _service;
-
-        private readonly IMapper _mapper;
-
-        public AssetController(IAssetService service, IMapper mapper)
+        private readonly IMapper mapper;
+        private readonly IAssetRepository assetRepository;
+        private readonly UserManager<User> userManager;
+        public AssetController(IMapper mapper, IAssetRepository assetRepository, UserManager<User> userManager)
         {
-            _service = service;
-            _mapper = mapper;
+            this.mapper = mapper;
+            this.userManager = userManager;
+            this.assetRepository = assetRepository;
         }
-
-        [HttpGet("")]
-        public async Task<ActionResult> GetAllByCurrentAdminLocationAsync()
+        [HttpGet("getAssetsList")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> GetAllAsync([FromQuery] AssetParameters assetParameters)
         {
-            var data = _mapper.Map<List<AssetDTO>>(
-                (await _service.GetAllByCurrentAdminLocationAsync()).ToList());
+            var username = HttpContext.User.Claims.Single(x => x.Type == ClaimTypes.Name).Value;
 
-            if (!data.Any())
+            var user = await userManager.FindByNameAsync(username);
+
+            var filterAsset = assetRepository.GetAssetsByFilter(user.LocationId,
+                                                                assetParameters.State,
+                                                                assetParameters.Category,
+                                                                assetParameters.Searching,
+                                                                assetParameters.OrderBy);
+
+            var pagingAsset = PageList<Asset, AssetDTO>.ToPageList(filterAsset, assetParameters.PageNumber, assetParameters.PageSize, mapper);
+
+            var metadata = new
             {
-                return NotFound();
-            }
-            
-            return Ok(data);
+                pagingAsset.TotalCount,
+                pagingAsset.PageSize,
+                pagingAsset.CurrentPage,
+                pagingAsset.TotalPages,
+                pagingAsset.HasNext,
+                pagingAsset.HasPrevious,
+                assetParameters.State,
+                assetParameters.Category
+            };
+
+            Response.Headers.Add("Pagination", JsonConvert.SerializeObject(metadata));
+
+            return Ok(pagingAsset);
         }
 
-        [HttpGet("all")]
-        public async Task<ActionResult> GetAllAsync()
-        {
-            var data = _mapper.Map<List<AssetDTO>>(
-                (await _service.GetAllAsync()).ToList());
-
-            if (!data.Any())
-            {
-                return NotFound();
-            }
-            
-            return Ok(data);
-        }
-
-        [HttpGet("{assetCode}")]
-        public async Task<ActionResult> GetByAssetCodeAsync(string assetCode)
-        {
-            var data = _mapper.Map<AssetDetailDTO>((await _service.GetByAssetCodeAsync(assetCode)));
-
-            if (data == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(data);
-        }
     }
 }

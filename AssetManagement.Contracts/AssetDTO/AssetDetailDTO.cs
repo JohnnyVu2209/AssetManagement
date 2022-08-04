@@ -1,13 +1,13 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace AssetManagement.Contracts.ViewModels
+namespace AssetManagement.Contracts.AssetDTO
 {
     public record AssetDetailDTO : AssetDTO
     {
         public int CategoryID { get; set; }
 
         public int StateID { get; set; }
-        
+
         public int LocationID { get; set; }
 
         [Required]

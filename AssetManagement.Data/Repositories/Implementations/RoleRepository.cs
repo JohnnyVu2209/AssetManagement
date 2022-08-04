@@ -5,7 +5,7 @@ namespace AssetManagement.Data.Repositories.Implementations
 {
     public class RoleRepository : IRoleRepository
     {
-        private AssetManagementDbContext dbContext;
+        private readonly AssetManagementDbContext dbContext;
 
         public RoleRepository(AssetManagementDbContext dbContext)
         {

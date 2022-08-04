@@ -1,15 +1,15 @@
-﻿using AssetManagement.Contracts.ViewModels;
-using AssetManagement.Domain.Model;
+﻿using AssetManagement.Contracts.AssetDTO;
 using AssetManagement.Contracts.UserDTO;
+using AssetManagement.Domain.Model;
 using AutoMapper;
 
-namespace AssetManagement.Application.Application
+namespace AssetManagement.Application.MapperProfile
 {
     public class MapUserDTOs : Profile
     {
         public MapUserDTOs()
         {
-            CreateMap<User, UserViewModel>();
+            CreateMap<User, UserViewDTO>();
             CreateMap<CreateUserDTO, User>()
                 .ForMember(d => d.SecurityStamp, opt => opt.MapFrom(s => Guid.NewGuid().ToString()))
                 .ForMember(d => d.Gender, opt => opt.MapFrom(s => s.Gender == 1 ? true : false)); 
