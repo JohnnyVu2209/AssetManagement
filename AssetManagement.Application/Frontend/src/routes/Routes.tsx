@@ -1,5 +1,5 @@
 import React from "react";
-import { Router, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route, Redirect } from "react-router-dom";
 import { history } from "../others/history";
 import RouteGuard from "../components/RouteGuard";
 import Navbar from "../components/Navbar";
@@ -12,6 +12,10 @@ import ManageUser from "../pages/ManageUser";
 import ManageUserProvider from "../context/ManageUserContext";
 import CreateUser from "../pages/CreateUser";
 import EditUser from "../pages/EditUser";
+import ManageAsset from "../pages/ManageAsset";
+import Error from "../pages/Error";
+import AssignmentList from "../pages/AssignmentList";
+import CreateAsset from "../pages/CreateAsset";
 
 function Routes() {
   return (
@@ -28,11 +32,16 @@ function Routes() {
             <RouteGuard path="/edit-user/:staffCode?" component={EditUser} />
             <RouteGuard path="/list-view" component={ListView} />
             <RouteGuard path="/create-user" component={CreateUser} />
+            <RouteGuard path="/manage-asset" component={ManageAsset} />
+            <RouteGuard path="/assignment-list" component={AssignmentList} />
+            <RouteGuard path="/create-asset" component={CreateAsset} />
             <UserDetailProvider>
               <ManageUserProvider>
                 <RouteGuard path="/manage-user" component={ManageUser} />
               </ManageUserProvider>
             </UserDetailProvider>
+            <RouteGuard path="/error" component={Error} />
+            <Redirect from="*" to="/error"/>
             <RouteGuard path="/list-view" component={ListView} />
           </Switch>
         </div>

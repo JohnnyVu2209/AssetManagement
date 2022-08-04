@@ -16,5 +16,7 @@ namespace AssetManagement.Domain.Model
         public bool IsPasswordChanged { get; set; }
         public int LocationId { get; set; }
         public virtual Location Location { get; set; }
+        public virtual List<Assignment> Assignments { get; set; } = new List<Assignment>();
+
     }
 }

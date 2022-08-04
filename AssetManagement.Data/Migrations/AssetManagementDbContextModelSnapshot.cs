@@ -22,6 +22,359 @@ namespace AssetManagement.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("AssetManagement.Domain.Model.Asset", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("History")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("InstalledDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("LocationID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Specification")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StateID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryID");
+
+                    b.HasIndex("LocationID");
+
+                    b.HasIndex("StateID");
+
+                    b.ToTable("Assets");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryID = 1,
+                            Code = "LA000001",
+                            CreatedDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4584),
+                            InstalledDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4565),
+                            LocationID = 1,
+                            Name = "Laptop HP Probook 450 G1",
+                            Specification = "Dummy Spec 1",
+                            StateID = 2,
+                            UpdatedDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4585)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryID = 1,
+                            Code = "MO000001",
+                            CreatedDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4592),
+                            InstalledDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4589),
+                            LocationID = 2,
+                            Name = "Moninor Dell UltraSharp",
+                            Specification = "Dummy Spec 2",
+                            StateID = 2,
+                            UpdatedDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4593)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryID = 1,
+                            Code = "PC000001",
+                            CreatedDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4598),
+                            InstalledDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4596),
+                            LocationID = 3,
+                            Name = "Personal Computer",
+                            Specification = "Dummy Spec 3",
+                            StateID = 2,
+                            UpdatedDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4599)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CategoryID = 1,
+                            Code = "LA000002",
+                            CreatedDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4605),
+                            InstalledDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4602),
+                            LocationID = 1,
+                            Name = "Laptop HP Probook 450 G1",
+                            Specification = "Dummy Spec 4",
+                            StateID = 2,
+                            UpdatedDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4606)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CategoryID = 1,
+                            Code = "MO000002",
+                            CreatedDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4611),
+                            InstalledDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4608),
+                            LocationID = 2,
+                            Name = "Moninor Dell UltraSharp",
+                            Specification = "Dummy Spec 5",
+                            StateID = 2,
+                            UpdatedDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4612)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CategoryID = 1,
+                            Code = "PC000002",
+                            CreatedDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4617),
+                            InstalledDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4615),
+                            LocationID = 3,
+                            Name = "Personal Computer",
+                            Specification = "Dummy Spec 6",
+                            StateID = 2,
+                            UpdatedDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4618)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CategoryID = 1,
+                            Code = "LA000003",
+                            CreatedDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4623),
+                            InstalledDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4621),
+                            LocationID = 1,
+                            Name = "Laptop HP Probook 450 G1",
+                            Specification = "Dummy Spec 7",
+                            StateID = 2,
+                            UpdatedDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4624)
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CategoryID = 1,
+                            Code = "MO000003",
+                            CreatedDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4629),
+                            InstalledDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4627),
+                            LocationID = 2,
+                            Name = "Moninor Dell UltraSharp",
+                            Specification = "Dummy Spec 8",
+                            StateID = 2,
+                            UpdatedDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4630)
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CategoryID = 1,
+                            Code = "PC000003",
+                            CreatedDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4635),
+                            InstalledDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4633),
+                            LocationID = 3,
+                            Name = "Personal Computer",
+                            Specification = "Dummy Spec 9",
+                            StateID = 2,
+                            UpdatedDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4637)
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CategoryID = 1,
+                            Code = "LA000004",
+                            CreatedDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4642),
+                            InstalledDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4640),
+                            LocationID = 1,
+                            Name = "Laptop HP Probook 450 G1",
+                            Specification = "Dummy Spec 10",
+                            StateID = 2,
+                            UpdatedDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4643)
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CategoryID = 1,
+                            Code = "MO000004",
+                            CreatedDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4648),
+                            InstalledDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4646),
+                            LocationID = 2,
+                            Name = "Moninor Dell UltraSharp",
+                            Specification = "Dummy Spec 11",
+                            StateID = 2,
+                            UpdatedDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4649)
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CategoryID = 1,
+                            Code = "PC000004",
+                            CreatedDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4654),
+                            InstalledDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4652),
+                            LocationID = 3,
+                            Name = "Personal Computer",
+                            Specification = "Dummy Spec 12",
+                            StateID = 2,
+                            UpdatedDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(4655)
+                        });
+                });
+
+            modelBuilder.Entity("AssetManagement.Domain.Model.Assignment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("AssetCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("AssetId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AssetName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AssignBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("AssignDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AssignTo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("AssignmentState")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StaffCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AssetId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Assignments", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AssetCode = "LA000001",
+                            AssetId = 1,
+                            AssetName = "Laptop HP Probook 450 G1",
+                            AssignBy = "adminhcm",
+                            AssignDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(5002),
+                            AssignTo = "admindn",
+                            AssignmentState = 1,
+                            StaffCode = "SD0002",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AssetCode = "LA000001",
+                            AssetId = 1,
+                            AssetName = "Laptop HP Probook 450 G1",
+                            AssignBy = "adminhcm",
+                            AssignDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(5006),
+                            AssignTo = "adminhn",
+                            AssignmentState = 2,
+                            StaffCode = "SD0003",
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AssetCode = "LA000001",
+                            AssetId = 1,
+                            AssetName = "Laptop HP Probook 450 G1",
+                            AssignBy = "adminhcm",
+                            AssignDate = new DateTime(2022, 8, 4, 23, 6, 39, 31, DateTimeKind.Local).AddTicks(5010),
+                            AssignTo = "vinhbx",
+                            AssignmentState = 1,
+                            StaffCode = "SD0003",
+                            UserId = 4
+                        });
+                });
+
+            modelBuilder.Entity("AssetManagement.Domain.Model.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Prefix")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Category", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Laptop",
+                            Prefix = "LA",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Monitor",
+                            Prefix = "MO",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Personal Computer",
+                            Prefix = "PC",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
             modelBuilder.Entity("AssetManagement.Domain.Model.Location", b =>
                 {
                     b.Property<int>("Id")
@@ -36,7 +389,7 @@ namespace AssetManagement.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Location");
+                    b.ToTable("Locations");
 
                     b.HasData(
                         new
@@ -89,16 +442,76 @@ namespace AssetManagement.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "f47559e5-7fba-45fc-9c28-8fdddc48735b",
+                            ConcurrencyStamp = "3ba0ea2f-312c-42cc-847a-4a451866cee0",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "08b43dcd-0316-4fc1-8f46-ae59171a9628",
+                            ConcurrencyStamp = "6ba20a8f-719b-4949-9323-53c0c7443831",
                             Name = "User",
                             NormalizedName = "USER"
+                        });
+                });
+
+            modelBuilder.Entity("AssetManagement.Domain.Model.State", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("State", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Assigned",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Available",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Not available",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Waiting for recycling",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Recycled",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -209,100 +622,83 @@ namespace AssetManagement.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c451b175-afea-4783-83cc-7d12f61621ab",
-                            CreatedDate = new DateTime(2022, 7, 28, 18, 15, 1, 970, DateTimeKind.Local).AddTicks(4450),
+                            ConcurrencyStamp = "6f29d189-35ee-4a38-9fa5-809c921443cd",
+                            CreatedDate = new DateTime(2022, 8, 4, 23, 6, 38, 988, DateTimeKind.Local).AddTicks(603),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
+                            FirstName = "Nghia",
                             Gender = false,
                             IsDisabled = false,
                             IsPasswordChanged = false,
                             JoinedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastName = "Dinh Trong",
                             LocationId = 1,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMINHCM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECar9sYwHv4UkFBO0moRD6FOHR13iTqFpTGMtDJlwRGUWtQWTCGZAFKk9xdzUCo5HA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKMlYr5JVz39Z86zfICMXY9+MIAmwzKWInH7G+vcfsvmsHnsaoNG0QU0FvcBkbCmGQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "41ab1f32-e56e-4ef3-85c2-53f48b92f5e7",
+                            SecurityStamp = "ad2077d0-6aa5-48de-9eed-8f6615721a05",
                             StaffCode = "SD0001",
                             TwoFactorEnabled = false,
-                            UpdatedDate = new DateTime(2022, 7, 28, 18, 15, 1, 970, DateTimeKind.Local).AddTicks(4460),
+                            UpdatedDate = new DateTime(2022, 8, 4, 23, 6, 38, 988, DateTimeKind.Local).AddTicks(616),
                             UserName = "AdminHCM"
                         },
                         new
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "34a14ee2-56f8-46bb-9204-ff944c9ed917",
-                            CreatedDate = new DateTime(2022, 7, 28, 18, 15, 1, 970, DateTimeKind.Local).AddTicks(4470),
+                            ConcurrencyStamp = "0070ac27-3760-4f8b-8869-45634da4121b",
+                            CreatedDate = new DateTime(2022, 8, 4, 23, 6, 38, 988, DateTimeKind.Local).AddTicks(629),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
+                            FirstName = "Thanh",
                             Gender = false,
                             IsDisabled = false,
                             IsPasswordChanged = false,
                             JoinedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastName = "Mai Quoc",
                             LocationId = 2,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMINDN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEK8pAAM5jRispZTn+qt2/ZSXMbYtlIN99A9q12i2/EatZf9lZ3BccltwuoDhF2bxWQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPg4jg9jeqaMQNGEJh3G+qbB2klhe5wS3eQII24TG2uqV60xdO8cvErFCsXCm50FJg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7c99a24c-75fa-4118-9a88-43e7d07c819a",
+                            SecurityStamp = "c0314a3e-1709-4e62-bf52-02c4db7861ce",
                             StaffCode = "SD0002",
                             TwoFactorEnabled = false,
-                            UpdatedDate = new DateTime(2022, 7, 28, 18, 15, 1, 970, DateTimeKind.Local).AddTicks(4471),
+                            UpdatedDate = new DateTime(2022, 8, 4, 23, 6, 38, 988, DateTimeKind.Local).AddTicks(630),
                             UserName = "AdminDN"
                         },
                         new
                         {
                             Id = 3,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "50488e33-f097-4dd2-a3b4-99b8bdc4049c",
-                            CreatedDate = new DateTime(2022, 7, 28, 18, 15, 1, 970, DateTimeKind.Local).AddTicks(4478),
+                            ConcurrencyStamp = "e1c0fed1-62a4-44ca-9d99-897717a073a3",
+                            CreatedDate = new DateTime(2022, 8, 4, 23, 6, 38, 988, DateTimeKind.Local).AddTicks(714),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
+                            FirstName = "Yen",
                             Gender = false,
                             IsDisabled = false,
                             IsPasswordChanged = false,
                             JoinedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastName = "Jennie",
                             LocationId = 3,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMINHN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKS9CRAna50fphpKWo6TeXKBumHGTkWGuLMQjdpl9rq6cx4ZEMb8lLF1gqk4KV2BlA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELKPYAARiCR+uaVBid3/H1YXR3cDeUAyL0tb8odBwdFDyZzIf6bUJ9K2dWGDuoKtcg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "579cc61c-9aec-4079-9aa1-a23fb5c4fb87",
+                            SecurityStamp = "6f1c4879-ea9f-4ec6-b722-4f7a25f64d81",
                             StaffCode = "SD0003",
                             TwoFactorEnabled = false,
-                            UpdatedDate = new DateTime(2022, 7, 28, 18, 15, 1, 970, DateTimeKind.Local).AddTicks(4478),
+                            UpdatedDate = new DateTime(2022, 8, 4, 23, 6, 38, 988, DateTimeKind.Local).AddTicks(715),
                             UserName = "AdminHN"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "7af2628f-9211-4ee0-a2e7-893b5c43a477",
-                            CreatedDate = new DateTime(2022, 7, 28, 18, 15, 1, 970, DateTimeKind.Local).AddTicks(4505),
-                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EmailConfirmed = false,
-                            Gender = false,
-                            IsDisabled = true,
-                            IsPasswordChanged = false,
-                            JoinedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LocationId = 1,
-                            LockoutEnabled = false,
-                            NormalizedUserName = "ADMINDISABLE",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO3Qjc4bQ58wKZHMw9dxqFnYZTpU/pOCt2nR5yT/UVqqgPog/qBZLkwShaS9FeN7rA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "244580fa-658b-4111-95c3-5611eafa1ee1",
-                            StaffCode = "SD0011",
-                            TwoFactorEnabled = false,
-                            UpdatedDate = new DateTime(2022, 7, 28, 18, 15, 1, 970, DateTimeKind.Local).AddTicks(4506),
-                            UserName = "AdminDisable"
                         },
                         new
                         {
                             Id = 4,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3805e9d8-4c84-4932-9492-0770712714a5",
-                            CreatedDate = new DateTime(2022, 7, 28, 18, 15, 1, 977, DateTimeKind.Local).AddTicks(7197),
+                            ConcurrencyStamp = "462d160d-4bdb-4be6-bd76-e1e1f96ad05f",
+                            CreatedDate = new DateTime(2022, 8, 4, 23, 6, 38, 988, DateTimeKind.Local).AddTicks(728),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             FirstName = "Bui Xuan",
@@ -313,20 +709,20 @@ namespace AssetManagement.Data.Migrations
                             LastName = "Vinh",
                             LocationId = 1,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAENTZBpTLfWd6D+UkMgVgujTA5cVBUKeVhFqpZ0sxlJkhSYB31qTdZKwjwVK6djmz5Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEL0Lp93/OnTlZTPIYZTr3DceY5TdxYzN+4knJ+eYWsAB2DH21EgI9wwkm9q7WstpOg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "faf9521a-86b5-4115-9364-bae29c978d9a",
+                            SecurityStamp = "2e13aa7a-4c67-49a0-978d-c575bb4bd8aa",
                             StaffCode = "SD0004",
                             TwoFactorEnabled = false,
-                            UpdatedDate = new DateTime(2022, 7, 28, 18, 15, 1, 977, DateTimeKind.Local).AddTicks(7214),
+                            UpdatedDate = new DateTime(2022, 8, 4, 23, 6, 38, 988, DateTimeKind.Local).AddTicks(729),
                             UserName = "vinhbx"
                         },
                         new
                         {
                             Id = 5,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ba721d4c-da7f-48c8-866a-d6b01335352c",
-                            CreatedDate = new DateTime(2022, 7, 28, 18, 15, 1, 979, DateTimeKind.Local).AddTicks(4707),
+                            ConcurrencyStamp = "0440fae2-e692-46b0-bfbf-bc94b433be6f",
+                            CreatedDate = new DateTime(2022, 8, 4, 23, 6, 38, 988, DateTimeKind.Local).AddTicks(740),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             FirstName = "Huong Khon",
@@ -337,20 +733,20 @@ namespace AssetManagement.Data.Migrations
                             LastName = "Vu",
                             LocationId = 2,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEAuJtlKDPwEQw1/FPv6xDvIYY/LxwesN7Xei5kDux++v/pCtyGR8CpyazMm/BG0/6Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEP9pNIx5ZgoKU636c8vF7QtH1E0LhADSgomEllOKIA3JpJr2sBp3/bpWjNvgiwh8gQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e5264e5b-edb9-4af2-9b80-9a81d51770f8",
+                            SecurityStamp = "ae8a3076-81d4-40e0-b99e-fe39def13b99",
                             StaffCode = "SD0005",
                             TwoFactorEnabled = false,
-                            UpdatedDate = new DateTime(2022, 7, 28, 18, 15, 1, 979, DateTimeKind.Local).AddTicks(4712),
+                            UpdatedDate = new DateTime(2022, 8, 4, 23, 6, 38, 988, DateTimeKind.Local).AddTicks(741),
                             UserName = "vuhk"
                         },
                         new
                         {
                             Id = 6,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "72507763-b8b3-46f0-a355-0f927a76364f",
-                            CreatedDate = new DateTime(2022, 7, 28, 18, 15, 1, 981, DateTimeKind.Local).AddTicks(2126),
+                            ConcurrencyStamp = "72d5fb2d-d844-4e69-ae99-149ed265703a",
+                            CreatedDate = new DateTime(2022, 8, 4, 23, 6, 38, 988, DateTimeKind.Local).AddTicks(752),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             FirstName = "Hau Diem",
@@ -361,20 +757,20 @@ namespace AssetManagement.Data.Migrations
                             LastName = "Xuan",
                             LocationId = 1,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEHD+kIxXeOeBOZXH2XCPP7vtWmdnv12BPDh8NDHLzw+/MjWCAx4mOblVtLiOfVczBA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFzvA17aFqPGLEukZ6kdR1S2TvnvpIdpzxbRcgPigE5s28ISof64o+odsZc0UMhrug==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "05733284-0e8e-43ba-910d-e71d0d5c484c",
+                            SecurityStamp = "82f9b40d-44ed-4275-a049-f30f93bbcc89",
                             StaffCode = "SD0006",
                             TwoFactorEnabled = false,
-                            UpdatedDate = new DateTime(2022, 7, 28, 18, 15, 1, 981, DateTimeKind.Local).AddTicks(2131),
+                            UpdatedDate = new DateTime(2022, 8, 4, 23, 6, 38, 988, DateTimeKind.Local).AddTicks(753),
                             UserName = "xuanhd"
                         },
                         new
                         {
                             Id = 7,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e8721f7c-4678-46f1-ad9a-39a571ec8c38",
-                            CreatedDate = new DateTime(2022, 7, 28, 18, 15, 1, 982, DateTimeKind.Local).AddTicks(9700),
+                            ConcurrencyStamp = "acebf032-e260-4402-ba88-d641bb7ee9d4",
+                            CreatedDate = new DateTime(2022, 8, 4, 23, 6, 38, 988, DateTimeKind.Local).AddTicks(771),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             FirstName = "Luu Huyen",
@@ -385,20 +781,20 @@ namespace AssetManagement.Data.Migrations
                             LastName = "Duc",
                             LocationId = 2,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEOF37G4hueqYSndu6DUDhkaZeAsEq9mdNWwzzGpOKyjJnM32pseSZvJ0sBWSe2GCyQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEESk6+zmcuBACtCDxjIFMB9X4bEab1OC7+z29H/VpANPFcdFtuWmAeHwaOE9yNp+xQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3d54776f-cab3-47f1-b33d-b2dc8b2130ba",
+                            SecurityStamp = "bbf768a7-c4c7-4401-b085-6bb13fd09d42",
                             StaffCode = "SD0007",
                             TwoFactorEnabled = false,
-                            UpdatedDate = new DateTime(2022, 7, 28, 18, 15, 1, 982, DateTimeKind.Local).AddTicks(9702),
+                            UpdatedDate = new DateTime(2022, 8, 4, 23, 6, 38, 988, DateTimeKind.Local).AddTicks(772),
                             UserName = "duclh"
                         },
                         new
                         {
                             Id = 8,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "76956aa4-8176-4a43-92eb-dcabb2ddbbd1",
-                            CreatedDate = new DateTime(2022, 7, 28, 18, 15, 1, 984, DateTimeKind.Local).AddTicks(7211),
+                            ConcurrencyStamp = "b9a8b745-7794-4da1-b633-659364de2d33",
+                            CreatedDate = new DateTime(2022, 8, 4, 23, 6, 38, 992, DateTimeKind.Local).AddTicks(103),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             FirstName = "Quang Van",
@@ -409,20 +805,20 @@ namespace AssetManagement.Data.Migrations
                             LastName = "Truong",
                             LocationId = 1,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEJLISCzOTMJmujK2DgFBwZV4orymdJ09ojCBJ5I8es7iFjiu5OLV3Ole+imLVS/+vg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJn4vOgOAZB7R634q88fbpBoXbMVwEQVzFVrzR6OhpqhXVmRRjaH2IwRzHXyYObhHQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5867a68b-723c-4853-8dfe-c64be5d01239",
+                            SecurityStamp = "e87fc255-17a8-4ae5-8023-9412672064c0",
                             StaffCode = "SD0008",
                             TwoFactorEnabled = false,
-                            UpdatedDate = new DateTime(2022, 7, 28, 18, 15, 1, 984, DateTimeKind.Local).AddTicks(7212),
+                            UpdatedDate = new DateTime(2022, 8, 4, 23, 6, 38, 992, DateTimeKind.Local).AddTicks(120),
                             UserName = "truongqv"
                         },
                         new
                         {
                             Id = 9,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3199d00c-1acc-45e2-9952-083073449372",
-                            CreatedDate = new DateTime(2022, 7, 28, 18, 15, 1, 986, DateTimeKind.Local).AddTicks(4685),
+                            ConcurrencyStamp = "6d5181a7-7d1c-4f0a-9652-35c2152cba69",
+                            CreatedDate = new DateTime(2022, 8, 4, 23, 6, 38, 995, DateTimeKind.Local).AddTicks(7493),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             FirstName = "Trieu Tu",
@@ -433,20 +829,20 @@ namespace AssetManagement.Data.Migrations
                             LastName = "Long",
                             LocationId = 3,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEJzFEOiDrDTc53njdj98f8TJO0SBg2FJKUGAOrnQeVXgYU9ZvIKcDQuWa122Viy6rQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAvbjFozlvtAqe2SjphlY4E+J0+Uxzv1ptLYBDFVvxQvQCB6+rv/m6XEs0kobO0KYA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7d10c2bc-811d-4bbc-9027-bcfee11c5374",
+                            SecurityStamp = "ddbd1e41-d0f5-4b5f-a9ce-2d349354321e",
                             StaffCode = "SD0009",
                             TwoFactorEnabled = false,
-                            UpdatedDate = new DateTime(2022, 7, 28, 18, 15, 1, 986, DateTimeKind.Local).AddTicks(4686),
+                            UpdatedDate = new DateTime(2022, 8, 4, 23, 6, 38, 995, DateTimeKind.Local).AddTicks(7511),
                             UserName = "longtt"
                         },
                         new
                         {
                             Id = 10,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6ee04460-c2cf-44f7-acfe-1eb76f883e3f",
-                            CreatedDate = new DateTime(2022, 7, 28, 18, 15, 1, 988, DateTimeKind.Local).AddTicks(2373),
+                            ConcurrencyStamp = "fc71fe95-0fed-454e-9c7a-3ff18825aec0",
+                            CreatedDate = new DateTime(2022, 8, 4, 23, 6, 38, 999, DateTimeKind.Local).AddTicks(5606),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             FirstName = "Gia Cat",
@@ -457,13 +853,36 @@ namespace AssetManagement.Data.Migrations
                             LastName = "Luong",
                             LocationId = 1,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAENIhZSZt6FnjKv8muBFmSXbRXjUAlq0qHld1y6/nLrtb+TtLWnXko8HnJiXekhgfpQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPlF8pgF6gSUWqaq87nK8c6mcTNK0u/Uf2eIoJlCd8tsc/yiR0k4lB1jzG55fsVA5Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1a7f07ea-015f-49e7-a4be-b38470941f43",
+                            SecurityStamp = "052f67ea-9931-4113-82e8-c3ee3729bbdd",
                             StaffCode = "SD0010",
                             TwoFactorEnabled = false,
-                            UpdatedDate = new DateTime(2022, 7, 28, 18, 15, 1, 988, DateTimeKind.Local).AddTicks(2376),
+                            UpdatedDate = new DateTime(2022, 8, 4, 23, 6, 38, 999, DateTimeKind.Local).AddTicks(5620),
                             UserName = "luonggc"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "65af93f1-a9a2-46f1-b5aa-c39dd755f4a1",
+                            CreatedDate = new DateTime(2022, 8, 4, 23, 6, 39, 2, DateTimeKind.Local).AddTicks(3671),
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmailConfirmed = false,
+                            Gender = false,
+                            IsDisabled = true,
+                            IsPasswordChanged = false,
+                            JoinedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LocationId = 1,
+                            LockoutEnabled = false,
+                            NormalizedUserName = "ADMINDISABLE",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDcngQVdSgzIKyuP+I9RPz2QOqOYUMy1+qlIQ+w0NMIVfEbB88qhv1AuxQavKs2b7Q==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "fe6ddc45-70a8-4fb8-81d7-bf46e945d4ae",
+                            StaffCode = "SD0011",
+                            TwoFactorEnabled = false,
+                            UpdatedDate = new DateTime(2022, 8, 4, 23, 6, 39, 2, DateTimeKind.Local).AddTicks(3686),
+                            UserName = "AdminDisable"
                         });
                 });
 
@@ -559,12 +978,12 @@ namespace AssetManagement.Data.Migrations
                         new
                         {
                             UserId = 2,
-                            RoleId = 2
+                            RoleId = 1
                         },
                         new
                         {
                             UserId = 3,
-                            RoleId = 2
+                            RoleId = 1
                         },
                         new
                         {
@@ -620,6 +1039,50 @@ namespace AssetManagement.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("UserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("AssetManagement.Domain.Model.Asset", b =>
+                {
+                    b.HasOne("AssetManagement.Domain.Model.Category", "Category")
+                        .WithMany("Assets")
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AssetManagement.Domain.Model.Location", "Location")
+                        .WithMany("Assets")
+                        .HasForeignKey("LocationID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AssetManagement.Domain.Model.State", "State")
+                        .WithMany("Assets")
+                        .HasForeignKey("StateID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Location");
+
+                    b.Navigation("State");
+                });
+
+            modelBuilder.Entity("AssetManagement.Domain.Model.Assignment", b =>
+                {
+                    b.HasOne("AssetManagement.Domain.Model.Asset", "Asset")
+                        .WithMany("Assignments")
+                        .HasForeignKey("AssetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AssetManagement.Domain.Model.User", "User")
+                        .WithMany("Assignments")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Asset");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("AssetManagement.Domain.Model.User", b =>
@@ -684,9 +1147,31 @@ namespace AssetManagement.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("AssetManagement.Domain.Model.Asset", b =>
+                {
+                    b.Navigation("Assignments");
+                });
+
+            modelBuilder.Entity("AssetManagement.Domain.Model.Category", b =>
+                {
+                    b.Navigation("Assets");
+                });
+
             modelBuilder.Entity("AssetManagement.Domain.Model.Location", b =>
                 {
+                    b.Navigation("Assets");
+
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("AssetManagement.Domain.Model.State", b =>
+                {
+                    b.Navigation("Assets");
+                });
+
+            modelBuilder.Entity("AssetManagement.Domain.Model.User", b =>
+                {
+                    b.Navigation("Assignments");
                 });
 #pragma warning restore 612, 618
         }

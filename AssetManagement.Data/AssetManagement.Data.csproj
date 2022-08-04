@@ -16,9 +16,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.19" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AssetManagement.Contracts\AssetManagement.Contracts.csproj" />
     <ProjectReference Include="..\AssetManagement.Domain\AssetManagement.Domain.csproj" />
   </ItemGroup>
 

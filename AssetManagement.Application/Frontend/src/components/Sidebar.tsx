@@ -11,14 +11,26 @@ function Sidebar() {
           <img src="/Logo.png" alt="" />
         </Link>
         <Link to="/">
-          <i className="fa-solid fa-bars-progress"></i>Dashboard
+          <i className="fa-solid fa-bars-progress"></i>Home
         </Link>
         <Link to="/manage-user">
           <i className="fa-solid fa-bars-progress"></i>Manage User
         </Link>
-        <Link to="/list-view">
-          <i className="fa-solid fa-apple-whole"></i>List View
+        <Link to="/manage-asset">
+          <i className="fa-solid fa-bars-progress"></i>Manage Asset
         </Link>
+        <Link to="/assignment-list">
+          <i className="fa-solid fa-bars-progress"></i>Manage Assingment
+        </Link>
+        <Link to="/return-request">
+          <i className="fa-solid fa-bars-progress"></i>Request for Returning
+        </Link>
+        <Link to="/reports">
+          <i className="fa-solid fa-bars-progress"></i>Report
+        </Link>
+        {/* <Link to="/list-view">
+          <i className="fa-solid fa-apple-whole"></i>List View
+        </Link> */}
       </div>
       <div className="sidebar-buttons">
         <button className="button" onClick={() => logout()}>
