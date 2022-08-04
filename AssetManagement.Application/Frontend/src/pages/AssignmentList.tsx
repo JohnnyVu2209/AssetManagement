@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
@@ -23,6 +22,7 @@ import { CustomPagination } from "../components/CustomPagination";
 import { getAssignmentList } from "../services/assignmentService/assignmentManagement";
 import { format } from "date-fns";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import Stack from "@mui/material/Stack";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "No", width: 120 },
@@ -91,26 +91,32 @@ const columns: GridColDef[] = [
 function ListView() {
   const [filterContent, setFilterContent] = useState({
     assignDate: "",
-    state: [],
+    state: [] as number[],
     searching: "",
   });
-  const options = [true, false];
-  const [selected, setSelected] = useState([]);
+  const options = [1, 2];
+  const [selected, setSelected] = useState([] as number[]);
   const [assignmentList, setAssignmentList] = useState([]);
   useEffect(() => {
     getAssignmentList(filterContent).then((res) => {
-      setAssignmentList(res.data);
+      if (res.response) {
+        let statusCode = res.response.status;
+        if (statusCode == 404) {
+          setAssignmentList([]);
+        }
+      }
+      if (res.data) {
+        setAssignmentList(res.data);
+      }
     });
   }, [filterContent]);
 
   const testSearch = (e: any) => {
     e.preventDefault();
-    // console.log(filterContent);
   };
 
   const handleSearchChange = (e: any) => {
     setFilterContent({ ...filterContent, searching: e.target.value });
-    console.log(filterContent);
   };
 
   const handleAsignDateChange = (e: any) => {
@@ -150,7 +156,15 @@ function ListView() {
                 multiple
                 value={selected}
                 onChange={handleChange}
-                renderValue={(selected) => selected.join(", ")}
+                renderValue={(selected) => {
+                  let test = [] as string[];
+                  selected.forEach((element) => {
+                    element === 1
+                      ? test.push("Accepted")
+                      : test.push("Waiting for acceptance");
+                  });
+                  return test.join(", ");
+                }}
               >
                 <MenuItem value="All">
                   <ListItemIcon>
@@ -163,13 +177,15 @@ function ListView() {
                   </ListItemIcon>
                   <ListItemText primary="Select All" />
                 </MenuItem>
-                {options.map((option: any) => (
+                {options.map((option) => (
                   <MenuItem key={option} value={option}>
                     <ListItemIcon>
                       <Checkbox checked={selected.indexOf(option) > -1} />
                     </ListItemIcon>
                     <ListItemText
-                      primary={option ? "Accept" : "Waiting for acceptance"}
+                      primary={
+                        option === 1 ? "Accept" : "Waiting for acceptance"
+                      }
                     />
                   </MenuItem>
                 ))}
@@ -212,9 +228,10 @@ function ListView() {
             </Paper>
             <button
               className="page-create-button button"
+              style={{ width: "200px" }}
               onClick={() => open()}
             >
-              CREATE
+              Create new assignment
             </button>
           </div>
         </div>
@@ -230,6 +247,24 @@ function ListView() {
             }}
             components={{
               Pagination: CustomPagination,
+              // NoRowsOverlay: () => (
+              //   <Stack
+              //     height="100%"
+              //     alignItems="center"
+              //     justifyContent="center"
+              //   >
+              //     No rows in DataGrid
+              //   </Stack>
+              // ),
+              // NoResultsOverlay: () => (
+              //   <Stack
+              //     height="100%"
+              //     alignItems="center"
+              //     justifyContent="center"
+              //   >
+              //     Local filter returns no result
+              //   </Stack>
+              // ),
             }}
             rows={assignmentList}
             columns={columns}
