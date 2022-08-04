@@ -12,6 +12,7 @@ import ManageUser from "../pages/ManageUser";
 import ManageUserProvider from "../context/ManageUserContext";
 import CreateUser from "../pages/CreateUser";
 import EditUser from "../pages/EditUser";
+import CreateAsset from "../pages/CreateAsset";
 
 function Routes() {
   return (
@@ -34,6 +35,11 @@ function Routes() {
               </ManageUserProvider>
             </UserDetailProvider>
             <RouteGuard path="/list-view" component={ListView} />
+            
+
+          </Switch>
+          <Switch>
+            <RouteGuard path="/create-asset" component={CreateAsset} />
           </Switch>
         </div>
       </Router>

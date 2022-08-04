@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AssetManagement.Contracts\AssetManagement.Contracts.csproj" />
     <ProjectReference Include="..\AssetManagement.Domain\AssetManagement.Domain.csproj" />
   </ItemGroup>
 

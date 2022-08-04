@@ -1,7 +1,7 @@
 using AssetManagement.Contracts.CategoryDTO;
 using AssetManagement.Contracts.Constant;
 using AssetManagement.Domain.Model;
-using Microsoft.AspNetCore.Mvc;
+//using Microsoft.AspNetCore.Mvc;
 
 namespace AssetManagement.Data.Repositories.Implementations
 {
