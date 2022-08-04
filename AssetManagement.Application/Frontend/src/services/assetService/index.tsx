@@ -12,7 +12,7 @@ const getAssetList = (
     searching: string,
     state: number[],
     category: number[]) => {
-  return axiosInstance.get(`${Asset}/all`, {
+  return axiosInstance.get(`${Asset}/getAssetsList`, {
     params:{
         pageNumber,
         pageSize,

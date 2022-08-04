@@ -1,9 +1,19 @@
 using AssetManagement.Domain.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace AssetManagement.Data.Repositories.Implementations
 {
-    public class StateRepository : GenericRepository<State>, IStateRepository
+    public class StateRepository :IStateRepository
     {
-        public StateRepository(AssetManagementDbContext context) : base(context) { }
+        private readonly AssetManagementDbContext context;
+        public StateRepository(AssetManagementDbContext context) 
+        {
+            this.context = context;
+        }
+
+        public Task<List<State>> GetAllAsync()
+        {
+            return context.States.ToListAsync();
+        }
     }
 }

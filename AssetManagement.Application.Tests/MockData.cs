@@ -1,4 +1,4 @@
-using AssetManagement.Application.Application;
+using AssetManagement.Application.MapperProfile;
 using AssetManagement.Domain.Model;
 using AutoMapper;
 

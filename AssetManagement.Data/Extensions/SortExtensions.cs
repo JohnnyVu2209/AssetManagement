@@ -1,6 +1,6 @@
-﻿using System.Reflection;
+﻿using System.Linq.Dynamic.Core;
+using System.Reflection;
 using System.Text;
-using System.Linq.Dynamic.Core;
 
 namespace AssetManagement.Data.Repositories.Extensions
 {

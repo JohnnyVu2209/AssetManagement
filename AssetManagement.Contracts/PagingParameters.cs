@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AssetManagement.Contracts
 {
-    public abstract class QueryStringParameters
+    public class PagingParameters
     {
         const int maxPageSize = 1000;
         public int PageNumber { get; set; } = 1;

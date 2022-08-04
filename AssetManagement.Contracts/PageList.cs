@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AssetManagement.Contracts
 {
-    public class PageList<T1,T2> : List<T2> where T1 : class
+    public class PageList<T1, T2> : List<T2> where T1 : class
     {
         public int CurrentPage { get; private set; }
         public int TotalPages { get; private set; }
@@ -20,18 +20,18 @@ namespace AssetManagement.Contracts
             TotalCount = count;
             PageSize = pageSize;
             CurrentPage = pageNumber;
-            TotalPages = (int) Math.Ceiling(count/ (double) pageSize);
+            TotalPages = (int)Math.Ceiling(count / (double)pageSize);
 
             AddRange(items);
         }
 
-        public static PageList<T1,T2> ToPageList(IQueryable<T1> source, int pageNumber, int pageSize, IMapper mapper)
+        public static PageList<T1, T2> ToPageList(IQueryable<T1> source, int pageNumber, int pageSize, IMapper mapper)
         {
             var count = source.Count();
             var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
             var itemT2 = mapper.Map<List<T2>>(items);
 
-            return new PageList<T1,T2>(itemT2, count, pageNumber, pageSize); 
+            return new PageList<T1, T2>(itemT2, count, pageNumber, pageSize);
         }
     }
 }

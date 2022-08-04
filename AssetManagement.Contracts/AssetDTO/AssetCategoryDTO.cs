@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AssetManagement.Contracts.StateDTO
+namespace AssetManagement.Contracts.AssetDTO
 {
-    public class StateDTO
+    public class AssetCategoryDTO
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 }

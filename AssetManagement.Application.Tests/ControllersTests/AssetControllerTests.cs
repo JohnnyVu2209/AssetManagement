@@ -1,149 +1,25 @@
-using AssetManagement.Application.Application.Interfaces;
-using AssetManagement.Domain.Model;
 using AssetManagement.Application.Controllers;
-using AssetManagement.Contracts.ViewModels;
-using Microsoft.AspNetCore.Mvc;
-
-using Moq;
-using AssetManagement.Data;
-using AutoMapper;
+using AssetManagement.Contracts;
 using AssetManagement.Contracts.AssetDTO;
+using AssetManagement.Data.Repositories;
+using AssetManagement.Domain.Model;
+using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Moq;
 using System.Security.Claims;
 using System.Security.Principal;
-using Microsoft.AspNetCore.Http;
-using AssetManagement.Contracts;
 
 namespace AssetManagement.Application.Tests
 {
     public class AssetControllerTests
     {
-
-        /*[Fact]
-        public async void CanGetAllByCurrentAdminLocationAsync_NotFound()
-        {
-            // Arrange
-            Mock<IAssetService> mock = new();
-            mock.Setup(assetService => assetService.GetAllByCurrentAdminLocationAsync())
-                .ReturnsAsync(new List<Asset>());
-
-            AssetController controller = new(mock.Object, MockData.mapper);
-
-            // Act
-            var result = (await controller.GetAllByCurrentAdminLocationAsync());
-
-            // Assert
-            Assert.IsType<NotFoundResult>(result);
-        }
-
-        [Fact]
-        public async void CanGetAllByCurrentAdminLocationAsync_Ok()
-        {
-            // Arrange
-            Mock<IAssetService> mock = new();
-            mock.Setup(assetService => assetService.GetAllByCurrentAdminLocationAsync())
-                .ReturnsAsync(MockData.assets);
-
-            AssetController controller = new(mock.Object, MockData.mapper);
-
-            // Act
-            var actionResult = (await controller.GetAllByCurrentAdminLocationAsync());
-
-            // Assert
-            Assert.NotNull(actionResult);
-            Assert.IsType<OkObjectResult>(actionResult);
-
-            var resultValue = (actionResult as OkObjectResult)?.Value as List<AssetDTO>;
-            Assert.NotNull(resultValue);
-            
-            var assertValue = MockData.mapper.Map<List<AssetDTO>>(MockData.assets);
-            Assert.True(Enumerable.SequenceEqual(resultValue ?? new List<AssetDTO>(), assertValue));
-        }
-
-        [Fact]
-        public async void CanGetAllAsync_NotFound()
-        {
-            // Arrange
-            Mock<IAssetService> mock = new();
-            mock.Setup(assetService => assetService.GetAllAsync())
-                .ReturnsAsync(new List<Asset>());
-
-            AssetController controller = new(mock.Object, MockData.mapper);
-
-            // Act
-            var result = (await controller.GetAllAsync());
-
-            // Assert
-            Assert.IsType<NotFoundResult>(result);
-        }
-
-        [Fact]
-        public async void CanGetAllAsync_Ok()
-        {
-            // Arrange
-            Mock<IAssetService> mock = new();
-            mock.Setup(assetService => assetService.GetAllAsync())
-                .ReturnsAsync(MockData.assets);
-
-            AssetController controller = new(mock.Object, MockData.mapper);
-
-            // Act
-            var actionResult = (await controller.GetAllAsync());
-
-            // Assert
-            Assert.NotNull(actionResult);
-            Assert.IsType<OkObjectResult>(actionResult);
-
-            var resultValue = (actionResult as OkObjectResult)?.Value as List<AssetDTO>;
-            Assert.NotNull(resultValue);
-
-            var assertValue = MockData.mapper.Map<List<AssetDTO>>(MockData.assets);
-            Assert.True(Enumerable.SequenceEqual(resultValue ?? new List<AssetDTO>(), assertValue));
-        }
-
-        [Fact]
-        public async void CanGetByAssetCode_NotFound()
-        {
-            // Arrange
-            Mock<IAssetService> mock = new();
-            mock.Setup(assetService => assetService.GetByAssetCodeAsync(It.IsAny<string>()))
-                .ReturnsAsync((Asset?)null);
-
-            AssetController controller = new(mock.Object, MockData.mapper);
-
-            // Act
-            var result = (await controller.GetByAssetCodeAsync(""));
-
-            // Assert
-            Assert.IsType<NotFoundResult>(result);
-        }
-
-        [Fact]
-        public async void CanGetByAssetCode_Ok()
-        {
-            // Arrange
-            Mock<IAssetService> mock = new();
-            mock.Setup(assetService => assetService.GetByAssetCodeAsync(It.IsAny<string>()))
-                .ReturnsAsync(MockData.assets[0]);
-
-            AssetController controller = new(mock.Object, MockData.mapper);
-
-            // Act
-            var actionResult = (await controller.GetByAssetCodeAsync(""));
-
-            // Assert
-            Assert.NotNull(actionResult);
-            Assert.IsType<OkObjectResult>(actionResult);
-
-            var resultValue = (actionResult as OkObjectResult)?.Value as AssetDetailDTO;
-            Assert.NotNull(resultValue);
-
-            var assertValue = MockData.mapper.Map<AssetDetailDTO>(MockData.assets[0]);
-            Assert.Equal(resultValue, assertValue);
-        }*/
         [Fact]
         public async Task Test_Asset_GetAssetList_Return_Asset_List_With_Pagination()
         {
-            var mockUnitOfWork = new Mock<IUnitOfWork>();
+            var mockAssetRepository = new Mock<IAssetRepository>();
+            var mockCategoryRepository = new Mock<ICategoryRepository>();
+            var mockStateRepository = new Mock<IStateRepository>();
             var mockMapper = new Mock<IMapper>();
             var mockUserManager = new Mock<FakeUserManager>();
 
@@ -162,7 +38,7 @@ namespace AssetManagement.Application.Tests
 
             mockUserManager.Setup(u => u.FindByNameAsync(It.IsAny<string>())).Returns(Task.FromResult(admin));
 
-            mockUnitOfWork.Setup(u => u.Assets.GetAllAsync()).Returns(Task.FromResult(listAsset.AsEnumerable()));
+            mockAssetRepository.Setup(a => a.GetAssetsByFilter(It.IsAny<int>(), It.IsAny<List<int>>(), It.IsAny<List<int>>(), It.IsAny<string>(), It.IsAny<string>())).Returns(listAsset.AsQueryable());
 
             mockMapper.Setup(m => m.Map<List<AssetDTO>>(It.IsAny<List<Asset>>())).Returns(listAssetDto.Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize).ToList());
 
@@ -186,7 +62,7 @@ namespace AssetManagement.Application.Tests
                 HttpContext = httpContext,
             };
 
-            AssetController controller = new(mockUnitOfWork.Object, mockMapper.Object, mockUserManager.Object) { ControllerContext = controllerContext };
+            AssetController controller = new(mockAssetRepository.Object,mockCategoryRepository.Object,mockStateRepository.Object ,mockUserManager.Object,mockMapper.Object) { ControllerContext = controllerContext };
 
             var result = await controller.GetAllAsync(parameters) as OkObjectResult;
 
@@ -203,16 +79,16 @@ namespace AssetManagement.Application.Tests
                 assetList.Add(new Asset()
                 {
                     Id = i,
-                    Code =  $"LA{i.ToString().PadLeft(6,'0')}",
+                    Code = $"LA{i.ToString().PadLeft(6, '0')}",
                     Name = "Laptop HP Probook 450 G1",
                     Specification = "Dummy Spec 1",
                     InstalledDate = DateTime.Now,
                     CategoryID = 1,
-                    Category = new Category() { Id = 1, Name = "Laptop"},
+                    Category = new Category() { Id = 1, Name = "Laptop" },
                     StateID = 2,
-                    State = new State() { Id = 2, Name = "Available"},
+                    State = new State() { Id = 2, Name = "Available" },
                     LocationID = 1,
-                    Location = new Location() { Id = 1, LocationName = "HCM"},
+                    Location = new Location() { Id = 1, LocationName = "HCM" },
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now
                 });
@@ -227,10 +103,10 @@ namespace AssetManagement.Application.Tests
             {
                 assetListDto.Add(new()
                 {
-                    Name =asset.Name,
+                    Name = asset.Name,
                     Category = asset.Category.Name,
                     State = asset.State.Name,
-                    Code  = asset.Code,
+                    Code = asset.Code,
                     Location = asset.Location.LocationName
                 });
             }

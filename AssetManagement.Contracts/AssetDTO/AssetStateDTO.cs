@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AssetManagement.Contracts.ViewModels
+namespace AssetManagement.Contracts.AssetDTO
 {
-    public class RoleViewModel
+    public class AssetStateDTO
     {
         public int Id { get; set; }
-        public string RoleName { get; set; }
+        public string Name { get; set; }
     }
 }

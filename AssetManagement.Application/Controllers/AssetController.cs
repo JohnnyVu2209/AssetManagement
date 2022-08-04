@@ -1,21 +1,13 @@
-using AssetManagement.Application.Application.Interfaces;
-using AssetManagement.Contracts.ViewModels;
-using Microsoft.AspNetCore.Mvc;
-using AutoMapper;
-using AssetManagement.Contracts.AssetDTO;
-using AssetManagement.Data;
 using AssetManagement.Contracts;
+using AssetManagement.Contracts.AssetDTO;
+using AssetManagement.Data.Repositories;
 using AssetManagement.Domain.Model;
-using System.Reflection;
-using System.Linq.Dynamic.Core;
-using System.Text;
-using AssetManagement.Data.Repositories.Extensions;
-using Newtonsoft.Json;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
-using AssetManagement.Contracts.CategoryDTO;
-using AssetManagement.Contracts.StateDTO;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Security.Claims;
 
 namespace AssetManagement.Application.Controllers
 {
@@ -23,90 +15,68 @@ namespace AssetManagement.Application.Controllers
     [ApiController]
     public class AssetController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
-
-        private readonly IMapper _mapper;
-
-        private readonly UserManager<User> _userManager;
-
-        public AssetController(IUnitOfWork unitOfWork, IMapper mapper, UserManager<User> userManager)
+        private readonly IMapper mapper;
+        private readonly IAssetRepository assetRepository;
+        private readonly ICategoryRepository categoryRepository;
+        private readonly IStateRepository stateRepository;
+        private readonly UserManager<User> userManager;
+        public AssetController(IAssetRepository assetRepository, ICategoryRepository categoryRepository, IStateRepository stateRepository, UserManager<User> userManager, IMapper mapper)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
-            _userManager = userManager;
+            this.mapper = mapper;
+            this.userManager = userManager;
+            this.assetRepository = assetRepository;
+            this.stateRepository = stateRepository;
+            this.categoryRepository = categoryRepository;
         }
-
-        /*     [HttpGet("")]
-             public async Task<ActionResult> GetAllByCurrentAdminLocationAsync()
-             {
-                 var data = _mapper.Map<List<AssetDTO>>(
-                     (await _service.GetAllByCurrentAdminLocationAsync()).ToList());
-
-                 if (!data.Any())
-                 {
-                     return NotFound();
-                 }
-
-                 return Ok(data);
-             }*/
-
-        [HttpGet("all")]
+        [HttpGet("getAssetsList")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> GetAllAsync([FromQuery]AssetParameters assetParameters)
+        public async Task<ActionResult> GetAllAsync([FromQuery] AssetParameters assetParameters)
         {
             var username = HttpContext.User.Claims.Single(x => x.Type == ClaimTypes.Name).Value;
 
-            var user = await _userManager.FindByNameAsync(username);
+            var user = await userManager.FindByNameAsync(username);
 
-            var assets = (await _unitOfWork.Assets.GetAllAsync()).Where(x => x.LocationID == user.LocationId).AsQueryable();
+            var filterAsset = assetRepository.GetAssetsByFilter(user.LocationId,
+                                                                assetParameters.State,
+                                                                assetParameters.Category,
+                                                                assetParameters.Searching,
+                                                                assetParameters.OrderBy);
 
-            if (assets.Any() && !string.IsNullOrWhiteSpace(assetParameters.Searching))
-                assets = assets.Where(x => x.Name.ToLower().Contains(assetParameters.Searching.Trim().ToLower()) || x.Code.ToLower().Contains(assetParameters.Searching.Trim().ToLower()));
-
-            if(assets.Any() && assetParameters.State != null && assetParameters.State.Count != 0)
-                assets = assets.Where(x => assetParameters.State.Contains(x.StateID));
-
-            if (assets.Any() && assetParameters.Category != null && assetParameters.Category.Count != 0 )
-                assets = assets.Where(x => assetParameters.Category.Contains(x.CategoryID));
-
-            assets = assets.ApplySort(assetParameters.OrderBy);
-
-
-            var pageList = PageList<Asset,AssetDTO>.ToPageList(assets, assetParameters.PageNumber, assetParameters.PageSize, _mapper);
+            var pagingAsset = PageList<Asset, AssetDTO>.ToPageList(filterAsset, assetParameters.PageNumber, assetParameters.PageSize, mapper);
 
             var metadata = new
             {
-                pageList.TotalCount,
-                pageList.PageSize,
-                pageList.CurrentPage,
-                pageList.TotalPages,
-                pageList.HasNext,
-                pageList.HasPrevious,
+                pagingAsset.TotalCount,
+                pagingAsset.PageSize,
+                pagingAsset.CurrentPage,
+                pagingAsset.TotalPages,
+                pagingAsset.HasNext,
+                pagingAsset.HasPrevious,
                 assetParameters.State,
                 assetParameters.Category
             };
 
             Response.Headers.Add("Pagination", JsonConvert.SerializeObject(metadata));
 
-            return Ok(pageList);
+            return Ok(pagingAsset);
         }
-
         [HttpGet("GetCategories")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetCategories()
         {
-            var categories = await _unitOfWork.Catagories.GetAllAsync();
-            var dto = _mapper.Map<List<CategoryDTO>>(categories);
+            var categories = await categoryRepository.GetAllAsync();
+            var dto = mapper.Map<List<AssetCategoryDTO>>(categories);
             return Ok(dto);
         }
-        
+
         [HttpGet("GetStates")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetStates()
         {
-            var states = await _unitOfWork.States.GetAllAsync();
-            var dto = _mapper.Map<List<StateDTO>>(states);
+            var states = await stateRepository.GetAllAsync();
+            var dto = mapper.Map<List<AssetStateDTO>>(states);
             return Ok(dto);
         }
+
     }
 }

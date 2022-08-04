@@ -2,8 +2,8 @@ using AssetManagement.Domain.Model;
 
 namespace AssetManagement.Data.Repositories
 {
-    public interface ICategoryRepository : IGenericRpository<Category>
+    public interface ICategoryRepository
     {
-        
+        Task<List<Category>> GetAllAsync();
     }
 }

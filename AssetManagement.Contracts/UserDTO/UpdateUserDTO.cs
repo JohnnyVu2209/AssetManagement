@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AssetManagement.Contracts.UserDTO
 {
-    public class UpdateUserRequest
+    public class UpdateUserDTO
     {
         public string StaffCode { get; set; }
         public DateTime DateOfBirth { get; set; }

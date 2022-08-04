@@ -2,8 +2,8 @@ using AssetManagement.Domain.Model;
 
 namespace AssetManagement.Data.Repositories
 {
-    public interface IStateRepository : IGenericRpository<State>
+    public interface IStateRepository
     {
-
+        Task<List<State>> GetAllAsync();
     }
 }
