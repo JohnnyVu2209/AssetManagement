@@ -1,4 +1,4 @@
-namespace AssetManagement.Contracts.ViewModels
+namespace AssetManagement.Contracts.AssetDTO
 {
     public record AssetDTO
     {

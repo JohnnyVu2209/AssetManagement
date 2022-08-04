@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AssetManagement.Contracts.ViewModels
+namespace AssetManagement.Contracts.UserDTO
 {
-    public class UserViewModel
+    public class UserViewDTO
     {
         public int Id { get; set; }
         public string StaffCode { get; set; }
