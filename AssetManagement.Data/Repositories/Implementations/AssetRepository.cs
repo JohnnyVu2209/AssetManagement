@@ -1,3 +1,6 @@
+using AssetManagement.Contracts.AssetDTO;
+using AssetManagement.Contracts.Constant;
+using AssetManagement.Contracts.Constant.Enums;
 using AssetManagement.Data.Repositories.Extensions;
 using AssetManagement.Domain.Model;
 using Microsoft.EntityFrameworkCore;
@@ -7,9 +10,13 @@ namespace AssetManagement.Data.Repositories.Implementations
     public class AssetRepository: IAssetRepository
     {
         private readonly AssetManagementDbContext context;
-        public AssetRepository(AssetManagementDbContext context) 
+        private readonly ICategoryRepository categoryRepository;
+        private readonly ICurrentUser currentUser;
+        public AssetRepository(AssetManagementDbContext context, ICategoryRepository categoryRepository, ICurrentUser currentUser)
         {
             this.context = context;
+            this.categoryRepository = categoryRepository;
+            this.currentUser = currentUser;
         }
 
         public IQueryable<Asset> GetAssetsByFilter(int location, List<int>? state, List<int>? category, string? searching, string? orderBy)
@@ -43,6 +50,81 @@ namespace AssetManagement.Data.Repositories.Implementations
                             .Include("Category")
                             .Include("Location")
                             .FirstOrDefaultAsync(asset => asset.Code == code);
+        }
+
+        public string GetAssetCode(string categoryPrefix)
+        {
+            return context.Assets
+                .Where(x => x.Code.StartsWith(categoryPrefix))
+                .OrderBy(x => x.Code)
+                .Select(x => x.Code)
+                .LastOrDefault() ?? "";
+        }
+
+        public async Task<ApiResult<string>> CreateAsync(CreateAssetRequest request)
+        {
+            //Check state
+            if (request.AssetStateId != (int)AssetState.Available && request.AssetStateId != (int)AssetState.NotAvailable)
+            {
+                return new ApiResult<string>(null)
+                {
+                    Message = "This asset state is not allowed!",
+                    StatusCode = 400
+                };
+            }
+            //Check category
+            if (!CategoryIdExists(request.CategoryId))
+            {
+                return new ApiResult<string>(null)
+                {
+                    Message = "Category does not exist!",
+                    StatusCode = 400
+                };
+            }
+            var asset = new Asset()
+            {
+                Name = request.AssetName.Trim(),
+                Specification = request.Specification.Trim(),
+                InstalledDate = request.InstalledDate,
+                CategoryID = request.CategoryId,
+                StateID = request.AssetStateId,
+                LocationID = currentUser.LocationId ?? 0
+            };
+            var categoryPrefix = GetCategoryPrefix(request.CategoryId);
+            asset.Code = GenerateAssetCode(categoryPrefix);
+            await context.Assets.AddAsync(asset);
+            await context.SaveChangesAsync();
+
+            return new ApiResult<string>(null)
+            {
+                Message = "Create asset successfully!",
+                StatusCode = 200
+            };
+        }
+
+        private bool CategoryIdExists(int categoryId)
+        {
+            var category = context.Categories.Where(c => c.Id == categoryId).FirstOrDefault();
+            return category != null;
+        }
+
+        private string GenerateAssetCode(string categoryPrefix)
+        {
+            var lastAssetCode = GetAssetCode(categoryPrefix);
+
+            if (lastAssetCode == "")
+            {
+                return categoryPrefix + "000001";
+            }
+            var subCode = Int32.Parse(lastAssetCode.Substring(3)) + 1;
+            var generatedCode = categoryPrefix + subCode.ToString().PadLeft(6, '0');
+            return generatedCode;
+        }
+
+        private string GetCategoryPrefix(int categoryId)
+        {
+            var prefix = categoryRepository.GetCategoryPrefix(categoryId);
+            return prefix;
         }
     }
 }

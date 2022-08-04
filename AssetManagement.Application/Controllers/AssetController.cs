@@ -57,5 +57,17 @@ namespace AssetManagement.Application.Controllers
             return Ok(pagingAsset);
         }
 
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> CreateAsync(CreateAssetRequest request)
+        {
+            var result = await assetRepository.CreateAsync(request);
+            if (result.StatusCode == 400)
+            {
+                return BadRequest(result.Message);
+            }
+            return Ok(result.Message);
+        }
     }
 }
