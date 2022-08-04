@@ -70,8 +70,8 @@ namespace AssetManagement.Application.Tests
                 StatusCode = 200,
             };
 
-            var assignmentRepositoryMock = new Mock<IAssetRepository>();
-            assignmentRepositoryMock.Setup(x => x.CreateAsync(It.IsAny<CreateAssetRequest>())).Returns(Task.FromResult(expectedResult));
+            var assetRepositoryMock = new Mock<IAssetRepository>();
+            assetRepositoryMock.Setup(x => x.CreateAsync(It.IsAny<CreateAssetRequest>())).Returns(Task.FromResult(expectedResult));
 
             var mapperMock = new Mock<IMapper>();
             mapperMock.Setup(s => s.Map<AssetDTO>(asset)).Returns(assetDTO);
@@ -81,7 +81,7 @@ namespace AssetManagement.Application.Tests
             mockUserManager.Setup(u => u.CheckPasswordAsync(It.IsAny<User>(), It.IsAny<string>())).Returns(Task.FromResult(true));
             mockUserManager.Setup(u => u.GetRolesAsync(It.IsAny<User>())).Returns(Task.FromResult(GetUserRole()));
 
-            var controller = new AssetController(mapperMock.Object, assignmentRepositoryMock.Object, mockUserManager.Object);
+            var controller = new AssetController(mapperMock.Object, assetRepositoryMock.Object, mockUserManager.Object);
 
             // Act
             var result = (await controller.CreateAsync(newAsset)) as OkObjectResult;
@@ -133,8 +133,8 @@ namespace AssetManagement.Application.Tests
                 StatusCode = 400,
             };
 
-            var assignmentRepositoryMock = new Mock<IAssetRepository>();
-            assignmentRepositoryMock.Setup(x => x.CreateAsync(It.IsAny<CreateAssetRequest>())).Returns(Task.FromResult(expectedResult));
+            var assetRepositoryMock = new Mock<IAssetRepository>();
+            assetRepositoryMock.Setup(x => x.CreateAsync(It.IsAny<CreateAssetRequest>())).Returns(Task.FromResult(expectedResult));
 
             var mapperMock = new Mock<IMapper>();
             mapperMock.Setup(s => s.Map<AssetDTO>(asset)).Returns(assetDTO);
@@ -144,7 +144,7 @@ namespace AssetManagement.Application.Tests
             mockUserManager.Setup(u => u.CheckPasswordAsync(It.IsAny<User>(), It.IsAny<string>())).Returns(Task.FromResult(true));
             mockUserManager.Setup(u => u.GetRolesAsync(It.IsAny<User>())).Returns(Task.FromResult(GetUserRole()));
 
-            var controller = new AssetController(mapperMock.Object, assignmentRepositoryMock.Object, mockUserManager.Object);
+            var controller = new AssetController(mapperMock.Object, assetRepositoryMock.Object, mockUserManager.Object);
 
             // Act
             var result = (await controller.CreateAsync(newAsset)) as BadRequestObjectResult;
@@ -196,8 +196,8 @@ namespace AssetManagement.Application.Tests
                 StatusCode = 400,
             };
 
-            var assignmentRepositoryMock = new Mock<IAssetRepository>();
-            assignmentRepositoryMock.Setup(x => x.CreateAsync(It.IsAny<CreateAssetRequest>())).Returns(Task.FromResult(expectedResult));
+            var assetRepositoryMock = new Mock<IAssetRepository>();
+            assetRepositoryMock.Setup(x => x.CreateAsync(It.IsAny<CreateAssetRequest>())).Returns(Task.FromResult(expectedResult));
 
             var mapperMock = new Mock<IMapper>();
             mapperMock.Setup(s => s.Map<AssetDTO>(asset)).Returns(assetDTO);
@@ -207,7 +207,7 @@ namespace AssetManagement.Application.Tests
             mockUserManager.Setup(u => u.CheckPasswordAsync(It.IsAny<User>(), It.IsAny<string>())).Returns(Task.FromResult(true));
             mockUserManager.Setup(u => u.GetRolesAsync(It.IsAny<User>())).Returns(Task.FromResult(GetUserRole()));
 
-            var controller = new AssetController(mapperMock.Object, assignmentRepositoryMock.Object, mockUserManager.Object);
+            var controller = new AssetController(mapperMock.Object, assetRepositoryMock.Object, mockUserManager.Object);
 
             // Act
             var result = (await controller.CreateAsync(newAsset)) as BadRequestObjectResult;
