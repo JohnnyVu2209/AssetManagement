@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace AssetManagement.Contracts.AssignmentDTO
 {
-    public class AssignmentParameters : QueryStringParameters
+    public class AssignmentParameters : PagingParameters
     {
-        public List<bool>? State { get; set; } = new(new bool[] { true,false });
+        public List<int>? State { get; set; } = new(new int[] {1,2});
         public DateTime? AssignDate { get; set; }
 
         public string? Searching { get; set; }

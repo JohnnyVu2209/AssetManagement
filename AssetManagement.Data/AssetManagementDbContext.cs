@@ -465,7 +465,7 @@ namespace AssetManagement.Data
                         AssignTo="admindn",
                         AssignBy="adminhcm",
                         AssignDate= DateTime.Now,
-                        AssignmentState=true
+                        AssignmentState= Domain.Model.Enums.AssignmentStateEnums.Accepted
                     },
                     new Assignment
                     {
@@ -478,7 +478,7 @@ namespace AssetManagement.Data
                         AssignTo = "adminhn",
                         AssignBy = "adminhcm",
                         AssignDate = DateTime.Now,
-                        AssignmentState = false
+                        AssignmentState = Domain.Model.Enums.AssignmentStateEnums.Waiting
                     },
                     new Assignment
                     {
@@ -491,7 +491,7 @@ namespace AssetManagement.Data
                         AssignTo = "vinhbx",
                         AssignBy = "adminhcm",
                         AssignDate = DateTime.Now,
-                        AssignmentState = true
+                        AssignmentState = Domain.Model.Enums.AssignmentStateEnums.Accepted
                     }
 
                 )

@@ -18,7 +18,7 @@ namespace AssetManagement.Contracts.AssignmentDTO
         public string AssignTo { get; set; }
         public string AssignBy { get; set; }
         public DateTime AssignDate { get; set; }
-        [Range(0, 1)]
-        public int AssignmentState { get; set; }
+        [Range(1, 2)]
+        public AssignmentStateEnumsDTO AssignmentState { get; set; }
     }
 }

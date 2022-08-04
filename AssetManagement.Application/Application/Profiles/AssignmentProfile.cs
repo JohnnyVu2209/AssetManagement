@@ -10,8 +10,8 @@ namespace AssetManagement.Application.Application
         public AssignmentProfile()
         {
             CreateMap<Assignment, AssignmentDTO>();
-            CreateMap<AssignmentDTO, Assignment>()
-                .ForMember(d => d.AssignmentState, opt => opt.MapFrom(s => s.AssignmentState == 1 ? true : false));
+            CreateMap<AssignmentDTO, Assignment>();
+                //.ForMember(d => d.AssignmentState, opt => opt.MapFrom(s => s.AssignmentState == 1 ? true : false));
         }
     }
 

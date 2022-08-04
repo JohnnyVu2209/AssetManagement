@@ -21,19 +21,13 @@ namespace AssetManagement.Application.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAssignments([FromQuery] AssignmentParameters assignmentParameters)
         {
             try
             {
-                var getAssignments = await _assignmentRepository.GetAsync();
+                var getAssignments = await _assignmentRepository.GetAsync(assignmentParameters.Searching,assignmentParameters.AssignDate, assignmentParameters.State);
                 if (!getAssignments.Any()) return NotFound("Assignment List Empty");
-                if (getAssignments.Any() && !string.IsNullOrWhiteSpace(assignmentParameters.Searching))
-                    getAssignments = getAssignments.Where(x => x.AssetCode.Contains(assignmentParameters.Searching) || x.AssetName.Contains(assignmentParameters.Searching) || x.AssignTo.Contains(assignmentParameters.Searching));
-                if (getAssignments.Any() && assignmentParameters.State != null && assignmentParameters.State.Count != 0)
-                    getAssignments = getAssignments.Where(x => assignmentParameters.State.Contains(x.AssignmentState));
-                if (getAssignments.Any() && assignmentParameters.AssignDate != null)
-                    getAssignments = getAssignments.Where(x =>x.AssignDate.Date == assignmentParameters.AssignDate.Value.Date);
                 var assignmentListDTO = _mapper.Map<List<AssignmentDTO>>(getAssignments);
                 return Ok(assignmentListDTO);
             }

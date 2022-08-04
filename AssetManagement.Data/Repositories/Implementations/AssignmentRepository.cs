@@ -16,9 +16,22 @@ namespace AssetManagement.Data.Repositories.Implementations
         {
             _context = context;
         }
-        public async Task<IEnumerable<Assignment>> GetAsync()
+        public async Task<IEnumerable<Assignment>> GetAsync(string? searching, DateTime? assignDate, List<int>? state)
         {
-            return await _context.Assignments.ToListAsync();
+            IQueryable<Assignment> query = _context.Assignments;
+            if (!string.IsNullOrWhiteSpace(searching))
+            {
+                query = query.Where(x => x.AssetCode.Contains(searching) || x.AssetName.Contains(searching) || x.AssignTo.Contains(searching));
+            }
+            if (assignDate != null)
+            {
+                query = query.Where(x => x.AssignDate.Date == assignDate.Value.Date);
+            }
+            if(state != null && state.Count != 0)
+            {
+                query = query.Where(x => state.Contains((int)x.AssignmentState));
+            }
+            return await query.ToListAsync();
         }
     }
 }

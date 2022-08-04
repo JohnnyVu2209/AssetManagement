@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AssetManagement.Domain.Model.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,7 @@ namespace AssetManagement.Domain.Model
         public string AssetName { get; set; }
         public string AssignTo { get; set; }
         public string AssignBy { get; set; }
-        public bool AssignmentState { get; set; }
+        public AssignmentStateEnums AssignmentState { get; set; }
         public DateTime AssignDate { get; set; }
         public  Asset Asset { get; set; }
         public  User User { get; set; }

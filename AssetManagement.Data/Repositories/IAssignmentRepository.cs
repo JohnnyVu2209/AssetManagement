@@ -9,6 +9,6 @@ namespace AssetManagement.Data.Repositories
 {
     public interface IAssignmentRepository
     {
-        Task<IEnumerable<Assignment>> GetAsync();
+        Task<IEnumerable<Assignment>> GetAsync(string? searching,DateTime? assignDate,List<int>? state);
     }
 }
