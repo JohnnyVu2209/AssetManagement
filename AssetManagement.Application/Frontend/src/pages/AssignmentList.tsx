@@ -29,27 +29,27 @@ const columns: GridColDef[] = [
   {
     field: "assetCode",
     headerName: "Asset Code",
-    width: 200,
+    flex:1,
   },
   {
     field: "assetName",
     headerName: "Asset Name",
-    width: 300,
+    flex:1,
   },
   {
     field: "assignTo",
     headerName: "Assign to",
-    width: 200,
+    flex:1,
   },
   {
     field: "assignBy",
     headerName: "Assign by",
-    width: 200,
+    flex:1,
   },
   {
     field: "assignDate",
     headerName: "Assign Date",
-    width: 150,
+    flex:1,
     type: "date",
     valueFormatter: (params) => {
       const valueFormatted = format(new Date(params.value), "dd/MM/yyyy");
@@ -59,7 +59,7 @@ const columns: GridColDef[] = [
   {
     field: "assignmentState",
     headerName: "State",
-    width: 240,
+    flex:1,
     valueFormatter: (params) => {
       const valueFormatted =
         params.value === 1 ? "Accepted" : "Waiting for acceptance";
@@ -69,7 +69,7 @@ const columns: GridColDef[] = [
   {
     field: "",
     type: "actions",
-    width: 100,
+    flex:1,
     renderCell: () => {
       return (
         <>

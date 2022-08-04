@@ -32,8 +32,8 @@
     color: gray;
 }
 
-.MuiPagination-ul li:last-child button::after {
-    margin-left: 10px;
+.MuiPagination-ul li:last-child button::before {
+    margin-right: 10px;
     content: 'Next';
     color: #e30c18;
 }

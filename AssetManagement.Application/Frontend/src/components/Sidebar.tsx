@@ -19,10 +19,6 @@ function Sidebar() {
         <Link to="/manage-asset">
           <i className="fa-solid fa-bars-progress"></i>Manage Asset
         </Link>
-        <Link to="/list-view">
-        <Link to="/">
-          <i className="fa-solid fa-bars-progress"></i>Manage Asset
-        </Link>
         <Link to="/assignment-list">
           <i className="fa-solid fa-bars-progress"></i>Manage Assingment
         </Link>

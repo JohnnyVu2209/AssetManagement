@@ -32,8 +32,6 @@ function Routes() {
             <RouteGuard path="/list-view" component={ListView} />
             <RouteGuard path="/create-user" component={CreateUser} />
             <RouteGuard path="/manage-asset" component={ManageAsset} />
-            <RouteGuard path="/error" component={Error} />
-            <Redirect from="*" to="/error"/>
             <RouteGuard path="/assignment-list" component={AssignmentList} />
             <UserDetailProvider>
               <ManageUserProvider>
@@ -41,6 +39,8 @@ function Routes() {
               </ManageUserProvider>
             </UserDetailProvider>
             <RouteGuard path="/list-view" component={ListView} />
+            <RouteGuard path="/error" component={Error} />
+            <Redirect from="*" to="/error"/>
           </Switch>
         </div>
       </Router>
