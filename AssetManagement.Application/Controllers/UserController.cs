@@ -20,11 +20,13 @@ namespace AssetManagement.Application.Controllers
         private readonly UserManager<User> userManager;
         private readonly IRoleRepository roleRepository;
         private readonly IMapper mapper;
-        public UserController(UserManager<User> userManager, IMapper mapper, IRoleRepository roleRepository)
+        private readonly IUserRepository userRepository;
+        public UserController(UserManager<User> userManager, IMapper mapper, IRoleRepository roleRepository, IUserRepository userRepository)
         {
             this.userManager = userManager;
             this.mapper = mapper;
             this.roleRepository = roleRepository;
+            this.userRepository = userRepository;
         }
         [HttpPost("createUser")]
         [Authorize(Roles = "Admin")]
@@ -99,6 +101,50 @@ namespace AssetManagement.Application.Controllers
                 return alterUsername;
             }
             return username;
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("{staffcode}")]
+        public async Task<ActionResult> GetByStaffCode(string staffcode)
+        {
+            var data = await userRepository.GetByStaffCodeAsync(staffcode);
+            if (data == null)
+            {
+                return NotFound();
+            }
+            return Ok(data);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet()]
+        public async Task<ActionResult> GetPagination([FromQuery] ViewUserRequest request)
+        {
+            var data = await userRepository.GetPaginationAsync(request);
+            if (data.Items == null)
+            {
+                return BadRequest();
+            }
+            return Ok(data);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPut]
+        public async Task<ActionResult> Update([FromBody] UpdateUserRequest request)
+        {
+            var res = await userRepository.UpdateAsync(request);
+            if (res.StatusCode == 200)
+                return Ok(res.Message);
+            else
+                return BadRequest(res.Message);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("roles")]
+        public async Task<ActionResult> GetRoles()
+        {
+            var res = await userRepository.GetRolesAsync();
+            if (res == null) return BadRequest();
+            return Ok(res);
         }
     }
 }
