@@ -180,7 +180,9 @@ const CreateAsset = () => {
         </div>
         <div className="form-page-form-input-container">
           <div className="form-page-form-input">
-            <label htmlFor="">Asset Name *</label>
+            <label htmlFor="" className="create-asset-label">
+              Asset Name <span style={{ color: "red" }}> *</span>
+            </label>
             <input
               {...register("assetName", {
                 required: "assetName is required",
@@ -195,7 +197,9 @@ const CreateAsset = () => {
           </p>
 
           <div className="form-page-form-input">
-            <label htmlFor="">Category *</label>
+            <label htmlFor="" className="create-asset-label">
+              Category <span style={{ color: "red" }}> *</span>
+            </label>
             <form>
               <Box sx={{ width: 358.86, minHeight: 34 }}>
                 <FormControl fullWidth>
@@ -263,7 +267,9 @@ const CreateAsset = () => {
           </div>
 
           <div className="form-page-form-input">
-            <label htmlFor="">Specification *</label>
+            <label htmlFor="" className="create-asset-label">
+              Specification <span style={{ color: "red" }}> *</span>
+            </label>
             <input
               {...register("specification", {
                 required: "Specification is required",
@@ -277,7 +283,9 @@ const CreateAsset = () => {
             {errors.specification ? errors.specification.message : ""}
           </p>
           <div className="form-page-form-input">
-            <label htmlFor="">Installed Date *</label>
+            <label htmlFor="" className="create-asset-label">
+              Installed Date <span style={{ color: "red" }}> *</span>
+            </label>
             <input
               type="date"
               placeholder="Installed Date"
@@ -291,7 +299,9 @@ const CreateAsset = () => {
             {errors.installedDate ? errors.installedDate.message : ""}
           </p>
           <div className="form-page-form-input">
-            <label htmlFor="">State *</label>
+            <label htmlFor="" className="create-asset-label">
+              State <span style={{ color: "red" }}> *</span>
+            </label>
             <div
               className="form-page-form-input-radio-container"
               style={{ display: "inline-block" }}
