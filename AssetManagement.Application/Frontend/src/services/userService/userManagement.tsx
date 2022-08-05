@@ -4,7 +4,7 @@ import { logout } from "./authentication";
 
 async function getUserByStaffCode(staffCode: string) {
   return await axiosInstance
-    .get("Users/" + staffCode)
+    .get("User/" + staffCode)
     .then((res) => {
       return res;
     })
@@ -16,7 +16,7 @@ async function getUserByStaffCode(staffCode: string) {
 async function updateUser(userInfo: any) {
   console.log(userInfo);
   axiosInstance
-    .put("Users", userInfo)
+    .put("User", userInfo)
     .then((res) => {
       Swal.fire({
         text: "User information updated",

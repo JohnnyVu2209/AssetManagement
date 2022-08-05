@@ -3,7 +3,7 @@ import {logout} from "./authentication";
 
 async function getUserSorting(Keyword: string) {
   return await 
-    axiosInstance.get(`Users?Keyword=${Keyword}`)
+    axiosInstance.get(`User?Keyword=${Keyword}`)
                     .then((res) => {
                         return res;
                     }).catch((error) => {

@@ -140,7 +140,7 @@ namespace AssetManagement.Data.Repositories.Implementations
             return user.LocationId;
         }
 
-        public async Task<ApiResult<string>> UpdateAsync(UpdateUserRequest request)
+        public async Task<ApiResult<string>> UpdateAsync(UpdateUserDTO request)
         {
             string staffCode = request.StaffCode;
 

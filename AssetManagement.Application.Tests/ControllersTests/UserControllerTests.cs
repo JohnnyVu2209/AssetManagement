@@ -898,7 +898,7 @@ namespace AssetManagement.Application.Tests
 
             mockUserManager.Setup(u => u.AddToRoleAsync(It.IsAny<User>(), It.IsAny<string>())).Returns(Task.FromResult(IdentityResult.Failed()));
 
-            mockUserRepository.Setup(u => u.UpdateAsync(It.IsAny<UpdateUserRequest>())).Returns(Task.FromResult(pageResult));
+            mockUserRepository.Setup(u => u.UpdateAsync(It.IsAny<UpdateUserDTO>())).Returns(Task.FromResult(pageResult));
 
             var claimUser = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
             {
@@ -925,7 +925,7 @@ namespace AssetManagement.Application.Tests
             UserController controller = new(mockUserManager.Object, mockMapper.Object, mockRoleRepository.Object, mockUserRepository.Object) { ControllerContext = controllerContext };
 
 
-            OkObjectResult result = await controller.Update(new UpdateUserRequest()) as OkObjectResult;
+            OkObjectResult result = await controller.Update(new UpdateUserDTO()) as OkObjectResult;
 
             Assert.IsType<OkObjectResult>(result);
             Assert.Equal("Update user information successfully!", result.Value.ToString());
@@ -989,7 +989,7 @@ namespace AssetManagement.Application.Tests
 
             mockUserManager.Setup(u => u.AddToRoleAsync(It.IsAny<User>(), It.IsAny<string>())).Returns(Task.FromResult(IdentityResult.Failed()));
 
-            mockUserRepository.Setup(u => u.UpdateAsync(It.IsAny<UpdateUserRequest>())).Returns(Task.FromResult(pageResult));
+            mockUserRepository.Setup(u => u.UpdateAsync(It.IsAny<UpdateUserDTO>())).Returns(Task.FromResult(pageResult));
 
             var claimUser = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
             {
@@ -1016,7 +1016,7 @@ namespace AssetManagement.Application.Tests
             UserController controller = new(mockUserManager.Object, mockMapper.Object, mockRoleRepository.Object, mockUserRepository.Object) { ControllerContext = controllerContext };
 
 
-            BadRequestObjectResult result = await controller.Update(new UpdateUserRequest()) as BadRequestObjectResult;
+            BadRequestObjectResult result = await controller.Update(new UpdateUserDTO()) as BadRequestObjectResult;
 
             Assert.IsType<BadRequestObjectResult>(result);
             Assert.Equal("User is under 18", result.Value.ToString());
@@ -1080,7 +1080,7 @@ namespace AssetManagement.Application.Tests
 
             mockUserManager.Setup(u => u.AddToRoleAsync(It.IsAny<User>(), It.IsAny<string>())).Returns(Task.FromResult(IdentityResult.Failed()));
 
-            mockUserRepository.Setup(u => u.UpdateAsync(It.IsAny<UpdateUserRequest>())).Returns(Task.FromResult(pageResult));
+            mockUserRepository.Setup(u => u.UpdateAsync(It.IsAny<UpdateUserDTO>())).Returns(Task.FromResult(pageResult));
 
             var claimUser = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
             {
@@ -1107,7 +1107,7 @@ namespace AssetManagement.Application.Tests
             UserController controller = new(mockUserManager.Object, mockMapper.Object, mockRoleRepository.Object, mockUserRepository.Object) { ControllerContext = controllerContext };
 
 
-            BadRequestObjectResult result = await controller.Update(new UpdateUserRequest()) as BadRequestObjectResult;
+            BadRequestObjectResult result = await controller.Update(new UpdateUserDTO()) as BadRequestObjectResult;
 
             Assert.IsType<BadRequestObjectResult>(result);
             Assert.Equal("Joined date is Sat or Sun!", result.Value.ToString());

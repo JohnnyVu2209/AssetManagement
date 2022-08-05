@@ -12,7 +12,7 @@ namespace AssetManagement.Data.Repositories
     {
         Task<UserViewDTO> GetByStaffCodeAsync(string staffcode);
         Task<PageResult<UserViewDTO>> GetPaginationAsync(ViewUserRequest request);
-        Task<ApiResult<string>> UpdateAsync(UpdateUserRequest request);
+        Task<ApiResult<string>> UpdateAsync(UpdateUserDTO request);
         Task<List<RoleViewModel>> GetRolesAsync();
     }
 }

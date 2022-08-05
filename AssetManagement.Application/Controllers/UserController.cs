@@ -129,7 +129,7 @@ namespace AssetManagement.Application.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPut]
-        public async Task<ActionResult> Update([FromBody] UpdateUserRequest request)
+        public async Task<ActionResult> Update([FromBody] UpdateUserDTO request)
         {
             var res = await userRepository.UpdateAsync(request);
             if (res.StatusCode == 200)

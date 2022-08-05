@@ -1,4 +1,5 @@
-import axios from "axios";
+/* import axios from "axios"; */
+import axiosInstance from "../axiosInstance";
 import { UserDetailType } from "../../@types/UserDetail";
 
 function getFormattedDate(date: Date) {
@@ -14,7 +15,7 @@ function getFormattedDate(date: Date) {
 }
 
 async function getUserDetail(path: string) {
-    return await axios.get<UserDetailType>(path)
+    return await axiosInstance.get<UserDetailType>(path)
         .then((res) => {
             console.log(res.data)
 
