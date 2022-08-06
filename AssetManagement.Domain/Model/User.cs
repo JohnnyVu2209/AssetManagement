@@ -17,7 +17,6 @@ namespace AssetManagement.Domain.Model
         public int LocationId { get; set; }
         public virtual Location Location { get; set; }
         public virtual List<Assignment> Assignments { get; set; } = new List<Assignment>();
-        public virtual List<Assignment> AssignmentsBys { get; set; } = new List<Assignment>();
 
     }
 }

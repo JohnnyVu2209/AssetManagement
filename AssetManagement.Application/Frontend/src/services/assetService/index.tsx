@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React from 'react'
 import axiosInstance from '../axiosInstance'
 
@@ -28,16 +27,6 @@ const getAssetList = (
   })
 }
 
-const getAssetListBySearch = (searching: string, orderBy: string) => {
-  return axiosInstance.get(`${Asset}/getAssetList`,{
-    params:{
-      searching,
-      orderBy,
-      state:[2]
-    }
-  })
-};
-
 const getCategories = () => {
   return axiosInstance.get(`${Asset}/getCategories`);
 }
@@ -48,8 +37,7 @@ const getStates = () => {
 const assetService = {
   getAssetList,
   getCategories,
-  getStates,
-  getAssetListBySearch
+  getStates
 }
 
 export default assetService;

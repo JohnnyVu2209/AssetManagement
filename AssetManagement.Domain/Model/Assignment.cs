@@ -7,16 +7,20 @@ using System.Threading.Tasks;
 
 namespace AssetManagement.Domain.Model
 {
-    public class Assignment: BaseEntity
+    public class Assignment
     {
+        public int Id { get; set; }
         public int AssetId { get; set; }
-        public Asset Asset { get; set; }
-        public int AssignedToId { get; set; }
-        public User AssignedTo { get; set; }
-        public int AssignedById { get; set; }
-        public User? AssignedBy { get; set; }
-        public DateTime AssignedDate { get; set; }
-        public AssignmentStateEnums AssignedState { get; set; }
-        public string Note { get; set; }
+        public int? UserId { get; set; }
+        public string AssetCode { get; set; }
+        public string StaffCode { get; set; }
+        public string AssetName { get; set; }
+        public string AssignTo { get; set; }
+        public string AssignBy { get; set; }
+        public AssignmentStateEnums AssignmentState { get; set; }
+        public DateTime AssignDate { get; set; }
+        public  Asset Asset { get; set; }
+        public  User User { get; set; }
+
     }
 }
