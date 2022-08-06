@@ -24,6 +24,6 @@ namespace AssetManagement.Contracts
             }
         }
 
-        public string? OrderBy { get; set; } = "UpdatedDate desc";
+        public string? OrderBy { get; set; };
     }
 }

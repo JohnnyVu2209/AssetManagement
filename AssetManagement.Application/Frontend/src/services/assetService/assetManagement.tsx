@@ -13,7 +13,7 @@ async function createAsset(data:any){
             },
             buttonsStyling: false,
             }).then(() => {
-                window.location.href = "/manage-asset";
+                window.location.href = "/manage-asset/true";
                 // window.location.href = "/manage-user";
             });
         })

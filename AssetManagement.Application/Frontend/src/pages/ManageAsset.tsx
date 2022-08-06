@@ -24,10 +24,12 @@ import {
   TableRow,
   TableSortLabel,
   TextField,
-  ThemeProvider
+  ThemeProvider,
+  Typography
 } from '@mui/material'
+import SearchOffIcon from '@mui/icons-material/SearchOff';
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SearchIcon from '@mui/icons-material/Search';
 import CheckIcon from '@mui/icons-material/Check';
@@ -124,7 +126,8 @@ interface AssetData {
   code: string,
   name: string,
   category: string,
-  state: string
+  state: string,
+  updatedDate: string
 }
 
 interface SelectData {
@@ -144,10 +147,15 @@ type Pagination = {
   TotalPages: number;
 }
 
+interface ParamsType {
+  sort: string
+}
+
 
 const ManageAsset = () => {
   const { categories, states } = useAppSelector(state => state.assets);
   const dispatch = useAppDispatch();
+  const { sort } = useParams<ParamsType>();
   const [stateData, setStateData] = useState<SelectData[]>([
     {
       id: 1,
@@ -174,7 +182,7 @@ const ManageAsset = () => {
   const [pagination, setPagination] = useState<Pagination>();
   const [filterName, setFilterName] = useState('');
   const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof AssetData>('name');
+  const [orderBy, setOrderBy] = React.useState<keyof AssetData>('code');
 
   useEffect(() => {
     dispatch(getCategories());
@@ -182,6 +190,20 @@ const ManageAsset = () => {
   }, []);
 
   useEffect(() => {
+    if (performance.navigation.type === 1) {
+      console.log("This page is reloaded");
+      window.location.href = "/manage-asset";
+    } else {
+      console.log("This page is not reloaded");
+    }
+  })
+
+
+  useEffect(() => {
+    if (sort) {
+      setOrderBy("updatedDate");
+      setOrder('desc');
+    }
     assetService.getAssetList(
       page,
       pageSize,
@@ -195,7 +217,7 @@ const ManageAsset = () => {
         const pagination = JSON.parse(response.headers.pagination);
         setPagination(pagination);
       })
-  }, [page, pageSize, orderBy, order, filterName, stateData, categoryData]);
+  }, [page, pageSize, orderBy, order, filterName, stateData, categoryData, sort]);
 
   useEffect(() => {
     if (categories.length > 1) {
@@ -291,6 +313,10 @@ const ManageAsset = () => {
   const handlePageChange = (event: any, page: number) => {
     setPage(page);
   }
+
+  const isDataNotFound = assetData.length === 0;
+
+  const emptyRows = page > 1 && pagination ? Math.max(0, page * pageSize - pagination.TotalCount) : 0;
 
   return (
     <div className="app-content page-container">
@@ -402,7 +428,26 @@ const ManageAsset = () => {
                   </TableCell>
                 </TableRow>
               ))}
+              {emptyRows > 0 && (
+                <TableRow style={{ height: 53 * emptyRows }}>
+                  <TableCell colSpan={6} />
+                </TableRow>
+              )}
             </TableBody>
+            {isDataNotFound && (
+              <TableBody>
+                <TableRow>
+                  <TableCell align='center' colSpan={6} sx={{ py: 3 }}>
+                    <Paper>
+                      <SearchOffIcon/>
+                      <Typography gutterBottom align='center' variant='subtitle1'>
+                        Data not found
+                      </Typography>
+                    </Paper>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            )}
             <div style={{
               position: "absolute",
               right: "36px",
