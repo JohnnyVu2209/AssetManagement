@@ -1,4 +1,5 @@
 ﻿using AssetManagement.Domain.Model;
+using AssetManagement.Domain.Model.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -103,7 +104,7 @@ namespace AssetManagement.Data.Extensions
                 CreatedDate = DateTime.Now,
                 UpdatedDate = DateTime.Now,
                 FirstName = "Yen",
-                LastName= "Jennie",
+                LastName = "Jennie",
                 UserName = "AdminHN",
                 NormalizedUserName = "ADMINHN",
                 SecurityStamp = Guid.NewGuid().ToString("D"),
@@ -219,12 +220,12 @@ namespace AssetManagement.Data.Extensions
             user2.PasswordHash = passwordHasher.HashPassword(user2, "User123");
             user3.PasswordHash = passwordHasher.HashPassword(user3, "User123");
             user4.PasswordHash = passwordHasher.HashPassword(user4, "User123");
-            user5.PasswordHash = passwordHasher.HashPassword(user5,  "User123");
-            user6.PasswordHash = passwordHasher.HashPassword(user6,  "User123");
-            user7.PasswordHash = passwordHasher.HashPassword(user7,  "User123");
+            user5.PasswordHash = passwordHasher.HashPassword(user5, "User123");
+            user6.PasswordHash = passwordHasher.HashPassword(user6, "User123");
+            user7.PasswordHash = passwordHasher.HashPassword(user7, "User123");
             disableUser.PasswordHash = passwordHasher.HashPassword(disableUser, "Admin123");
 
-            modelBuilder.Entity<User>().HasData(adminHCM, adminDN, adminHN, user1, user2, user3, user4, user5, user6,user7, disableUser);
+            modelBuilder.Entity<User>().HasData(adminHCM, adminDN, adminHN, user1, user2, user3, user4, user5, user6, user7, disableUser);
 
             //User Role
             modelBuilder.Entity<IdentityUserRole<int>>(b =>
@@ -293,7 +294,7 @@ namespace AssetManagement.Data.Extensions
                         Specification = "Dummy Spec 1",
                         InstalledDate = DateTime.Now,
                         CategoryID = categories[0].Id,
-                        StateID = states[1].Id,
+                        StateID = states[0].Id,
                         LocationID = locations[0].Id,
                         CreatedDate = DateTime.Now,
                         UpdatedDate = DateTime.Now,
@@ -332,7 +333,7 @@ namespace AssetManagement.Data.Extensions
                         Specification = "Dummy Spec 4",
                         InstalledDate = DateTime.Now,
                         CategoryID = categories[0].Id,
-                        StateID = states[1].Id,
+                        StateID = states[0].Id,
                         LocationID = locations[0].Id,
                         CreatedDate = DateTime.Now,
                         UpdatedDate = DateTime.Now,
@@ -371,7 +372,7 @@ namespace AssetManagement.Data.Extensions
                         Specification = "Dummy Spec 7",
                         InstalledDate = DateTime.Now,
                         CategoryID = categories[0].Id,
-                        StateID = states[1].Id,
+                        StateID = states[0].Id,
                         LocationID = locations[0].Id,
                         CreatedDate = DateTime.Now,
                         UpdatedDate = DateTime.Now,
@@ -448,53 +449,68 @@ namespace AssetManagement.Data.Extensions
         #endregion
 
         #region Assignment
-        public static void SeedAssignment(this ModelBuilder modelBuilder) {
+        public static void SeedAssignment(this ModelBuilder modelBuilder)
+        {
             modelBuilder.Entity<Assignment>().ToTable("Assignments");
 
-            modelBuilder.Entity<Assignment>(
-                entity => entity.HasData
-                (
-                    new Assignment
-                    {
-                        Id = 1,
-                        AssetId = 1,
-                        UserId = 2,
-                        AssetCode = "LA000001",
-                        AssetName = "Laptop HP Probook 450 G1",
-                        StaffCode = "SD0002",
-                        AssignTo = "admindn",
-                        AssignBy = "adminhcm",
-                        AssignDate = DateTime.Now,
-                        AssignmentState = Domain.Model.Enums.AssignmentStateEnums.Accepted
-                    },
-                    new Assignment
-                    {
-                        Id = 2,
-                        AssetId = 1,
-                        UserId = 3,
-                        AssetCode = "LA000001",
-                        AssetName = "Laptop HP Probook 450 G1",
-                        StaffCode = "SD0003",
-                        AssignTo = "adminhn",
-                        AssignBy = "adminhcm",
-                        AssignDate = DateTime.Now,
-                        AssignmentState = Domain.Model.Enums.AssignmentStateEnums.Waiting
-                    },
-                    new Assignment
-                    {
-                        Id = 3,
-                        AssetId = 1,
-                        UserId = 4,
-                        AssetCode = "LA000001",
-                        AssetName = "Laptop HP Probook 450 G1",
-                        StaffCode = "SD0003",
-                        AssignTo = "vinhbx",
-                        AssignBy = "adminhcm",
-                        AssignDate = DateTime.Now,
-                        AssignmentState = Domain.Model.Enums.AssignmentStateEnums.Accepted
-                    }
+            modelBuilder.Entity<Assignment>
+            (
+                entity =>
+                {
+                    entity.HasOne(x => x.AssignedTo)
+                    .WithMany(x => x.Assignments)
+                    .HasForeignKey(x => x.AssignedToId)
+                    .OnDelete(DeleteBehavior.NoAction);
 
-                )
+                    entity.HasOne(x => x.AssignedBy)
+                    .WithMany(x => x.AssignmentsBys)
+                    .HasForeignKey(x => x.AssignedById)
+                    .OnDelete(DeleteBehavior.NoAction);
+                }
+            ); 
+
+            modelBuilder.Entity<Assignment>(
+                entity =>
+                {
+                    entity.HasData(
+                        new Assignment
+                        {
+                            Id = 1,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                            AssetId = 1,
+                            AssignedById = 1,
+                            AssignedToId = 4,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now,
+                        },
+                        new Assignment
+                        {
+                            Id = 2,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                            AssetId = 4,
+                            AssignedById = 1,
+                            AssignedToId = 4,
+                            AssignedState = AssignmentStateEnums.Accepted,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now,
+                        },
+                        new Assignment
+                        {
+                            Id = 3,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                            AssetId = 7,
+                            AssignedById = 1,
+                            AssignedToId = 4,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now,
+                        }
+                    );
+                }
             );
         }
         #endregion

@@ -37,18 +37,18 @@ const columns: GridColDef[] = [
     flex:1,
   },
   {
-    field: "assignTo",
-    headerName: "Assign to",
+    field: "assignedTo",
+    headerName: "Assigned to",
     flex:1,
   },
   {
-    field: "assignBy",
-    headerName: "Assign by",
+    field: "assignedBy",
+    headerName: "Assigned by",
     flex:1,
   },
   {
-    field: "assignDate",
-    headerName: "Assign Date",
+    field: "assignedDate",
+    headerName: "Assigned Date",
     flex:1,
     type: "date",
     valueFormatter: (params) => {
@@ -57,7 +57,7 @@ const columns: GridColDef[] = [
     },
   },
   {
-    field: "assignmentState",
+    field: "assignedState",
     headerName: "State",
     flex:1,
     valueFormatter: (params) => {

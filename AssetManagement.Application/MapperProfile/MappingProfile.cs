@@ -1,4 +1,5 @@
 ﻿using AssetManagement.Contracts.AssetDTO;
+using AssetManagement.Contracts.AssignmentDTO;
 using AssetManagement.Contracts.UserDTO;
 using AssetManagement.Domain.Model;
 using AutoMapper;
@@ -12,7 +13,7 @@ namespace AssetManagement.Application.MapperProfile
             CreateMap<User, UserViewDTO>();
             CreateMap<CreateUserDTO, User>()
                 .ForMember(d => d.SecurityStamp, opt => opt.MapFrom(s => Guid.NewGuid().ToString()))
-                .ForMember(d => d.Gender, opt => opt.MapFrom(s => s.Gender == 1 ? true : false)); 
+                .ForMember(d => d.Gender, opt => opt.MapFrom(s => s.Gender == 1)); 
         }
     }
 
@@ -43,6 +44,15 @@ namespace AssetManagement.Application.MapperProfile
         public MapStateDTOs()
         {
             CreateMap<State, AssetStateDTO>();
+        }
+    }
+    public class AssignmentProfile : Profile
+    {
+        public AssignmentProfile()
+        {
+            CreateMap<Assignment, AssignmentDTO>();
+            CreateMap<AssignmentDTO, Assignment>();
+            //.ForMember(d => d.AssignmentState, opt => opt.MapFrom(s => s.AssignmentState == 1 ? true : false));
         }
     }
 }
