@@ -13,18 +13,17 @@ import SearchIcon from "@mui/icons-material/Search";
 import EditIcon from "@mui/icons-material/Edit";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { Link } from "react-router-dom";
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Checkbox from '@mui/material/Checkbox';
-import ListItemText from '@mui/material/ListItemText';
-import InputBase from '@mui/material/InputBase';
-import IconButton from '@mui/material/IconButton';
-import Paper from '@mui/material/Paper';
-import {getUserList} from "../services/userService/userManagement";
-
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Checkbox from "@mui/material/Checkbox";
+import ListItemText from "@mui/material/ListItemText";
+import InputBase from "@mui/material/InputBase";
+import IconButton from "@mui/material/IconButton";
+import Paper from "@mui/material/Paper";
+import { getUserList } from "../services/userService/userManagement";
 
 const columns: GridColDef[] = [
   /* {
@@ -35,14 +34,14 @@ const columns: GridColDef[] = [
   {
     field: "staffCode",
     headerName: "Staff Code",
-    flex:1,
+    flex: 1,
     /* width: 100,
     editable: true, */
   },
   {
     field: "fullName",
     headerName: "Full name",
-    flex:1,
+    flex: 1,
     /* width: 150,
     editable: true, */
     valueGetter: (params) =>
@@ -63,14 +62,14 @@ const columns: GridColDef[] = [
   {
     field: "userName",
     headerName: "User name",
-    flex:1,
+    flex: 1,
     /* width: 100,
     editable: true, */
   },
   {
     field: "type",
     headerName: "Type",
-    flex:1,
+    flex: 1,
     /* valueFormatter: (params) => {
       const valueFormatted =
         params.value === true ? "Admin" : "User";
@@ -116,28 +115,27 @@ function ManageUser() {
   } = React.useContext(ManageUserContext) as manageUserTypeContext;
   const { openUserDetail } = React.useContext(
     UserDetailContext
-  ) as UserDetailContextType; 
+  ) as UserDetailContextType;
 
   useEffect(() => {
     /* getPagination(); */
     getUserList(filterContent).then((res) => {
-      console.log(res)
-      if(res.response){
+      console.log(res);
+      if (res.response) {
         let staffCode = res.response.type;
-        if (staffCode == 404){
+        if (staffCode == 404) {
           /* Data === []; */
           setUserList([]);
         }
       }
-      if (res.data){
+      if (res.data) {
         /* Data === res.data; */
         setUserList(res.data.items);
       }
-    })
+    });
   }, [filterContent]);
 
   //----------------------------------------------------------------
-
 
   const testSearch = (e: any) => {
     e.preventDefault();
@@ -162,9 +160,7 @@ function ManageUser() {
     }
     setSelected(value);
     setFilterContent({ ...filterContent, type: value });
-  };//
-
-  
+  }; //
 
   return (
     <>
@@ -174,7 +170,7 @@ function ManageUser() {
           <h1 className="page-title">User List</h1>
         </div>
         <div className="page-filter">
-        <div className="page-filter-left">
+          <div className="page-filter-left">
             <FormControl sx={{ width: 300 }}>
               <InputLabel id="mutiple-select-label">Select Type</InputLabel>
               <Select
@@ -185,9 +181,7 @@ function ManageUser() {
                 renderValue={(selected) => {
                   let test = [] as string[];
                   selected.forEach((element) => {
-                    element === 1
-                      ? test.push("Admin")
-                      : test.push("User");
+                    element === 1 ? test.push("Admin") : test.push("User");
                   });
                   return test.join(", ");
                 }}
@@ -208,11 +202,7 @@ function ManageUser() {
                     <ListItemIcon>
                       <Checkbox checked={selected.indexOf(option) > -1} />
                     </ListItemIcon>
-                    <ListItemText
-                      primary={
-                        option === 1 ? "Admin" : "User"
-                      }
-                    />
+                    <ListItemText primary={option === 1 ? "Admin" : "User"} />
                   </MenuItem>
                 ))}
               </Select>
@@ -239,17 +229,17 @@ function ManageUser() {
                 onChange={handleSearchChange}
               />
               <IconButton sx={{ p: "10px" }} aria-label="search">
-                <SearchIcon 
+                <SearchIcon
                   type="submit"
-                  id="searchSubmit" 
-                  /* onClick={goSearching} */ />
+                  id="searchSubmit"
+                  /* onClick={goSearching} */
+                />
               </IconButton>
             </Paper>
             <Link to="/create-user">
               <button
                 className="page-create-button button"
                 style={{ width: "200px" }}
-                onClick={() => open()}
               >
                 Create new user
               </button>
@@ -267,7 +257,7 @@ function ManageUser() {
               },
             }}
             /* rows={Data} */
-           rows = {userList}
+            rows={userList}
             columns={columns}
             pageSize={5}
             //rowsPerPageOptions={[5,10,20]} /
@@ -275,7 +265,9 @@ function ManageUser() {
             onRowClick={(params) => {
               openUserDetail(params);
             }}
-            components={{/*  Pagination: CustomPagination, */ Toolbar: DataGridToolbar }}
+            components={{
+              /*  Pagination: CustomPagination, */ Toolbar: DataGridToolbar,
+            }}
             componentsProps={{
               panel: {
                 sx: {

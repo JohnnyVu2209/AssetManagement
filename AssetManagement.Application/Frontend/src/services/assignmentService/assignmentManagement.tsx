@@ -3,15 +3,18 @@ import axiosInstance from "../axiosInstance";
 async function getAssignmentList(sortingOption?: any) {
   let stateArray = sortingOption.state;
   let stateString = "";
+  let searchString = "";
+  let assignDateString = "";
   stateArray.forEach((element: any) => {
     stateString += `&state=${element}`;
   });
-  console.log(stateString);
-
+  if (sortingOption.searching)
+    searchString = `&searching=${sortingOption.searching}`;
+  if (assignDateString)
+    assignDateString = `&assignDate=${sortingOption.assignDate}`;
+  // console.log(stateString);
   return await axiosInstance
-    .get(
-      `Assignment?searching=${sortingOption.searching}${stateString}&assignDate=${sortingOption.assignDate}`
-    )
+    .get(`Assignment?${searchString}${stateString}${assignDateString}`)
     .then((res) => {
       return res;
     })
