@@ -2,6 +2,26 @@ import Swal from "sweetalert2";
 import axiosInstance from "../axiosInstance";
 import { logout } from "./authentication";
 
+async function getUserList(sortingOption?: any) {
+  let typeArray = sortingOption.type;
+  let typeString = "";
+  typeArray.forEach((element: any) => {
+    typeString += `&Type=${element == 1 ? "Admin" : "User"}`;
+  });
+  console.log(typeString);
+
+  return await axiosInstance
+    .get(
+      `User?${typeString}&Keyword=${sortingOption.searching}`
+    )
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      return error;
+    });
+}
+
 async function getUserByStaffCode(staffCode: string) {
   return await axiosInstance
     .get("User/" + staffCode)
@@ -74,4 +94,4 @@ async function createUser(data: any) {
     });
 }
 
-export { getUserByStaffCode, updateUser, createUser };
+export { getUserList, getUserByStaffCode, updateUser, createUser };

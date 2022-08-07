@@ -41,6 +41,14 @@ namespace AssetManagement.Data.Repositories.Implementations
 
         public async Task<ApiResult<string>> CreateAsync(CreateCategoryRequest request)
         {
+            if (string.IsNullOrEmpty(request.Name) || string.IsNullOrEmpty(request.Prefix))
+            {
+                return new ApiResult<string>(null)
+                {
+                    Message = "Category name or prefix is empty!",
+                    StatusCode = 400
+                };
+            }
             if (CategoryIdExists(request.Prefix))
             {
                 return new ApiResult<string>(null)
