@@ -34,6 +34,26 @@ async function createAsset(data: any) {
 }
 
 async function createCategory(data: any) {
+  if (!data.name) {
+    Swal.fire({
+      text: "Category is required!",
+      customClass: {
+        confirmButton: "button",
+      },
+      buttonsStyling: false,
+    });
+    return;
+  }
+  if (!data.prefix) {
+    Swal.fire({
+      text: "Prefix is required!",
+      customClass: {
+        confirmButton: "button",
+      },
+      buttonsStyling: false,
+    });
+    return;
+  }
   axiosInstance
     .post("Categories", data)
     .then((data) => {
