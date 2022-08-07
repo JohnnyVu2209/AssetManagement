@@ -108,7 +108,7 @@ function ManageUser() {
   const [userList, setUserList] = useState([]);
 
   //----------------------------------------------------------------
-  /* const {
+  const {
     Data,
     handleChangeSearching,
     goSearching,
@@ -116,7 +116,7 @@ function ManageUser() {
   } = React.useContext(ManageUserContext) as manageUserTypeContext;
   const { openUserDetail } = React.useContext(
     UserDetailContext
-  ) as UserDetailContextType; */
+  ) as UserDetailContextType; 
 
   useEffect(() => {
     /* getPagination(); */
@@ -272,9 +272,9 @@ function ManageUser() {
             pageSize={5}
             //rowsPerPageOptions={[5,10,20]} /
             disableSelectionOnClick
-            /* onRowClick={(params) => {
+            onRowClick={(params) => {
               openUserDetail(params);
-            }} */
+            }}
             components={{/*  Pagination: CustomPagination, */ Toolbar: DataGridToolbar }}
             componentsProps={{
               panel: {
