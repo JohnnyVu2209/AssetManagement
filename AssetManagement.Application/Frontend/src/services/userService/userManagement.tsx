@@ -2,9 +2,29 @@ import Swal from "sweetalert2";
 import axiosInstance from "../axiosInstance";
 import { logout } from "./authentication";
 
+async function getUserList(sortingOption?: any) {
+  let typeArray = sortingOption.type;
+  let typeString = "";
+  typeArray.forEach((element: any) => {
+    typeString += `&Type=${element == 1 ? "Admin" : "User"}`;
+  });
+  console.log(typeString);
+
+  return await axiosInstance
+    .get(
+      `User?${typeString}&Keyword=${sortingOption.searching}`
+    )
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      return error;
+    });
+}
+
 async function getUserByStaffCode(staffCode: string) {
   return await axiosInstance
-    .get("Users/" + staffCode)
+    .get("User/" + staffCode)
     .then((res) => {
       return res;
     })
@@ -16,7 +36,7 @@ async function getUserByStaffCode(staffCode: string) {
 async function updateUser(userInfo: any) {
   console.log(userInfo);
   axiosInstance
-    .put("Users", userInfo)
+    .put("User", userInfo)
     .then((res) => {
       Swal.fire({
         text: "User information updated",
@@ -74,4 +94,4 @@ async function createUser(data: any) {
     });
 }
 
-export { getUserByStaffCode, updateUser, createUser };
+export { getUserList, getUserByStaffCode, updateUser, createUser };

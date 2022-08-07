@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AssetManagement.Contracts.Constant
 {
-    public class PagedResult<T>
+    public class PageResult<T>
     {
         public List<T> Items { get; set; }
         public int Page { get; set; }

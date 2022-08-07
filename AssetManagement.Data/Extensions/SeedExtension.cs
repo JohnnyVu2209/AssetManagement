@@ -1,4 +1,5 @@
 ﻿using AssetManagement.Domain.Model;
+using AssetManagement.Domain.Model.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -103,7 +104,7 @@ namespace AssetManagement.Data.Extensions
                 CreatedDate = DateTime.Now,
                 UpdatedDate = DateTime.Now,
                 FirstName = "Yen",
-                LastName= "Jennie",
+                LastName = "Jennie",
                 UserName = "AdminHN",
                 NormalizedUserName = "ADMINHN",
                 SecurityStamp = Guid.NewGuid().ToString("D"),
@@ -156,7 +157,6 @@ namespace AssetManagement.Data.Extensions
                 UpdatedDate = DateTime.Now,
                 UserName = "duclh",
                 SecurityStamp = Guid.NewGuid().ToString("D"),
-                PasswordHash = passwordHasher.HashPassword(null, "duc123"),
                 LocationId = 2,
                 StaffCode = "SD0007",
             };
@@ -169,7 +169,6 @@ namespace AssetManagement.Data.Extensions
                 UpdatedDate = DateTime.Now,
                 UserName = "truongqv",
                 SecurityStamp = Guid.NewGuid().ToString("D"),
-                PasswordHash = passwordHasher.HashPassword(null, "truong123"),
                 LocationId = 1,
                 StaffCode = "SD0008",
             };
@@ -182,7 +181,6 @@ namespace AssetManagement.Data.Extensions
                 UpdatedDate = DateTime.Now,
                 UserName = "longtt",
                 SecurityStamp = Guid.NewGuid().ToString("D"),
-                PasswordHash = passwordHasher.HashPassword(null, "long123"),
                 LocationId = 3,
                 StaffCode = "SD0009",
             };
@@ -195,9 +193,44 @@ namespace AssetManagement.Data.Extensions
                 UpdatedDate = DateTime.Now,
                 UserName = "luonggc",
                 SecurityStamp = Guid.NewGuid().ToString("D"),
-                PasswordHash = passwordHasher.HashPassword(null, "luong123"),
                 LocationId = 1,
                 StaffCode = "SD0010",
+            };
+            var user8 = new User()
+            {
+                Id = 12,
+                FirstName = "Minh Khai",
+                LastName = "Nguyen Thi",
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now,
+                UserName = "minhkhaint",
+                SecurityStamp = Guid.NewGuid().ToString("D"),
+                LocationId = 1,
+                StaffCode = "SD0012",
+            };
+            var user9 = new User()
+            {
+                Id = 13,
+                FirstName = "Lan Ong",
+                LastName = "Hai Thuong",
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now,
+                UserName = "lanonght",
+                SecurityStamp = Guid.NewGuid().ToString("D"),
+                LocationId = 1,
+                StaffCode = "SD0013",
+            };
+            var user10 = new User()
+            {
+                Id = 14,
+                FirstName = "Hoang",
+                LastName = "Ly Chieu",
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now,
+                UserName = "hoanglc",
+                SecurityStamp = Guid.NewGuid().ToString("D"),
+                LocationId = 1,
+                StaffCode = "SD0014",
             };
 
             var disableUser = new User()
@@ -219,12 +252,15 @@ namespace AssetManagement.Data.Extensions
             user2.PasswordHash = passwordHasher.HashPassword(user2, "User123");
             user3.PasswordHash = passwordHasher.HashPassword(user3, "User123");
             user4.PasswordHash = passwordHasher.HashPassword(user4, "User123");
-            user5.PasswordHash = passwordHasher.HashPassword(user5,  "User123");
-            user6.PasswordHash = passwordHasher.HashPassword(user6,  "User123");
-            user7.PasswordHash = passwordHasher.HashPassword(user7,  "User123");
+            user5.PasswordHash = passwordHasher.HashPassword(user5, "User123");
+            user6.PasswordHash = passwordHasher.HashPassword(user6, "User123");
+            user7.PasswordHash = passwordHasher.HashPassword(user7, "User123");
+            user8.PasswordHash = passwordHasher.HashPassword(user8, "User123");
+            user9.PasswordHash = passwordHasher.HashPassword(user9, "User123");
+            user10.PasswordHash = passwordHasher.HashPassword(user10, "User123");
             disableUser.PasswordHash = passwordHasher.HashPassword(disableUser, "Admin123");
 
-            modelBuilder.Entity<User>().HasData(adminHCM, adminDN, adminHN, user1, user2, user3, user4, user5, user6,user7, disableUser);
+            modelBuilder.Entity<User>().HasData(adminHCM, adminDN, adminHN, user1, user2, user3, user4, user5, user6, user7, user8, user9, user10, disableUser);
 
             //User Role
             modelBuilder.Entity<IdentityUserRole<int>>(b =>
@@ -240,7 +276,11 @@ namespace AssetManagement.Data.Extensions
                     new IdentityUserRole<int>() { RoleId = 1, UserId = 7 },
                     new IdentityUserRole<int>() { RoleId = 2, UserId = 8 },
                     new IdentityUserRole<int>() { RoleId = 2, UserId = 9 },
-                    new IdentityUserRole<int>() { RoleId = 2, UserId = 10 }
+                    new IdentityUserRole<int>() { RoleId = 2, UserId = 10 },
+                    new IdentityUserRole<int>() { RoleId = 1, UserId = 11 },
+                    new IdentityUserRole<int>() { RoleId = 2, UserId = 12 },
+                    new IdentityUserRole<int>() { RoleId = 2, UserId = 13 },
+                    new IdentityUserRole<int>() { RoleId = 2, UserId = 14 }
                 );
             });
 
@@ -285,216 +325,1064 @@ namespace AssetManagement.Data.Extensions
             modelBuilder.Entity<Asset>(
                 entity => entity.HasData
                 (
-                    new Asset
-                    {
-                        Id = 1,
-                        Code = "LA000001",
-                        Name = "Laptop HP Probook 450 G1",
-                        Specification = "Dummy Spec 1",
-                        InstalledDate = DateTime.Now,
-                        CategoryID = categories[0].Id,
-                        StateID = states[1].Id,
-                        LocationID = locations[0].Id,
-                        CreatedDate = DateTime.Now,
-                        UpdatedDate = DateTime.Now,
-                    },
-                    new Asset
-                    {
-                        Id = 2,
-                        Code = "MO000001",
-                        Name = "Moninor Dell UltraSharp",
-                        Specification = "Dummy Spec 2",
-                        InstalledDate = DateTime.Now,
-                        CategoryID = categories[0].Id,
-                        StateID = states[1].Id,
-                        LocationID = locations[1].Id,
-                        CreatedDate = DateTime.Now,
-                        UpdatedDate = DateTime.Now,
-                    },
-                    new Asset
-                    {
-                        Id = 3,
-                        Code = "PC000001",
-                        Name = "Personal Computer",
-                        Specification = "Dummy Spec 3",
-                        InstalledDate = DateTime.Now,
-                        CategoryID = categories[0].Id,
-                        StateID = states[1].Id,
-                        LocationID = locations[2].Id,
-                        CreatedDate = DateTime.Now,
-                        UpdatedDate = DateTime.Now,
-                    },
-                    new Asset
-                    {
-                        Id = 4,
-                        Code = "LA000002",
-                        Name = "Laptop HP Probook 450 G1",
-                        Specification = "Dummy Spec 4",
-                        InstalledDate = DateTime.Now,
-                        CategoryID = categories[0].Id,
-                        StateID = states[1].Id,
-                        LocationID = locations[0].Id,
-                        CreatedDate = DateTime.Now,
-                        UpdatedDate = DateTime.Now,
-                    },
-                    new Asset
-                    {
-                        Id = 5,
-                        Code = "MO000002",
-                        Name = "Moninor Dell UltraSharp",
-                        Specification = "Dummy Spec 5",
-                        InstalledDate = DateTime.Now,
-                        CategoryID = categories[0].Id,
-                        StateID = states[1].Id,
-                        LocationID = locations[1].Id,
-                        CreatedDate = DateTime.Now,
-                        UpdatedDate = DateTime.Now,
-                    },
-                    new Asset
-                    {
-                        Id = 6,
-                        Code = "PC000002",
-                        Name = "Personal Computer",
-                        Specification = "Dummy Spec 6",
-                        InstalledDate = DateTime.Now,
-                        CategoryID = categories[0].Id,
-                        StateID = states[1].Id,
-                        LocationID = locations[2].Id,
-                        CreatedDate = DateTime.Now,
-                        UpdatedDate = DateTime.Now,
-                    },
-                    new Asset
-                    {
-                        Id = 7,
-                        Code = "LA000003",
-                        Name = "Laptop HP Probook 450 G1",
-                        Specification = "Dummy Spec 7",
-                        InstalledDate = DateTime.Now,
-                        CategoryID = categories[0].Id,
-                        StateID = states[1].Id,
-                        LocationID = locations[0].Id,
-                        CreatedDate = DateTime.Now,
-                        UpdatedDate = DateTime.Now,
-                    },
-                    new Asset
-                    {
-                        Id = 8,
-                        Code = "MO000003",
-                        Name = "Moninor Dell UltraSharp",
-                        Specification = "Dummy Spec 8",
-                        InstalledDate = DateTime.Now,
-                        CategoryID = categories[0].Id,
-                        StateID = states[1].Id,
-                        LocationID = locations[1].Id,
-                        CreatedDate = DateTime.Now,
-                        UpdatedDate = DateTime.Now,
-                    },
-                    new Asset
-                    {
-                        Id = 9,
-                        Code = "PC000003",
-                        Name = "Personal Computer",
-                        Specification = "Dummy Spec 9",
-                        InstalledDate = DateTime.Now,
-                        CategoryID = categories[0].Id,
-                        StateID = states[1].Id,
-                        LocationID = locations[2].Id,
-                        CreatedDate = DateTime.Now,
-                        UpdatedDate = DateTime.Now,
-                    },
-                    new Asset
-                    {
-                        Id = 10,
-                        Code = "LA000004",
-                        Name = "Laptop HP Probook 450 G1",
-                        Specification = "Dummy Spec 10",
-                        InstalledDate = DateTime.Now,
-                        CategoryID = categories[0].Id,
-                        StateID = states[1].Id,
-                        LocationID = locations[0].Id,
-                        CreatedDate = DateTime.Now,
-                        UpdatedDate = DateTime.Now,
-                    },
-                    new Asset
-                    {
-                        Id = 11,
-                        Code = "MO000004",
-                        Name = "Moninor Dell UltraSharp",
-                        Specification = "Dummy Spec 11",
-                        InstalledDate = DateTime.Now,
-                        CategoryID = categories[0].Id,
-                        StateID = states[1].Id,
-                        LocationID = locations[1].Id,
-                        CreatedDate = DateTime.Now,
-                        UpdatedDate = DateTime.Now,
-                    },
-                    new Asset
-                    {
-                        Id = 12,
-                        Code = "PC000004",
-                        Name = "Personal Computer",
-                        Specification = "Dummy Spec 12",
-                        InstalledDate = DateTime.Now,
-                        CategoryID = categories[0].Id,
-                        StateID = states[1].Id,
-                        LocationID = locations[2].Id,
-                        CreatedDate = DateTime.Now,
-                        UpdatedDate = DateTime.Now,
-                    }
-
+                    #region HCM
+                        new Asset
+                        {
+                            Id = 1,
+                            Code = "LA000001",
+                            Name = "Laptop HP Probook 450 G1",
+                            Specification = "Dummy Spec 1",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[0].Id,
+                            StateID = states[0].Id,
+                            LocationID = locations[0].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 2,
+                            Code = "MO000001",
+                            Name = "Moninor Dell UltraSharp",
+                            Specification = "Dummy Spec 2",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[1].Id,
+                            StateID = states[0].Id,
+                            LocationID = locations[0].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 3,
+                            Code = "PC000001",
+                            Name = "Personal Computer",
+                            Specification = "Dummy Spec 3",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[2].Id,
+                            StateID = states[0].Id,
+                            LocationID = locations[0].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 4,
+                            Code = "LA000002",
+                            Name = "Laptop Dell XPS 17 9710",
+                            Specification = "Core i9-11980HK, RAM 16GB, 1TB SSD, RTX 3060, 17″ 4k Touch",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[0].Id,
+                            StateID = states[0].Id,
+                            LocationID = locations[0].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 5,
+                            Code = "MO000002",
+                            Name = "Viewsonic VA2432-H",
+                            Specification = "24INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[1].Id,
+                            StateID = states[0].Id,
+                            LocationID = locations[0].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 6,
+                            Code = "PC000002",
+                            Name = "MXWT2 – iMac 2020 27 inch 5K",
+                            Specification = "Core i5 3.1GHz/ Radeon Pro 5300",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[2].Id,
+                            StateID = states[0].Id,
+                            LocationID = locations[0].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 7,
+                            Code = "LA000003",
+                            Name = "Laptop Dell XPS 18 9710",
+                            Specification = "Core i7-11980HK, RAM 16GB, 1TB SSD, RTX 3060, 17″ 4k Touch",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[0].Id,
+                            StateID = states[0].Id,
+                            LocationID = locations[0].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 8,
+                            Code = "MO000003",
+                            Name = "Viewsonic VA2434-H",
+                            Specification = "20INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[1].Id,
+                            StateID = states[0].Id,
+                            LocationID = locations[0].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 9,
+                            Code = "PC000003",
+                            Name = "MXWT2 – iMac 2021 27 inch 5K",
+                            Specification = "Core i7 3.1GHz/ Radeon Pro 5300",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[2].Id,
+                            StateID = states[0].Id,
+                            LocationID = locations[0].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 10,
+                            Code = "LA000004",
+                            Name = "Laptop Dell XPS 18 9715",
+                            Specification = "Core i9-11980HK, RAM 16GB, 1TB SSD, RTX 3060, 17″ 4k Touch",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[0].Id,
+                            StateID = states[0].Id,
+                            LocationID = locations[0].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 11,
+                            Code = "MO000004",
+                            Name = "Viewsonic VA2436-H",
+                            Specification = "21INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[1].Id,
+                            StateID = states[0].Id,
+                            LocationID = locations[0].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 12,
+                            Code = "PC000004",
+                            Name = "MXWT2 – iMac 2022 29 inch 5K",
+                            Specification = "Core i9 3.1GHz/ Radeon Pro 5300",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[2].Id,
+                            StateID = states[0].Id,
+                            LocationID = locations[0].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 13,
+                            Code = "LA000005",
+                            Name = "Laptop Dell XPS 19 9715",
+                            Specification = "Core i5-11980HK, RAM 128GB, 1TB SSD, RTX 3060, 17″ 4k Touch",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[0].Id,
+                            StateID = states[0].Id,
+                            LocationID = locations[0].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 14,
+                            Code = "MO000005",
+                            Name = "Viewsonic VA2436-H",
+                            Specification = "22INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[1].Id,
+                            StateID = states[0].Id,
+                            LocationID = locations[0].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 15,
+                            Code = "PC000005",
+                            Name = "MXWT3 – iMac 2022 26 inch 5K",
+                            Specification = "Core i7 3.1GHz/ Radeon Pro 5300",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[2].Id,
+                            StateID = states[0].Id,
+                            LocationID = locations[0].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 16,
+                            Code = "LA000006",
+                            Name = "Laptop Dell XPS 19 9815",
+                            Specification = "Core i7-11980HK, RAM 128GB, 4TB SSD, RTX 3060, 17″ 4k Touch",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[0].Id,
+                            StateID = states[0].Id,
+                            LocationID = locations[0].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 17,
+                            Code = "MO000006",
+                            Name = "Viewsonic VA2440-H",
+                            Specification = "22INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[1].Id,
+                            StateID = states[0].Id,
+                            LocationID = locations[0].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 18,
+                            Code = "PC000006",
+                            Name = "MXWT3 – iMac 2022 39 inch 5K",
+                            Specification = "Core i9 3.1GHz/ Radeon Pro 5300",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[2].Id,
+                            StateID = states[0].Id,
+                            LocationID = locations[0].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 19,
+                            Code = "MO000007",
+                            Name = "Viewsonic VA2440-H",
+                            Specification = "22INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[1].Id,
+                            StateID = states[0].Id,
+                            LocationID = locations[0].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 20,
+                            Code = "PC000007",
+                            Name = "MXWT3 – iMac 2022 39 inch 5K",
+                            Specification = "Core i9 3.1GHz/ Radeon Pro 5300",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[2].Id,
+                            StateID = states[0].Id,
+                            LocationID = locations[0].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                    #endregion
+                    #region DN
+                        new Asset
+                        {
+                            Id = 21,
+                            Code = "LA000007",
+                            Name = "Laptop HP Probook 450 G1",
+                            Specification = "Dummy Spec 1",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[0].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[1].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 22,
+                            Code = "MO000008",
+                            Name = "Moninor Dell UltraSharp",
+                            Specification = "Dummy Spec 2",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[1].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[1].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 23,
+                            Code = "PC000008",
+                            Name = "Personal Computer",
+                            Specification = "Dummy Spec 3",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[2].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[1].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 24,
+                            Code = "LA000008",
+                            Name = "Laptop Dell XPS 17 9710",
+                            Specification = "Core i9-11980HK, RAM 16GB, 1TB SSD, RTX 3060, 17″ 4k Touch",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[0].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[1].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 25,
+                            Code = "MO000009",
+                            Name = "Viewsonic VA2432-H",
+                            Specification = "24INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[1].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[1].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 26,
+                            Code = "PC000009",
+                            Name = "MXWT2 – iMac 2020 27 inch 5K",
+                            Specification = "Core i5 3.1GHz/ Radeon Pro 5300",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[2].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[1].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 27,
+                            Code = "LA000009",
+                            Name = "Laptop Dell XPS 18 9710",
+                            Specification = "Core i7-11980HK, RAM 16GB, 1TB SSD, RTX 3060, 17″ 4k Touch",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[0].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[1].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 28,
+                            Code = "MO000010",
+                            Name = "Viewsonic VA2434-H",
+                            Specification = "20INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[1].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[1].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 29,
+                            Code = "PC000010",
+                            Name = "MXWT2 – iMac 2021 27 inch 5K",
+                            Specification = "Core i7 3.1GHz/ Radeon Pro 5300",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[2].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[1].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 30,
+                            Code = "LA000010",
+                            Name = "Laptop Dell XPS 18 9715",
+                            Specification = "Core i9-11980HK, RAM 16GB, 1TB SSD, RTX 3060, 17″ 4k Touch",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[0].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[1].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 31,
+                            Code = "MO000011",
+                            Name = "Viewsonic VA2436-H",
+                            Specification = "21INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[1].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[1].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 32,
+                            Code = "PC000011",
+                            Name = "MXWT2 – iMac 2022 29 inch 5K",
+                            Specification = "Core i9 3.1GHz/ Radeon Pro 5300",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[2].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[1].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 33,
+                            Code = "LA000011",
+                            Name = "Laptop Dell XPS 19 9715",
+                            Specification = "Core i5-11980HK, RAM 128GB, 1TB SSD, RTX 3060, 17″ 4k Touch",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[0].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[1].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 34,
+                            Code = "MO000012",
+                            Name = "Viewsonic VA2436-H",
+                            Specification = "22INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[1].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[1].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 35,
+                            Code = "PC000012",
+                            Name = "MXWT3 – iMac 2022 26 inch 5K",
+                            Specification = "Core i7 3.1GHz/ Radeon Pro 5300",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[2].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[1].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 36,
+                            Code = "LA000012",
+                            Name = "Laptop Dell XPS 19 9815",
+                            Specification = "Core i7-11980HK, RAM 128GB, 4TB SSD, RTX 3060, 17″ 4k Touch",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[0].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[1].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 37,
+                            Code = "MO000013",
+                            Name = "Viewsonic VA2440-H",
+                            Specification = "22INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[1].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[1].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 38,
+                            Code = "PC000013",
+                            Name = "MXWT3 – iMac 2022 39 inch 5K",
+                            Specification = "Core i9 3.1GHz/ Radeon Pro 5300",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[2].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[1].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 39,
+                            Code = "MO000014",
+                            Name = "Viewsonic VA2440-H",
+                            Specification = "22INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[1].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[1].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 40,
+                            Code = "PC000014",
+                            Name = "MXWT3 – iMac 2022 39 inch 5K",
+                            Specification = "Core i9 3.1GHz/ Radeon Pro 5300",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[2].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[1].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                    #endregion
+                    #region HN
+                        new Asset
+                        {
+                            Id = 41,
+                            Code = "LA000013",
+                            Name = "Laptop HP Probook 450 G1",
+                            Specification = "Dummy Spec 1",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[0].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[2].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 42,
+                            Code = "MO000015",
+                            Name = "Moninor Dell UltraSharp",
+                            Specification = "Dummy Spec 2",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[1].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[2].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 43,
+                            Code = "PC000015",
+                            Name = "Personal Computer",
+                            Specification = "Dummy Spec 3",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[2].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[2].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 44,
+                            Code = "LA000014",
+                            Name = "Laptop Dell XPS 17 9710",
+                            Specification = "Core i9-11980HK, RAM 16GB, 1TB SSD, RTX 3060, 17″ 4k Touch",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[0].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[2].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 45,
+                            Code = "MO000016",
+                            Name = "Viewsonic VA2432-H",
+                            Specification = "24INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[1].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[2].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 46,
+                            Code = "PC000016",
+                            Name = "MXWT2 – iMac 2020 27 inch 5K",
+                            Specification = "Core i5 3.1GHz/ Radeon Pro 5300",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[2].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[2].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 47,
+                            Code = "LA000015",
+                            Name = "Laptop Dell XPS 18 9710",
+                            Specification = "Core i7-11980HK, RAM 16GB, 1TB SSD, RTX 3060, 17″ 4k Touch",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[0].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[2].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 48,
+                            Code = "MO000017",
+                            Name = "Viewsonic VA2434-H",
+                            Specification = "20INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[1].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[2].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 49,
+                            Code = "PC000017",
+                            Name = "MXWT2 – iMac 2021 27 inch 5K",
+                            Specification = "Core i7 3.1GHz/ Radeon Pro 5300",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[2].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[2].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 50,
+                            Code = "LA000016",
+                            Name = "Laptop Dell XPS 18 9715",
+                            Specification = "Core i9-11980HK, RAM 16GB, 1TB SSD, RTX 3060, 17″ 4k Touch",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[0].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[2].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 51,
+                            Code = "MO000018",
+                            Name = "Viewsonic VA2436-H",
+                            Specification = "21INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[1].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[2].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 52,
+                            Code = "PC000018",
+                            Name = "MXWT2 – iMac 2022 29 inch 5K",
+                            Specification = "Core i9 3.1GHz/ Radeon Pro 5300",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[2].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[2].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 53,
+                            Code = "LA000017",
+                            Name = "Laptop Dell XPS 19 9715",
+                            Specification = "Core i5-11980HK, RAM 128GB, 1TB SSD, RTX 3060, 17″ 4k Touch",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[0].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[2].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 54,
+                            Code = "MO000019",
+                            Name = "Viewsonic VA2436-H",
+                            Specification = "22INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[1].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[2].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 55,
+                            Code = "PC000019",
+                            Name = "MXWT3 – iMac 2022 26 inch 5K",
+                            Specification = "Core i7 3.1GHz/ Radeon Pro 5300",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[2].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[2].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 56,
+                            Code = "LA000018",
+                            Name = "Laptop Dell XPS 19 9815",
+                            Specification = "Core i7-11980HK, RAM 128GB, 4TB SSD, RTX 3060, 17″ 4k Touch",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[0].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[2].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 57,
+                            Code = "MO000020",
+                            Name = "Viewsonic VA2440-H",
+                            Specification = "22INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[1].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[2].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 58,
+                            Code = "PC000020",
+                            Name = "MXWT3 – iMac 2022 39 inch 5K",
+                            Specification = "Core i9 3.1GHz/ Radeon Pro 5300",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[2].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[2].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 59,
+                            Code = "MO000021",
+                            Name = "Viewsonic VA2440-H",
+                            Specification = "22INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[1].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[2].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        },
+                        new Asset
+                        {
+                            Id = 60,
+                            Code = "PC000021",
+                            Name = "MXWT3 – iMac 2022 39 inch 5K",
+                            Specification = "Core i9 3.1GHz/ Radeon Pro 5300",
+                            InstalledDate = DateTime.Now,
+                            CategoryID = categories[2].Id,
+                            StateID = states[1].Id,
+                            LocationID = locations[2].Id,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        }
+                    #endregion
                 )
             );
         }
         #endregion
 
         #region Assignment
-        public static void SeedAssignment(this ModelBuilder modelBuilder) {
+        public static void SeedAssignment(this ModelBuilder modelBuilder)
+        {
             modelBuilder.Entity<Assignment>().ToTable("Assignments");
 
-            modelBuilder.Entity<Assignment>(
-                entity => entity.HasData
-                (
-                    new Assignment
-                    {
-                        Id = 1,
-                        AssetId = 1,
-                        UserId = 2,
-                        AssetCode = "LA000001",
-                        AssetName = "Laptop HP Probook 450 G1",
-                        StaffCode = "SD0002",
-                        AssignTo = "admindn",
-                        AssignBy = "adminhcm",
-                        AssignDate = DateTime.Now,
-                        AssignmentState = Domain.Model.Enums.AssignmentStateEnums.Accepted
-                    },
-                    new Assignment
-                    {
-                        Id = 2,
-                        AssetId = 1,
-                        UserId = 3,
-                        AssetCode = "LA000001",
-                        AssetName = "Laptop HP Probook 450 G1",
-                        StaffCode = "SD0003",
-                        AssignTo = "adminhn",
-                        AssignBy = "adminhcm",
-                        AssignDate = DateTime.Now,
-                        AssignmentState = Domain.Model.Enums.AssignmentStateEnums.Waiting
-                    },
-                    new Assignment
-                    {
-                        Id = 3,
-                        AssetId = 1,
-                        UserId = 4,
-                        AssetCode = "LA000001",
-                        AssetName = "Laptop HP Probook 450 G1",
-                        StaffCode = "SD0003",
-                        AssignTo = "vinhbx",
-                        AssignBy = "adminhcm",
-                        AssignDate = DateTime.Now,
-                        AssignmentState = Domain.Model.Enums.AssignmentStateEnums.Accepted
-                    }
+            modelBuilder.Entity<Assignment>
+            (
+                entity =>
+                {
+                    entity.HasOne(x => x.AssignedTo)
+                    .WithMany(x => x.Assignments)
+                    .HasForeignKey(x => x.AssignedToId)
+                    .OnDelete(DeleteBehavior.NoAction);
 
-                )
+                    entity.HasOne(x => x.AssignedBy)
+                    .WithMany(x => x.AssignmentsBys)
+                    .HasForeignKey(x => x.AssignedById)
+                    .OnDelete(DeleteBehavior.NoAction);
+                }
+            );
+
+            modelBuilder.Entity<Assignment>(
+                entity =>
+                {
+                    entity.HasData(
+                        new Assignment
+                        {
+                            Id = 1,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                            AssetId = 1,
+                            AssignedById = 1,
+                            AssignedToId = 4,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now,
+                        },
+                        new Assignment
+                        {
+                            Id = 2,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                            AssetId = 2,
+                            AssignedById = 1,
+                            AssignedToId = 4,
+                            AssignedState = AssignmentStateEnums.Accepted,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now,
+                        },
+                        new Assignment
+                        {
+                            Id = 3,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                            AssetId = 3,
+                            AssignedById = 1,
+                            AssignedToId = 4,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now,
+                        },
+                        new Assignment
+                        {
+                            Id = 4,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                            AssetId = 4,
+                            AssignedById = 1,
+                            AssignedToId = 6,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now,
+                        },
+                        new Assignment
+                        {
+                            Id = 5,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                            AssetId = 5,
+                            AssignedById = 1,
+                            AssignedToId = 6,
+                            AssignedState = AssignmentStateEnums.Accepted,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now,
+                        },
+                        new Assignment
+                        {
+                            Id = 6,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                            AssetId = 6,
+                            AssignedById = 1,
+                            AssignedToId = 6,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now,
+                        },
+                        new Assignment
+                        {
+                            Id = 7,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                            AssetId = 7,
+                            AssignedById = 1,
+                            AssignedToId = 8,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now,
+                        },
+                        new Assignment
+                        {
+                            Id = 8,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                            AssetId = 8,
+                            AssignedById = 1,
+                            AssignedToId = 8,
+                            AssignedState = AssignmentStateEnums.Accepted,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now,
+                        },
+                        new Assignment
+                        {
+                            Id = 9,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                            AssetId = 9,
+                            AssignedById = 1,
+                            AssignedToId = 8,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now,
+                        },
+                        new Assignment
+                        {
+                            Id = 10,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                            AssetId = 10,
+                            AssignedById = 1,
+                            AssignedToId = 10,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now,
+                        },
+                        new Assignment
+                        {
+                            Id = 11,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                            AssetId = 11,
+                            AssignedById = 1,
+                            AssignedToId = 10,
+                            AssignedState = AssignmentStateEnums.Accepted,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now,
+                        },
+                        new Assignment
+                        {
+                            Id = 12,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                            AssetId = 12,
+                            AssignedById = 1,
+                            AssignedToId = 10,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now,
+                        },
+                        new Assignment
+                        {
+                            Id = 13,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                            AssetId = 13,
+                            AssignedById = 1,
+                            AssignedToId = 12,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now,
+                        },
+                        new Assignment
+                        {
+                            Id = 14,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                            AssetId = 14,
+                            AssignedById = 1,
+                            AssignedToId = 12,
+                            AssignedState = AssignmentStateEnums.Accepted,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now,
+                        },
+                        new Assignment
+                        {
+                            Id = 15,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                            AssetId = 15,
+                            AssignedById = 1,
+                            AssignedToId = 12,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now,
+                        },
+                        new Assignment
+                        {
+                            Id = 16,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                            AssetId = 16,
+                            AssignedById = 1,
+                            AssignedToId = 13,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now,
+                        },
+                        new Assignment
+                        {
+                            Id = 17,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                            AssetId = 17,
+                            AssignedById = 1,
+                            AssignedToId = 13,
+                            AssignedState = AssignmentStateEnums.Accepted,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now,
+                        },
+                        new Assignment
+                        {
+                            Id = 18,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                            AssetId = 18,
+                            AssignedById = 1,
+                            AssignedToId = 13,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now,
+                        },
+                        new Assignment
+                        {
+                            Id = 19,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                            AssetId = 19,
+                            AssignedById = 1,
+                            AssignedToId = 14,
+                            AssignedState = AssignmentStateEnums.Accepted,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now,
+                        },
+                        new Assignment
+                        {
+                            Id = 20,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                            AssetId = 20,
+                            AssignedById = 1,
+                            AssignedToId = 14,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now,
+                        }
+                    );
+                }
             );
         }
         #endregion

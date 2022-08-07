@@ -11,7 +11,7 @@ async function getPaginationImpl(
   /* var object = {
     Keyword: Keyword,
   } */
-  var result = await axiosInstance.get("/Users", {
+  var result = await axiosInstance.get("User", {
     params: { Keyword, Type, SortBy, Ascending, Limit, Page },
   });
   console.log(result);

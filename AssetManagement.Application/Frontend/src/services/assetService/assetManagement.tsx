@@ -13,7 +13,7 @@ async function createAsset(data:any){
             },
             buttonsStyling: false,
             }).then(() => {
-                window.location.href = "/manage-asset";
+                window.location.href = "/manage-asset/true";
                 // window.location.href = "/manage-user";
             });
         })
@@ -33,56 +33,96 @@ async function createAsset(data:any){
         });
 }
 
-async function createCategory(data:any){
-    axiosInstance
-        .post("Categories", data)
-        .then((data) => {
-            Swal.fire({
-                text: "Created new category successfully.",
-                customClass: {
-                confirmButton: "button",
-            },
-            buttonsStyling: false,
-            }).then(() => {
-                window.location.href = "/create-asset";
-            });
-        })
-        .catch((error) => {
-            let statusCode = error.response.status;
-            if (statusCode === 401) {
-                Swal.fire({
-                text: "Token Expired. Please re-login to continue",
-                customClass: {
-                    confirmButton: "button",
-                },
-                buttonsStyling: false,
-                }).then(() => {
-                logout();
-                });
-            }
-        })
+async function createCategory(data: any) {
+  if (!data.name) {
+    Swal.fire({
+      text: "Category is required!",
+      customClass: {
+        confirmButton: "button",
+      },
+      buttonsStyling: false,
+    });
+    return;
+  }
+  if (!data.prefix) {
+    Swal.fire({
+      text: "Prefix is required!",
+      customClass: {
+        confirmButton: "button",
+      },
+      buttonsStyling: false,
+    });
+    return;
+  }
+  axiosInstance
+    .post("Categories", data)
+    .then((data) => {
+      Swal.fire({
+        text: "Created new category successfully.",
+        customClass: {
+          confirmButton: "button",
+        },
+        buttonsStyling: false,
+      }).then(() => {
+        window.location.href = "/create-asset";
+      });
+    })
+    .catch((error) => {
+      let statusCode = error.response.status;
+      let message = error.response.data;
+      if (statusCode === 401) {
+        Swal.fire({
+          text: "Token Expired. Please re-login to continue",
+          customClass: {
+            confirmButton: "button",
+          },
+          buttonsStyling: false,
+        }).then(() => {
+          logout();
+        });
+      }
+      if (message == "Category prefix exists!") {
+        Swal.fire({
+          text: "Prefix is already existed. Please enter a different prefix",
+          customClass: {
+            confirmButton: "button",
+          },
+          buttonsStyling: false,
+        });
+      }
+      if (message == "Category name exists!") {
+        Swal.fire({
+          text:
+            "Category is already existed. Please enter a different category",
+          customClass: {
+            confirmButton: "button",
+          },
+          buttonsStyling: false,
+        });
+      }
+    });
 }
 
-async function getCategories(){
-    return await axiosInstance
-        .get("Categories")
-        .then((res) => {
-            return res;
-        })
-        .catch((error)=>{
-            let statusCode = error.response.status;
-            if (statusCode === 401) {
-                Swal.fire({
-                text: "Token Expired. Please re-login to continue",
-                customClass: {
-                    confirmButton: "button",
-                },
-                buttonsStyling: false,
-                }).then(() => {
-                logout();
-                });
-            }
-        })
+async function getCategories() {
+  return await axiosInstance
+    .get("Categories")
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      let statusCode = error.response.status;
+      if (statusCode === 401) {
+        Swal.fire({
+          text: "Token Expired. Please re-login to continue",
+          customClass: {
+            confirmButton: "button",
+          },
+          buttonsStyling: false,
+        }).then(() => {
+          logout();
+        });
+      }
+    });
 }
 
 export { createAsset, createCategory, getCategories };

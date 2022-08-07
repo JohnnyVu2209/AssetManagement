@@ -18,16 +18,12 @@ namespace AssetManagement.Application.Tests.ControllersTests
             //Arrange
             var sorting = new AssignmentParameters() { Searching = "vinz", State = new List<int>(new int[2] { 1,2 }), AssignDate = new DateTime() }; ;
 
-            IEnumerable<Assignment> assignmentList = new List<Assignment>()
-            {
-                new Assignment{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignTo="vinz",AssignBy="vu",AssignDate=new DateTime(),AssignmentState=AssignmentStateEnums.Accepted},
-                new Assignment{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignTo="vinz",AssignBy="vu"}
-            };
+            IEnumerable<Assignment> assignmentList = GenerateListAssignment(10);
 
             IEnumerable<AssignmentDTO> assignmentListDTO = new List<AssignmentDTO>()
             {
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignTo="vinz",AssignBy="vu"},
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignTo="vinz",AssignBy="vu"}
+                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
+                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
             };
 
             var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
@@ -57,16 +53,12 @@ namespace AssetManagement.Application.Tests.ControllersTests
             var sorting = new AssignmentParameters() { Searching = "vinz", State = new List<int>(new int[2] { 1, 2 }), AssignDate = new DateTime() }; ;
             var expectedMessage = "Assignment List Empty";
 
-            IEnumerable<Assignment> assignmentList = new List<Assignment>()
-            {
-                new Assignment{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignTo="vinz",AssignBy="vu",AssignDate=new DateTime(),AssignmentState=AssignmentStateEnums.Accepted},
-                new Assignment{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignTo="vinz",AssignBy="vu"}
-            };
+            IEnumerable<Assignment> assignmentList = GenerateListAssignment(10);
 
             IEnumerable<AssignmentDTO> assignmentListDTO = new List<AssignmentDTO>()
             {
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignTo="vinz",AssignBy="vu"},
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignTo="vinz",AssignBy="vu"}
+                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
+                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
             };
 
             var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
@@ -93,16 +85,12 @@ namespace AssetManagement.Application.Tests.ControllersTests
             var sorting = new AssignmentParameters() { Searching = "vinz", State = new List<int>(new int[2] { 1, 2 }), AssignDate = new DateTime() }; ;
             var expectedMessage = "Something went wrong";
 
-            IEnumerable<Assignment> assignmentList = new List<Assignment>()
-            {
-                new Assignment{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignTo="vinz",AssignBy="vu",AssignDate=new DateTime(),AssignmentState=AssignmentStateEnums.Accepted},
-                new Assignment{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignTo="vinz",AssignBy="vu"}
-            };
+            IEnumerable<Assignment> assignmentList = GenerateListAssignment(10).AsEnumerable();
 
             IEnumerable<AssignmentDTO> assignmentListDTO = new List<AssignmentDTO>()
             {
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignTo="vinz",AssignBy="vu"},
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignTo="vinz",AssignBy="vu"}
+                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
+                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
             };
 
             var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
@@ -119,6 +107,25 @@ namespace AssetManagement.Application.Tests.ControllersTests
             // Assert
             Assert.NotNull(result);
             Assert.Equal(expectedMessage, result.Value.ToString());
+        }
+
+        private List<Assignment> GenerateListAssignment(int number)
+        {
+            var list = new List<Assignment>();
+            for (int i = 1; i <= number; i++)
+            {
+                list.Add(new Assignment
+                {
+                    Id = i,
+                    Asset = new Asset {Id = 1, Code = "LA000001" },
+                    AssetId = 1,
+                    AssignedTo = new User { Id = 2, UserName = "vinz"},
+                    AssignedBy = new User { Id = 1, UserName = "vu"},
+                    AssignedDate = DateTime.Now,
+                    AssignedState = AssignmentStateEnums.Accepted
+                });
+            }
+            return list;
         }
     }
 }

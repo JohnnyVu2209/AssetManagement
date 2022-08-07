@@ -24,7 +24,7 @@ const UserDetailProvider: React.FC<React.PropsWithChildren> = ({ children }) => 
     const [openUserDetailState, setOpenUserDetailState] = React.useState(false)
 
     function openUserDetail(params: GridRowParams) {
-        getUserDetail(`/api/Users/${params.row.staffCode}`)
+        getUserDetail(`User/${params.row.staffCode}`)
             .then((res) => {
                 if (res !== null) {
                     setUserDetail(res)

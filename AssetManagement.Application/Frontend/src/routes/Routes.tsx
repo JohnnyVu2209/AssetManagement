@@ -32,12 +32,12 @@ function Routes() {
             <RouteGuard path="/edit-user/:staffCode?" component={EditUser} />
             <RouteGuard path="/list-view" component={ListView} />
             <RouteGuard path="/create-user" component={CreateUser} />
-            <RouteGuard path="/manage-asset" component={ManageAsset} />
-            <RouteGuard path="/assignment-list" component={AssignmentList} />
+            <RouteGuard path="/manage-asset/:sort?" component={ManageAsset} />
+            <RouteGuard path="/assignment-list/:sort?" component={AssignmentList} />
             <RouteGuard path="/create-asset" component={CreateAsset} />
             <UserDetailProvider>
               <ManageUserProvider>
-                <RouteGuard path="/manage-user" component={ManageUser} />
+                <RouteGuard path="/manage-user/:sort?" component={ManageUser} />
               </ManageUserProvider>
             </UserDetailProvider>
             <RouteGuard path="/error" component={Error} />

@@ -5,17 +5,20 @@ import { differenceInYears, isSaturday, isSunday } from "date-fns";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link } from "react-router-dom";
 import "../assets/css/CreateAsset.css";
-import { createAsset, createCategory, getCategories } from "../services/assetService/assetManagement";
+import {
+  createAsset,
+  createCategory,
+  getCategories,
+} from "../services/assetService/assetManagement";
 
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
-import CloseIcon from '@mui/icons-material/Close';
-import CheckIcon from '@mui/icons-material/Check';
-
+import CloseIcon from "@mui/icons-material/Close";
+import CheckIcon from "@mui/icons-material/Check";
 
 type FormValues = {
   assetName: string;
@@ -28,108 +31,110 @@ type FormValues = {
 
 const CreateAsset = () => {
   //VALIDATION
-  const schema = yup
-    .object()
-    .shape({
-      assetName:yup
-        .string()
-        .required("Please enter assetName")
-        .matches(/^[a-zA-Z0-9 ]+$/, "assetName only contains English characters"),
-      specification: yup
-        .string()
-        .required("Please enter specification"),
-      installedDate: yup
-        .date()
-        .required("Please Select Installed Date")
-        .nullable()
-        .transform((curr,orig) => (orig === "" ? null : curr))
-        .test(
-          "id",
-          "Installed Date is Saturday or Sunday. Please select another date",
-          (value: any) => {
-            return !isSaturday(value);
-          }
-        )
-        .test(
-          "id",
-          "Installed Date is Saturday or Sunday. Please select another date",
-          (value: any) => {
-            return !isSunday(value);
-          }
-        )
+  const schema = yup.object().shape({
+    assetName: yup
+      .string()
+      .required("Please enter assetName")
+      .matches(/^[a-zA-Z0-9 ]+$/, "assetName only contains English characters"),
+    specification: yup.string().required("Please enter specification"),
+    installedDate: yup
+      .date()
+      .required("Please Select Installed Date")
+      .nullable()
+      .transform((curr, orig) => (orig === "" ? null : curr))
+      .test(
+        "id",
+        "Installed Date is Saturday or Sunday. Please select another date",
+        (value: any) => {
+          return !isSaturday(value);
+        }
+      )
+      .test(
+        "id",
+        "Installed Date is Saturday or Sunday. Please select another date",
+        (value: any) => {
+          return !isSunday(value);
+        }
+      ),
   });
 
   const {
     register,
     getValues,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
   } = useForm<FormValues>({
-    resolver:yupResolver(schema),
-    defaultValues:{
+    resolver: yupResolver(schema),
+    defaultValues: {
       assetStateId: 2,
     },
   });
 
+  useEffect(() => {
+    disableSaveButton();
+  }, []);
+
   const [categoryName, setCategoryName] = useState("");
   const [prefix, setPrefix] = useState("");
 
-  const onSubmit_createCategory/* : SubmitHandler<FormValues> */ = (e:any) =>{
+  const onSubmit_createCategory /* : SubmitHandler<FormValues> */ = (
+    e: any
+  ) => {
     e.preventDefault();
     const data = {
       name: categoryName,
-      prefix: prefix
-    }
+      prefix: prefix,
+    };
     //console.log(data);
     const token = localStorage.getItem("token");
     let sendData = { ...data };
     createCategory(sendData);
     console.log(sendData);
     //console.log(categoryName, prefix);
-  }
+  };
 
   //const column = [{field: "name", width:358,},];
 
   const [categories, setCategories] = useState<ICategory[]>([]);
   useEffect(() => {
-    getCategories().then((res:any) => {
+    getCategories().then((res: any) => {
       setCategories(res.data);
       console.log(res.data);
     });
-  },[]);
+  }, []);
 
-  interface ICategory{
-    name:string;
-    prefix:string;
-    id:number;
+  interface ICategory {
+    name: string;
+    prefix: string;
+    id: number;
   }
 
   const [categoryValue, setCategoryValue] = useState("");
-  const handleCategoryValueChange = (event:any) => {
+  const handleCategoryValueChange = (event: any) => {
     setCategoryValue(event.target.value);
   };
 
   const collapse_categorycontent = () => {
     var x = document.getElementById("add-category-content");
-    if(x!== null){
-      if (x.style.display === "none"){
-      x.style.display = "block";
-    } else {
-      x.style.display = "none";
+    if (x !== null) {
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
     }
-    }
-  }
+  };
 
   const collapse_categorytext = () => {
     var x = document.getElementById("add-category-content");
-    if(x!== null){
-      if (x.style.display === "block"){
-      x.style.display = "none";
-    } /* else {
+    if (x !== null) {
+      if (x.style.display === "block") {
+        x.style.display = "none";
+      } /* else {
       x.style.display = "block";
     } */
     }
-  }
+  };
 
   /* const handleClickOneCategory = (event:any) => {
     const myValue = event.target.value;
@@ -141,11 +146,31 @@ const CreateAsset = () => {
     console.log(data);
     const token = localStorage.getItem("token");
     let sendData = { ...data };
-    //sendData.categoryId = 
+    //sendData.categoryId =
     sendData.installedDate.setDate(sendData.installedDate.getDate() + 1);
     createAsset(sendData);
   };
 
+  const enableSaveButton = () => {
+    let button = document.getElementById(
+      "create-asset-save-button"
+    ) as HTMLButtonElement;
+    if (
+      getValues("assetName").replace(/ /g, "") &&
+      getValues("categoryId") &&
+      getValues("specification").replace(/ /g, "") &&
+      getValues("installedDate")
+    )
+      button.disabled = false;
+    else button.disabled = true;
+  };
+
+  const disableSaveButton = () => {
+    let button = document.getElementById(
+      "create-asset-save-button"
+    ) as HTMLButtonElement;
+    if (button) button.disabled = true;
+  };
 
   return (
     <div className="form-page-container app-content">
@@ -155,13 +180,16 @@ const CreateAsset = () => {
         </div>
         <div className="form-page-form-input-container">
           <div className="form-page-form-input">
-            <label htmlFor="">assetName</label>
+            <label htmlFor="" className="create-asset-label">
+              Asset Name <span style={{ color: "red" }}> *</span>
+            </label>
             <input
               {...register("assetName", {
                 required: "assetName is required",
               })}
               type="text"
-              placeholder="assetName"
+              placeholder="Laptop"
+              onKeyUp={enableSaveButton}
             />
           </div>
           <p className="form-page-form-error-message">
@@ -169,41 +197,67 @@ const CreateAsset = () => {
           </p>
 
           <div className="form-page-form-input">
-            <label htmlFor="">Category</label>
+            <label htmlFor="" className="create-asset-label">
+              Category <span style={{ color: "red" }}> *</span>
+            </label>
             <form>
-              <Box sx={{width:358.86,minHeight:34}}>
+              <Box sx={{ width: 358.86, minHeight: 34 }}>
                 <FormControl fullWidth>
-                  <Select labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          defaultValue={categoryValue}
-                          /* onChange={(event:any)=>setCategories(event.target.value)} */
-                          /* onChange={(e:any)=>setCategoryValue(e.target.value)} */
-                          sx={{overflow: 'hidden'}} 
-                          {...register("categoryId",{required:true})}
-                          >
-                    {categories.map((category)=>
-                      <MenuItem value={category.id} key={category.id}>{category.name}</MenuItem>
-                    )}
-                    
-                    
-                    <MenuItem style={{backgroundColor:"#eeeeee"}}
-                              id="add-category-text">
-                      <p className="add-category-menuitem" onClick={collapse_categorycontent}>Add new category</p>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    defaultValue={categoryValue}
+                    onFocusCapture={enableSaveButton}
+                    /* onChange={(event:any)=>setCategories(event.target.value)} */
+                    /* onChange={(e:any)=>setCategoryValue(e.target.value)} */
+                    sx={{ overflow: "hidden" }}
+                    {...register("categoryId", { required: true })}
+                  >
+                    {categories.map((category) => (
+                      <MenuItem value={category.id} key={category.id}>
+                        {category.name}
+                      </MenuItem>
+                    ))}
+
+                    <MenuItem
+                      style={{ backgroundColor: "#eeeeee" }}
+                      id="add-category-text"
+                    >
+                      <p
+                        className="add-category-menuitem"
+                        onClick={collapse_categorycontent}
+                      >
+                        Add new category
+                      </p>
                     </MenuItem>
-                    <MenuItem id="add-category-content" style={{backgroundColor:"#eeeeee",display: "none"}} onKeyDown={(e) => e.stopPropagation()}>
+                    <MenuItem
+                      id="add-category-content"
+                      style={{ backgroundColor: "#eeeeee", display: "none" }}
+                      onKeyDown={(e) => e.stopPropagation()}
+                    >
                       <>
-                        <input placeholder="Bluetooth Mouse"
-                              type="text"
-                              value={categoryName}
-                              style={{fontStyle:"italic"}}
-                              onChange={(e:any)=>setCategoryName(e.target.value)}/>
-                        <input placeholder="BM"
-                              type="text"
-                              value={prefix}
-                              onChange={(e:any)=>setPrefix(e.target.value)}
-                              style={{width: "59px",fontStyle:"italic"}}/>
-                        <CheckIcon style={{color:"red"}} onClick={onSubmit_createCategory}/>
-                        <CloseIcon style={{color:"black"}} onClick={collapse_categorytext}/>
+                        <input
+                          placeholder="Bluetooth Mouse"
+                          type="text"
+                          value={categoryName}
+                          style={{ fontStyle: "italic" }}
+                          onChange={(e: any) => setCategoryName(e.target.value)}
+                        />
+                        <input
+                          placeholder="BM"
+                          type="text"
+                          value={prefix}
+                          onChange={(e: any) => setPrefix(e.target.value)}
+                          style={{ width: "59px", fontStyle: "italic" }}
+                        />
+                        <CheckIcon
+                          style={{ color: "red" }}
+                          onClick={onSubmit_createCategory}
+                        />
+                        <CloseIcon
+                          style={{ color: "black" }}
+                          onClick={collapse_categorytext}
+                        />
                       </>
                     </MenuItem>
                   </Select>
@@ -211,41 +265,52 @@ const CreateAsset = () => {
               </Box>
             </form>
           </div>
-          
+
           <div className="form-page-form-input">
-            <label htmlFor="">Specification</label>
+            <label htmlFor="" className="create-asset-label">
+              Specification <span style={{ color: "red" }}> *</span>
+            </label>
             <input
               {...register("specification", {
                 required: "Specification is required",
               })}
               type="text"
               placeholder="Specification"
+              onKeyUp={enableSaveButton}
             />
           </div>
           <p className="form-page-form-error-message">
             {errors.specification ? errors.specification.message : ""}
           </p>
           <div className="form-page-form-input">
-            <label htmlFor="">Installed Date</label>
+            <label htmlFor="" className="create-asset-label">
+              Installed Date <span style={{ color: "red" }}> *</span>
+            </label>
             <input
               type="date"
               placeholder="Installed Date"
               {...register("installedDate", {
                 required: true,
               })}
+              onFocusCapture={enableSaveButton}
             />
           </div>
           <p className="form-page-form-error-message">
             {errors.installedDate ? errors.installedDate.message : ""}
           </p>
           <div className="form-page-form-input">
-            <label htmlFor="">State</label>
-            <div className="form-page-form-input-radio-container" style={{display: "inline-block"}}>
+            <label htmlFor="" className="create-asset-label">
+              State <span style={{ color: "red" }}> *</span>
+            </label>
+            <div
+              className="form-page-form-input-radio-container"
+              style={{ display: "inline-block" }}
+            >
               <div className="form-page-form-input-radio">
                 <input
                   type="radio"
                   id="available"
-                  style={{width:"13px"}}
+                  style={{ width: "13px" }}
                   value={2}
                   {...register("assetStateId", { required: true })}
                 />
@@ -254,7 +319,7 @@ const CreateAsset = () => {
               <div className="form-page-form-input-radio">
                 <input
                   type="radio"
-                  style={{width:"13px"}}
+                  style={{ width: "13px" }}
                   id="notavailable"
                   value={3}
                   checked
@@ -266,7 +331,12 @@ const CreateAsset = () => {
           </div>
         </div>
         <div className="form-page-form-buttons modal-form-buttons">
-          <input type="submit" className="button" value="Save" />
+          <input
+            type="submit"
+            className="button"
+            value="Save"
+            id="create-asset-save-button"
+          />
           <Link to="/manage-asset">
             <button className="button-reverse">Cancel</button>
           </Link>
