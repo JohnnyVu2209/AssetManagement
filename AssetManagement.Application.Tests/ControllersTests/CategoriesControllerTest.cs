@@ -152,5 +152,37 @@ namespace AssetManagement.Application.Tests.ControllersTests
             Assert.Equal("Category name existed!", result.Value.ToString());
             Assert.Equal(400, result.StatusCode);
         }
+
+        [Fact]
+        public async Task CreateNewCategory_NameOrPrefixEmpty()
+        {
+            //Arrange
+            var newCategory = new CreateCategoryRequest
+            {
+                Name = "",
+                Prefix = ""
+            };
+
+            var expectedResult = new ApiResult<string>(null)
+            {
+                Message = "Category name or prefix is empty!",
+                StatusCode = 400,
+            };
+
+            var categoryRepositoryMock = new Mock<ICategoryRepository>();
+            categoryRepositoryMock.Setup(x => x.CreateAsync(It.IsAny<CreateCategoryRequest>())).Returns(Task.FromResult(expectedResult));
+
+
+            var controller = new CategoriesController(categoryRepositoryMock.Object);
+
+            // Act
+            var result = (await controller.CreateAsync(newCategory)) as BadRequestObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<BadRequestObjectResult>(result);
+            Assert.Equal("Category name or prefix is empty!", result.Value.ToString());
+            Assert.Equal(400, result.StatusCode);
+        }
     }
 }
