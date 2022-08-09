@@ -1387,5 +1387,77 @@ namespace AssetManagement.Data.Extensions
         }
         #endregion
 
-    }
+        #region Return Request
+        public static void SeedReturnRequest(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ReturnRequest>().ToTable("ReturnRequests");
+
+            modelBuilder.Entity<ReturnRequest>
+            (
+                entity =>
+                {
+                    entity.HasOne(x => x.AcceptedBy)
+                    .WithMany(x => x.AcceptedRequestsBy)
+                    .OnDelete(DeleteBehavior.NoAction);
+
+                    entity.HasOne(x => x.RequestedBy)
+                      .WithMany(x => x.ReturnRequests)
+                      .OnDelete(DeleteBehavior.NoAction);
+                }
+            );
+
+            modelBuilder.Entity<ReturnRequest>(
+                entity =>
+                {
+                    entity.HasData(
+                        new ReturnRequest
+                        {
+                            Id = 1,
+                            AcceptedById=1,
+                            RequestedById=4,
+                            ReturnedDate = DateTime.Now.AddDays(-1),
+                            AssignmentId = 2,
+                            State=ReturnRequestStateEnums.Completed
+                        }, 
+                        new ReturnRequest
+                        {
+                            Id = 2,
+                            RequestedById = 6,
+                            ReturnedDate = DateTime.Now,
+                            AssignmentId = 5,
+                            State = ReturnRequestStateEnums.Waiting
+                        },
+                         new ReturnRequest
+                         {
+                             Id = 3,
+                             RequestedById = 8,
+                             ReturnedDate = DateTime.Now.AddDays(1),
+                             AssignmentId = 8,
+                             State = ReturnRequestStateEnums.Waiting
+                         },
+                          new ReturnRequest
+                          {
+                              Id = 4,
+                              RequestedById = 10,
+                              AcceptedById=1,
+                              ReturnedDate = DateTime.Now.AddDays(2),
+                              AssignmentId = 11,
+                              State = ReturnRequestStateEnums.Completed
+                          },
+                          new ReturnRequest
+                          {
+                              Id = 5,
+                              RequestedById = 13,
+                              ReturnedDate = DateTime.Now,
+                              AssignmentId = 17,
+                              State = ReturnRequestStateEnums.Waiting
+                          }
+                        );
+                }
+                );
+        }
+
+            #endregion
+
+        }
 }

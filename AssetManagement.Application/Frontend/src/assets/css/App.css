@@ -71,3 +71,8 @@ textarea {
   color: white;
   transition: 0.2s;
 }
+
+.disable-action {
+  pointer-events: none;
+  opacity: 0.5;
+}

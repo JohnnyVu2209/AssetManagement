@@ -23,7 +23,7 @@ namespace AssetManagement.Application.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAssignments([FromQuery] AssignmentParameters assignmentParameters)
         {
             try

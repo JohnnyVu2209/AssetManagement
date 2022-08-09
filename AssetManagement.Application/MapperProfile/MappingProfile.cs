@@ -1,5 +1,6 @@
 ﻿using AssetManagement.Contracts.AssetDTO;
 using AssetManagement.Contracts.AssignmentDTO;
+using AssetManagement.Contracts.ReturnRequestDTO;
 using AssetManagement.Contracts.UserDTO;
 using AssetManagement.Domain.Model;
 using AutoMapper;
@@ -53,6 +54,17 @@ namespace AssetManagement.Application.MapperProfile
             CreateMap<Assignment, AssignmentDTO>();
             CreateMap<AssignmentDTO, Assignment>();
             //.ForMember(d => d.AssignmentState, opt => opt.MapFrom(s => s.AssignmentState == 1 ? true : false));
+        }
+    }
+
+    public class ReturnRequestProfile : Profile
+    {
+        public ReturnRequestProfile()
+        {
+            CreateMap<ReturnRequest, ReturnRequestDTO>()
+            .ForMember(d => d.AssetCode, opt => opt.MapFrom(s => s.Assignment.Asset.Code))
+            .ForMember(d => d.AssetName, opt => opt.MapFrom(s => s.Assignment.Asset.Name));
+            CreateMap<ReturnRequestDTO, ReturnRequest>();
         }
     }
 }

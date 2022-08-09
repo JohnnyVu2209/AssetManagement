@@ -17,6 +17,7 @@ namespace AssetManagement.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Asset> Assets { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
+        public DbSet<ReturnRequest> ReturnRequests{ get; set; }
 
         public override int SaveChanges()
         {
@@ -97,6 +98,8 @@ namespace AssetManagement.Data
             modelBuilder.SeedAsset();
 
             modelBuilder.SeedAssignment();
+
+            modelBuilder.SeedReturnRequest();
         }
     }
 }

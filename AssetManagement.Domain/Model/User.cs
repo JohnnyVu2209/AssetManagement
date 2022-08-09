@@ -18,6 +18,8 @@ namespace AssetManagement.Domain.Model
         public virtual Location Location { get; set; }
         public virtual List<Assignment> Assignments { get; set; } = new List<Assignment>();
         public virtual List<Assignment> AssignmentsBys { get; set; } = new List<Assignment>();
+        public List<ReturnRequest> AcceptedRequestsBy { get; set; } = new List<ReturnRequest>();
+        public List<ReturnRequest> ReturnRequests { get; set; } = new List<ReturnRequest>();
 
     }
 }

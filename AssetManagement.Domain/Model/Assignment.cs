@@ -18,5 +18,6 @@ namespace AssetManagement.Domain.Model
         public DateTime AssignedDate { get; set; }
         public AssignmentStateEnums AssignedState { get; set; }
         public string Note { get; set; }
+        public ReturnRequest? ReturnRequest { get; set; }
     }
 }

@@ -16,6 +16,7 @@ import ManageAsset from "../pages/ManageAsset";
 import Error from "../pages/Error";
 import AssignmentList from "../pages/AssignmentList";
 import CreateAsset from "../pages/CreateAsset";
+import ReturnRequestList from "../pages/ReturnRequestList";
 
 function Routes() {
   return (
@@ -33,7 +34,15 @@ function Routes() {
             <RouteGuard path="/list-view" component={ListView} />
             <RouteGuard path="/create-user" component={CreateUser} />
             <RouteGuard path="/manage-asset/:sort?" component={ManageAsset} />
-            <RouteGuard path="/assignment-list/:sort?" component={AssignmentList} />
+            <RouteGuard
+              path="/return-request-list/:sort?"
+              component={ReturnRequestList}
+            />
+            <RouteGuard
+              path="/assignment-list/:sort?"
+              component={AssignmentList}
+            />
+
             <RouteGuard path="/create-asset" component={CreateAsset} />
             <UserDetailProvider>
               <ManageUserProvider>
@@ -41,7 +50,7 @@ function Routes() {
               </ManageUserProvider>
             </UserDetailProvider>
             <RouteGuard path="/error" component={Error} />
-            <Redirect from="*" to="/error"/>
+            <Redirect from="*" to="/error" />
             <RouteGuard path="/list-view" component={ListView} />
           </Switch>
         </div>

@@ -1,6 +1,6 @@
 import axiosInstance from "../axiosInstance";
 
-async function getAssignmentList(sortingOption?: any) {
+async function getReturnRequestList(sortingOption?: any) {
   let stateArray = sortingOption.state;
   let stateString = "";
   stateArray.forEach((element: any) => {
@@ -10,7 +10,7 @@ async function getAssignmentList(sortingOption?: any) {
 
   return await axiosInstance
     .get(
-      `Assignment?searching=${sortingOption.searching}${stateString}&assignDate=${sortingOption.assignDate}`
+      `ReturnRequest?searching=${sortingOption.searching}${stateString}&returnedDate=${sortingOption.returnedDate}`
     )
     .then((res) => {
       return res;
@@ -20,4 +20,4 @@ async function getAssignmentList(sortingOption?: any) {
     });
 }
 
-export { getAssignmentList };
+export { getReturnRequestList };
