@@ -80,8 +80,8 @@ const columns: GridColDef[] = [
   },
   {
     field: "action",
-    headerName: "Action",
-    width: 100,
+    type: "action",
+    flex: 1,
     renderCell: (value) => {
       return (
         <>
@@ -262,12 +262,15 @@ function ManageUser() {
             pageSize={5}
             //rowsPerPageOptions={[5,10,20]} /
             disableSelectionOnClick
+            disableColumnMenu
             onRowClick={(params) => {
               openUserDetail(params);
             }}
-            components={{
-              /*  Pagination: CustomPagination, */ Toolbar: DataGridToolbar,
-            }}
+            components={
+              {
+                /*  Pagination: CustomPagination, */
+              }
+            }
             componentsProps={{
               panel: {
                 sx: {

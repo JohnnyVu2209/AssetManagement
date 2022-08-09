@@ -17,82 +17,63 @@ type FormValues = {
   type: number;
 };
 
+const disableSaveButton = () => {
+  let button = document.getElementById(
+    "create-user-save-button"
+  ) as HTMLButtonElement;
+  if (button) button.disabled = true;
+};
+
 const CreateUser = () => {
   //VALIDATION
-  const schema = yup
-    .object()
-    .shape({
-      firstName: yup
-        .string()
-        .required("Please enter first name")
-        .matches(/^[a-zA-Z ]+$/, "First name only contains English characters"),
-      lastName: yup
-        .string()
-        .required("Please enter last name")
-        .matches(/^[a-zA-Z ]+$/, "Last name only contains English characters"),
-      dateOfBirth: yup
-        .date()
-        .required("Please Select Date of Birth")
-        .nullable()
-        .transform((curr, orig) => (orig === "" ? null : curr))
-        .test(
-          "dob",
-          "User is under 18. Please select a different date",
-          (value: any) => {
-            return differenceInYears(new Date(), value) >= 18;
-          }
-        ),
-      joinedDate: yup
-        .date()
-        .required("Join date is required")
-        .when("dateOfBirth", {
-          is: (value: any) => differenceInYears(new Date(), value) < 18,
-          then: yup
-            .date()
-            .nullable()
-            .transform((curr, orig) => (orig === "" ? null : curr))
-            .required("User is under 18. Please select a different date"),
-          otherwise: yup
-            .date()
-            .nullable()
-            .transform((curr, orig) => (orig === "" ? null : curr))
-            .when("dateOfBirth", {
-              is: (value: any) => differenceInYears(new Date(), value) >= 18,
-              then: yup
-                .date()
-
-                .test(
-                  "dj",
-                  "Joined date is Saturday or Sunday. Please select a different date",
-                  (value: any) => {
-                    return !isSaturday(value);
-                  }
-                )
-                .test(
-                  "dj",
-                  "Joined date is Saturday or Sunday. Please select a different date",
-                  (value: any) => {
-                    return !isSunday(value);
-                  }
-                )
-                .nullable()
-                .transform((curr, orig) => (orig === "" ? null : curr)),
-            }),
-        }),
-
-      // .test("dj", "Date joined should be greater", (value) => {
-      //   // const { dateOfBirth } = this.parent;
-      //   return isAfter(dateOfBirth, value)
-      //   );
-      // }),
-    })
-    .test(
-      "gloablok",
-      "User under the age of 18 may not join company. Please select a different date",
-      (value: any) => {
-        return differenceInYears(value.joinedDate, value.dateOfBirth) >= 18;
-      }
-    );
+  const schema = yup.object().shape({
+    firstName: yup
+      .string()
+      .required("Please enter first name")
+      .matches(/^[a-zA-Z ]+$/, "First name only contains English characters"),
+    lastName: yup
+      .string()
+      .required("Please enter last name")
+      .matches(/^[a-zA-Z ]+$/, "Last name only contains English characters"),
+    dateOfBirth: yup
+      .date()
+      .required("Please Select Date of Birth")
+      .nullable()
+      .transform((curr, orig) => (orig === "" ? null : curr))
+      .test(
+        "dob",
+        "User is under 18. Please select a different date",
+        (value: any) => {
+          return differenceInYears(new Date(), value) >= 18;
+        }
+      ),
+    joinedDate: yup
+      .date()
+      .required("Join date is required")
+      .test(
+        "dj",
+        "User under the age of 18 may not join company. Please select a different date",
+        (value: any) => {
+          return (
+            differenceInYears(new Date(value), new Date(dateOfBirth)) >= 18
+          );
+        }
+      )
+      .test(
+        "dj",
+        "Joined date is Saturday or Sunday. Please select a different date",
+        (value: any) => {
+          return !isSaturday(value);
+        }
+      )
+      .test(
+        "dj",
+        "Joined date is Saturday or Sunday. Please select a different date",
+        (value: any) => {
+          return !isSunday(value);
+        }
+      ),
+  });
 
   const {
     register,
@@ -109,10 +90,29 @@ const CreateUser = () => {
 
   const selectOptions = ["User", "Admin"];
   const [typeValue, setTypeValue] = useState(selectOptions[1]);
+  const [dateOfBirth, setDateOfBirth] = useState("");
 
   const getYearFromValue = (value: string) => {
     return new Date(value).getFullYear();
   };
+
+  const enableSaveButton = () => {
+    let button = document.getElementById(
+      "create-user-save-button"
+    ) as HTMLButtonElement;
+    if (
+      getValues("firstName").replace(/ /g, "") &&
+      getValues("lastName").replace(/ /g, "") &&
+      getValues("dateOfBirth") &&
+      getValues("joinedDate")
+    )
+      button.disabled = false;
+    else button.disabled = true;
+  };
+
+  useEffect(() => {
+    disableSaveButton();
+  }, []);
 
   const onSubmit: SubmitHandler<FormValues> = (data: any) => {
     console.log(data);
@@ -121,6 +121,10 @@ const CreateUser = () => {
     sendData.dateOfBirth.setDate(sendData.dateOfBirth.getDate() + 1);
     sendData.joinedDate.setDate(sendData.joinedDate.getDate() + 1);
     createUser(sendData);
+  };
+
+  const handleDOBChange = (event: any) => {
+    setDateOfBirth(event.target.value);
   };
 
   return (
@@ -138,6 +142,7 @@ const CreateUser = () => {
               })}
               type="text"
               placeholder="First Name"
+              onKeyUp={enableSaveButton}
             />
           </div>
           <p className="form-page-form-error-message">
@@ -151,6 +156,7 @@ const CreateUser = () => {
               })}
               type="text"
               placeholder="Last Name"
+              onKeyUp={enableSaveButton}
             />
           </div>
           <p className="form-page-form-error-message">
@@ -164,6 +170,8 @@ const CreateUser = () => {
               })}
               type="date"
               placeholder="Last Name"
+              onFocusCapture={enableSaveButton}
+              onChange={(e: any) => handleDOBChange(e)}
             />
           </div>
           <p className="form-page-form-error-message">
@@ -197,6 +205,7 @@ const CreateUser = () => {
             <label htmlFor="">Joined Date</label>
             <input
               type="date"
+              onFocusCapture={enableSaveButton}
               placeholder="Joined Date"
               {...register("joinedDate", {
                 required: true,
@@ -222,7 +231,12 @@ const CreateUser = () => {
           </div>
         </div>
         <div className="form-page-form-buttons modal-form-buttons">
-          <input type="submit" className="button" value="Save" />
+          <input
+            type="submit"
+            id="create-user-save-button"
+            className="button"
+            value="Save"
+          />
           <Link to="/manage-user">
             <button className="button-reverse">Cancel</button>
           </Link>
