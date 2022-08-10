@@ -215,7 +215,11 @@ namespace AssetManagement.Data.Repositories.Implementations
                 users = users.Where(x => x.LocationId == location);
 
             if (users.Any() && !string.IsNullOrWhiteSpace(searching))
-                users = users.Where(x => x.StaffCode.ToLower().Contains(searching.Trim().ToLower()) || x.FullName.ToLower().Contains(searching.Trim().ToLower()));
+                users = users.Where(x =>
+                                    x.StaffCode.ToLower().Contains(searching.Trim().ToLower()) ||
+                                    x.FirstName.ToLower().Contains(searching.Trim().ToLower()) ||
+                                    x.LastName.ToLower().Contains(searching.Trim().ToLower()) ||
+                                    (x.FirstName.ToLower() + " " + x.LastName.ToLower()).Contains(searching.Trim().ToLower()));
             if(orderBy.ToLower().Contains("type"))
             {
                 if (orderBy.ToLower().Contains("asc"))

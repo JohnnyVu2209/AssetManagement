@@ -1,6 +1,8 @@
 import Swal from "sweetalert2";
 import axiosInstance from "../axiosInstance";
 
+var qs = require('qs');
+
 // async function getAssignmentList(sortingOption?: any) {
 //   let stateArray = sortingOption.state;
 //   let stateString = "";
@@ -28,6 +30,9 @@ const getAssignmentList = async (sortingOption?: any) => {
       searching: sortingOption.searching,
       orderBy: sortingOption.orderBy,
       assignDate: sortingOption.assignDate,
+    },
+    paramsSerializer: params => {
+      return qs.stringify(params)
     }
   })
 }
