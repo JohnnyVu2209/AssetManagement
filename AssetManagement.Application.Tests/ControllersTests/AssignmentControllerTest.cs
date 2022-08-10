@@ -31,7 +31,7 @@ namespace AssetManagement.Application.Tests.ControllersTests
             };
 
             var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
-            assignmentRepositoryMock.Setup(x => x.GetAsync(sorting.Searching,sorting.AssignDate,sorting.State)).Returns(Task.FromResult(assignmentList));
+            assignmentRepositoryMock.Setup(x => x.GetAsync(sorting.Searching,sorting.AssignDate,sorting.State, It.IsAny<string>())).Returns(Task.FromResult(assignmentList));
 
             var mapperMock = new Mock<IMapper>();
             mapperMock.Setup(s => s.Map<IEnumerable<AssignmentDTO>>(assignmentList)).Returns(assignmentListDTO);
@@ -70,7 +70,7 @@ namespace AssetManagement.Application.Tests.ControllersTests
             };
 
             var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
-            assignmentRepositoryMock.Setup(x => x.GetAsync(sorting.Searching, sorting.AssignDate, sorting.State));
+            assignmentRepositoryMock.Setup(x => x.GetAsync(sorting.Searching, sorting.AssignDate, sorting.State, It.IsAny<string>() ));
 
             var mapperMock = new Mock<IMapper>();
             mapperMock.Setup(s => s.Map<IEnumerable<AssignmentDTO>>(assignmentList)).Returns(assignmentListDTO);
@@ -106,7 +106,7 @@ namespace AssetManagement.Application.Tests.ControllersTests
             };
 
             var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
-            assignmentRepositoryMock.Setup(x => x.GetAsync(sorting.Searching, sorting.AssignDate, sorting.State)).Throws(new Exception(expectedMessage));
+            assignmentRepositoryMock.Setup(x => x.GetAsync(sorting.Searching, sorting.AssignDate, sorting.State, It.IsAny<string>())).Throws(new Exception(expectedMessage));
 
             var mapperMock = new Mock<IMapper>();
             mapperMock.Setup(s => s.Map<IEnumerable<AssignmentDTO>>(assignmentList)).Returns(assignmentListDTO);

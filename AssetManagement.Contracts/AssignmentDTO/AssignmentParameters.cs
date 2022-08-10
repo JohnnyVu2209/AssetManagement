@@ -8,6 +8,10 @@ namespace AssetManagement.Contracts.AssignmentDTO
 {
     public class AssignmentParameters : PagingParameters
     {
+        public AssignmentParameters()
+        {
+            OrderBy = "Id asc";
+        }
         public List<int>? State { get; set; } = new(new int[] {1,2});
         public DateTime? AssignDate { get; set; }
 
