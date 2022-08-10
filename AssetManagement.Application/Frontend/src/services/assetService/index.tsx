@@ -28,11 +28,13 @@ const getAssetList = (
   })
 }
 
-const getAssetListBySearch = (searching: string, orderBy: string) => {
-  return axiosInstance.get(`${Asset}/getAssetList`,{
+const getAssetListBySearch = (pageNumber: number,searching: string, orderBy: string) => {
+  return axiosInstance.get(`${Asset}/getAssetsList`,{
     params:{
+      pageNumber,
       searching,
       orderBy,
+      pageSize:5,
       state:[2]
     },
     paramsSerializer: params => {

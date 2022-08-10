@@ -6,12 +6,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AssetManagement.Data
 {
-    public class AssetManagementDbContext : IdentityDbContext<User, Role, int>
+    public class AssetManagementDbContext : IdentityDbContext<User, Role, int, IdentityUserClaim<int>, UserRole,IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
         public AssetManagementDbContext(DbContextOptions<AssetManagementDbContext> options) : base(options)
         {
 
         }
+
         public DbSet<Location> Locations { get; set; }
         public DbSet<State> States { get; set; }
         public DbSet<Category> Categories { get; set; }

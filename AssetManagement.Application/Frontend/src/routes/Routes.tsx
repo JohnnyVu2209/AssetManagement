@@ -17,6 +17,7 @@ import Error from "../pages/Error";
 import AssignmentList from "../pages/AssignmentList";
 import CreateAsset from "../pages/CreateAsset";
 import ReturnRequestList from "../pages/ReturnRequestList";
+import CreateAssigment from "../pages/CreateAssigment";
 
 function Routes() {
   return (
@@ -43,6 +44,7 @@ function Routes() {
               component={AssignmentList}
             />
 
+            <RouteGuard path="/assignment/create" component={CreateAssigment} />
             <RouteGuard path="/create-asset" component={CreateAsset} />
             <UserDetailProvider>
               <ManageUserProvider>

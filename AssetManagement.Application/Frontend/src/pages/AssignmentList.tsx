@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import "../assets/css/ListView.css";
 import Modal from "../components/Modal";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import TextField from "@mui/material/TextField";
@@ -29,27 +29,27 @@ const columns: GridColDef[] = [
   {
     field: "assetCode",
     headerName: "Asset Code",
-    flex:1,
+    flex: 1,
   },
   {
     field: "assetName",
     headerName: "Asset Name",
-    flex:1,
+    flex: 1,
   },
   {
     field: "assignedTo",
     headerName: "Assigned to",
-    flex:1,
+    flex: 1,
   },
   {
     field: "assignedBy",
     headerName: "Assigned by",
-    flex:1,
+    flex: 1,
   },
   {
     field: "assignedDate",
     headerName: "Assigned Date",
-    flex:1,
+    flex: 1,
     type: "date",
     valueFormatter: (params) => {
       const valueFormatted = format(new Date(params.value), "dd/MM/yyyy");
@@ -59,7 +59,7 @@ const columns: GridColDef[] = [
   {
     field: "assignedState",
     headerName: "State",
-    flex:1,
+    flex: 1,
     valueFormatter: (params) => {
       const valueFormatted =
         params.value === 1 ? "Accepted" : "Waiting for acceptance";
@@ -69,7 +69,7 @@ const columns: GridColDef[] = [
   {
     field: "",
     type: "actions",
-    flex:1,
+    flex: 1,
     renderCell: () => {
       return (
         <>
@@ -88,28 +88,36 @@ const columns: GridColDef[] = [
   },
 ];
 
+interface ParamsType {
+  sort: string
+}
+
 function ListView() {
+  const { sort } = useParams<ParamsType>();
   const [filterContent, setFilterContent] = useState({
     assignDate: "",
     state: [] as number[],
     searching: "",
+    orderBy: "id asc"
   });
   const options = [1, 2];
   const [selected, setSelected] = useState([] as number[]);
   const [assignmentList, setAssignmentList] = useState([]);
   useEffect(() => {
+    if (sort)
+      setFilterContent({ ...filterContent, orderBy: "updatedDate desc" });
+
     getAssignmentList(filterContent).then((res) => {
-      if (res.response) {
-        let statusCode = res.response.status;
+      setAssignmentList(res.data);
+    }).catch((error) => {
+      if (error.response) {
+        let statusCode = error.response.status;
         if (statusCode == 404) {
           setAssignmentList([]);
         }
       }
-      if (res.data) {
-        setAssignmentList(res.data);
-      }
     });
-  }, [filterContent]);
+  }, [filterContent.assignDate, filterContent.searching,filterContent.state,filterContent.orderBy, sort]);
 
   const testSearch = (e: any) => {
     e.preventDefault();
@@ -139,6 +147,15 @@ function ListView() {
     setSelected(value);
     setFilterContent({ ...filterContent, state: value });
   };
+
+  useEffect(() => {
+    if (performance.navigation.type === 1) {
+      console.log("This page is reloaded");
+      window.location.href = "/assignment-list";
+    } else {
+      console.log("This page is not reloaded");
+    }
+  })
 
   return (
     <>
@@ -226,13 +243,15 @@ function ListView() {
                 <SearchIcon />
               </IconButton>
             </Paper>
-            <button
-              className="page-create-button button"
-              style={{ width: "200px" }}
-              onClick={() => open()}
-            >
-              Create new assignment
-            </button>
+            <Link to='/assignment/create'>
+              <button
+                className="page-create-button button"
+                style={{ width: "200px" }}
+              >
+                Create new assignment
+              </button>
+
+            </Link>
           </div>
         </div>
 
@@ -269,6 +288,7 @@ function ListView() {
             rows={assignmentList}
             columns={columns}
             pageSize={8}
+            disableColumnMenu
             // rowsPerPageOptions={[5]}
             disableSelectionOnClick
           />

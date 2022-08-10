@@ -22,6 +22,20 @@ async function getUserList(sortingOption?: any) {
     });
 }
 
+
+const getUsers = (pageNumber: number, orderBy: string, searching: string) => {
+  return axiosInstance.get('User/GetUsersList',
+    {
+      params: {
+        PageSize: 5,
+        pageNumber,
+        orderBy,
+        searching,
+      }
+    })
+}
+
+
 async function getUserByStaffCode(staffCode: string) {
   return await axiosInstance
     .get("User/" + staffCode)
@@ -64,6 +78,8 @@ async function updateUser(userInfo: any) {
     });
 }
 
+
+
 async function createUser(data: any) {
   axiosInstance
     .post("User/createUser", data)
@@ -94,4 +110,4 @@ async function createUser(data: any) {
     });
 }
 
-export { getUserList, getUserByStaffCode, updateUser, createUser };
+export { getUserList, getUserByStaffCode, updateUser, createUser, getUsers };

@@ -7,6 +7,7 @@ namespace AssetManagement.Domain.Model
         public string? StaffCode { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
+        public string? FullName { get; set; }
         public DateTime DateOfBirth { get; set; }
         public bool Gender { get; set; }
         public DateTime JoinedDate { get; set; }
@@ -20,6 +21,7 @@ namespace AssetManagement.Domain.Model
         public virtual List<Assignment> AssignmentsBys { get; set; } = new List<Assignment>();
         public List<ReturnRequest> AcceptedRequestsBy { get; set; } = new List<ReturnRequest>();
         public List<ReturnRequest> ReturnRequests { get; set; } = new List<ReturnRequest>();
+        public virtual List<UserRole> UserRoles { get; set; } 
 
     }
 }

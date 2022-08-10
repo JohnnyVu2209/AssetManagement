@@ -1,4 +1,5 @@
-﻿using AssetManagement.Contracts.Constant;
+﻿using AssetManagement.Contracts;
+using AssetManagement.Contracts.Constant;
 using AssetManagement.Contracts.UserDTO;
 using AssetManagement.Data.Repositories;
 using AssetManagement.Domain.Model;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System.Security.Claims;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -124,6 +126,32 @@ namespace AssetManagement.Application.Controllers
             {
                 return BadRequest();
             }
+            return Ok(data);
+        } 
+        [Authorize(Roles = "Admin")]
+        [HttpGet("GetUsersList")]
+        public async Task<ActionResult> GetPagination([FromQuery] UserParameters userParameters)
+        {
+            var username = HttpContext.User.Claims.Single(x => x.Type == ClaimTypes.Name).Value;
+
+            var user = await userManager.FindByNameAsync(username);
+
+            var filterData = userRepository.FilterUsers(user.LocationId, userParameters.Searching, userParameters.OrderBy);
+
+            var data = PageList<User, UserViewDTO>.ToPageList(filterData, userParameters.PageNumber, userParameters.PageSize, mapper);
+
+            var metadata = new
+            {
+                data.TotalCount,
+                data.PageSize,
+                data.CurrentPage,
+                data.TotalPages,
+                data.HasNext,
+                data.HasPrevious,
+            };
+
+            Response.Headers.Add("Pagination", JsonConvert.SerializeObject(metadata));
+
             return Ok(data);
         }
 

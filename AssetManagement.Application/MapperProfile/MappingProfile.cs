@@ -1,6 +1,7 @@
 ﻿using AssetManagement.Contracts.AssetDTO;
 using AssetManagement.Contracts.AssignmentDTO;
 using AssetManagement.Contracts.ReturnRequestDTO;
+using AssetManagement.Contracts.Constant;
 using AssetManagement.Contracts.UserDTO;
 using AssetManagement.Domain.Model;
 using AutoMapper;
@@ -11,10 +12,13 @@ namespace AssetManagement.Application.MapperProfile
     {
         public MapUserDTOs()
         {
-            CreateMap<User, UserViewDTO>();
+            CreateMap<User, UserViewDTO>()
+                .ForMember(d => d.Type, opt => opt.MapFrom(s => s.UserRoles.Where(x => x.UserId == s.Id).FirstOrDefault().RoleId == 1 ? RoleConstant.Admin : RoleConstant.User ))
+                .ForMember(d => d.TypeId, opt => opt.MapFrom(s => s.UserRoles.Where(x => x.UserId == s.Id).FirstOrDefault().RoleId));
             CreateMap<CreateUserDTO, User>()
                 .ForMember(d => d.SecurityStamp, opt => opt.MapFrom(s => Guid.NewGuid().ToString()))
-                .ForMember(d => d.Gender, opt => opt.MapFrom(s => s.Gender == 1)); 
+                .ForMember(d => d.Gender, opt => opt.MapFrom(s => s.Gender == 1))
+                .ForMember(d => d.FullName, opt => opt.MapFrom(s => $"{s.FirstName} {s.LastName}")); 
         }
     }
 

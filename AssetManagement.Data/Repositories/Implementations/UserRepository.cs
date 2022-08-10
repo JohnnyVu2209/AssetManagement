@@ -1,13 +1,12 @@
 ﻿using AssetManagement.Contracts.Constant;
 using AssetManagement.Contracts.UserDTO;
+using AssetManagement.Data.Repositories.Extensions;
 using AssetManagement.Domain.Model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Linq.Dynamic.Core;
+using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AssetManagement.Data.Repositories.Implementations
 {
@@ -207,5 +206,28 @@ namespace AssetManagement.Data.Repositories.Implementations
                 Name = r.Name
             }).ToListAsync();
         }
+
+        public IQueryable<User> FilterUsers(int location, string searching, string orderBy)
+        {
+            var users = _context.Users.Include(x => x.UserRoles).ThenInclude(x => x.Role).Include(x => x.Location).AsQueryable();
+
+            if (users.Any() && location != 0)
+                users = users.Where(x => x.LocationId == location);
+
+            if (users.Any() && !string.IsNullOrWhiteSpace(searching))
+                users = users.Where(x => x.StaffCode.ToLower().Contains(searching.Trim().ToLower()) || x.FullName.ToLower().Contains(searching.Trim().ToLower()));
+            if(orderBy.ToLower().Contains("type"))
+            {
+                if (orderBy.ToLower().Contains("asc"))
+                    users = users.OrderBy(x => x.UserRoles.FirstOrDefault().RoleId);
+                else
+                    users = users.OrderByDescending(x => x.UserRoles.FirstOrDefault().RoleId);
+            }
+            else
+                users = users.ApplySort(orderBy);
+
+            return users;
+        }
+
     }
 }

@@ -213,9 +213,12 @@ const ManageAsset = () => {
       categoryData.filter(x => x.check === true && x.id != 0).map(x => x.id))
       .then(response => {
         // console.log(response.data);
+        const resPagination = JSON.parse(response.headers.pagination);
+        if(resPagination.TotalPages < resPagination.CurrentPage)
+          setPage(1);
+          
         setAssetData(response.data);
-        const pagination = JSON.parse(response.headers.pagination);
-        setPagination(pagination);
+        setPagination(resPagination);
       })
   }, [page, pageSize, orderBy, order, filterName, stateData, categoryData, sort]);
 
@@ -406,7 +409,7 @@ const ManageAsset = () => {
               orderBy={orderBy}
             />
             <TableBody>
-              {stableSort(assetData, getComparator(order, orderBy)).map(item => (
+              {assetData.map(item => (
                 <TableRow>
                   <TableCell>{item.code}</TableCell>
                   <TableCell>{item.name}</TableCell>

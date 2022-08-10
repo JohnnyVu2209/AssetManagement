@@ -1,10 +1,6 @@
 ﻿using AssetManagement.Contracts.Constant;
 using AssetManagement.Contracts.UserDTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using AssetManagement.Domain.Model;
 
 namespace AssetManagement.Data.Repositories
 {
@@ -14,5 +10,6 @@ namespace AssetManagement.Data.Repositories
         Task<PageResult<UserViewDTO>> GetPaginationAsync(ViewUserRequest request);
         Task<ApiResult<string>> UpdateAsync(UpdateUserDTO request);
         Task<List<RoleViewModel>> GetRolesAsync();
+        IQueryable<User> FilterUsers(int location, string searching, string orderBy);
     }
 }

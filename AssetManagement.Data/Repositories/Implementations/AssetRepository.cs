@@ -126,5 +126,10 @@ namespace AssetManagement.Data.Repositories.Implementations
             var prefix = categoryRepository.GetCategoryPrefix(categoryId);
             return prefix;
         }
+
+        public Task<Asset?> GetByAssetIdAsync(int id)
+        {
+            return context.Assets.FindAsync(id).AsTask();
+        }
     }
 }
