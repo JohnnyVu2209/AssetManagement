@@ -16,6 +16,7 @@ import ManageAsset from "../pages/ManageAsset";
 import Error from "../pages/Error";
 import AssignmentList from "../pages/AssignmentList";
 import CreateAsset from "../pages/CreateAsset";
+import ListAssignmentView from "../pages/UserAssignmentList";
 import ReturnRequestList from "../pages/ReturnRequestList";
 import CreateAssigment from "../pages/CreateAssigment";
 
@@ -30,7 +31,8 @@ function Routes() {
           <Sidebar />
           <Navbar />
           <Switch>
-            <RouteGuard exact path="/" component={Dashboard} />
+            <RouteGuard exact path="/user-home" component={ListAssignmentView} />
+
             <RouteGuard path="/edit-user/:staffCode?" component={EditUser} />
             <RouteGuard path="/list-view" component={ListView} />
             <RouteGuard path="/create-user" component={CreateUser} />

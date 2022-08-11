@@ -1,7 +1,7 @@
 import { GridRowParams } from "@mui/x-data-grid"
 
 export interface UserDetailType {
-    id: number
+    staffCode: string
     firstName: string
     lastName: string
     userName: string

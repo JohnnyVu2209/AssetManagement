@@ -499,5 +499,404 @@ namespace AssetManagement.Application.Tests.ControllersTests
             }
             return list;
         }
+
+        [Fact]
+        public async Task GetAssignmentByUserLogin_ReturnOk()
+        {
+            //Arrange
+            IEnumerable<Assignment> assignmentList = GenerateListAssignment(10);
+            var pagedResult = new PageResult<UserAssignmentViewModel>()
+            {
+                TotalRecords = 10,
+                Items = new List<UserAssignmentViewModel>(),
+                Page = 1,
+                Limit = 5
+            };
+
+            List<AssignmentDTO> assignmentListDTO = new List<AssignmentDTO>()
+            {
+                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
+                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
+            };
+
+            var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
+            assignmentRepositoryMock.Setup(x => x.GetUserAssignmentPaginationAsync(It.IsAny<UserAssignmentViewRequest>())).Returns(Task.FromResult(pagedResult));
+
+            var mapperMock = new Mock<IMapper>();
+            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentDTO>>(assignmentList)).Returns(assignmentListDTO);
+
+            var mockLogger = new Mock<ILogger<AssignmentController>>();
+            var mockAssetRepository = new Mock<IAssetRepository>();
+            var mockUserManager = new Mock<FakeUserManager>();
+
+            var controller = new AssignmentController(assignmentRepositoryMock.Object, mockAssetRepository.Object, mockUserManager.Object, mapperMock.Object, mockLogger.Object);
+
+            // Act
+            OkObjectResult result = (await controller.GetAssignmentsByUserLogin(new UserAssignmentViewRequest())) as OkObjectResult;
+            var content = result.Value;
+
+            // Assert
+            Assert.IsType<OkObjectResult>(result);
+            Assert.IsType<PageResult<UserAssignmentViewModel>>(content);
+        }
+
+        [Fact]
+        public async Task GetAssignmentByUserLogin_ReturnBadRequest()
+        {
+            //Arrange
+            IEnumerable<Assignment> assignmentList = GenerateListAssignment(10);
+            List<AssignmentDTO> assignmentListDTO = new List<AssignmentDTO>()
+            {
+                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
+                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
+            };
+
+            var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
+            assignmentRepositoryMock.Setup(x => x.GetUserAssignmentPaginationAsync(It.IsAny<UserAssignmentViewRequest>()));
+
+            var mapperMock = new Mock<IMapper>();
+            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentDTO>>(assignmentList)).Returns(assignmentListDTO);
+
+            var mockLogger = new Mock<ILogger<AssignmentController>>();
+            var mockAssetRepository = new Mock<IAssetRepository>();
+            var mockUserManager = new Mock<FakeUserManager>();
+
+            var controller = new AssignmentController(assignmentRepositoryMock.Object, mockAssetRepository.Object, mockUserManager.Object, mapperMock.Object, mockLogger.Object);
+
+            // Act
+            BadRequestResult result = (await controller.GetAssignmentsByUserLogin(new UserAssignmentViewRequest())) as BadRequestResult;
+
+            // Assert
+            Assert.IsType<BadRequestResult>(result);
+        }
+
+        [Fact]
+        public async Task AcceptRespone_ReturnBadRequest()
+        {
+            //Arrange
+            IEnumerable<Assignment> assignmentList = GenerateListAssignment(10);
+            List<AssignmentDTO> assignmentListDTO = new List<AssignmentDTO>()
+            {
+                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
+                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
+            };
+            var expectedResult = new ApiResult<bool>(true)
+            {
+                Message = "Cannot update state, assignment was accepted",
+                StatusCode = 400
+            };
+
+            var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
+            assignmentRepositoryMock.Setup(x => x.AcceptRespondAsync(It.IsAny<int>())).Returns(Task.FromResult(expectedResult));
+
+            var mapperMock = new Mock<IMapper>();
+            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentDTO>>(assignmentList)).Returns(assignmentListDTO);
+
+            var mockLogger = new Mock<ILogger<AssignmentController>>();
+            var mockAssetRepository = new Mock<IAssetRepository>();
+            var mockUserManager = new Mock<FakeUserManager>();
+
+            var controller = new AssignmentController(assignmentRepositoryMock.Object, mockAssetRepository.Object, mockUserManager.Object, mapperMock.Object, mockLogger.Object);
+
+            // Act
+            BadRequestObjectResult result = (await controller.AcceptRespond(1)) as BadRequestObjectResult;
+
+            // Assert
+            Assert.IsType<BadRequestObjectResult>(result);
+            Assert.Equal("Cannot update state, assignment was accepted", result.Value.ToString());
+            Assert.Equal(400, result.StatusCode);
+        }
+
+        [Fact]
+        public async Task AcceptRespone_ReturnOk()
+        {
+            //Arrange
+            IEnumerable<Assignment> assignmentList = GenerateListAssignment(10);
+            List<AssignmentDTO> assignmentListDTO = new List<AssignmentDTO>()
+            {
+                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
+                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
+            };
+            var expectedResult = new ApiResult<bool>(true)
+            {
+                Message = "Assignment is accepted",
+                StatusCode = 200
+            };
+
+            var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
+            assignmentRepositoryMock.Setup(x => x.AcceptRespondAsync(It.IsAny<int>())).Returns(Task.FromResult(expectedResult));
+
+            var mapperMock = new Mock<IMapper>();
+            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentDTO>>(assignmentList)).Returns(assignmentListDTO);
+
+            var mockLogger = new Mock<ILogger<AssignmentController>>();
+            var mockAssetRepository = new Mock<IAssetRepository>();
+            var mockUserManager = new Mock<FakeUserManager>();
+
+            var controller = new AssignmentController(assignmentRepositoryMock.Object, mockAssetRepository.Object, mockUserManager.Object, mapperMock.Object, mockLogger.Object);
+
+            // Act
+            OkObjectResult result = (await controller.AcceptRespond(1)) as OkObjectResult;
+
+            // Assert
+            Assert.IsType<OkObjectResult>(result);
+            Assert.Equal("Assignment is accepted", result.Value.ToString());
+            Assert.Equal(200, result.StatusCode);
+        }
+
+        [Fact]
+        public async Task AcceptRespone_NotFound()
+        {
+            //Arrange
+            IEnumerable<Assignment> assignmentList = GenerateListAssignment(10);
+            List<AssignmentDTO> assignmentListDTO = new List<AssignmentDTO>()
+            {
+                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
+                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
+            };
+            var expectedResult = new ApiResult<bool>(true)
+            {
+                Message = "Not found this assignment",
+                StatusCode = 404
+            };
+
+            var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
+            assignmentRepositoryMock.Setup(x => x.AcceptRespondAsync(It.IsAny<int>())).Returns(Task.FromResult(expectedResult));
+
+            var mapperMock = new Mock<IMapper>();
+            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentDTO>>(assignmentList)).Returns(assignmentListDTO);
+
+            var mockLogger = new Mock<ILogger<AssignmentController>>();
+            var mockAssetRepository = new Mock<IAssetRepository>();
+            var mockUserManager = new Mock<FakeUserManager>();
+
+            var controller = new AssignmentController(assignmentRepositoryMock.Object, mockAssetRepository.Object, mockUserManager.Object, mapperMock.Object, mockLogger.Object);
+
+            // Act
+            NotFoundObjectResult result = (await controller.AcceptRespond(1)) as NotFoundObjectResult;
+
+            // Assert
+            Assert.IsType<NotFoundObjectResult>(result);
+            Assert.Equal("Not found this assignment", result.Value.ToString());
+            Assert.Equal(404, result.StatusCode);
+        }
+
+        [Fact]
+        public async Task DeclineRespone_ReturnBadRequest()
+        {
+            //Arrange
+            IEnumerable<Assignment> assignmentList = GenerateListAssignment(10);
+            List<AssignmentDTO> assignmentListDTO = new List<AssignmentDTO>()
+            {
+                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
+                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
+            };
+            var expectedResult = new ApiResult<bool>(true)
+            {
+                Message = "Failed, perhaps assignment state was accepted",
+                StatusCode = 400
+            };
+
+            var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
+            assignmentRepositoryMock.Setup(x => x.DeclineRespondAsync(It.IsAny<int>())).Returns(Task.FromResult(expectedResult));
+
+            var mapperMock = new Mock<IMapper>();
+            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentDTO>>(assignmentList)).Returns(assignmentListDTO);
+
+            var mockLogger = new Mock<ILogger<AssignmentController>>();
+            var mockAssetRepository = new Mock<IAssetRepository>();
+            var mockUserManager = new Mock<FakeUserManager>();
+
+            var controller = new AssignmentController(assignmentRepositoryMock.Object, mockAssetRepository.Object, mockUserManager.Object, mapperMock.Object, mockLogger.Object);
+
+            // Act
+            BadRequestObjectResult result = (await controller.DeclineRespond(1)) as BadRequestObjectResult;
+
+            // Assert
+            Assert.IsType<BadRequestObjectResult>(result);
+            Assert.Equal("Failed, perhaps assignment state was accepted", result.Value.ToString());
+            Assert.Equal(400, result.StatusCode);
+        }
+
+        [Fact]
+        public async Task DeclineRespone_NotFound()
+        {
+            //Arrange
+            IEnumerable<Assignment> assignmentList = GenerateListAssignment(10);
+            List<AssignmentDTO> assignmentListDTO = new List<AssignmentDTO>()
+            {
+                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
+                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
+            };
+            var expectedResult = new ApiResult<bool>(true)
+            {
+                Message = "Assignment is not found",
+                StatusCode = 404
+            };
+
+            var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
+            assignmentRepositoryMock.Setup(x => x.DeclineRespondAsync(It.IsAny<int>())).Returns(Task.FromResult(expectedResult));
+
+            var mapperMock = new Mock<IMapper>();
+            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentDTO>>(assignmentList)).Returns(assignmentListDTO);
+
+            var mockLogger = new Mock<ILogger<AssignmentController>>();
+            var mockAssetRepository = new Mock<IAssetRepository>();
+            var mockUserManager = new Mock<FakeUserManager>();
+
+            var controller = new AssignmentController(assignmentRepositoryMock.Object, mockAssetRepository.Object, mockUserManager.Object, mapperMock.Object, mockLogger.Object);
+
+            // Act
+            NotFoundObjectResult result = (await controller.DeclineRespond(1)) as NotFoundObjectResult;
+
+            // Assert
+            Assert.IsType<NotFoundObjectResult>(result);
+            Assert.Equal("Assignment is not found", result.Value.ToString());
+            Assert.Equal(404, result.StatusCode);
+        }
+
+        [Fact]
+        public async Task DeclineRespone_ReturnOk()
+        {
+            //Arrange
+            IEnumerable<Assignment> assignmentList = GenerateListAssignment(10);
+            List<AssignmentDTO> assignmentListDTO = new List<AssignmentDTO>()
+            {
+                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
+                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
+            };
+            var expectedResult = new ApiResult<bool>(true)
+            {
+                Message = "Remove assignment successfully",
+                StatusCode = 200
+            };
+
+            var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
+            assignmentRepositoryMock.Setup(x => x.DeclineRespondAsync(It.IsAny<int>())).Returns(Task.FromResult(expectedResult));
+
+            var mapperMock = new Mock<IMapper>();
+            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentDTO>>(assignmentList)).Returns(assignmentListDTO);
+
+            var mockLogger = new Mock<ILogger<AssignmentController>>();
+            var mockAssetRepository = new Mock<IAssetRepository>();
+            var mockUserManager = new Mock<FakeUserManager>();
+
+            var controller = new AssignmentController(assignmentRepositoryMock.Object, mockAssetRepository.Object, mockUserManager.Object, mapperMock.Object, mockLogger.Object);
+
+            // Act
+            OkObjectResult result = (await controller.DeclineRespond(1)) as OkObjectResult;
+
+            // Assert
+            Assert.IsType<OkObjectResult>(result);
+            Assert.Equal("Remove assignment successfully", result.Value.ToString());
+            Assert.Equal(200, result.StatusCode);
+        }
+
+        //Get Assignment By Id
+        [Fact]
+        public async void GetAssignmentById_WhenSuccess_ReturnsOkObject()
+        {
+
+            //Arrange
+            var sorting = new AssignmentParameters() { Searching = "vinz", State = new List<int>(new int[2] { 1, 2 }), AssignDate = new DateTime() }; ;
+            var expectedResult = new Assignment()
+            {
+                AssetId = 1,
+                AssignedToId = 1,
+                AssignedById = 1,
+                AssignedDate = DateTime.Now,
+                AssignedState = AssignmentStateEnums.Waiting,
+                Note = "ABC",
+                Asset = new Asset()
+                {
+                    Id = 1,
+                    Code = "LA000001",
+                    Name = "Laptop HP Probook 450 G1",
+                    Specification = "Dummy Spec 1",
+                    InstalledDate = DateTime.Now,
+                    CategoryID = 1,
+                    StateID = 1,
+                    LocationID = 1,
+                    CreatedDate = DateTime.Now,
+                    UpdatedDate = DateTime.Now,
+                },
+                AssignedTo = new User()
+                {
+                    Id = 1,
+                    StaffCode = "SD0001",
+                    FirstName = "Nghia",
+                    LastName = "Dinh Trong",
+                    CreatedDate = DateTime.Now,
+                    UpdatedDate = DateTime.Now,
+                    UserName = "AdminHCM",
+                    NormalizedUserName = "ADMINHCM",
+                    SecurityStamp = Guid.NewGuid().ToString("D"),
+                    LocationId = 1
+                },
+                AssignedBy = new User()
+                {
+                    Id = 1,
+                    StaffCode = "SD0001",
+                    FirstName = "Nghia",
+                    LastName = "Dinh Trong",
+                    CreatedDate = DateTime.Now,
+                    UpdatedDate = DateTime.Now,
+                    UserName = "AdminHCM",
+                    NormalizedUserName = "ADMINHCM",
+                    SecurityStamp = Guid.NewGuid().ToString("D"),
+                    LocationId = 1
+                },
+            };
+
+            var mapperResult = new AssignmentDTO { Id = 1, AssetCode = "LA000001", AssetName = "Laptop", AssignedTo = "vinz", AssignedBy = "vu" };
+ 
+
+            var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
+            assignmentRepositoryMock.Setup(x => x.GetAssignmentAsync(It.IsAny<int>())).Returns(Task.FromResult(expectedResult));
+
+            var mapperMock = new Mock<IMapper>();
+            mapperMock.Setup(s => s.Map<AssignmentDTO>(expectedResult)).Returns(mapperResult);
+
+            var mockLogger = new Mock<ILogger<AssignmentController>>();
+            var mockAssetRepository = new Mock<IAssetRepository>();
+            var mockUserManager = new Mock<FakeUserManager>();
+
+            var controller = new AssignmentController(assignmentRepositoryMock.Object, mockAssetRepository.Object, mockUserManager.Object, mapperMock.Object, mockLogger.Object);
+
+            // Act
+            OkObjectResult result = (await controller.GetAssignmentById(1)) as OkObjectResult;
+
+            // Assert
+            Assert.IsType<OkObjectResult>(result);
+            Assert.IsType<AssignmentDTO>(result.Value);
+        }
+
+        [Fact]
+        public async void GetAssignmentById_WhenNotFoundAssignment_ReturnsNotFound()
+        {
+
+            //Arrange
+            var sorting = new AssignmentParameters() { Searching = "vinz", State = new List<int>(new int[2] { 1, 2 }), AssignDate = new DateTime() }; ;
+
+            var mapperResult = new AssignmentDTO { Id = 1, AssetCode = "LA000001", AssetName = "Laptop", AssignedTo = "vinz", AssignedBy = "vu" };
+
+
+            var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
+            assignmentRepositoryMock.Setup(x => x.GetAssignmentAsync(It.IsAny<int>()));
+
+            var mapperMock = new Mock<IMapper>();
+
+            var mockLogger = new Mock<ILogger<AssignmentController>>();
+            var mockAssetRepository = new Mock<IAssetRepository>();
+            var mockUserManager = new Mock<FakeUserManager>();
+
+            var controller = new AssignmentController(assignmentRepositoryMock.Object, mockAssetRepository.Object, mockUserManager.Object, mapperMock.Object, mockLogger.Object);
+
+            // Act
+            NotFoundResult result = (await controller.GetAssignmentById(1)) as NotFoundResult;
+
+            // Assert
+            Assert.IsType<NotFoundResult>(result);
+        }
     }
 }

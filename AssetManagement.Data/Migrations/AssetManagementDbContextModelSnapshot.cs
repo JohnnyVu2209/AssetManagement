@@ -71,7 +71,7 @@ namespace AssetManagement.Data.Migrations
 
                     b.HasIndex("StateID");
 
-                    b.ToTable("Assets");
+                    b.ToTable("Assets", (string)null);
 
                     b.HasData(
                         new
@@ -1216,7 +1216,7 @@ namespace AssetManagement.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Locations");
+                    b.ToTable("Locations", (string)null);
 
                     b.HasData(
                         new

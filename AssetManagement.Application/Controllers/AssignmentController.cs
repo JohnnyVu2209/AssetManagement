@@ -49,6 +49,50 @@ namespace AssetManagement.Application.Controllers
             }
         }
 
+        [HttpGet("ByUserLogin")]
+        [Authorize]
+        public async Task<IActionResult> GetAssignmentsByUserLogin([FromQuery] UserAssignmentViewRequest request)
+        {
+            var data = await _assignmentRepository.GetUserAssignmentPaginationAsync(request);
+            if (data == null)
+            {
+                return BadRequest();
+            }
+            return Ok(data);
+        }
+
+        [HttpPut("Accept/{id}")]
+        [Authorize]
+        public async Task<ActionResult> AcceptRespond(int id)
+        {
+            var result = await _assignmentRepository.AcceptRespondAsync(id);
+            if (result.StatusCode == 400)
+            {
+                return BadRequest(result.Message);
+            }
+            else if(result.StatusCode == 404)
+            {
+                return NotFound(result.Message);
+            }
+            return Ok(result.Message);
+        }
+
+        [HttpPut("Decline/{id}")]
+        [Authorize]
+        public async Task<ActionResult> DeclineRespond(int id)
+        {
+            var result = await _assignmentRepository.DeclineRespondAsync(id);
+            if (result.StatusCode == 400)
+            {
+                return BadRequest(result.Message);
+            }
+            else if (result.StatusCode == 404)
+            {
+                return NotFound(result.Message);
+            }
+            return Ok(result.Message);
+        }
+
         [HttpPost("CreateAssignment")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateAssignment([FromBody] CreateAssignmentDTO createAssignmentDTO)
@@ -84,5 +128,19 @@ namespace AssetManagement.Application.Controllers
                 return BadRequest(ErrorCode.CREATE_ASSIGNMENT_FAILED);
             }
         }
+
+        [Authorize]
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetAssignmentById(int id)
+        {
+            var data = await _assignmentRepository.GetAssignmentAsync(id);
+            if (data == null)
+            {
+                return NotFound();
+            }
+            var dto = _mapper.Map<AssignmentDTO>(data);
+            return Ok(dto);
+        }
+
     }
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import "../assets/css/ListView.css";
-import Modal from "../components/Modal";
+//import Modal from "../components/Modal";
 import { Link, useParams } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
@@ -22,7 +22,9 @@ import { CustomPagination } from "../components/CustomPagination";
 import { getAssignmentList } from "../services/assignmentService/assignmentManagement";
 import { format } from "date-fns";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
-import Stack from "@mui/material/Stack";
+import Modal from "react-modal";
+import AssignmentDetail from "../components/Modal_AssignmentDetail";
+import getAssignmentDetail from "../services/assignmentService/assignmentDetail";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "No", width: 120 },
@@ -70,6 +72,7 @@ const columns: GridColDef[] = [
     field: "",
     type: "actions",
     flex: 1,
+
     renderCell: () => {
       return (
         <>
@@ -89,35 +92,43 @@ const columns: GridColDef[] = [
 ];
 
 interface ParamsType {
-  sort: string
+  sort: string;
 }
 
-function ListView() {
+function AssignmentList() {
   const { sort } = useParams<ParamsType>();
   const [filterContent, setFilterContent] = useState({
     assignDate: "",
     state: [] as number[],
     searching: "",
-    orderBy: "id asc"
+    orderBy: "id asc",
   });
   const options = [1, 2];
   const [selected, setSelected] = useState([] as number[]);
   const [assignmentList, setAssignmentList] = useState([]);
+
   useEffect(() => {
     if (sort)
       setFilterContent({ ...filterContent, orderBy: "updatedDate desc" });
-
-    getAssignmentList(filterContent).then((res) => {
-      setAssignmentList(res.data);
-    }).catch((error) => {
-      if (error.response) {
-        let statusCode = error.response.status;
-        if (statusCode == 404) {
-          setAssignmentList([]);
+    getAssignmentList(filterContent)
+      .then((res) => {
+        setAssignmentList(res.data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          let statusCode = error.response.status;
+          if (statusCode == 404) {
+            setAssignmentList([]);
+          }
         }
-      }
-    });
-  }, [filterContent.assignDate, filterContent.searching,filterContent.state,filterContent.orderBy, sort]);
+      });
+  }, [
+    filterContent.assignDate,
+    filterContent.searching,
+    filterContent.state,
+    filterContent.orderBy,
+    sort,
+  ]);
 
   const testSearch = (e: any) => {
     e.preventDefault();
@@ -148,6 +159,16 @@ function ListView() {
     setFilterContent({ ...filterContent, state: value });
   };
 
+  const [modalAssignmentDetail, setModalAssignmentDetail] = useState(false); //open modal
+
+  const [idAssignment, setIdAssignment] = useState<number>();
+
+  const handelModalAssignment = (id: number) => {
+    setIdAssignment(id);
+    console.log("id: " + id);
+    setModalAssignmentDetail(true);
+  };
+
   useEffect(() => {
     if (performance.navigation.type === 1) {
       console.log("This page is reloaded");
@@ -155,11 +176,10 @@ function ListView() {
     } else {
       console.log("This page is not reloaded");
     }
-  })
+  });
 
   return (
     <>
-      <Modal />
       <div className="app-content page-container">
         <div className="page-top">
           <h1 className="page-title">Assignment List</h1>
@@ -243,14 +263,13 @@ function ListView() {
                 <SearchIcon />
               </IconButton>
             </Paper>
-            <Link to='/assignment/create'>
+            <Link to="/assignment/create">
               <button
                 className="page-create-button button"
                 style={{ width: "200px" }}
               >
                 Create new assignment
               </button>
-
             </Link>
           </div>
         </div>
@@ -266,36 +285,41 @@ function ListView() {
             }}
             components={{
               Pagination: CustomPagination,
-              // NoRowsOverlay: () => (
-              //   <Stack
-              //     height="100%"
-              //     alignItems="center"
-              //     justifyContent="center"
-              //   >
-              //     No rows in DataGrid
-              //   </Stack>
-              // ),
-              // NoResultsOverlay: () => (
-              //   <Stack
-              //     height="100%"
-              //     alignItems="center"
-              //     justifyContent="center"
-              //   >
-              //     Local filter returns no result
-              //   </Stack>
-              // ),
             }}
             rows={assignmentList}
             columns={columns}
             pageSize={8}
-            disableColumnMenu
             // rowsPerPageOptions={[5]}
             disableSelectionOnClick
+            disableColumnMenu
+            onRowClick={(params) => {
+              handelModalAssignment(params.row.id);
+            }}
           />
         </Box>
       </div>
+      <Modal
+        isOpen={modalAssignmentDetail}
+        onRequestClose={() => setModalAssignmentDetail(false)}
+        style={{
+          overlay: {
+            backgroundColor: "rgba(0,0,0,0.4)",
+            zIndex: 1000,
+          },
+          content: {
+            width: "40%",
+            margin: "auto",
+            height: "90%",
+          },
+        }}
+      >
+        <AssignmentDetail
+          data={idAssignment}
+          setModalAssignmentDetail={setModalAssignmentDetail}
+        />
+      </Modal>
     </>
   );
 }
 
-export default ListView;
+export default AssignmentList;

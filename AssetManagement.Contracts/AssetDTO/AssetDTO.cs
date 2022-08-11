@@ -12,5 +12,6 @@ namespace AssetManagement.Contracts.AssetDTO
         public string? State { get; set; }
 
         public string? Location { get; set; }
+        public string? Specification { get; set; }
     }
 }

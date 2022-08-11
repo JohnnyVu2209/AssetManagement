@@ -8,7 +8,7 @@ export const UserDetailContext = React.createContext<UserDetailContextType | nul
 const UserDetailProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
 
     const defaultUserDetail: UserDetailType = {
-        id: 1,
+        staffCode: '',
         firstName: '',
         lastName: '',
         userName: '',

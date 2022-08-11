@@ -25,7 +25,7 @@ namespace AssetManagement.Data.Repositories.Implementations
             IQueryable<ReturnRequest> query = _context.ReturnRequests.Include(x => x.Assignment).Include(x=>x.Asset).Include(x => x.AcceptedBy).Include(x => x.RequestedBy).AsQueryable();
             if (!string.IsNullOrWhiteSpace(searching))
             {
-                query = query.Where(x => x.Assignment.Asset.Code.Contains(searching) || x.Assignment.Asset.Name.Contains(searching) || x.RequestedBy.UserName.Contains(searching));
+                query = query.Where(x => x.Asset.Code.Contains(searching) || x.Asset.Name.Contains(searching) || x.RequestedBy.UserName.Contains(searching));
             }
             if (returnDate != null)
             {

@@ -54,4 +54,37 @@ const createAssignment = async (data: any) => {
   });
 }
 
-export { getAssignmentList, createAssignment };
+async function getAssignmentByUserLogin(){
+  return await axiosInstance
+    .get(`Assignment/ByUserLogin`)
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      return error;
+    });
+}
+
+async function acceptAssignment(id: number){
+  return await axiosInstance
+    .put(`Assignment/Accept/${id}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      return error;
+    });
+}
+
+async function declineAssignment(id: number){
+  return await axiosInstance
+    .put(`Assignment/Decline/${id}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      return error;
+    });
+}
+
+export { getAssignmentList, getAssignmentByUserLogin, acceptAssignment, declineAssignment, createAssignment };

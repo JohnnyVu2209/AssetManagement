@@ -17,29 +17,29 @@ function login(Username: string, Password: string) {
       const role = response.data.role;
       const isPasswordChanged = response.data.isPasswordChanged;
       //   console.log(token);
-      if (role === "User") {
-        Swal.fire({
-          text: "User interface is in developing",
-          customClass: {
-            confirmButton: "button",
-          },
-          buttonsStyling: false,
-        }).then(() => {
-          logout();
-        });
-      } else {
-        // Set JWT token to local
-        localStorage.setItem("token", token);
-        localStorage.setItem("role", role);
-        if (!isPasswordChanged)
-          localStorage.setItem("isPasswordChanged", "false");
+      // if (role === "User") {
+      //   Swal.fire({
+      //     text: "User interface is in developing",
+      //     customClass: {
+      //       confirmButton: "button",
+      //     },
+      //     buttonsStyling: false,
+      //   }).then(() => {
+      //     // logout();
+      //   });
+      // } else {
+      // Set JWT token to local
+      localStorage.setItem("token", token);
+      localStorage.setItem("role", role);
+      if (!isPasswordChanged)
+        localStorage.setItem("isPasswordChanged", "false");
 
-        // Set token to axios common header
-        setAuthToken(token);
+      // Set token to axios common header
+      setAuthToken(token);
 
-        // Redirect user to Home page
-        window.location.href = "/";
-      }
+      // Redirect user to Home page
+      window.location.href = "/user-home";
+      // }
     })
     .catch((error) => {
       let statusCode = error.response.status;

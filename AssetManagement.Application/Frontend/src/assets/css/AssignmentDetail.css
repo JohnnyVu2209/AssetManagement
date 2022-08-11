@@ -1,0 +1,13 @@
+.dig-data {
+    display: flex;
+}
+
+.dig-data-label {
+    display: flex;
+    align-items: center;
+    flex-basis: 40%;
+}
+
+.dig-data-data {
+    display: flex;
+}

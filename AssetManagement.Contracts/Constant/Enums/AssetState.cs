@@ -16,11 +16,5 @@ namespace AssetManagement.Contracts.Constant.Enums
 
         [Description("Not Available")]
         NotAvailable = 3,
-
-        [Description("Waiting for recycling")]
-        Waiting = 4,
-
-        [Description("Recycled")]
-        Recycled = 5
     }
 }

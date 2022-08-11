@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace AssetManagement.Contracts.AssignmentDTO
 {
-    public enum AssignmentStateEnumsDTO
+    public enum AssignmentStateEnumsDTO : int
     {
         [Description("Accepted")]
         Accepted = 1,
         [Description("Waiting for acceptance")]
         Waiting = 2,
+        [Description("Declined")]
+        Declined = 3,
     }
 }

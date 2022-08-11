@@ -27,7 +27,7 @@ export default function UserDetail() {
                     Staff Code
                 </div>
                 <div className="dig-data-data">
-                    {userDetail.id}
+                    {userDetail.staffCode}
                 </div>
             </DialogContent>
             <DialogContent className="dig-data">
