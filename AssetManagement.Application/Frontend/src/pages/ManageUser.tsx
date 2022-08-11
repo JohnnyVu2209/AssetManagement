@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridSortDirection } from "@mui/x-data-grid";
 import "../assets/css/ListView.css";
 import Modal from "../components/Modal";
 import DataGridToolbar from "../components/DataGridToolbar";
@@ -12,7 +12,7 @@ import UserDetail from "../components/UserDetail";
 import SearchIcon from "@mui/icons-material/Search";
 import EditIcon from "@mui/icons-material/Edit";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
@@ -97,10 +97,16 @@ const columns: GridColDef[] = [
   },
 ];
 
+interface ParamsType {
+  isSort: string
+}
+
 function ManageUser() {
+  const { isSort } = useParams<ParamsType>();
   const [filterContent, setFilterContent] = useState({
     type: [] as number[],
     searching: "",
+    orderBy: "staffCode asc"
   });
   const options = [1, 2];
   const [selected, setSelected] = useState([] as number[]);
@@ -118,6 +124,8 @@ function ManageUser() {
   ) as UserDetailContextType;
 
   useEffect(() => {
+    if (isSort)
+      setFilterContent({ ...filterContent, orderBy: "updatedDate desc" });
     /* getPagination(); */
     getUserList(filterContent).then((res) => {
       console.log(res);
@@ -130,7 +138,7 @@ function ManageUser() {
       }
       if (res.data) {
         /* Data === res.data; */
-        setUserList(res.data.items);
+        setUserList(res.data);
       }
     });
   }, [filterContent]);
@@ -161,6 +169,12 @@ function ManageUser() {
     setSelected(value);
     setFilterContent({ ...filterContent, type: value });
   }; //
+
+  useEffect(() => {
+    if (performance.navigation.type === 1) {
+      window.location.href = "/manage-user";
+    } 
+  },[])
 
   return (
     <>
@@ -271,6 +285,12 @@ function ManageUser() {
                 /*  Pagination: CustomPagination, */
               }
             }
+            initialState={{
+              sorting:{
+                sortModel: [{field: !isSort ? filterContent.orderBy.split(' ')[0] : '',
+                 sort: !isSort ? filterContent.orderBy.split(' ')[1] as GridSortDirection : 'asc' }]
+              }
+            }}
             componentsProps={{
               panel: {
                 sx: {

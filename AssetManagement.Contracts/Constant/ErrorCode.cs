@@ -22,6 +22,7 @@
 
         public const string USER_ALREADY_DISABLED = "USER_ALREADY_DISABLED";
 
+        public const string EDIT_ASSET_FAILED = "EDIT_ASSET_FAILED";
         public const string ASSET_IS_NOT_AVAILABLE = "ASSET_IS_NOT_AVAILABLE";
 
         public const string REFRESH_TOKEN_INVALID = "REFRESH_TOKEN_INVALID";
@@ -39,7 +40,7 @@
         public const string USERNAME_OR_PASSWORD_NOT_CORRECT = "USERNAME_OR_PASSWORD_NOT_CORRECT";
 
         public const string JOINED_DATE_IS_SATURDAY_OR_SUNDAY = "JOINED_DATE_IS_SATURDAY_OR_SUNDAY";
-        
+
         public const string USER_UNDER_18_MAY_NOT_JOIN_COMPANY = "USER_UNDER_18_MAY_NOT_JOIN_COMPANY";
     }
 }

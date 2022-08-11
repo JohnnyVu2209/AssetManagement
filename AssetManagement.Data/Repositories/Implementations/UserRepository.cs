@@ -207,20 +207,23 @@ namespace AssetManagement.Data.Repositories.Implementations
             }).ToListAsync();
         }
 
-        public IQueryable<User> FilterUsers(int location, string searching, string orderBy)
+        public IQueryable<User> FilterUsers(int location, string searching, string orderBy, List<string> type)
         {
             var users = _context.Users.Include(x => x.UserRoles).ThenInclude(x => x.Role).Include(x => x.Location).AsQueryable();
 
             if (users.Any() && location != 0)
                 users = users.Where(x => x.LocationId == location);
 
+            if (users.Any() && type.Count != 0)
+                users = users.Where(x => type.Contains(x.UserRoles.FirstOrDefault().Role.Name));
+
             if (users.Any() && !string.IsNullOrWhiteSpace(searching))
                 users = users.Where(x =>
-                                    x.StaffCode.ToLower().Contains(searching.Trim().ToLower()) ||
-                                    x.FirstName.ToLower().Contains(searching.Trim().ToLower()) ||
-                                    x.LastName.ToLower().Contains(searching.Trim().ToLower()) ||
-                                    (x.FirstName.ToLower() + " " + x.LastName.ToLower()).Contains(searching.Trim().ToLower()));
-            if(orderBy.ToLower().Contains("type"))
+                                   x.StaffCode.ToLower().Contains(searching.Trim().ToLower()) ||
+                                   x.FirstName.ToLower().Contains(searching.Trim().ToLower()) ||
+                                   x.LastName.ToLower().Contains(searching.Trim().ToLower()) ||
+                                   (x.FirstName.ToLower() + " " + x.LastName.ToLower()).Contains(searching.Trim().ToLower()));
+            if (orderBy.ToLower().Contains("type"))
             {
                 if (orderBy.ToLower().Contains("asc"))
                     users = users.OrderBy(x => x.UserRoles.FirstOrDefault().RoleId);

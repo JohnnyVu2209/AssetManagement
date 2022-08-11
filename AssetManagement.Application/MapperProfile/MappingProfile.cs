@@ -33,6 +33,8 @@ namespace AssetManagement.Application.MapperProfile
             
             CreateMap<Asset, AssetDetailDTO>()
                 .IncludeBase<Asset, AssetDTO>();
+
+            CreateMap<EditAssetDTO, Asset>();
         }
     }
 

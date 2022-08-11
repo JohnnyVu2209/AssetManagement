@@ -12,7 +12,7 @@ async function getUserList(sortingOption?: any) {
 
   return await axiosInstance
     .get(
-      `User?${typeString}&Keyword=${sortingOption.searching}`
+      `User/GetUsersList?${typeString}&Searching=${sortingOption.searching}&OrderBy=${sortingOption.orderBy}`
     )
     .then((res) => {
       return res;
@@ -59,7 +59,7 @@ async function updateUser(userInfo: any) {
         },
         buttonsStyling: false,
       }).then(() => {
-        window.location.href = "/manage-user";
+        window.location.href = "/manage-user/true";
       });
     })
     .catch((error) => {
@@ -91,7 +91,7 @@ async function createUser(data: any) {
         },
         buttonsStyling: false,
       }).then(() => {
-        window.location.href = "/manage-user";
+        window.location.href = "/manage-user/true";
       });
     })
     .catch((error) => {

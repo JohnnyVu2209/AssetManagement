@@ -12,6 +12,7 @@ namespace AssetManagement.Contracts.UserDTO
         {
             OrderBy = "staffCode";
         }
+        public List<string> Type { get; set; } = new List<string>();    
         public string? Searching { get; set; }
     }
 }

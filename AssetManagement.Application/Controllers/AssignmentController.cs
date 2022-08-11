@@ -108,7 +108,7 @@ namespace AssetManagement.Application.Controllers
                 if(assignTo is null)
                     return NotFound(ErrorCode.USER_NOT_FOUND);
 
-                var asset = await _assetRepository.GetByAssetIdAsync(createAssignmentDTO.AssetId);
+                var asset = await _assetRepository.GetAssetByIdAsync(createAssignmentDTO.AssetId);
 
                 if (asset is null)
                     return NotFound(ErrorCode.ASSET_NOT_FOUND);

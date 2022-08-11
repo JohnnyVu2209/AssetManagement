@@ -192,7 +192,7 @@ namespace AssetManagement.Application.Tests.ControllersTests
 
             mockUserManager.Setup(u => u.FindByIdAsync(It.IsAny<string>())).Returns(Task.FromResult(user));
 
-            mockAssetRepository.Setup(a => a.GetByAssetIdAsync(It.IsAny<int>())).Returns(Task.FromResult(asset));
+            mockAssetRepository.Setup(a => a.GetAssetByIdAsync(It.IsAny<int>())).Returns(Task.FromResult(asset));
 
             mockAssignmentRepository.Setup(a => a.CreateAssignment(It.IsAny<User>(),
                                                                    It.IsAny<User>(),
@@ -318,7 +318,7 @@ namespace AssetManagement.Application.Tests.ControllersTests
 
             mockUserManager.Setup(u => u.FindByIdAsync(It.IsAny<string>())).Returns(Task.FromResult<User>(user));
 
-            mockAssetRepository.Setup(u => u.GetByAssetIdAsync(It.IsAny<int>())).Returns(Task.FromResult<Asset?>(null));
+            mockAssetRepository.Setup(u => u.GetAssetByIdAsync(It.IsAny<int>())).Returns(Task.FromResult<Asset?>(null));
 
             var controller = new AssignmentController(mockAssignmentRepository.Object,
                                                       mockAssetRepository.Object,
@@ -389,7 +389,7 @@ namespace AssetManagement.Application.Tests.ControllersTests
 
             mockUserManager.Setup(u => u.FindByIdAsync(It.IsAny<string>())).Returns(Task.FromResult(user));
 
-            mockAssetRepository.Setup(a => a.GetByAssetIdAsync(It.IsAny<int>())).Returns(Task.FromResult(asset));
+            mockAssetRepository.Setup(a => a.GetAssetByIdAsync(It.IsAny<int>())).Returns(Task.FromResult(asset));
 
             var controller = new AssignmentController(mockAssignmentRepository.Object,
                                                       mockAssetRepository.Object,
@@ -460,7 +460,7 @@ namespace AssetManagement.Application.Tests.ControllersTests
 
             mockUserManager.Setup(u => u.FindByIdAsync(It.IsAny<string>())).Returns(Task.FromResult<User>(user));
 
-            mockAssetRepository.Setup(a => a.GetByAssetIdAsync(It.IsAny<int>())).Returns(Task.FromResult(asset));
+            mockAssetRepository.Setup(a => a.GetAssetByIdAsync(It.IsAny<int>())).Returns(Task.FromResult(asset));
 
             mockAssignmentRepository.Setup(a => a.CreateAssignment(It.IsAny<User>(),
                                                                    It.IsAny<User>(),

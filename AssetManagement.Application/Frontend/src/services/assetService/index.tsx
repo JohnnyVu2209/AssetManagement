@@ -28,6 +28,10 @@ const getAssetList = (
   })
 }
 
+const getAsset = (id: number) => {
+  return axiosInstance.get(`Asset/Detail/${id}`);
+}
+
 const getAssetListBySearch = (pageNumber: number,searching: string, orderBy: string) => {
   return axiosInstance.get(`${Asset}/getAssetsList`,{
     params:{
@@ -54,6 +58,7 @@ const assetService = {
   getAssetList,
   getCategories,
   getStates,
+  getAsset,
   getAssetListBySearch
 }
 

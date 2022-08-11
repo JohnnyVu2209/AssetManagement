@@ -15,5 +15,10 @@ namespace AssetManagement.Data.Repositories.Implementations
         {
             return context.States.ToListAsync();
         }
+
+        public Task<State?> GetByIdAsync(int id)
+        {
+            return context.States.FindAsync(id).AsTask();
+        }
     }
 }

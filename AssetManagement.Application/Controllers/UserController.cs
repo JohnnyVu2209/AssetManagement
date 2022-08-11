@@ -136,7 +136,7 @@ namespace AssetManagement.Application.Controllers
 
             var user = await userManager.FindByNameAsync(username);
 
-            var filterData = userRepository.FilterUsers(user.LocationId, userParameters.Searching, userParameters.OrderBy);
+            var filterData = userRepository.FilterUsers(user.LocationId, userParameters.Searching, userParameters.OrderBy, userParameters.Type);
 
             var data = PageList<User, UserViewDTO>.ToPageList(filterData, userParameters.PageNumber, userParameters.PageSize, mapper);
 

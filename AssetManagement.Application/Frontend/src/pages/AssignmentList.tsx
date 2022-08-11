@@ -64,7 +64,7 @@ const columns: GridColDef[] = [
     flex: 1,
     valueFormatter: (params) => {
       const valueFormatted =
-        params.value === 1 ? "Accepted" : "Waiting for acceptance";
+        params.value === 1 ? "Accepted" : (params.value === 3 ? "Declined" : "Waiting for acceptance");
       return `${valueFormatted}`;
     },
   },
@@ -103,7 +103,7 @@ function AssignmentList() {
     searching: "",
     orderBy: "id asc",
   });
-  const options = [1, 2];
+  const options = [1, 2, 3];
   const [selected, setSelected] = useState([] as number[]);
   const [assignmentList, setAssignmentList] = useState([]);
 
@@ -171,12 +171,9 @@ function AssignmentList() {
 
   useEffect(() => {
     if (performance.navigation.type === 1) {
-      console.log("This page is reloaded");
       window.location.href = "/assignment-list";
-    } else {
-      console.log("This page is not reloaded");
-    }
-  });
+    } 
+  },[])
 
   return (
     <>
@@ -198,7 +195,7 @@ function AssignmentList() {
                   selected.forEach((element) => {
                     element === 1
                       ? test.push("Accepted")
-                      : test.push("Waiting for acceptance");
+                      : (element === 3 ? test.push("Declined") : test.push("Waiting for acceptance"));
                   });
                   return test.join(", ");
                 }}
@@ -221,7 +218,7 @@ function AssignmentList() {
                     </ListItemIcon>
                     <ListItemText
                       primary={
-                        option === 1 ? "Accept" : "Waiting for acceptance"
+                        option === 1 ? "Accept" : (option === 3 ? "Declined" : "Waiting for acceptance")
                       }
                     />
                   </MenuItem>

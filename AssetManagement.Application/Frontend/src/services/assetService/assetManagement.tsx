@@ -2,35 +2,52 @@ import Swal from "sweetalert2";
 import axiosInstance from "../axiosInstance";
 import { logout } from "../userService/authentication";
 
-async function createAsset(data:any){
-    axiosInstance
-        .post("Asset",data)
-        .then((data) => {
-            Swal.fire({
-                text: "Created new asset successfully.",
-                customClass: {
-                confirmButton: "button",
-            },
-            buttonsStyling: false,
-            }).then(() => {
-                window.location.href = "/manage-asset/true";
-                // window.location.href = "/manage-user";
-            });
-        })
-        .catch((error) => {
-            let statusCode = error.response.status;
-            if (statusCode === 401) {
-                Swal.fire({
-                text: "Token Expired. Please re-login to continue",
-                customClass: {
-                    confirmButton: "button",
-                },
-                buttonsStyling: false,
-                }).then(() => {
-                logout();
-                });
-            }
+async function createAsset(data: any) {
+  axiosInstance
+    .post("Asset", data)
+    .then((data) => {
+      Swal.fire({
+        text: "Created new asset successfully.",
+        customClass: {
+          confirmButton: "button",
+        },
+        buttonsStyling: false,
+      }).then(() => {
+        window.location.href = "/manage-asset/true";
+        // window.location.href = "/manage-user";
+      });
+    })
+    .catch((error) => {
+      let statusCode = error.response.status;
+      if (statusCode === 401) {
+        Swal.fire({
+          text: "Token Expired. Please re-login to continue",
+          customClass: {
+            confirmButton: "button",
+          },
+          buttonsStyling: false,
+        }).then(() => {
+          logout();
         });
+      }
+    });
+}
+
+const updateAsset = async (id: number, data: any) => {
+  return await axiosInstance.put(`Asset/update/${id}`, data)
+    .then(() => {
+      Swal.fire({
+        text: "Edit asset successfully",
+        customClass: {
+          confirmButton: "button"
+        },
+        buttonsStyling: false,
+      }).then(() => {
+        window.location.href = "/manage-asset/true"
+      }).catch((error) => {
+        console.log(error);
+      });
+    });
 }
 
 async function createCategory(data: any) {
@@ -125,4 +142,5 @@ async function getCategories() {
     });
 }
 
-export { createAsset, createCategory, getCategories };
+
+export { createAsset, createCategory, getCategories, updateAsset };

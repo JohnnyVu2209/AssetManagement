@@ -127,9 +127,21 @@ namespace AssetManagement.Data.Repositories.Implementations
             return prefix;
         }
 
-        public Task<Asset?> GetByAssetIdAsync(int id)
+        public Task<Asset?> GetAssetByIdAsync(int id)
         {
             return context.Assets.FindAsync(id).AsTask();
+        }
+
+        public async Task<Asset> UpdateAsync(Asset updateAsset)
+        {
+            var result = context.Assets.Update(updateAsset);
+            await context.SaveChangesAsync();
+            return result.Entity;
+        }
+
+        public Task<Asset?> GetAssetByIdAllIncludeAsync(int id)
+        {
+            return context.Assets.Include(x => x.Location).Include(x => x.State).Include(x => x.Category).Where(x => x.Id == id).FirstOrDefaultAsync();
         }
     }
 }

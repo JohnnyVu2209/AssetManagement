@@ -10,6 +10,6 @@ namespace AssetManagement.Data.Repositories
         Task<PageResult<UserViewDTO>> GetPaginationAsync(ViewUserRequest request);
         Task<ApiResult<string>> UpdateAsync(UpdateUserDTO request);
         Task<List<RoleViewModel>> GetRolesAsync();
-        IQueryable<User> FilterUsers(int location, string searching, string orderBy);
+        IQueryable<User> FilterUsers(int location, string searching, string orderBy, List<string> type);
     }
 }

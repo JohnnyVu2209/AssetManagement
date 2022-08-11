@@ -1,5 +1,7 @@
 using AssetManagement.Contracts;
 using AssetManagement.Contracts.AssetDTO;
+using AssetManagement.Contracts.Constant;
+using AssetManagement.Contracts.Constant.Enums;
 using AssetManagement.Data.Repositories;
 using AssetManagement.Domain.Model;
 using AutoMapper;
@@ -20,13 +22,20 @@ namespace AssetManagement.Application.Controllers
         private readonly ICategoryRepository categoryRepository;
         private readonly IStateRepository stateRepository;
         private readonly UserManager<User> userManager;
-        public AssetController(IAssetRepository assetRepository, ICategoryRepository categoryRepository, IStateRepository stateRepository, UserManager<User> userManager, IMapper mapper)
+        private readonly ILogger<AssetController> logger;
+        public AssetController(IAssetRepository assetRepository,
+                               ICategoryRepository categoryRepository,
+                               IStateRepository stateRepository,
+                               UserManager<User> userManager,
+                               IMapper mapper,
+                               ILogger<AssetController> logger)
         {
             this.mapper = mapper;
             this.userManager = userManager;
             this.assetRepository = assetRepository;
             this.stateRepository = stateRepository;
             this.categoryRepository = categoryRepository;
+            this.logger = logger;   
         }
         [HttpGet("getAssetsList")]
         [Authorize(Roles = "Admin")]
@@ -76,6 +85,43 @@ namespace AssetManagement.Application.Controllers
             var states = await stateRepository.GetAllAsync();
             var dto = mapper.Map<List<AssetStateDTO>>(states);
             return Ok(dto);
+        }
+        [HttpGet("Detail/{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetAssetDetails(int id)
+        {
+            var asset = await assetRepository.GetAssetByIdAllIncludeAsync(id);
+            if (asset is null)
+                return NotFound(ErrorCode.ASSET_NOT_FOUND);
+            var dto = mapper.Map<AssetDetailDTO>(asset);
+            return Ok(dto);
+        }
+
+        [HttpPut("update/{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateAsset(int id,[FromBody]EditAssetDTO editAssetDTO)
+        {
+            try
+            {
+                var asset = await assetRepository.GetAssetByIdAsync(id);
+
+                if (asset is null)
+                    return NotFound(ErrorCode.ASSET_NOT_FOUND);
+
+                if (asset.StateID == (int)AssetState.Assigned)
+                    return BadRequest(ErrorCode.ASSET_IS_NOT_AVAILABLE);
+
+                var updateAsset = mapper.Map(editAssetDTO, asset);
+
+                await assetRepository.UpdateAsync(updateAsset);
+
+                return Ok(SuccessCode.EDIT_ASSET_SUCCESSFULLY);
+            }
+            catch (Exception e)
+            {
+                logger.LogError("****Error from Asset controller: ", e.Message);
+                return BadRequest(ErrorCode.EDIT_ASSET_FAILED);
+            }
         }
 
 

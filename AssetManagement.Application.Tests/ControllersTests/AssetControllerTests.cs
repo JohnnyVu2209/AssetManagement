@@ -11,6 +11,7 @@ using System.Security.Claims;
 using System.Security.Principal;
 using Microsoft.AspNetCore.Identity;
 using AssetManagement.Contracts.Constant;
+using Microsoft.Extensions.Logging;
 
 namespace AssetManagement.Application.Tests
 {
@@ -27,6 +28,7 @@ namespace AssetManagement.Application.Tests
             };
         }
 
+
         private IList<string> GetUserRole()
         {
             var result = new List<string>();
@@ -34,6 +36,7 @@ namespace AssetManagement.Application.Tests
             return result;
         }
 
+        #region CreateAsset
         [Fact]
         public async Task CreateNewAsset_Success()
         {
@@ -87,8 +90,14 @@ namespace AssetManagement.Application.Tests
 
             var mockCategoryRepository = new Mock<ICategoryRepository>();
             var mockStateRepository = new Mock<IStateRepository>();
+            var mockLogger = new Mock<ILogger<AssetController>>();
 
-            AssetController controller = new(assetRepositoryMock.Object, mockCategoryRepository.Object, mockStateRepository.Object, mockUserManager.Object, mapperMock.Object);
+            AssetController controller = new(assetRepositoryMock.Object,
+                                             mockCategoryRepository.Object,
+                                             mockStateRepository.Object,
+                                             mockUserManager.Object,
+                                             mapperMock.Object,
+                                             mockLogger.Object);
 
             // Act
             var result = (await controller.CreateAsync(newAsset)) as OkObjectResult;
@@ -153,8 +162,14 @@ namespace AssetManagement.Application.Tests
 
             var mockCategoryRepository = new Mock<ICategoryRepository>();
             var mockStateRepository = new Mock<IStateRepository>();
+            var mockLogger = new Mock<ILogger<AssetController>>();
 
-            AssetController controller = new(assetRepositoryMock.Object, mockCategoryRepository.Object, mockStateRepository.Object, mockUserManager.Object, mapperMock.Object);
+            AssetController controller = new(assetRepositoryMock.Object,
+                                             mockCategoryRepository.Object,
+                                             mockStateRepository.Object,
+                                             mockUserManager.Object,
+                                             mapperMock.Object,
+                                             mockLogger.Object);
 
             // Act
             var result = (await controller.CreateAsync(newAsset)) as BadRequestObjectResult;
@@ -219,8 +234,14 @@ namespace AssetManagement.Application.Tests
 
             var mockCategoryRepository = new Mock<ICategoryRepository>();
             var mockStateRepository = new Mock<IStateRepository>();
+            var mockLogger = new Mock<ILogger<AssetController>>();
 
-            AssetController controller = new(assetRepositoryMock.Object, mockCategoryRepository.Object, mockStateRepository.Object, mockUserManager.Object, mapperMock.Object);
+            AssetController controller = new(assetRepositoryMock.Object,
+                                             mockCategoryRepository.Object,
+                                             mockStateRepository.Object,
+                                             mockUserManager.Object,
+                                             mapperMock.Object,
+                                             mockLogger.Object);
 
             // Act
             var result = (await controller.CreateAsync(newAsset)) as BadRequestObjectResult;
@@ -231,14 +252,203 @@ namespace AssetManagement.Application.Tests
             Assert.Equal("Category does not exist!", result.Value.ToString());
             Assert.Equal(400, result.StatusCode);
         }
+        #endregion
+
+        #region Edit Asset
         [Fact]
-        public async Task Test_Asset_GetAssetList_Return_Asset_List_With_Pagination()
+        public async Task EditAsset_Return_SuccessCode()
         {
+            var mockMapper = new Mock<IMapper>();
             var mockAssetRepository = new Mock<IAssetRepository>();
             var mockCategoryRepository = new Mock<ICategoryRepository>();
             var mockStateRepository = new Mock<IStateRepository>();
-            var mockMapper = new Mock<IMapper>();
             var mockUserManager = new Mock<FakeUserManager>();
+            var mockLogger = new Mock<ILogger<AssetController>>();
+
+            var editDto = new EditAssetDTO
+            {
+                Name = "ABC",
+                InstalledDate = DateTime.Now,
+                Specification = "Testing",
+                StateId = 3
+            };
+
+            var asset = new Asset
+            {
+                Id = 1,
+                Name = "XYZ",
+                Specification = "unit testing",
+                StateID = 2,
+                InstalledDate = DateTime.Now.AddDays(-10)
+            };
+
+            var updateAsset = new Asset
+            {
+                Id = 1,
+                Name = editDto.Name,
+                InstalledDate = editDto.InstalledDate,
+                Specification = editDto.Specification,
+                StateID = editDto.StateId
+            };
+
+            mockAssetRepository.Setup(a => a.GetAssetByIdAsync(It.IsAny<int>())).Returns(Task.FromResult<Asset?>(asset));
+
+            mockMapper.Setup(m => m.Map(It.IsAny<EditAssetDTO>(), It.IsAny<Asset>())).Returns(updateAsset);
+
+            mockAssetRepository.Setup(m => m.UpdateAsync(It.IsAny<Asset>())).Returns(Task.FromResult(updateAsset));
+
+            var controller = new AssetController(mockAssetRepository.Object,
+                                                 mockCategoryRepository.Object,
+                                                 mockStateRepository.Object,
+                                                 mockUserManager.Object,
+                                                 mockMapper.Object,
+                                                 mockLogger.Object);
+            var result = await controller.UpdateAsset(1, editDto) as OkObjectResult;
+
+            Assert.IsType<OkObjectResult>(result);
+            Assert.Equal(SuccessCode.EDIT_ASSET_SUCCESSFULLY, result.Value);
+        }
+
+        [Fact]
+        public async Task EditAsset_With_Asset_Is_Null_Return_NotFound_With_ErrorCode()
+        {
+            var mockMapper = new Mock<IMapper>();
+            var mockAssetRepository = new Mock<IAssetRepository>();
+            var mockCategoryRepository = new Mock<ICategoryRepository>();
+            var mockStateRepository = new Mock<IStateRepository>();
+            var mockUserManager = new Mock<FakeUserManager>();
+            var mockLogger = new Mock<ILogger<AssetController>>();
+
+            var editDto = new EditAssetDTO
+            {
+                Name = "ABC",
+                InstalledDate = DateTime.Now,
+                Specification = "Testing",
+                StateId = 3
+            };
+
+            mockAssetRepository.Setup(a => a.GetAssetByIdAsync(It.IsAny<int>())).Returns(Task.FromResult<Asset?>(null));
+
+            var controller = new AssetController(mockAssetRepository.Object,
+                                                 mockCategoryRepository.Object,
+                                                 mockStateRepository.Object,
+                                                 mockUserManager.Object,
+                                                 mockMapper.Object,
+                                                 mockLogger.Object);
+
+            var result = await controller.UpdateAsset(1, editDto) as NotFoundObjectResult;
+
+            Assert.IsType<NotFoundObjectResult>(result);
+            Assert.Equal(ErrorCode.ASSET_NOT_FOUND, result.Value);
+        }
+
+        [Fact]
+        public async Task EditAsset_With_Asset_Is_Not_Available_Return_BadRequest_With_ErrorCode()
+        {
+            var mockMapper = new Mock<IMapper>();
+            var mockAssetRepository = new Mock<IAssetRepository>();
+            var mockCategoryRepository = new Mock<ICategoryRepository>();
+            var mockStateRepository = new Mock<IStateRepository>();
+            var mockUserManager = new Mock<FakeUserManager>();
+            var mockLogger = new Mock<ILogger<AssetController>>();
+
+            var editDto = new EditAssetDTO
+            {
+                Name = "ABC",
+                InstalledDate = DateTime.Now,
+                Specification = "Testing",
+                StateId = 3
+            };
+
+            var assignedAsset = new Asset
+            {
+                Id = 1,
+                Name = "XYZ",
+                Specification = "unit testing",
+                StateID = 1,
+                InstalledDate = DateTime.Now.AddDays(-10)
+            };
+
+            mockAssetRepository.Setup(a => a.GetAssetByIdAsync(It.IsAny<int>())).Returns(Task.FromResult<Asset?>(assignedAsset));
+
+            var controller = new AssetController(mockAssetRepository.Object,
+                                                 mockCategoryRepository.Object,
+                                                 mockStateRepository.Object,
+                                                 mockUserManager.Object,
+                                                 mockMapper.Object,
+                                                 mockLogger.Object);
+            var result = await controller.UpdateAsset(1, editDto) as BadRequestObjectResult;
+
+            Assert.IsType<BadRequestObjectResult>(result);
+            Assert.Equal(ErrorCode.ASSET_IS_NOT_AVAILABLE, result.Value);
+
+        }
+
+        [Fact]
+        public async Task EditAsset_With_Unknown_Exception_Return_BadRequest_With_ErrorCode()
+        {
+            var mockMapper = new Mock<IMapper>();
+            var mockAssetRepository = new Mock<IAssetRepository>();
+            var mockCategoryRepository = new Mock<ICategoryRepository>();
+            var mockStateRepository = new Mock<IStateRepository>();
+            var mockUserManager = new Mock<FakeUserManager>();
+            var mockLogger = new Mock<ILogger<AssetController>>();
+
+            var editDto = new EditAssetDTO
+            {
+                Name = "ABC",
+                InstalledDate = DateTime.Now,
+                Specification = "Testing",
+                StateId = 3
+            };
+
+            var asset = new Asset
+            {
+                Id = 1,
+                Name = "XYZ",
+                Specification = "unit testing",
+                StateID = 2,
+                InstalledDate = DateTime.Now.AddDays(-10)
+            };
+
+            var updateAsset = new Asset
+            {
+                Id = 1,
+                Name = editDto.Name,
+                InstalledDate = editDto.InstalledDate,
+                Specification = editDto.Specification,
+                StateID = editDto.StateId
+            };
+
+            mockAssetRepository.Setup(a => a.GetAssetByIdAsync(It.IsAny<int>())).Returns(Task.FromResult<Asset?>(asset));
+
+            mockMapper.Setup(m => m.Map(It.IsAny<EditAssetDTO>(), It.IsAny<Asset>())).Returns(updateAsset);
+
+            mockAssetRepository.Setup(m => m.UpdateAsync(It.IsAny<Asset>())).Throws(new Exception());
+
+            var controller = new AssetController(mockAssetRepository.Object,
+                                                 mockCategoryRepository.Object,
+                                                 mockStateRepository.Object,
+                                                 mockUserManager.Object,
+                                                 mockMapper.Object,
+                                                 mockLogger.Object);
+            var result = await controller.UpdateAsset(1, editDto) as BadRequestObjectResult;
+
+            Assert.IsType<BadRequestObjectResult>(result);
+            Assert.Equal(ErrorCode.EDIT_ASSET_FAILED, result.Value);
+        }
+        #endregion
+
+
+        [Fact]
+        public async Task Test_Asset_GetAssetList_Return_Asset_List_With_Pagination()
+        {
+            var mockMapper = new Mock<IMapper>();
+            var mockAssetRepository = new Mock<IAssetRepository>();
+            var mockCategoryRepository = new Mock<ICategoryRepository>();
+            var mockStateRepository = new Mock<IStateRepository>();
+            var mockUserManager = new Mock<FakeUserManager>();
+            var mockLogger = new Mock<ILogger<AssetController>>();
 
             var admin = new User()
             {
@@ -279,7 +489,12 @@ namespace AssetManagement.Application.Tests
                 HttpContext = httpContext,
             };
 
-            AssetController controller = new(mockAssetRepository.Object,mockCategoryRepository.Object,mockStateRepository.Object ,mockUserManager.Object,mockMapper.Object) { ControllerContext = controllerContext };
+            var controller = new AssetController(mockAssetRepository.Object,
+                                                 mockCategoryRepository.Object,
+                                                 mockStateRepository.Object,
+                                                 mockUserManager.Object,
+                                                 mockMapper.Object,
+                                                 mockLogger.Object) { ControllerContext = controllerContext };
 
             var result = await controller.GetAllAsync(parameters) as OkObjectResult;
 

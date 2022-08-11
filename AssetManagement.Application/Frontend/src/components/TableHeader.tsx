@@ -72,14 +72,8 @@ const TableHeader = (props: TableProps) => {
               direction={orderBy === item.id ? order : 'asc'}
               onClick={createSortHandler(item.id)}
               IconComponent={ArrowDropDownIcon}
-              // sx={{fontSize:"30px"}}
             >
               {item.label}
-              {/* {orderBy === item.id ? (
-                <Box component="span">
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null} */}
             </TableSortLabel>
           </TableCell>
         ))}

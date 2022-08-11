@@ -1,11 +1,15 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import assetService from "../services/assetService";
-
-type Asset = {
+ 
+export type Asset = {
     name: string;
     code: string;
-    category: string;
-    state: string;
+    category: string | null;
+    state: string | null;
+    categoryID: number,
+    stateID: number,
+    installedDate: Date,
+    specification: string,
 }
 
 export type FilterSelect = {
@@ -16,7 +20,8 @@ export type FilterSelect = {
 type InitialState = {
     assetList: Asset[],
     categories: FilterSelect[],
-    states: FilterSelect[]
+    states: FilterSelect[],
+    asset: Asset
 }
 
 export const getCategories = createAsyncThunk("asset/categories", async () => {
@@ -28,6 +33,19 @@ export const getStates = createAsyncThunk("asset/states", async () => {
     const response = await assetService.getStates();
     return response.data;
 })
+
+export const getAssetDetails = createAsyncThunk("asset/details", async (id: number, thunkApi) => {
+    try {
+        const response = await assetService.getAsset(id);
+        return response.data as Asset;
+    } catch (error: any) {
+        if (!error.response) {
+            throw error
+        }
+        return thunkApi.rejectWithValue(error.response.data);
+    }
+
+});
 
 const initialState: InitialState = {
     assetList: [],
@@ -52,7 +70,17 @@ const initialState: InitialState = {
             id: 3,
             name: "Not available",
         },
-    ]
+    ],
+    asset: {
+        name: "",
+        code: "",
+        category: "",
+        state: "",
+        categoryID: 0,
+        stateID: 0,
+        installedDate: new Date(),
+        specification: "",
+    }
 }
 
 export const assetSlice = createSlice({
@@ -71,7 +99,10 @@ export const assetSlice = createSlice({
                 if (state.states.findIndex(x => x.id === element.id) === -1)
                     state.states.push(element);
             });
-        })
+        });
+        builder.addCase(getAssetDetails.fulfilled, (state, action) => {
+            state.asset = action.payload;
+        });
     }
 })
 

@@ -127,7 +127,8 @@ interface AssetData {
   name: string,
   category: string,
   state: string,
-  updatedDate: string
+  updatedDate: string,
+  id:number;
 }
 
 interface SelectData {
@@ -191,10 +192,7 @@ const ManageAsset = () => {
 
   useEffect(() => {
     if (performance.navigation.type === 1) {
-      console.log("This page is reloaded");
       window.location.href = "/manage-asset";
-    } else {
-      console.log("This page is not reloaded");
     }
   })
 
@@ -338,7 +336,7 @@ const ManageAsset = () => {
               // onChange={handleChange}
               >
                 {stateData.map(item => (
-                  <MenuItem>
+                  <MenuItem key={item.id}>
                     <FormControlLabel control={
                       <Checkbox
                         name={item.name}
@@ -364,7 +362,7 @@ const ManageAsset = () => {
                 IconComponent={FilterAltIcon}
               >
                 {categoryData.map(item => (
-                  <MenuItem>
+                  <MenuItem key={item.id}>
                     <FormControlLabel control={<Checkbox
                       name={item.name}
                       checked={item.check}
@@ -410,14 +408,14 @@ const ManageAsset = () => {
             />
             <TableBody>
               {assetData.map(item => (
-                <TableRow>
+                <TableRow key={item.id}>
                   <TableCell>{item.code}</TableCell>
                   <TableCell>{item.name}</TableCell>
                   <TableCell>{item.category}</TableCell>
                   <TableCell>{item.state}</TableCell>
                   <TableCell>
                     <IconButton disabled={item.state === stateData[1].name} >
-                      <Link to={"/edit-asset/" + item.code}>
+                      <Link to={"/edit-asset/" + item.id}>
                         <EditIcon
                           style={item.state === stateData[1].name ? { color: "gray" } : { color: "black" }}
                         />

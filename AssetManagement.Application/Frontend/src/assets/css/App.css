@@ -80,3 +80,8 @@ textarea {
   pointer-events: none;
   opacity: 0.5;
 }
+
+label.MuiFormControlLabel-root.MuiFormControlLabel-labelPlacementEnd{
+  flex-direction: row;
+  justify-content: flex-start;
+}
