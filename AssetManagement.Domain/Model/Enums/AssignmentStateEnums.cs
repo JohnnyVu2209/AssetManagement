@@ -13,5 +13,9 @@ namespace AssetManagement.Domain.Model.Enums
         Accepted = 1,
         [Description("Waiting for acceptance")]
         Waiting =2,
+        [Description("Declined")]
+        Declined = 3,
+        [Description("Returned")]
+        Returned = 4,
     }
 }

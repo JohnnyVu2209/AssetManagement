@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import axiosInstance from "../axiosInstance";
 
 async function getReturnRequestList(sortingOption?: any) {
@@ -20,4 +21,31 @@ async function getReturnRequestList(sortingOption?: any) {
     });
 }
 
-export { getReturnRequestList };
+async function updateReturnRequestStatus(id: number, state: boolean) {
+  return await axiosInstance
+    .put(`/ReturnRequest/${id}/${state}`)
+    .then((res) => {
+      Swal.fire({
+        text: "Returning request updated",
+        customClass: {
+          confirmButton: "button",
+        },
+        buttonsStyling: false,
+      }).then(() => {
+        return;
+      });
+    })
+    .catch((error) => {
+      Swal.fire({
+        text: "Error occured!",
+        customClass: {
+          confirmButton: "button",
+        },
+        buttonsStyling: false,
+      }).then(() => {
+        return;
+      });
+    });
+}
+
+export { getReturnRequestList, updateReturnRequestStatus };

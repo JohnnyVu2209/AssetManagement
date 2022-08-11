@@ -10,5 +10,7 @@ namespace AssetManagement.Data.Repositories
     public interface IReturnRequestRepository
     {
         Task<IEnumerable<ReturnRequest>> GetAsync(string? searching,DateTime? returnDate,List<int>? state);
+        Task<ReturnRequest> GetAsyncById(int id);
+        Task PutAsync(int id,bool status);
     }
 }

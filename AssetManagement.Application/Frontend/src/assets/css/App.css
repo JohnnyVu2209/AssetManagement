@@ -72,6 +72,10 @@ textarea {
   transition: 0.2s;
 }
 
+.button-spacing {
+  margin: 0 20px;
+}
+
 .disable-action {
   pointer-events: none;
   opacity: 0.5;

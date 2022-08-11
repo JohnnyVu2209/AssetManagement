@@ -13,6 +13,7 @@ namespace AssetManagement.Data.Repositories.Implementations
     {
         private readonly AssetManagementDbContext _context;
 
+
         public AssignmentRepository(AssetManagementDbContext context)
         {
             _context = context;

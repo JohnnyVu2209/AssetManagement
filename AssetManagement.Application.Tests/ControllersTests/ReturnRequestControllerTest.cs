@@ -16,6 +16,8 @@ namespace AssetManagement.Application.Tests.ControllersTests
 {
     public class ReturnRequestControllerTest
     {
+
+        #region Get Return request list
         [Fact]
         public async Task GetReturnRequestList_WhenSuccess_ReturnOkObject()
         {
@@ -113,8 +115,200 @@ namespace AssetManagement.Application.Tests.ControllersTests
             Assert.NotNull(result);
             Assert.Equal(expectedMessage, result.Value.ToString());
         }
+        #endregion
+
+        #region Get Return request by Id
+        [Fact]
+        public async Task GetReturnRequestListById_WhenSuccess_ReturnOkObject()
+        {
+            //Arrange
+            var id = 1;
+            ReturnRequest returnRequest = new ReturnRequest() { Id = 1,RequestedById=4 };
+            ReturnRequestDTO returnRequestDTO = new ReturnRequestDTO() { Id = 1, RequestedBy = "vinhbx" };
+
+            var assignmentRepositoryMock = new Mock<IReturnRequestRepository>();
+            assignmentRepositoryMock.Setup(x => x.GetAsyncById(id)).Returns(Task.FromResult(returnRequest));
+
+            var mapperMock = new Mock<IMapper>();
+            mapperMock.Setup(s => s.Map<ReturnRequestDTO>(returnRequest)).Returns(returnRequestDTO);
+
+            var controller = new ReturnRequestController(assignmentRepositoryMock.Object, mapperMock.Object);
+
+            // Act
+            var result = (await controller.GetReturnRequestById(id)) as OkObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+
+            var data = result.Value as ReturnRequestDTO;
+            Assert.NotNull(data);
+            Assert.Equal(returnRequestDTO, data);
+
+        }
+
+        [Fact]
+        public async Task GetReturnRequestListById_WhenNotFoundReturnRequests_ReturnNotFoundObject()
+        {
+            //Arrange
+            var id = 1;
+            ReturnRequest returnRequest = new ReturnRequest() { Id = 1, RequestedById = 4 };
+            ReturnRequestDTO returnRequestDTO = new ReturnRequestDTO() { Id = 1, RequestedBy = "vinhbx" };
+            var expectedMessage = "Return request not found";
+
+            var assignmentRepositoryMock = new Mock<IReturnRequestRepository>();
+            assignmentRepositoryMock.Setup(x => x.GetAsyncById(id));
+
+            var mapperMock = new Mock<IMapper>();
+            mapperMock.Setup(s => s.Map<ReturnRequestDTO>(returnRequest)).Returns(returnRequestDTO);
+
+            var controller = new ReturnRequestController(assignmentRepositoryMock.Object, mapperMock.Object);
+
+            // Act
+            var result = (await controller.GetReturnRequestById(id)) as NotFoundObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(expectedMessage, result.Value.ToString());
+
+        }
+
+        [Fact]
+        public async Task GetReturnRequestListById_WhenThrowErrors_ReturnBadRequestObject()
+        {
+            //Arrange
+            var id = 1;
+            ReturnRequest returnRequest = new ReturnRequest() { Id = 1, RequestedById = 4 };
+            ReturnRequestDTO returnRequestDTO = new ReturnRequestDTO() { Id = 1, RequestedBy = "vinhbx" };
+            var expectedMessage = "Something went wrong";
+
+            var assignmentRepositoryMock = new Mock<IReturnRequestRepository>();
+            assignmentRepositoryMock.Setup(x => x.GetAsyncById(id)).Throws(new Exception(expectedMessage));
+
+            var mapperMock = new Mock<IMapper>();
+            mapperMock.Setup(s => s.Map<ReturnRequestDTO>(returnRequest)).Returns(returnRequestDTO);
+
+            var controller = new ReturnRequestController(assignmentRepositoryMock.Object, mapperMock.Object);
+
+            // Act
+            var result = (await controller.GetReturnRequestById(id)) as BadRequestObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(expectedMessage, result.Value.ToString());
+
+        }
+
+        #endregion
+
+        #region Update Return request state
+        [Fact]
+        public async Task UpdateReturnRequestState_WhenSuccess_ReturnOkObjectResult()
+        {
+            //Arrange
+            var id = 1;
+            var state = true;
+            ReturnRequest returnRequest = new ReturnRequest() { Id = 1, RequestedById = 4 };
+            ReturnRequestDTO returnRequestDTO = new ReturnRequestDTO() { Id = 1, RequestedBy = "vinhbx" };
+            var expectedMessage = "Return request state updated";
 
 
+            var assignmentRepositoryMock = new Mock<IReturnRequestRepository>();
+            assignmentRepositoryMock.Setup(x => x.GetAsyncById(id)).Returns(Task.FromResult(returnRequest));
+
+            var mapperMock = new Mock<IMapper>();
+            mapperMock.Setup(s => s.Map<ReturnRequestDTO>(returnRequest)).Returns(returnRequestDTO);
+
+            var controller = new ReturnRequestController(assignmentRepositoryMock.Object, mapperMock.Object);
+
+            // Act
+            var result = (await controller.UpdateReturnRequestState(id,state)) as OkObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(expectedMessage, result.Value.ToString());
+        }
+
+        [Fact]
+        public async Task UpdateReturnRequestState_WhenNotFoundReturnRequests_ReturnNotFoundObject()
+        {
+            //Arrange
+            var id = 1;
+            var state = true;
+            ReturnRequest returnRequest = new ReturnRequest() { Id = 1, RequestedById = 4 };
+            ReturnRequestDTO returnRequestDTO = new ReturnRequestDTO() { Id = 1, RequestedBy = "vinhbx" };
+            var expectedMessage = "Return request not found";
+
+
+            var assignmentRepositoryMock = new Mock<IReturnRequestRepository>();
+            assignmentRepositoryMock.Setup(x => x.GetAsyncById(id));
+
+            var mapperMock = new Mock<IMapper>();
+            mapperMock.Setup(s => s.Map<ReturnRequestDTO>(returnRequest)).Returns(returnRequestDTO);
+
+            var controller = new ReturnRequestController(assignmentRepositoryMock.Object, mapperMock.Object);
+
+            // Act
+            var result = (await controller.UpdateReturnRequestState(id, state)) as NotFoundObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(expectedMessage, result.Value.ToString());
+        }
+
+        [Fact]
+        public async Task UpdateReturnRequestState_WhenReturnRequestsUpdatedPreviously_ReturnBadRequestObject()
+        {
+            //Arrange
+            var id = 1;
+            var state = true;
+            ReturnRequest returnRequest = new ReturnRequest() { Id = 1, RequestedById = 4 ,State=ReturnRequestStateEnums.Completed};
+            ReturnRequestDTO returnRequestDTO = new ReturnRequestDTO() { Id = 1, RequestedBy = "vinhbx" };
+            var expectedMessage = "Return request already accepted";
+
+
+            var assignmentRepositoryMock = new Mock<IReturnRequestRepository>();
+            assignmentRepositoryMock.Setup(x => x.GetAsyncById(id)).Returns(Task.FromResult(returnRequest));
+
+            var mapperMock = new Mock<IMapper>();
+            mapperMock.Setup(s => s.Map<ReturnRequestDTO>(returnRequest)).Returns(returnRequestDTO);
+
+            var controller = new ReturnRequestController(assignmentRepositoryMock.Object, mapperMock.Object);
+
+            // Act
+            var result = (await controller.UpdateReturnRequestState(id, state)) as BadRequestObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(expectedMessage, result.Value.ToString());
+        }
+
+        [Fact]
+        public async Task UpdateReturnRequestState_WhenThrowErrors_ReturnBadRequestObject()
+        {
+            //Arrange
+            var id = 1;
+            var state = true;
+            ReturnRequest returnRequest = new ReturnRequest() { Id = 1, RequestedById = 4 };
+            ReturnRequestDTO returnRequestDTO = new ReturnRequestDTO() { Id = 1, RequestedBy = "vinhbx" };
+            var expectedMessage = "Something went wrong";
+
+
+            var assignmentRepositoryMock = new Mock<IReturnRequestRepository>();
+            assignmentRepositoryMock.Setup(x => x.GetAsyncById(id)).Throws(new Exception(expectedMessage));
+
+            var mapperMock = new Mock<IMapper>();
+            mapperMock.Setup(s => s.Map<ReturnRequestDTO>(returnRequest)).Returns(returnRequestDTO);
+
+            var controller = new ReturnRequestController(assignmentRepositoryMock.Object, mapperMock.Object);
+
+            // Act
+            var result = (await controller.UpdateReturnRequestState(id, state)) as BadRequestObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(expectedMessage, result.Value.ToString());
+        }
+        #endregion
 
         private List<ReturnRequest> GenerateListReturnRequests(int number)
         {

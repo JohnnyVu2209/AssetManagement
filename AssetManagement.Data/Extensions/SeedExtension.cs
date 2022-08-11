@@ -1166,6 +1166,9 @@ namespace AssetManagement.Data.Extensions
                     .WithMany(x => x.AssignmentsBys)
                     .HasForeignKey(x => x.AssignedById)
                     .OnDelete(DeleteBehavior.NoAction);
+
+                    entity.HasOne(x => x.ReturnRequest)
+                    .WithOne(x => x.Assignment).HasForeignKey<ReturnRequest>(x => x.AssignmentId).OnDelete(DeleteBehavior.NoAction);
                 }
             );
 
@@ -1435,6 +1438,11 @@ namespace AssetManagement.Data.Extensions
                     entity.HasOne(x => x.RequestedBy)
                       .WithMany(x => x.ReturnRequests)
                       .OnDelete(DeleteBehavior.NoAction);
+
+
+                    entity.HasOne(x => x.Assignment)
+                        .WithOne(x => x.ReturnRequest)
+                        .HasForeignKey<Assignment>(x=>x.ReturnRequestId).OnDelete(DeleteBehavior.NoAction);
                 }
             );
 
@@ -1449,6 +1457,7 @@ namespace AssetManagement.Data.Extensions
                             RequestedById=4,
                             ReturnedDate = DateTime.Now.AddDays(-1),
                             AssignmentId = 2,
+                            AssetId=2,
                             State=ReturnRequestStateEnums.Completed
                         }, 
                         new ReturnRequest
@@ -1457,6 +1466,7 @@ namespace AssetManagement.Data.Extensions
                             RequestedById = 6,
                             ReturnedDate = DateTime.Now,
                             AssignmentId = 5,
+                            AssetId=5,
                             State = ReturnRequestStateEnums.Waiting
                         },
                          new ReturnRequest
@@ -1465,6 +1475,7 @@ namespace AssetManagement.Data.Extensions
                              RequestedById = 8,
                              ReturnedDate = DateTime.Now.AddDays(1),
                              AssignmentId = 8,
+                             AssetId = 8,
                              State = ReturnRequestStateEnums.Waiting
                          },
                           new ReturnRequest
@@ -1474,6 +1485,7 @@ namespace AssetManagement.Data.Extensions
                               AcceptedById=1,
                               ReturnedDate = DateTime.Now.AddDays(2),
                               AssignmentId = 11,
+                              AssetId = 11,
                               State = ReturnRequestStateEnums.Completed
                           },
                           new ReturnRequest
@@ -1482,6 +1494,7 @@ namespace AssetManagement.Data.Extensions
                               RequestedById = 13,
                               ReturnedDate = DateTime.Now,
                               AssignmentId = 17,
+                              AssetId = 17,
                               State = ReturnRequestStateEnums.Waiting
                           }
                         );

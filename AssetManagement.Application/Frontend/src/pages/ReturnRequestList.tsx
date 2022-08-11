@@ -17,84 +17,134 @@ import Checkbox from "@mui/material/Checkbox";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { CustomPagination } from "../components/CustomPagination";
-import { getReturnRequestList } from "../services/returnRequestService/returnRequestManagement";
+import {
+  getReturnRequestList,
+  updateReturnRequestStatus,
+} from "../services/returnRequestService/returnRequestManagement";
 import { format } from "date-fns";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
-
-const columns: GridColDef[] = [
-  { field: "id", headerName: "No", flex: 1.5 },
-  {
-    field: "assetCode",
-    headerName: "Asset Code",
-    flex: 3,
-  },
-  {
-    field: "assetName",
-    headerName: "Asset Name",
-    flex: 4,
-  },
-  {
-    field: "requestedBy",
-    headerName: "Requested by",
-    flex: 3,
-  },
-
-  {
-    field: "assignedDate",
-    headerName: "Assigned Date",
-    flex: 3,
-    type: "date",
-    valueFormatter: (params) => {
-      const valueFormatted = format(new Date(params.value), "dd/MM/yyyy");
-      return `${valueFormatted}`;
-    },
-  },
-  {
-    field: "acceptedBy",
-    headerName: "Accepted by",
-    flex: 3,
-  },
-  {
-    field: "returnedDate",
-    headerName: "Returned Date",
-    flex: 3,
-    type: "date",
-    valueFormatter: (params) => {
-      const valueFormatted = format(new Date(params.value), "dd/MM/yyyy");
-      return `${valueFormatted}`;
-    },
-  },
-  {
-    field: "state",
-    headerName: "State",
-    flex: 4,
-    valueFormatter: (params) => {
-      const valueFormatted =
-        params.value === 1 ? "Completed" : "Waiting for returning";
-      return `${valueFormatted}`;
-    },
-  },
-  {
-    field: "",
-    type: "actions",
-    flex: 2,
-    renderCell: (params) => {
-      return (
-        <div className={params.row.state === 1 ? "disable-action" : ""}>
-          <Link to={"/return-request-list"}>
-            <CheckIcon style={{ color: "red" }} />
-          </Link>
-          <Link to={"/return-request-list"}>
-            <CloseIcon style={{ color: "black" }} />
-          </Link>
-        </div>
-      );
-    },
-  },
-];
+import Swal from "sweetalert2";
 
 function ReturnRequestList() {
+  const handleAccept = (id: number) => {
+    let state = true;
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to mark this returning request as 'Completed'?",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+      customClass: {
+        confirmButton: "button button-spacing",
+        cancelButton: "button-reverse button-spacing",
+      },
+      buttonsStyling: false,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        updateReturnRequestStatus(id, state).then((res) => {
+          setReturnRequestState(!returnRequestState);
+        });
+      }
+    });
+  };
+
+  const handleDeny = (id: number) => {
+    let state = false;
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to cancel this returning request?",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+      customClass: {
+        confirmButton: "button button-spacing",
+        cancelButton: "button-reverse button-spacing",
+      },
+      buttonsStyling: false,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        updateReturnRequestStatus(id, state).then((res) => {
+          setReturnRequestState(!returnRequestState);
+        });
+      }
+    });
+  };
+
+  const columns: GridColDef[] = [
+    { field: "id", headerName: "No", flex: 1.5 },
+    {
+      field: "assetCode",
+      headerName: "Asset Code",
+      flex: 3,
+    },
+    {
+      field: "assetName",
+      headerName: "Asset Name",
+      flex: 4,
+    },
+    {
+      field: "requestedBy",
+      headerName: "Requested by",
+      flex: 3,
+    },
+
+    {
+      field: "assignedDate",
+      headerName: "Assigned Date",
+      flex: 3,
+      type: "date",
+      valueFormatter: (params) => {
+        const valueFormatted = format(new Date(params.value), "dd/MM/yyyy");
+        return `${valueFormatted}`;
+      },
+    },
+    {
+      field: "acceptedBy",
+      headerName: "Accepted by",
+      flex: 3,
+    },
+    {
+      field: "returnedDate",
+      headerName: "Returned Date",
+      flex: 3,
+      type: "date",
+      valueFormatter: (params) => {
+        const valueFormatted = format(new Date(params.value), "dd/MM/yyyy");
+        return `${valueFormatted}`;
+      },
+    },
+    {
+      field: "state",
+      headerName: "State",
+      flex: 4,
+      valueFormatter: (params) => {
+        const valueFormatted =
+          params.value === 1 ? "Completed" : "Waiting for returning";
+        return `${valueFormatted}`;
+      },
+    },
+    {
+      field: "",
+      type: "actions",
+      flex: 2,
+      renderCell: (params) => {
+        return (
+          <div className={params.row.state === 1 ? "disable-action" : ""}>
+            <CheckIcon
+              style={{ color: "red", cursor: "pointer" }}
+              onClick={(e) => handleAccept(params.row.id)}
+            />
+            <CloseIcon
+              style={{ color: "black", cursor: "pointer" }}
+              onClick={(e) => handleDeny(params.row.id)}
+            />
+          </div>
+        );
+      },
+    },
+  ];
+
   const [filterContent, setFilterContent] = useState({
     returnedDate: "",
     state: [] as number[],
@@ -103,6 +153,8 @@ function ReturnRequestList() {
   const options = [1, 2];
   const [selected, setSelected] = useState([] as number[]);
   const [returnRequestList, setReturnRequestList] = useState([]);
+  const [returnRequestState, setReturnRequestState] = useState(true);
+
   useEffect(() => {
     getReturnRequestList(filterContent).then((res) => {
       if (res.response) {
@@ -115,7 +167,7 @@ function ReturnRequestList() {
         setReturnRequestList(res.data);
       }
     });
-  }, [filterContent]);
+  }, [filterContent, returnRequestState]);
 
   const testSearch = (e: any) => {
     e.preventDefault();

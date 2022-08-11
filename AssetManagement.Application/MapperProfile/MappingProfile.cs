@@ -66,8 +66,8 @@ namespace AssetManagement.Application.MapperProfile
         public ReturnRequestProfile()
         {
             CreateMap<ReturnRequest, ReturnRequestDTO>()
-            .ForMember(d => d.AssetCode, opt => opt.MapFrom(s => s.Assignment.Asset.Code))
-            .ForMember(d => d.AssetName, opt => opt.MapFrom(s => s.Assignment.Asset.Name));
+            .ForMember(d => d.AssetCode, opt => opt.MapFrom(s => s.Asset.Code))
+            .ForMember(d => d.AssetName, opt => opt.MapFrom(s => s.Asset.Name));
             CreateMap<ReturnRequestDTO, ReturnRequest>();
         }
     }
