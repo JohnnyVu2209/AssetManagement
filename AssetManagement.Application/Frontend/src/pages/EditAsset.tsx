@@ -36,8 +36,7 @@ const EditAsset = () => {
     useEffect(() => {
         dispatch(getAssetDetails(Number(id)))
             .unwrap().catch(err => {
-                if(err === "ASSET_NOT_FOUND")
-                {
+                if (err === "ASSET_NOT_FOUND") {
                     Swal.fire({
                         text: "this asset not exist",
                         customClass: {
@@ -73,11 +72,13 @@ const EditAsset = () => {
     }, [asset])
 
     const enableSaveButton = () => {
-        if (name !== asset.name ||
-            specification !== asset.specification ||
-            installedDate &&
-            !CheckEqualDate(installedDate, asset.installedDate) ||
-            stateId !== asset.stateID)
+        console.log("from check ", typeof specification)
+        if (typeof name === 'string' && name.trim().length !== 0 && typeof specification === 'string' && specification.trim().length !== 0 &&
+            (name !== asset.name ||
+                specification !== asset.specification ||
+                installedDate &&
+                !CheckEqualDate(installedDate, asset.installedDate) ||
+                stateId !== asset.stateID))
             setCheck(false);
         else
             setCheck(true);
@@ -120,7 +121,7 @@ const EditAsset = () => {
             {data && data.stateID !== 0 && (
                 <form className="form-page-form" autoComplete={'off'} onSubmit={handleSubmit}>
                     <div className="form-page-form-title">
-                        <h2>Edit new asset</h2>
+                        <h2>Edit asset</h2>
                     </div>
                     <div className="form-page-form-input-container">
                         <div className="form-page-form-input">

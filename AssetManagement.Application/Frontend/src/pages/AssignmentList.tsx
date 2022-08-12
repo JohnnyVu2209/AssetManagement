@@ -286,6 +286,7 @@ function AssignmentList() {
             rows={assignmentList}
             columns={columns}
             pageSize={8}
+            
             // rowsPerPageOptions={[5]}
             disableSelectionOnClick
             disableColumnMenu

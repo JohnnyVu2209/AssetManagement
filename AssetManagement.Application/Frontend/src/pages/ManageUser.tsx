@@ -24,6 +24,7 @@ import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import Paper from "@mui/material/Paper";
 import { getUserList } from "../services/userService/userManagement";
+import { CustomPagination } from "../components/CustomPagination";
 
 const columns: GridColDef[] = [
   /* {
@@ -106,7 +107,7 @@ function ManageUser() {
   const [filterContent, setFilterContent] = useState({
     type: [] as number[],
     searching: "",
-    orderBy: "staffCode asc"
+    orderBy: "staffCode asc",
   });
   const options = [1, 2];
   const [selected, setSelected] = useState([] as number[]);
@@ -129,6 +130,11 @@ function ManageUser() {
     /* getPagination(); */
     getUserList(filterContent).then((res) => {
       console.log(res);
+      if (res.data) {
+        /* Data === res.data; */
+        setUserList(res.data);
+      }
+    }).catch((res) => {
       if (res.response) {
         let staffCode = res.response.type;
         if (staffCode == 404) {
@@ -136,12 +142,8 @@ function ManageUser() {
           setUserList([]);
         }
       }
-      if (res.data) {
-        /* Data === res.data; */
-        setUserList(res.data);
-      }
     });
-  }, [filterContent]);
+  }, [filterContent.orderBy, filterContent.searching, filterContent.type]);
 
   //----------------------------------------------------------------
 
@@ -173,8 +175,8 @@ function ManageUser() {
   useEffect(() => {
     if (performance.navigation.type === 1) {
       window.location.href = "/manage-user";
-    } 
-  },[])
+    }
+  }, [])
 
   return (
     <>
@@ -246,7 +248,7 @@ function ManageUser() {
                 <SearchIcon
                   type="submit"
                   id="searchSubmit"
-                  /* onClick={goSearching} */
+                /* onClick={goSearching} */
                 />
               </IconButton>
             </Paper>
@@ -270,6 +272,7 @@ function ManageUser() {
                 display: "none",
               },
             }}
+
             /* rows={Data} */
             rows={userList}
             columns={columns}
@@ -280,15 +283,18 @@ function ManageUser() {
             onRowClick={(params) => {
               openUserDetail(params);
             }}
+
             components={
               {
-                /*  Pagination: CustomPagination, */
+                Pagination: CustomPagination,
               }
             }
             initialState={{
-              sorting:{
-                sortModel: [{field: !isSort ? filterContent.orderBy.split(' ')[0] : '',
-                 sort: !isSort ? filterContent.orderBy.split(' ')[1] as GridSortDirection : 'asc' }]
+              sorting: {
+                sortModel: [{
+                  field: !isSort ? filterContent.orderBy.split(' ')[0] : '',
+                  sort: !isSort ? filterContent.orderBy.split(' ')[1] as GridSortDirection : 'asc'
+                }]
               }
             }}
             componentsProps={{

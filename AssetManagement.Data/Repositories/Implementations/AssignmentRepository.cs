@@ -224,6 +224,8 @@ namespace AssetManagement.Data.Repositories.Implementations
                 if (assignment.AssignedState == AssignmentStateEnums.Waiting)
                 {
                     assignment.AssignedState = AssignmentStateEnums.Declined;
+                    var asset = _context.Assets.Where(a => a.Id == assignment.AssetId).FirstOrDefault();
+                    asset.StateID = (int)AssetState.Available;
                     await _context.SaveChangesAsync();
                     return new ApiResult<bool>(true)
                     {

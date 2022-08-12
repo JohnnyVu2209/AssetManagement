@@ -8,18 +8,12 @@ async function getUserList(sortingOption?: any) {
   typeArray.forEach((element: any) => {
     typeString += `&Type=${element == 1 ? "Admin" : "User"}`;
   });
-  console.log(typeString);
+  // console.log(typeString);
 
   return await axiosInstance
     .get(
-      `User/GetUsersList?${typeString}&Searching=${sortingOption.searching}&OrderBy=${sortingOption.orderBy}`
-    )
-    .then((res) => {
-      return res;
-    })
-    .catch((error) => {
-      return error;
-    });
+      `User/GetUsersList?${typeString}&Searching=${sortingOption.searching}&OrderBy=${sortingOption.orderBy}&PageSize=500`
+    );
 }
 
 

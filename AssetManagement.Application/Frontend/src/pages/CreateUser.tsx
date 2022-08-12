@@ -171,6 +171,7 @@ const CreateUser = () => {
               type="date"
               placeholder="Last Name"
               onFocusCapture={enableSaveButton}
+              onKeyUp={enableSaveButton}
               onChange={(e: any) => handleDOBChange(e)}
             />
           </div>
@@ -206,6 +207,7 @@ const CreateUser = () => {
             <input
               type="date"
               onFocusCapture={enableSaveButton}
+              onKeyUp={enableSaveButton}
               placeholder="Joined Date"
               {...register("joinedDate", {
                 required: true,

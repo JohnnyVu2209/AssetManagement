@@ -128,7 +128,7 @@ interface AssetData {
   category: string,
   state: string,
   updatedDate: string,
-  id:number;
+  id: number;
 }
 
 interface SelectData {
@@ -212,9 +212,9 @@ const ManageAsset = () => {
       .then(response => {
         // console.log(response.data);
         const resPagination = JSON.parse(response.headers.pagination);
-        if(resPagination.TotalPages < resPagination.CurrentPage)
+        if (resPagination.TotalPages < resPagination.CurrentPage)
           setPage(1);
-          
+
         setAssetData(response.data);
         setPagination(resPagination);
       })
@@ -264,16 +264,23 @@ const ManageAsset = () => {
             name: element.name,
             check: true,
           });
-        else
-          arr.push({
+        else {
+          !sort ? arr.push({
             id: element.id,
             name: element.name,
             check: false,
-          });
+          }) :
+            arr.push({
+              id: element.id,
+              name: element.name,
+              check: true,
+            });
+
+        }
       });
       setStateData(arr);
     }
-  }, [states]);
+  }, [states, sort]);
 
 
 
@@ -298,6 +305,7 @@ const ManageAsset = () => {
     });
     setStateData(newState);
   }
+
   const handleCategoryChange = (event: any) => {
     const allSelected = categoryData.find(x => x.name === "All");
     const newState = categoryData.map(obj => {
@@ -440,7 +448,7 @@ const ManageAsset = () => {
                 <TableRow>
                   <TableCell align='center' colSpan={6} sx={{ py: 3 }}>
                     <Paper>
-                      <SearchOffIcon/>
+                      <SearchOffIcon />
                       <Typography gutterBottom align='center' variant='subtitle1'>
                         Data not found
                       </Typography>

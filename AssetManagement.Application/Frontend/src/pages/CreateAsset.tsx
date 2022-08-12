@@ -41,21 +41,7 @@ const CreateAsset = () => {
       .date()
       .required("Please Select Installed Date")
       .nullable()
-      .transform((curr, orig) => (orig === "" ? null : curr))
-      .test(
-        "id",
-        "Installed Date is Saturday or Sunday. Please select another date",
-        (value: any) => {
-          return !isSaturday(value);
-        }
-      )
-      .test(
-        "id",
-        "Installed Date is Saturday or Sunday. Please select another date",
-        (value: any) => {
-          return !isSunday(value);
-        }
-      ),
+      .transform((curr, orig) => (orig === "" ? null : curr)),
   });
 
   const {
@@ -292,6 +278,7 @@ const CreateAsset = () => {
               {...register("installedDate", {
                 required: true,
               })}
+              onKeyUp={enableSaveButton}
               onFocusCapture={enableSaveButton}
             />
           </div>
