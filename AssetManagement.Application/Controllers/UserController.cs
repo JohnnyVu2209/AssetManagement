@@ -48,7 +48,7 @@ namespace AssetManagement.Application.Controllers
 
             var user = mapper.Map<User>(userDTO);
 
-            user.UserName = await GenerateUsername(userDTO.FirstName, userDTO.LastName);
+            user.UserName = await GenerateUsername(userDTO.FirstName.Trim(), userDTO.LastName.Trim());
 
             var password = $"{user.UserName}@{user.DateOfBirth:ddMMyyyy}";
 

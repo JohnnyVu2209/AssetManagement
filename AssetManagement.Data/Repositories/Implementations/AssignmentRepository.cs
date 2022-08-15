@@ -278,5 +278,21 @@ namespace AssetManagement.Data.Repositories.Implementations
             var result = await _context.Assignments.Include(x => x.Asset).Include(x => x.AssignedBy).Include(x => x.AssignedTo).Where(x => x.Id == id).FirstOrDefaultAsync();
             return result;
         }
+
+        public async Task<Assignment> UpdateAssignment(Assignment updateAssignment)
+        {
+            var result = _context.Assignments.Update(updateAssignment);
+            await _context.SaveChangesAsync();
+            return result.Entity;
+        }
+
+        public async Task UpdateAssignment(Asset asset, User assignTo, Assignment updateAssignment)
+        {
+            asset.StateID = 1;
+            updateAssignment.Asset = asset;
+            updateAssignment.AssignedTo = assignTo;
+            _context.Assignments.Update(updateAssignment);
+            await _context.SaveChangesAsync();
+        }
     }
 }

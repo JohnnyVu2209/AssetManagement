@@ -18,7 +18,7 @@ namespace AssetManagement.Application.MapperProfile
             CreateMap<CreateUserDTO, User>()
                 .ForMember(d => d.SecurityStamp, opt => opt.MapFrom(s => Guid.NewGuid().ToString()))
                 .ForMember(d => d.Gender, opt => opt.MapFrom(s => s.Gender == 1))
-                .ForMember(d => d.FullName, opt => opt.MapFrom(s => $"{s.FirstName} {s.LastName}")); 
+                .ForMember(d => d.FullName, opt => opt.MapFrom(s => $"{s.FirstName.Trim()} {s.LastName.Trim()}")); 
         }
     }
 
@@ -59,6 +59,8 @@ namespace AssetManagement.Application.MapperProfile
         {
             CreateMap<Assignment, AssignmentDTO>().ForMember(d => d.Specification, opt => opt.MapFrom(s => s.Asset.Specification));
             CreateMap<AssignmentDTO, Assignment>();
+            CreateMap<CreateAssignmentDTO, Assignment>()
+                .ForMember(d => d.AssignedToId, opt => opt.MapFrom(s => s.UserId));
             //.ForMember(d => d.AssignmentState, opt => opt.MapFrom(s => s.AssignmentState == 1 ? true : false));
         }
     }

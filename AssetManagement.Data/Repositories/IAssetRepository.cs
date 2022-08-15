@@ -14,5 +14,6 @@ namespace AssetManagement.Data.Repositories
 
         Task<ApiResult<string>> CreateAsync(CreateAssetRequest request);
         Task<Asset> UpdateAsync(Asset updateAsset);
+        Task SetAssetAvailable(Asset asset);
     }
 }

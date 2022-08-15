@@ -144,5 +144,12 @@ namespace AssetManagement.Data.Repositories.Implementations
         {
             return context.Assets.Include(x => x.Historical).Include(x => x.Location).Include(x => x.State).Include(x => x.Category).Where(x => x.Id == id).FirstOrDefaultAsync();
         }
+
+        public async Task SetAssetAvailable(Asset asset)
+        {
+            asset.StateID = 2;
+            context.Assets.Update(asset);
+            await context.SaveChangesAsync();
+        }
     }
 }

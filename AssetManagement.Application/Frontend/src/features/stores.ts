@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import assetReducer from './AssetSlice';
+import assignmentReducer from './AssignmentSlice';
 
 const store = configureStore({
     reducer: {
-        assets : assetReducer
+        assets : assetReducer,
+        assignments: assignmentReducer
     }
 });
 

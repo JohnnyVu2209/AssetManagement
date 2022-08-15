@@ -466,7 +466,7 @@ namespace AssetManagement.Application.Tests.ControllersTests
                                                                    It.IsAny<User>(),
                                                                    It.IsAny<Asset>(),
                                                                    It.IsAny<DateTime>(),
-                                                                   It.IsAny<string>())).Returns(Task.FromResult<Assignment>(null));
+                                                                   It.IsAny<string>())).Throws(new Exception());
 
             var controller = new AssignmentController(mockAssignmentRepository.Object,
                                                       mockAssetRepository.Object,
@@ -897,6 +897,374 @@ namespace AssetManagement.Application.Tests.ControllersTests
 
             // Assert
             Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public async Task EditAssignment_Return_SuccessCode()
+        {
+            var mockAssignmentRepository = new Mock<IAssignmentRepository>();
+            var mockLogger = new Mock<ILogger<AssignmentController>>();
+            var mockAssetRepository = new Mock<IAssetRepository>();
+            var mockUserManager = new Mock<FakeUserManager>();
+            var mockMapper = new Mock<IMapper>();
+
+            var editDto = new CreateAssignmentDTO
+            {
+                AssetId = 2,
+                AssignedDate = DateTime.Now,
+                UserId = 2,
+                Note = "Test edit"
+            };
+
+            var assignment = new Assignment
+            {
+                AssetId=1,
+                AssignedToId = 1,
+                AssignedById = 1,
+                Note = "unit test",
+                AssignedState = AssignmentStateEnums.Waiting
+                
+            };
+
+            var user = new User
+            {
+                Id = 2,
+                UserName = "userTest2"
+            };
+
+            var asset = new Asset
+            {
+                Id = 2,
+                StateID = 2
+            };
+
+            var updateAssignment = new Assignment
+            {
+                AssetId = editDto.AssetId,
+                AssignedDate = editDto.AssignedDate,
+                AssignedToId = editDto.UserId,
+                Note = editDto.Note,
+                AssignedById = assignment.AssignedById,
+                AssignedState = AssignmentStateEnums.Waiting
+            };
+
+            mockAssignmentRepository.Setup(a => a.GetAssignmentAsync(It.IsAny<int>())).Returns(Task.FromResult(assignment));
+
+            mockUserManager.Setup(u => u.FindByIdAsync(It.IsAny<string>())).Returns(Task.FromResult(user));
+
+            mockAssetRepository.Setup(a => a.GetAssetByIdAsync(It.IsAny<int>())).Returns(Task.FromResult<Asset?>(asset));
+
+            mockAssetRepository.Setup(a => a.SetAssetAvailable(It.IsAny<Asset>())).Returns(Task.CompletedTask);
+
+            mockMapper.Setup(m => m.Map(It.IsAny<CreateAssignmentDTO>(), It.IsAny<Assignment>())).Returns(updateAssignment);
+
+            mockAssignmentRepository.Setup(a => a.UpdateAssignment(It.IsAny<Asset>(), It.IsAny<User>(), It.IsAny<Assignment>())).Returns(Task.CompletedTask);
+
+            var controller = new AssignmentController(mockAssignmentRepository.Object,
+                                                      mockAssetRepository.Object,
+                                                      mockUserManager.Object,
+                                                      mockMapper.Object,
+                                                      mockLogger.Object);
+
+            var result = await controller.EditAssignment(1, editDto) as OkObjectResult;
+
+            Assert.IsType<OkObjectResult>(result);
+            Assert.Equal(SuccessCode.EDIT_ASSIGNMENT_SUCCESSFULLY, result.Value);
+        }
+
+        [Fact]
+        public async Task EditAssignment_With_Assignment_Is_Null_Return_NotFound_With_ErrorCode()
+        {
+            var mockAssignmentRepository = new Mock<IAssignmentRepository>();
+            var mockLogger = new Mock<ILogger<AssignmentController>>();
+            var mockAssetRepository = new Mock<IAssetRepository>();
+            var mockUserManager = new Mock<FakeUserManager>();
+            var mockMapper = new Mock<IMapper>();
+
+            var editDto = new CreateAssignmentDTO
+            {
+                AssetId = 2,
+                AssignedDate = DateTime.Now,
+                UserId = 2,
+                Note = "Test edit"
+            };
+
+            mockAssignmentRepository.Setup(a => a.GetAssignmentAsync(It.IsAny<int>())).Returns(Task.FromResult<Assignment>(null));
+
+            var controller = new AssignmentController(mockAssignmentRepository.Object,
+                                                     mockAssetRepository.Object,
+                                                     mockUserManager.Object,
+                                                     mockMapper.Object,
+                                                     mockLogger.Object);
+
+            var result = await controller.EditAssignment(1, editDto) as NotFoundObjectResult;
+
+            Assert.IsType<NotFoundObjectResult>(result);
+            Assert.Equal(ErrorCode.ASSIGNMENT_NOT_FOUND, result.Value);
+        }
+
+        [Fact]
+        public async Task EditAssignment_With_Assignment_State_Is_Not_Available_Return_BadRequest_With_ErrorCode()
+        {
+            var mockAssignmentRepository = new Mock<IAssignmentRepository>();
+            var mockLogger = new Mock<ILogger<AssignmentController>>();
+            var mockAssetRepository = new Mock<IAssetRepository>();
+            var mockUserManager = new Mock<FakeUserManager>();
+            var mockMapper = new Mock<IMapper>();
+
+            var editDto = new CreateAssignmentDTO
+            {
+                AssetId = 2,
+                AssignedDate = DateTime.Now,
+                UserId = 2,
+                Note = "Test edit"
+            };
+
+            var assignment = new Assignment
+            {
+                AssetId = 1,
+                AssignedToId = 1,
+                AssignedById = 1,
+                Note = "unit test",
+                AssignedState = AssignmentStateEnums.Accepted
+
+            };
+
+            mockAssignmentRepository.Setup(a => a.GetAssignmentAsync(It.IsAny<int>())).Returns(Task.FromResult(assignment));
+
+            var controller = new AssignmentController(mockAssignmentRepository.Object,
+                                                     mockAssetRepository.Object,
+                                                     mockUserManager.Object,
+                                                     mockMapper.Object,
+                                                     mockLogger.Object);
+
+            var result = await controller.EditAssignment(1, editDto) as BadRequestObjectResult;
+
+            Assert.IsType<BadRequestObjectResult>(result);
+            Assert.Equal(ErrorCode.ASSIGNMENT_NOT_IN_WAITING_STATE, result.Value);
+        }
+
+        [Fact]
+        public async Task EditAssignment_With_Assigned_To_Is_Null_Return_NotFound_With_ErrorCode()
+        {
+            var mockAssignmentRepository = new Mock<IAssignmentRepository>();
+            var mockLogger = new Mock<ILogger<AssignmentController>>();
+            var mockAssetRepository = new Mock<IAssetRepository>();
+            var mockUserManager = new Mock<FakeUserManager>();
+            var mockMapper = new Mock<IMapper>();
+
+            var editDto = new CreateAssignmentDTO
+            {
+                AssetId = 2,
+                AssignedDate = DateTime.Now,
+                UserId = 2,
+                Note = "Test edit"
+            };
+
+            var assignment = new Assignment
+            {
+                AssetId = 1,
+                AssignedToId = 1,
+                AssignedById = 1,
+                Note = "unit test",
+                AssignedState = AssignmentStateEnums.Waiting
+            };
+
+            mockAssignmentRepository.Setup(a => a.GetAssignmentAsync(It.IsAny<int>())).Returns(Task.FromResult(assignment));
+
+            mockUserManager.Setup(u => u.FindByIdAsync(It.IsAny<string>())).Returns(Task.FromResult<User>(null));
+
+            var controller = new AssignmentController(mockAssignmentRepository.Object,
+                                                     mockAssetRepository.Object,
+                                                     mockUserManager.Object,
+                                                     mockMapper.Object,
+                                                     mockLogger.Object);
+
+            var result = await controller.EditAssignment(1, editDto) as NotFoundObjectResult;
+
+            Assert.IsType<NotFoundObjectResult>(result);
+            Assert.Equal(ErrorCode.USER_NOT_FOUND, result.Value);
+        }
+
+        [Fact]
+        public async Task EditAssignment_With_Asset_Is_Null_Return_NotFound_With_ErrorCode()
+        {
+            var mockAssignmentRepository = new Mock<IAssignmentRepository>();
+            var mockLogger = new Mock<ILogger<AssignmentController>>();
+            var mockAssetRepository = new Mock<IAssetRepository>();
+            var mockUserManager = new Mock<FakeUserManager>();
+            var mockMapper = new Mock<IMapper>();
+
+            var editDto = new CreateAssignmentDTO
+            {
+                AssetId = 2,
+                AssignedDate = DateTime.Now,
+                UserId = 2,
+                Note = "Test edit"
+            };
+
+            var assignment = new Assignment
+            {
+                AssetId = 1,
+                AssignedToId = 1,
+                AssignedById = 1,
+                Note = "unit test",
+                AssignedState = AssignmentStateEnums.Waiting
+
+            };
+
+            var user = new User
+            {
+                Id = 2,
+                UserName = "userTest2"
+            };
+
+            mockAssignmentRepository.Setup(a => a.GetAssignmentAsync(It.IsAny<int>())).Returns(Task.FromResult(assignment));
+
+            mockUserManager.Setup(u => u.FindByIdAsync(It.IsAny<string>())).Returns(Task.FromResult(user));
+
+            mockAssetRepository.Setup(a => a.GetAssetByIdAsync(It.IsAny<int>())).Returns(Task.FromResult<Asset?>(null));
+
+            var controller = new AssignmentController(mockAssignmentRepository.Object,
+                                                     mockAssetRepository.Object,
+                                                     mockUserManager.Object,
+                                                     mockMapper.Object,
+                                                     mockLogger.Object);
+
+            var result = await controller.EditAssignment(1, editDto) as NotFoundObjectResult;
+
+            Assert.IsType<NotFoundObjectResult>(result);
+            Assert.Equal(ErrorCode.ASSET_NOT_FOUND, result.Value);
+        }
+
+        [Fact]
+        public async Task EditAssignment_With_Asset_Is_Not_Available_Return_BadRequest_With_ErrorCode()
+        {
+            var mockAssignmentRepository = new Mock<IAssignmentRepository>();
+            var mockLogger = new Mock<ILogger<AssignmentController>>();
+            var mockAssetRepository = new Mock<IAssetRepository>();
+            var mockUserManager = new Mock<FakeUserManager>();
+            var mockMapper = new Mock<IMapper>();
+
+            var editDto = new CreateAssignmentDTO
+            {
+                AssetId = 2,
+                AssignedDate = DateTime.Now,
+                UserId = 2,
+                Note = "Test edit"
+            };
+
+            var assignment = new Assignment
+            {
+                AssetId = 1,
+                AssignedToId = 1,
+                AssignedById = 1,
+                Note = "unit test",
+                AssignedState = AssignmentStateEnums.Waiting
+
+            };
+
+            var user = new User
+            {
+                Id = 2,
+                UserName = "userTest2"
+            };
+
+            var asset = new Asset
+            {
+                Id = 2,
+                StateID = 1
+            };
+
+            mockAssignmentRepository.Setup(a => a.GetAssignmentAsync(It.IsAny<int>())).Returns(Task.FromResult(assignment));
+
+            mockUserManager.Setup(u => u.FindByIdAsync(It.IsAny<string>())).Returns(Task.FromResult(user));
+
+            mockAssetRepository.Setup(a => a.GetAssetByIdAsync(It.IsAny<int>())).Returns(Task.FromResult<Asset?>(asset));
+
+            var controller = new AssignmentController(mockAssignmentRepository.Object,
+                                                     mockAssetRepository.Object,
+                                                     mockUserManager.Object,
+                                                     mockMapper.Object,
+                                                     mockLogger.Object);
+
+            var result = await controller.EditAssignment(1, editDto) as BadRequestObjectResult;
+
+            Assert.IsType<BadRequestObjectResult>(result);
+            Assert.Equal(ErrorCode.ASSET_IS_NOT_AVAILABLE, result.Value);
+        }
+
+        [Fact]
+        public async Task EditAssignment_With_Edit_Failed_Return_BadRequest_With_ErrorCode()
+        {
+            var mockAssignmentRepository = new Mock<IAssignmentRepository>();
+            var mockLogger = new Mock<ILogger<AssignmentController>>();
+            var mockAssetRepository = new Mock<IAssetRepository>();
+            var mockUserManager = new Mock<FakeUserManager>();
+            var mockMapper = new Mock<IMapper>();
+
+            var editDto = new CreateAssignmentDTO
+            {
+                AssetId = 2,
+                AssignedDate = DateTime.Now,
+                UserId = 2,
+                Note = "Test edit"
+            };
+
+            var assignment = new Assignment
+            {
+                AssetId = 1,
+                AssignedToId = 1,
+                AssignedById = 1,
+                Note = "unit test",
+                AssignedState = AssignmentStateEnums.Waiting
+
+            };
+
+            var user = new User
+            {
+                Id = 2,
+                UserName = "userTest2"
+            };
+
+            var asset = new Asset
+            {
+                Id = 2,
+                StateID = 2
+            };
+
+            var updateAssignment = new Assignment
+            {
+                AssetId = editDto.AssetId,
+                AssignedDate = editDto.AssignedDate,
+                AssignedToId = editDto.UserId,
+                Note = editDto.Note,
+                AssignedById = assignment.AssignedById,
+                AssignedState = AssignmentStateEnums.Waiting
+            };
+
+            mockAssignmentRepository.Setup(a => a.GetAssignmentAsync(It.IsAny<int>())).Returns(Task.FromResult(assignment));
+
+            mockUserManager.Setup(u => u.FindByIdAsync(It.IsAny<string>())).Returns(Task.FromResult(user));
+
+            mockAssetRepository.Setup(a => a.GetAssetByIdAsync(It.IsAny<int>())).Returns(Task.FromResult<Asset?>(asset));
+
+            mockAssetRepository.Setup(a => a.SetAssetAvailable(It.IsAny<Asset>())).Returns(Task.CompletedTask);
+
+            mockMapper.Setup(m => m.Map(It.IsAny<CreateAssignmentDTO>(), It.IsAny<Assignment>())).Returns(updateAssignment);
+
+            mockAssignmentRepository.Setup(a => a.UpdateAssignment(It.IsAny<Asset>(), It.IsAny<User>(), It.IsAny<Assignment>())).Throws(new Exception());
+
+            var controller = new AssignmentController(mockAssignmentRepository.Object,
+                                                     mockAssetRepository.Object,
+                                                     mockUserManager.Object,
+                                                     mockMapper.Object,
+                                                     mockLogger.Object);
+
+            var result = await controller.EditAssignment(1, editDto) as BadRequestObjectResult;
+
+            Assert.IsType<BadRequestObjectResult>(result);
+            Assert.Equal(ErrorCode.EDIT_ASSIGNMENT_FAILED, result.Value);
         }
     }
 }

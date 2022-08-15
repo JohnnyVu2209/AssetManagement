@@ -2,6 +2,7 @@
 using AssetManagement.Contracts.Constant;
 using AssetManagement.Data.Repositories;
 using AssetManagement.Domain.Model;
+using AssetManagement.Domain.Model.Enums;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -70,7 +71,7 @@ namespace AssetManagement.Application.Controllers
             {
                 return BadRequest(result.Message);
             }
-            else if(result.StatusCode == 404)
+            else if (result.StatusCode == 404)
             {
                 return NotFound(result.Message);
             }
@@ -105,7 +106,7 @@ namespace AssetManagement.Application.Controllers
 
                 var assignTo = await _userManager.FindByIdAsync(createAssignmentDTO.UserId.ToString());
 
-                if(assignTo is null)
+                if (assignTo is null)
                     return NotFound(ErrorCode.USER_NOT_FOUND);
 
                 var asset = await _assetRepository.GetAssetByIdAsync(createAssignmentDTO.AssetId);
@@ -115,10 +116,7 @@ namespace AssetManagement.Application.Controllers
                 else if (asset.StateID != 2)
                     return BadRequest(ErrorCode.ASSET_IS_NOT_AVAILABLE);
 
-                var result = await _assignmentRepository.CreateAssignment(assignBy, assignTo, asset, createAssignmentDTO.AssignedDate, createAssignmentDTO.Note);
-
-                if(result is null)
-                    return BadRequest(ErrorCode.CREATE_ASSIGNMENT_FAILED);
+                await _assignmentRepository.CreateAssignment(assignBy, assignTo, asset, createAssignmentDTO.AssignedDate, createAssignmentDTO.Note);
 
                 return Ok(SuccessCode.CREATE_ASSIGNMENT_SUCCESSFULLY);
             }
@@ -127,6 +125,48 @@ namespace AssetManagement.Application.Controllers
                 _logger.LogError("ERROR FROM CREATE ASSIGNMENT", e.Message);
                 return BadRequest(ErrorCode.CREATE_ASSIGNMENT_FAILED);
             }
+        }
+
+        [HttpPut("EditAssignment/{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> EditAssignment(int id, [FromBody] CreateAssignmentDTO editAssignment)
+        {
+            try
+            {
+                var assignment = await _assignmentRepository.GetAssignmentAsync(id);
+
+                if (assignment is null)
+                    return NotFound(ErrorCode.ASSIGNMENT_NOT_FOUND);
+                else if (assignment.AssignedState != AssignmentStateEnums.Waiting)
+                    return BadRequest(ErrorCode.ASSIGNMENT_NOT_IN_WAITING_STATE);
+
+                var assignTo = await _userManager.FindByIdAsync(editAssignment.UserId.ToString());
+
+                if (assignTo is null)
+                    return NotFound(ErrorCode.USER_NOT_FOUND);
+
+                var asset = await _assetRepository.GetAssetByIdAsync(editAssignment.AssetId);
+
+                if (asset is null)
+                    return NotFound(ErrorCode.ASSET_NOT_FOUND);
+
+                if (assignment.AssetId != editAssignment.AssetId && asset.StateID != 2)
+                    return BadRequest(ErrorCode.ASSET_IS_NOT_AVAILABLE);
+                else
+                    await _assetRepository.SetAssetAvailable(assignment.Asset);
+
+                var updateAssignment = _mapper.Map(editAssignment, assignment);
+
+                await _assignmentRepository.UpdateAssignment(asset, assignTo, updateAssignment);
+
+                return Ok(SuccessCode.EDIT_ASSIGNMENT_SUCCESSFULLY);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("ERROR FROM EDIT ASSIGNMENT", e.Message);
+                return BadRequest(ErrorCode.EDIT_ASSIGNMENT_FAILED);
+            }
+
         }
 
         [Authorize]

@@ -20,6 +20,7 @@ import ListAssignmentView from "../pages/UserAssignmentList";
 import ReturnRequestList from "../pages/ReturnRequestList";
 import CreateAssigment from "../pages/CreateAssigment";
 import EditAsset from "../pages/EditAsset";
+import EditAssignment from "../pages/EditAssignment";
 
 function Routes() {
   return (
@@ -48,6 +49,7 @@ function Routes() {
             />
 
             <RouteGuard path="/assignment/create" component={CreateAssigment} />
+            <RouteGuard path="/assignment/edit/:id" component={EditAssignment} />
             <RouteGuard path="/create-asset" component={CreateAsset} />
             <RouteGuard path="/edit-asset/:id" component={EditAsset} />
             <UserDetailProvider>
