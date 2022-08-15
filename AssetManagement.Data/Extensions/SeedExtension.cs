@@ -352,7 +352,14 @@ namespace AssetManagement.Data.Extensions
                     entity.HasOne(d => d.Location)
                         .WithMany(p => p.Assets)
                         .HasForeignKey("LocationID");
+
+                    entity.HasMany(d => d.Historical)
+                    .WithOne(d => d.Asset)
+                    .HasForeignKey(p => p.AssetId);
                 });
+
+            modelBuilder.Entity<Asset>()
+                .HasQueryFilter(x => x.Historical.Any(h => h.State == ReturnRequestStateEnums.Completed));
 
             modelBuilder.Entity<Asset>(
                 entity => entity.HasData
