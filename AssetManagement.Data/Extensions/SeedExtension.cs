@@ -358,8 +358,8 @@ namespace AssetManagement.Data.Extensions
                     .HasForeignKey(p => p.AssetId);
                 });
 
-            modelBuilder.Entity<Asset>()
-                .HasQueryFilter(x => x.Historical.Any(h => h.State == ReturnRequestStateEnums.Completed));
+            // modelBuilder.Entity<Asset>()
+            //     .HasQueryFilter(x => x.Historical.Any(h => h.State == ReturnRequestStateEnums.Completed));
 
             modelBuilder.Entity<Asset>(
                 entity => entity.HasData
