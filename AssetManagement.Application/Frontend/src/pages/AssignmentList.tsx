@@ -73,10 +73,11 @@ const columns: GridColDef[] = [
     type: "actions",
     flex: 1,
 
-    renderCell: () => {
+    renderCell: (params) => {
       return (
-        <>
-          <Link to={"/assignment-list"}>
+        <div className={params.row.assignedState !== 2 ? "disable-action" : ""}>
+          {/* {console.log("from gird ",params)} */}
+          <Link to={`/assignment/edit/${params.row.id}`}>
             <EditIcon style={{ color: "black" }} />
           </Link>
           <Link to={"/assignment-list"}>
@@ -85,7 +86,7 @@ const columns: GridColDef[] = [
           <Link to={"/assignment-list"}>
             <RestartAltIcon style={{ color: "CornflowerBlue" }} />
           </Link>
-        </>
+        </div>
       );
     },
   },

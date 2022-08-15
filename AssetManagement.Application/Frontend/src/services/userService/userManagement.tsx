@@ -29,6 +29,15 @@ const getUsers = (pageNumber: number, orderBy: string, searching: string) => {
     })
 }
 
+const getUsersBySearching = (searching: string) => {
+  return axiosInstance.get('User/GetUsersList',
+    {
+      params: {
+        searching,
+      }
+    })
+}
+
 
 async function getUserByStaffCode(staffCode: string) {
   return await axiosInstance
@@ -104,4 +113,4 @@ async function createUser(data: any) {
     });
 }
 
-export { getUserList, getUserByStaffCode, updateUser, createUser, getUsers };
+export { getUserList, getUserByStaffCode, updateUser, createUser, getUsers, getUsersBySearching };

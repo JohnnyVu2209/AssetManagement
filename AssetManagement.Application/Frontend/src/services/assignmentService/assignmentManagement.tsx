@@ -37,6 +37,10 @@ const getAssignmentList = async (sortingOption?: any) => {
   })
 }
 
+const getAssignmentDetail = async (id:number) => {
+  return axiosInstance.get(`Assignment/${id}`);
+}
+
 const createAssignment = async (data: any) => {
   return await axiosInstance.post('Assignment/CreateAssignment',data)
   .then(() => {
@@ -52,6 +56,29 @@ const createAssignment = async (data: any) => {
         console.log(error);
     });
   });
+}
+
+const updateAssignment= async (id: number, data: any) => {
+  return axiosInstance.put(`Assignment/EditAssignment/${id}`, data)
+  .then(() => {
+    Swal.fire({
+      text:"Edit assignment successfully",
+      customClass: {
+        confirmButton: "button"
+      },
+      buttonsStyling: false,
+    }).then(() => {
+      window.location.href = "/assignment-list/true";
+    })
+  }).catch(() => {
+    Swal.fire({
+      text:"Edit assignment failed",
+      customClass: {
+        confirmButton: "button"
+      },
+      buttonsStyling: false,
+    })
+  })
 }
 
 async function getAssignmentByUserLogin(){
@@ -87,4 +114,4 @@ async function declineAssignment(id: number){
     });
 }
 
-export { getAssignmentList, getAssignmentByUserLogin, acceptAssignment, declineAssignment, createAssignment };
+export { getAssignmentList, getAssignmentByUserLogin, acceptAssignment, declineAssignment, createAssignment, getAssignmentDetail, updateAssignment };

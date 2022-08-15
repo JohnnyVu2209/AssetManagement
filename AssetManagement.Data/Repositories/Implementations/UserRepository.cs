@@ -220,6 +220,7 @@ namespace AssetManagement.Data.Repositories.Implementations
             if (users.Any() && !string.IsNullOrWhiteSpace(searching))
                 users = users.Where(x =>
                                    x.StaffCode.ToLower().Contains(searching.Trim().ToLower()) ||
+                                   x.UserName.ToLower().Contains(searching.Trim().ToLower()) ||
                                    x.FirstName.ToLower().Contains(searching.Trim().ToLower()) ||
                                    x.LastName.ToLower().Contains(searching.Trim().ToLower()) ||
                                    (x.FirstName.ToLower() + " " + x.LastName.ToLower()).Contains(searching.Trim().ToLower()));

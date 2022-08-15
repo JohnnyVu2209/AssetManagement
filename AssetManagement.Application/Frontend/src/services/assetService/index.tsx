@@ -46,6 +46,16 @@ const getAssetListBySearch = (pageNumber: number,searching: string, orderBy: str
     }
   })
 };
+const getAssetBySearch = (searching: string) => {
+  return axiosInstance.get(`${Asset}/getAssetsList`,{
+    params:{
+      searching
+    },
+    paramsSerializer: params => {
+      return qs.stringify(params)
+    }
+  })
+};
 
 const getCategories = () => {
   return axiosInstance.get(`${Asset}/getCategories`);
@@ -59,7 +69,8 @@ const assetService = {
   getCategories,
   getStates,
   getAsset,
-  getAssetListBySearch
+  getAssetListBySearch,
+  getAssetBySearch
 }
 
 export default assetService;

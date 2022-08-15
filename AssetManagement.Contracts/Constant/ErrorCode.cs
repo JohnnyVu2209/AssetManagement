@@ -14,6 +14,10 @@
 
         public const string ASSET_NOT_FOUND = "ASSET_NOT_FOUND";
 
+        public const string ASSIGNMENT_NOT_FOUND = "ASSIGNMENT_NOT_FOUND";
+
+        public const string ASSIGNMENT_NOT_IN_WAITING_STATE = "ASSIGNMENT_NOT_IN_WAITING_STATE";
+
         public const string USER_ALREADY_EXISTS = "USER_ALREADY_EXISTS";
 
         public const string CREATE_USER_FAILED = "CREATE_USER_FAILED";
@@ -23,6 +27,9 @@
         public const string USER_ALREADY_DISABLED = "USER_ALREADY_DISABLED";
 
         public const string EDIT_ASSET_FAILED = "EDIT_ASSET_FAILED";
+
+        public const string EDIT_ASSIGNMENT_FAILED = "EDIT_ASSIGNMENT_FAILED";
+
         public const string ASSET_IS_NOT_AVAILABLE = "ASSET_IS_NOT_AVAILABLE";
 
         public const string REFRESH_TOKEN_INVALID = "REFRESH_TOKEN_INVALID";
