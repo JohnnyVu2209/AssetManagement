@@ -16,7 +16,6 @@ namespace AssetManagement.Domain.Model
         [Required]
         public DateTime InstalledDate { get; set; }
 
-        public string? History { get; set; }
 
         public int CategoryID { get; set; }
 
@@ -32,6 +31,7 @@ namespace AssetManagement.Domain.Model
 
         [Required]
         public virtual Location? Location { get; set; }
+        public List<ReturnRequest> Historical { get; set; } = new List<ReturnRequest>();
         public virtual List<Assignment> Assignments { get; set; } = new List<Assignment>();
 
     }

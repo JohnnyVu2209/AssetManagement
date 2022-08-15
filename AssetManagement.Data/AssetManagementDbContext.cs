@@ -1,5 +1,6 @@
 ﻿using AssetManagement.Data.Extensions;
 using AssetManagement.Domain.Model;
+using AssetManagement.Domain.Model.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -101,6 +102,9 @@ namespace AssetManagement.Data
             modelBuilder.SeedAssignment();
 
             modelBuilder.SeedReturnRequest();
+
+            modelBuilder.Entity<Asset>()
+                .HasQueryFilter(x => x.Historical.Any(h => h.State == ReturnRequestStateEnums.Completed));
         }
     }
 }

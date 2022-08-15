@@ -18,7 +18,7 @@ namespace AssetManagement.Domain.Model
         public User? AcceptedBy { get; set; }
         public int? AcceptedById { get; set; }
         public DateTime? ReturnedDate { get; set; }
-     
+        public DateTime AssignedDate { get; set; }
         public ReturnRequestStateEnums State { get; set; }
         public int AssignmentId { get; set; }
         public Assignment Assignment { get; set; }

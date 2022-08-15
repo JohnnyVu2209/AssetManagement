@@ -49,6 +49,7 @@ namespace AssetManagement.Data.Repositories.Implementations
                             .Include("State")
                             .Include("Category")
                             .Include("Location")
+                            .Include(x => x.Historical)
                             .FirstOrDefaultAsync(asset => asset.Code == code);
         }
 
@@ -141,7 +142,7 @@ namespace AssetManagement.Data.Repositories.Implementations
 
         public Task<Asset?> GetAssetByIdAllIncludeAsync(int id)
         {
-            return context.Assets.Include(x => x.Location).Include(x => x.State).Include(x => x.Category).Where(x => x.Id == id).FirstOrDefaultAsync();
+            return context.Assets.Include(x => x.Historical).Include(x => x.Location).Include(x => x.State).Include(x => x.Category).Where(x => x.Id == id).FirstOrDefaultAsync();
         }
     }
 }
