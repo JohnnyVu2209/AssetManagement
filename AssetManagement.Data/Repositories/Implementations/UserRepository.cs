@@ -209,7 +209,7 @@ namespace AssetManagement.Data.Repositories.Implementations
 
         public IQueryable<User> FilterUsers(int location, string searching, string orderBy, List<string> type)
         {
-            var users = _context.Users.Include(x => x.UserRoles).ThenInclude(x => x.Role).Include(x => x.Location).AsQueryable();
+            var users = _context.Users.Include(x => x.UserRoles).ThenInclude(x => x.Role).Include(x => x.Location).Where(x=>x.IsDisabled==false).AsQueryable();
 
             if (users.Any() && location != 0)
                 users = users.Where(x => x.LocationId == location);
@@ -237,5 +237,25 @@ namespace AssetManagement.Data.Repositories.Implementations
             return users;
         }
 
+        public async Task<User> GetUserByStaffCodeAsync(string staffCode)
+        {
+            return await _context.Users.Include(x=>x.Assignments).FirstOrDefaultAsync(x => x.StaffCode == staffCode);
+        }
+
+
+        public async Task DisableUserAsync(string staffCode)
+        {
+            var getUser =await  _context.Users.FirstOrDefaultAsync(x => x.StaffCode == staffCode);
+            getUser.IsDisabled = true;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> CheckUserAssignmentAsync(string staffCode)
+        {
+            var userAssignment =await _context.Users.Include(x => x.Assignments).FirstOrDefaultAsync(x => x.StaffCode == staffCode);
+            if (userAssignment.Assignments.Any()) return true;
+            else
+            return false;
+        }
     }
 }

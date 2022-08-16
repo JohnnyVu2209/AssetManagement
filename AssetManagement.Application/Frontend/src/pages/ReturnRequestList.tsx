@@ -111,7 +111,8 @@ function ReturnRequestList() {
       type: "date",
       valueFormatter: (params) => {
         const valueFormatted = format(new Date(params.value), "dd/MM/yyyy");
-        return `${valueFormatted}`;
+        if (valueFormatted == "01/01/0001") return ``;
+        else return `${valueFormatted}`;
       },
     },
     {

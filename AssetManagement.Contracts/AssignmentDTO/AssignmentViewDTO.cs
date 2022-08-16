@@ -2,7 +2,7 @@
 
 namespace AssetManagement.Contracts.AssignmentDTO
 {
-    public class AssignmentDTO
+    public class AssignmentViewDTO
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "Asset code is required")]

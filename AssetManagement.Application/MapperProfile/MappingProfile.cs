@@ -57,8 +57,8 @@ namespace AssetManagement.Application.MapperProfile
     {
         public AssignmentProfile()
         {
-            CreateMap<Assignment, AssignmentDTO>().ForMember(d => d.Specification, opt => opt.MapFrom(s => s.Asset.Specification));
-            CreateMap<AssignmentDTO, Assignment>();
+            CreateMap<Assignment, AssignmentViewDTO>().ForMember(d => d.Specification, opt => opt.MapFrom(s => s.Asset.Specification));
+            CreateMap<AssignmentViewDTO, Assignment>();
             CreateMap<CreateAssignmentDTO, Assignment>()
                 .ForMember(d => d.AssignedToId, opt => opt.MapFrom(s => s.UserId));
             //.ForMember(d => d.AssignmentState, opt => opt.MapFrom(s => s.AssignmentState == 1 ? true : false));

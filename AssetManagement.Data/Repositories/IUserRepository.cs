@@ -11,5 +11,8 @@ namespace AssetManagement.Data.Repositories
         Task<ApiResult<string>> UpdateAsync(UpdateUserDTO request);
         Task<List<RoleViewModel>> GetRolesAsync();
         IQueryable<User> FilterUsers(int location, string searching, string orderBy, List<string> type);
+        Task<User> GetUserByStaffCodeAsync(string staffCode);
+        Task DisableUserAsync(string staffCode);
+        Task<bool> CheckUserAssignmentAsync(string staffCode);
     }
 }

@@ -38,6 +38,7 @@ namespace AssetManagement.Application.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetReturnRequestById(int id)
         {
@@ -54,7 +55,7 @@ namespace AssetManagement.Application.Controllers
             }
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}/{state}")]
 
         public async Task<IActionResult> UpdateReturnRequestState(int id,bool state)

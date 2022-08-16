@@ -24,17 +24,17 @@ namespace AssetManagement.Application.Tests.ControllersTests
 
             IEnumerable<Assignment> assignmentList = GenerateListAssignment(10);
 
-            IEnumerable<AssignmentDTO> assignmentListDTO = new List<AssignmentDTO>()
+            IEnumerable<AssignmentViewDTO> assignmentListDTO = new List<AssignmentViewDTO>()
             {
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
+                new AssignmentViewDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
+                new AssignmentViewDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
             };
 
             var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
             assignmentRepositoryMock.Setup(x => x.GetAsync(sorting.Searching,sorting.AssignDate,sorting.State, It.IsAny<string>())).Returns(Task.FromResult(assignmentList));
 
             var mapperMock = new Mock<IMapper>();
-            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentDTO>>(assignmentList)).Returns(assignmentListDTO);
+            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentViewDTO>>(assignmentList)).Returns(assignmentListDTO);
 
             var mockLogger = new Mock<ILogger<AssignmentController>>();
             var mockAssetRepository = new Mock<IAssetRepository>();
@@ -48,7 +48,7 @@ namespace AssetManagement.Application.Tests.ControllersTests
             // Assert
             Assert.NotNull(result);
 
-            var data = result.Value as IEnumerable<AssignmentDTO>;
+            var data = result.Value as IEnumerable<AssignmentViewDTO>;
             Assert.NotNull(data);
             Assert.Equal(assignmentListDTO, data);
         }
@@ -63,17 +63,17 @@ namespace AssetManagement.Application.Tests.ControllersTests
 
             IEnumerable<Assignment> assignmentList = GenerateListAssignment(10);
 
-            IEnumerable<AssignmentDTO> assignmentListDTO = new List<AssignmentDTO>()
+            IEnumerable<AssignmentViewDTO> assignmentListDTO = new List<AssignmentViewDTO>()
             {
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
+                new AssignmentViewDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
+                new AssignmentViewDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
             };
 
             var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
             assignmentRepositoryMock.Setup(x => x.GetAsync(sorting.Searching, sorting.AssignDate, sorting.State, It.IsAny<string>() ));
 
             var mapperMock = new Mock<IMapper>();
-            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentDTO>>(assignmentList)).Returns(assignmentListDTO);
+            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentViewDTO>>(assignmentList)).Returns(assignmentListDTO);
 
             var mockLogger = new Mock<ILogger<AssignmentController>>();
             var mockAssetRepository = new Mock<IAssetRepository>();
@@ -99,17 +99,17 @@ namespace AssetManagement.Application.Tests.ControllersTests
 
             IEnumerable<Assignment> assignmentList = GenerateListAssignment(10).AsEnumerable();
 
-            IEnumerable<AssignmentDTO> assignmentListDTO = new List<AssignmentDTO>()
+            IEnumerable<AssignmentViewDTO> assignmentListDTO = new List<AssignmentViewDTO>()
             {
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
+                new AssignmentViewDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
+                new AssignmentViewDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
             };
 
             var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
             assignmentRepositoryMock.Setup(x => x.GetAsync(sorting.Searching, sorting.AssignDate, sorting.State, It.IsAny<string>())).Throws(new Exception(expectedMessage));
 
             var mapperMock = new Mock<IMapper>();
-            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentDTO>>(assignmentList)).Returns(assignmentListDTO);
+            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentViewDTO>>(assignmentList)).Returns(assignmentListDTO);
 
             var mockLogger = new Mock<ILogger<AssignmentController>>();
             var mockAssetRepository = new Mock<IAssetRepository>();
@@ -513,17 +513,17 @@ namespace AssetManagement.Application.Tests.ControllersTests
                 Limit = 5
             };
 
-            List<AssignmentDTO> assignmentListDTO = new List<AssignmentDTO>()
+            List<AssignmentViewDTO> assignmentListDTO = new List<AssignmentViewDTO>()
             {
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
+                new AssignmentViewDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
+                new AssignmentViewDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
             };
 
             var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
             assignmentRepositoryMock.Setup(x => x.GetUserAssignmentPaginationAsync(It.IsAny<UserAssignmentViewRequest>())).Returns(Task.FromResult(pagedResult));
 
             var mapperMock = new Mock<IMapper>();
-            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentDTO>>(assignmentList)).Returns(assignmentListDTO);
+            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentViewDTO>>(assignmentList)).Returns(assignmentListDTO);
 
             var mockLogger = new Mock<ILogger<AssignmentController>>();
             var mockAssetRepository = new Mock<IAssetRepository>();
@@ -545,17 +545,17 @@ namespace AssetManagement.Application.Tests.ControllersTests
         {
             //Arrange
             IEnumerable<Assignment> assignmentList = GenerateListAssignment(10);
-            List<AssignmentDTO> assignmentListDTO = new List<AssignmentDTO>()
+            List<AssignmentViewDTO> assignmentListDTO = new List<AssignmentViewDTO>()
             {
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
+                new AssignmentViewDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
+                new AssignmentViewDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
             };
 
             var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
             assignmentRepositoryMock.Setup(x => x.GetUserAssignmentPaginationAsync(It.IsAny<UserAssignmentViewRequest>()));
 
             var mapperMock = new Mock<IMapper>();
-            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentDTO>>(assignmentList)).Returns(assignmentListDTO);
+            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentViewDTO>>(assignmentList)).Returns(assignmentListDTO);
 
             var mockLogger = new Mock<ILogger<AssignmentController>>();
             var mockAssetRepository = new Mock<IAssetRepository>();
@@ -575,10 +575,10 @@ namespace AssetManagement.Application.Tests.ControllersTests
         {
             //Arrange
             IEnumerable<Assignment> assignmentList = GenerateListAssignment(10);
-            List<AssignmentDTO> assignmentListDTO = new List<AssignmentDTO>()
+            List<AssignmentViewDTO> assignmentListDTO = new List<AssignmentViewDTO>()
             {
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
+                new AssignmentViewDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
+                new AssignmentViewDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
             };
             var expectedResult = new ApiResult<bool>(true)
             {
@@ -590,7 +590,7 @@ namespace AssetManagement.Application.Tests.ControllersTests
             assignmentRepositoryMock.Setup(x => x.AcceptRespondAsync(It.IsAny<int>())).Returns(Task.FromResult(expectedResult));
 
             var mapperMock = new Mock<IMapper>();
-            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentDTO>>(assignmentList)).Returns(assignmentListDTO);
+            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentViewDTO>>(assignmentList)).Returns(assignmentListDTO);
 
             var mockLogger = new Mock<ILogger<AssignmentController>>();
             var mockAssetRepository = new Mock<IAssetRepository>();
@@ -612,10 +612,10 @@ namespace AssetManagement.Application.Tests.ControllersTests
         {
             //Arrange
             IEnumerable<Assignment> assignmentList = GenerateListAssignment(10);
-            List<AssignmentDTO> assignmentListDTO = new List<AssignmentDTO>()
+            List<AssignmentViewDTO> assignmentListDTO = new List<AssignmentViewDTO>()
             {
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
+                new AssignmentViewDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
+                new AssignmentViewDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
             };
             var expectedResult = new ApiResult<bool>(true)
             {
@@ -627,7 +627,7 @@ namespace AssetManagement.Application.Tests.ControllersTests
             assignmentRepositoryMock.Setup(x => x.AcceptRespondAsync(It.IsAny<int>())).Returns(Task.FromResult(expectedResult));
 
             var mapperMock = new Mock<IMapper>();
-            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentDTO>>(assignmentList)).Returns(assignmentListDTO);
+            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentViewDTO>>(assignmentList)).Returns(assignmentListDTO);
 
             var mockLogger = new Mock<ILogger<AssignmentController>>();
             var mockAssetRepository = new Mock<IAssetRepository>();
@@ -649,10 +649,10 @@ namespace AssetManagement.Application.Tests.ControllersTests
         {
             //Arrange
             IEnumerable<Assignment> assignmentList = GenerateListAssignment(10);
-            List<AssignmentDTO> assignmentListDTO = new List<AssignmentDTO>()
+            List<AssignmentViewDTO> assignmentListDTO = new List<AssignmentViewDTO>()
             {
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
+                new AssignmentViewDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
+                new AssignmentViewDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
             };
             var expectedResult = new ApiResult<bool>(true)
             {
@@ -664,7 +664,7 @@ namespace AssetManagement.Application.Tests.ControllersTests
             assignmentRepositoryMock.Setup(x => x.AcceptRespondAsync(It.IsAny<int>())).Returns(Task.FromResult(expectedResult));
 
             var mapperMock = new Mock<IMapper>();
-            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentDTO>>(assignmentList)).Returns(assignmentListDTO);
+            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentViewDTO>>(assignmentList)).Returns(assignmentListDTO);
 
             var mockLogger = new Mock<ILogger<AssignmentController>>();
             var mockAssetRepository = new Mock<IAssetRepository>();
@@ -686,10 +686,10 @@ namespace AssetManagement.Application.Tests.ControllersTests
         {
             //Arrange
             IEnumerable<Assignment> assignmentList = GenerateListAssignment(10);
-            List<AssignmentDTO> assignmentListDTO = new List<AssignmentDTO>()
+            List<AssignmentViewDTO> assignmentListDTO = new List<AssignmentViewDTO>()
             {
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
+                new AssignmentViewDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
+                new AssignmentViewDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
             };
             var expectedResult = new ApiResult<bool>(true)
             {
@@ -701,7 +701,7 @@ namespace AssetManagement.Application.Tests.ControllersTests
             assignmentRepositoryMock.Setup(x => x.DeclineRespondAsync(It.IsAny<int>())).Returns(Task.FromResult(expectedResult));
 
             var mapperMock = new Mock<IMapper>();
-            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentDTO>>(assignmentList)).Returns(assignmentListDTO);
+            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentViewDTO>>(assignmentList)).Returns(assignmentListDTO);
 
             var mockLogger = new Mock<ILogger<AssignmentController>>();
             var mockAssetRepository = new Mock<IAssetRepository>();
@@ -723,10 +723,10 @@ namespace AssetManagement.Application.Tests.ControllersTests
         {
             //Arrange
             IEnumerable<Assignment> assignmentList = GenerateListAssignment(10);
-            List<AssignmentDTO> assignmentListDTO = new List<AssignmentDTO>()
+            List<AssignmentViewDTO> assignmentListDTO = new List<AssignmentViewDTO>()
             {
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
+                new AssignmentViewDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
+                new AssignmentViewDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
             };
             var expectedResult = new ApiResult<bool>(true)
             {
@@ -738,7 +738,7 @@ namespace AssetManagement.Application.Tests.ControllersTests
             assignmentRepositoryMock.Setup(x => x.DeclineRespondAsync(It.IsAny<int>())).Returns(Task.FromResult(expectedResult));
 
             var mapperMock = new Mock<IMapper>();
-            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentDTO>>(assignmentList)).Returns(assignmentListDTO);
+            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentViewDTO>>(assignmentList)).Returns(assignmentListDTO);
 
             var mockLogger = new Mock<ILogger<AssignmentController>>();
             var mockAssetRepository = new Mock<IAssetRepository>();
@@ -760,10 +760,10 @@ namespace AssetManagement.Application.Tests.ControllersTests
         {
             //Arrange
             IEnumerable<Assignment> assignmentList = GenerateListAssignment(10);
-            List<AssignmentDTO> assignmentListDTO = new List<AssignmentDTO>()
+            List<AssignmentViewDTO> assignmentListDTO = new List<AssignmentViewDTO>()
             {
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
-                new AssignmentDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
+                new AssignmentViewDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"},
+                new AssignmentViewDTO{Id=1,AssetCode="LA000001",AssetName="Laptop",AssignedTo="vinz",AssignedBy="vu"}
             };
             var expectedResult = new ApiResult<bool>(true)
             {
@@ -775,7 +775,7 @@ namespace AssetManagement.Application.Tests.ControllersTests
             assignmentRepositoryMock.Setup(x => x.DeclineRespondAsync(It.IsAny<int>())).Returns(Task.FromResult(expectedResult));
 
             var mapperMock = new Mock<IMapper>();
-            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentDTO>>(assignmentList)).Returns(assignmentListDTO);
+            mapperMock.Setup(s => s.Map<IEnumerable<AssignmentViewDTO>>(assignmentList)).Returns(assignmentListDTO);
 
             var mockLogger = new Mock<ILogger<AssignmentController>>();
             var mockAssetRepository = new Mock<IAssetRepository>();
@@ -848,14 +848,14 @@ namespace AssetManagement.Application.Tests.ControllersTests
                 },
             };
 
-            var mapperResult = new AssignmentDTO { Id = 1, AssetCode = "LA000001", AssetName = "Laptop", AssignedTo = "vinz", AssignedBy = "vu" };
+            var mapperResult = new AssignmentViewDTO { Id = 1, AssetCode = "LA000001", AssetName = "Laptop", AssignedTo = "vinz", AssignedBy = "vu" };
  
 
             var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
             assignmentRepositoryMock.Setup(x => x.GetAssignmentAsync(It.IsAny<int>())).Returns(Task.FromResult(expectedResult));
 
             var mapperMock = new Mock<IMapper>();
-            mapperMock.Setup(s => s.Map<AssignmentDTO>(expectedResult)).Returns(mapperResult);
+            mapperMock.Setup(s => s.Map<AssignmentViewDTO>(expectedResult)).Returns(mapperResult);
 
             var mockLogger = new Mock<ILogger<AssignmentController>>();
             var mockAssetRepository = new Mock<IAssetRepository>();
@@ -868,7 +868,7 @@ namespace AssetManagement.Application.Tests.ControllersTests
 
             // Assert
             Assert.IsType<OkObjectResult>(result);
-            Assert.IsType<AssignmentDTO>(result.Value);
+            Assert.IsType<AssignmentViewDTO>(result.Value);
         }
 
         [Fact]
@@ -878,7 +878,7 @@ namespace AssetManagement.Application.Tests.ControllersTests
             //Arrange
             var sorting = new AssignmentParameters() { Searching = "vinz", State = new List<int>(new int[2] { 1, 2 }), AssignDate = new DateTime() }; ;
 
-            var mapperResult = new AssignmentDTO { Id = 1, AssetCode = "LA000001", AssetName = "Laptop", AssignedTo = "vinz", AssignedBy = "vu" };
+            var mapperResult = new AssignmentViewDTO { Id = 1, AssetCode = "LA000001", AssetName = "Laptop", AssignedTo = "vinz", AssignedBy = "vu" };
 
 
             var assignmentRepositoryMock = new Mock<IAssignmentRepository>();

@@ -23,32 +23,84 @@ import ListItemText from "@mui/material/ListItemText";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import Paper from "@mui/material/Paper";
-import { getUserList } from "../services/userService/userManagement";
+import {
+  getUserList,
+  disableUserByStaffCode,
+  checkUserAssignmentByStaffCode,
+} from "../services/userService/userManagement";
 import { CustomPagination } from "../components/CustomPagination";
+import Swal from "sweetalert2";
 
-const columns: GridColDef[] = [
-  /* {
+function ManageUser() {
+  const [disableUserState, setDisableUserState] = useState(false);
+
+  const disableUser = (e: any, staffCode: string) => {
+    e.stopPropagation();
+    checkUserAssignmentByStaffCode(staffCode).then((res) => {
+      console.log(res);
+      if (res.data == "Assignment not empty") {
+        Swal.fire({
+          title: "Can not disable user",
+          text:
+            "There are valid assignments belonging to this user. Please close all assignments before disabling user.",
+          showCloseButton: true,
+          showConfirmButton: false,
+        });
+      }
+      if (res.data == "Assignment empty") {
+        Swal.fire({
+          title: "Are you sure?",
+          text: "Do you want to disable this user?",
+          showCancelButton: true,
+          confirmButtonText: "Yes",
+          cancelButtonText: "No",
+          customClass: {
+            confirmButton: "button button-spacing",
+            cancelButton: "button-reverse button-spacing",
+          },
+          buttonsStyling: false,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            disableUserByStaffCode(staffCode).then((res) => {
+              Swal.fire({
+                text: "User disabled",
+                customClass: {
+                  confirmButton: "button",
+                },
+                buttonsStyling: false,
+              }).then((res) => {
+                setDisableUserState(!disableUserState);
+              });
+            });
+          }
+        });
+      }
+    });
+  };
+
+  const columns: GridColDef[] = [
+    /* {
     field: "id",
     headerName: "ID",
     width: 90
   }, */
-  {
-    field: "staffCode",
-    headerName: "Staff Code",
-    flex: 1,
-    /* width: 100,
+    {
+      field: "staffCode",
+      headerName: "Staff Code",
+      flex: 1,
+      /* width: 100,
     editable: true, */
-  },
-  {
-    field: "fullName",
-    headerName: "Full name",
-    flex: 1,
-    /* width: 150,
+    },
+    {
+      field: "fullName",
+      headerName: "Full name",
+      flex: 1,
+      /* width: 150,
     editable: true, */
-    valueGetter: (params) =>
-      `${params.row.firstName || ""} ${params.row.lastName || ""}`,
-  },
-  /* {
+      valueGetter: (params) =>
+        `${params.row.firstName || ""} ${params.row.lastName || ""}`,
+    },
+    /* {
     field: "lastName",
     headerName: "Last name",
     width: 90,
@@ -60,49 +112,53 @@ const columns: GridColDef[] = [
     width: 90,
     editable: true,
   }, */
-  {
-    field: "userName",
-    headerName: "User name",
-    flex: 1,
-    /* width: 100,
+    {
+      field: "userName",
+      headerName: "User name",
+      flex: 1,
+      /* width: 100,
     editable: true, */
-  },
-  {
-    field: "type",
-    headerName: "Type",
-    flex: 1,
-    /* valueFormatter: (params) => {
+    },
+    {
+      field: "type",
+      headerName: "Type",
+      flex: 1,
+      /* valueFormatter: (params) => {
       const valueFormatted =
         params.value === true ? "Admin" : "User";
       return `${valueFormatted}`;
     }, */
-    /* width: 90,
+      /* width: 90,
     editable: true, */
-  },
-  {
-    field: "action",
-    type: "action",
-    flex: 1,
-    renderCell: (value) => {
-      return (
-        <>
-          <Link to={"/edit-user/" + value.row.staffCode}>
-            <EditIcon style={{ color: "black" }} />
-          </Link>
-          <Link to={"/manage-user/"}>
-            <HighlightOffIcon style={{ color: "red" }} />
-          </Link>
-        </>
-      );
     },
-  },
-];
+    {
+      field: "action",
+      type: "action",
+      flex: 1,
+      renderCell: (value) => {
+        return (
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <Link to={"/edit-user/" + value.row.staffCode}>
+              <EditIcon style={{ color: "black" }} />
+            </Link>
+            <div
+              style={{ cursor: "pointer" }}
+              onClick={(e) => {
+                disableUser(e, value.row.staffCode);
+              }}
+            >
+              <HighlightOffIcon style={{ color: "red" }} />
+            </div>
+          </div>
+        );
+      },
+    },
+  ];
 
-interface ParamsType {
-  isSort: string
-}
+  interface ParamsType {
+    isSort: string;
+  }
 
-function ManageUser() {
   const { isSort } = useParams<ParamsType>();
   const [filterContent, setFilterContent] = useState({
     type: [] as number[],
@@ -128,22 +184,29 @@ function ManageUser() {
     if (isSort)
       setFilterContent({ ...filterContent, orderBy: "updatedDate desc" });
     /* getPagination(); */
-    getUserList(filterContent).then((res) => {
-      console.log(res);
-      if (res.data) {
-        /* Data === res.data; */
-        setUserList(res.data);
-      }
-    }).catch((res) => {
-      if (res.response) {
-        let staffCode = res.response.type;
-        if (staffCode == 404) {
-          /* Data === []; */
-          setUserList([]);
+    getUserList(filterContent)
+      .then((res) => {
+        console.log(res);
+        if (res.data) {
+          /* Data === res.data; */
+          setUserList(res.data);
         }
-      }
-    });
-  }, [filterContent.orderBy, filterContent.searching, filterContent.type]);
+      })
+      .catch((res) => {
+        if (res.response) {
+          let staffCode = res.response.type;
+          if (staffCode == 404) {
+            /* Data === []; */
+            setUserList([]);
+          }
+        }
+      });
+  }, [
+    filterContent.orderBy,
+    filterContent.searching,
+    filterContent.type,
+    disableUserState,
+  ]);
 
   //----------------------------------------------------------------
 
@@ -176,7 +239,7 @@ function ManageUser() {
     if (performance.navigation.type === 1) {
       window.location.href = "/manage-user";
     }
-  }, [])
+  }, []);
 
   return (
     <>
@@ -248,7 +311,7 @@ function ManageUser() {
                 <SearchIcon
                   type="submit"
                   id="searchSubmit"
-                /* onClick={goSearching} */
+                  /* onClick={goSearching} */
                 />
               </IconButton>
             </Paper>
@@ -272,7 +335,6 @@ function ManageUser() {
                 display: "none",
               },
             }}
-
             /* rows={Data} */
             rows={userList}
             columns={columns}
@@ -283,19 +345,22 @@ function ManageUser() {
             onRowClick={(params) => {
               openUserDetail(params);
             }}
-
-            components={
-              {
-                Pagination: CustomPagination,
-              }
-            }
+            components={{
+              Pagination: CustomPagination,
+            }}
             initialState={{
               sorting: {
-                sortModel: [{
-                  field: !isSort ? filterContent.orderBy.split(' ')[0] : '',
-                  sort: !isSort ? filterContent.orderBy.split(' ')[1] as GridSortDirection : 'asc'
-                }]
-              }
+                sortModel: [
+                  {
+                    field: !isSort ? filterContent.orderBy.split(" ")[0] : "",
+                    sort: !isSort
+                      ? (filterContent.orderBy.split(
+                          " "
+                        )[1] as GridSortDirection)
+                      : "asc",
+                  },
+                ],
+              },
             }}
             componentsProps={{
               panel: {

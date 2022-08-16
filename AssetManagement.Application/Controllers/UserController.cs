@@ -174,5 +174,41 @@ namespace AssetManagement.Application.Controllers
             if (res == null) return BadRequest();
             return Ok(res);
         }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPut("{staffCode}")]
+        public async Task<ActionResult> DisableUserAsync(string staffCode)
+        {
+            try
+            {
+                var getUser = await userRepository.GetUserByStaffCodeAsync(staffCode);
+                if (getUser == null) return NotFound("User not found");
+                if (getUser.Assignments.Any()) return BadRequest("User still have assignment");
+                await userRepository.DisableUserAsync(staffCode);
+                return Ok("User disabled");
+            }
+            catch
+            {
+                return BadRequest("Something went wrong");
+            }
+        }
+
+        [HttpGet("checkAssignment/{staffCode}")]
+        public async Task<ActionResult> CheckUserAssignment(string staffCode)
+        {
+            try
+            {
+                var getUser = await userRepository.GetUserByStaffCodeAsync(staffCode);
+                if (getUser == null) return NotFound("User not found");
+                var userAssignmentStauts= await userRepository.CheckUserAssignmentAsync(staffCode);
+                if (userAssignmentStauts == true) return Ok("Assignment not empty");
+                else return Ok("Assignment empty");
+            }
+            catch
+            {
+                return BadRequest("Something went wrong");
+            }
+        }
+
     }
 }

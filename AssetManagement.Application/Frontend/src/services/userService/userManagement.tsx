@@ -10,34 +10,29 @@ async function getUserList(sortingOption?: any) {
   });
   // console.log(typeString);
 
-  return await axiosInstance
-    .get(
-      `User/GetUsersList?${typeString}&Searching=${sortingOption.searching}&OrderBy=${sortingOption.orderBy}&PageSize=500`
-    );
+  return await axiosInstance.get(
+    `User/GetUsersList?${typeString}&Searching=${sortingOption.searching}&OrderBy=${sortingOption.orderBy}&PageSize=500`
+  );
 }
-
 
 const getUsers = (pageNumber: number, orderBy: string, searching: string) => {
-  return axiosInstance.get('User/GetUsersList',
-    {
-      params: {
-        PageSize: 5,
-        pageNumber,
-        orderBy,
-        searching,
-      }
-    })
-}
+  return axiosInstance.get("User/GetUsersList", {
+    params: {
+      PageSize: 5,
+      pageNumber,
+      orderBy,
+      searching,
+    },
+  });
+};
 
 const getUsersBySearching = (searching: string) => {
-  return axiosInstance.get('User/GetUsersList',
-    {
-      params: {
-        searching,
-      }
-    })
-}
-
+  return axiosInstance.get("User/GetUsersList", {
+    params: {
+      searching,
+    },
+  });
+};
 
 async function getUserByStaffCode(staffCode: string) {
   return await axiosInstance
@@ -81,8 +76,6 @@ async function updateUser(userInfo: any) {
     });
 }
 
-
-
 async function createUser(data: any) {
   axiosInstance
     .post("User/createUser", data)
@@ -113,4 +106,35 @@ async function createUser(data: any) {
     });
 }
 
-export { getUserList, getUserByStaffCode, updateUser, createUser, getUsers, getUsersBySearching };
+async function disableUserByStaffCode(staffCode: string) {
+  return await axiosInstance
+    .put("User/" + staffCode)
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      return error;
+    });
+}
+
+async function checkUserAssignmentByStaffCode(staffCode: string) {
+  return await axiosInstance
+    .get("User/checkAssignment/" + staffCode)
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      return error;
+    });
+}
+
+export {
+  getUserList,
+  getUserByStaffCode,
+  updateUser,
+  createUser,
+  getUsers,
+  disableUserByStaffCode,
+  checkUserAssignmentByStaffCode,
+  getUsersBySearching,
+};

@@ -1292,5 +1292,229 @@ namespace AssetManagement.Application.Tests
 
             Assert.IsType<BadRequestResult>(result);
         }
+
+        [Fact]
+        public async Task DisableUser_WhenSuccess_ReturnOkObjectResult()
+        {
+            //Arrange
+            var staffCode = "SD0001";
+            User user = new User() { Id = 1, StaffCode = "SD0001", Assignments = new List<Assignment>(), };
+            var expectedMessage = "User disabled";
+
+            var mockUserManager = new Mock<FakeUserManager>();
+            var mockRoleRepository = new Mock<IRoleRepository>();
+
+            var userRepositoryMock = new Mock<IUserRepository>();
+            userRepositoryMock.Setup(x => x.DisableUserAsync(staffCode)).Returns(Task.FromResult(user));
+            userRepositoryMock.Setup(x => x.GetUserByStaffCodeAsync(staffCode)).Returns(Task.FromResult(user));
+
+            var mapperMock = new Mock<IMapper>();
+
+            var controller = new UserController(mockUserManager.Object, mapperMock.Object, mockRoleRepository.Object, userRepositoryMock.Object);
+
+            // Act
+            var result = (await controller.DisableUserAsync(staffCode)) as OkObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(expectedMessage, result.Value.ToString());
+        }
+
+        [Fact]
+        public async Task DisableUser_WhenUserNotFound_ReturnNotFoundObjectResult()
+        {
+            //Arrange
+            var staffCode = "SD0001";
+            User user = new User() { Id = 1, StaffCode = "SD0001", Assignments = new List<Assignment>(), };
+            var expectedMessage = "User not found";
+
+            var mockUserManager = new Mock<FakeUserManager>();
+            var mockRoleRepository = new Mock<IRoleRepository>();
+
+            var userRepositoryMock = new Mock<IUserRepository>();
+            userRepositoryMock.Setup(x => x.DisableUserAsync(staffCode)).Returns(Task.FromResult(user));
+            userRepositoryMock.Setup(x => x.GetUserByStaffCodeAsync(staffCode));
+
+            var mapperMock = new Mock<IMapper>();
+
+            var controller = new UserController(mockUserManager.Object, mapperMock.Object, mockRoleRepository.Object, userRepositoryMock.Object);
+
+            // Act
+            var result = (await controller.DisableUserAsync(staffCode)) as NotFoundObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(expectedMessage, result.Value.ToString());
+        }
+
+        [Fact]
+        public async Task DisableUser_WhenUserHaveAssignments_ReturnBadRequestObjectResult()
+        {
+            //Arrange
+            var staffCode = "SD0001";
+            User user = new User() { Id = 1, StaffCode = "SD0001", Assignments = new List<Assignment>() { new Assignment { Id=1},new Assignment { Id=2} } };
+            var expectedMessage = "User still have assignment";
+
+            var mockUserManager = new Mock<FakeUserManager>();
+            var mockRoleRepository = new Mock<IRoleRepository>();
+
+            var userRepositoryMock = new Mock<IUserRepository>();
+            userRepositoryMock.Setup(x => x.DisableUserAsync(staffCode)).Returns(Task.FromResult(user));
+            userRepositoryMock.Setup(x => x.GetUserByStaffCodeAsync(staffCode)).Returns(Task.FromResult(user));
+
+            var mapperMock = new Mock<IMapper>();
+
+            var controller = new UserController(mockUserManager.Object, mapperMock.Object, mockRoleRepository.Object, userRepositoryMock.Object);
+
+            // Act
+            var result = (await controller.DisableUserAsync(staffCode)) as BadRequestObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(expectedMessage, result.Value.ToString());
+        }
+
+        [Fact]
+        public async Task DisableUser_WhenThrowErrors_ReturnBadRequestObjectResult()
+        {
+            //Arrange
+            var staffCode = "SD0001";
+            User user = new User() { Id = 1, StaffCode = "SD0001", Assignments = new List<Assignment>(), };
+            var expectedMessage = "Something went wrong";
+
+            var mockUserManager = new Mock<FakeUserManager>();
+            var mockRoleRepository = new Mock<IRoleRepository>();
+
+            var userRepositoryMock = new Mock<IUserRepository>();
+            userRepositoryMock.Setup(x => x.DisableUserAsync(staffCode)).Throws(new Exception(expectedMessage));
+            userRepositoryMock.Setup(x => x.GetUserByStaffCodeAsync(staffCode)).Throws(new Exception(expectedMessage));
+
+            var mapperMock = new Mock<IMapper>();
+
+            var controller = new UserController(mockUserManager.Object, mapperMock.Object, mockRoleRepository.Object, userRepositoryMock.Object);
+
+            // Act
+            var result = (await controller.DisableUserAsync(staffCode)) as BadRequestObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(expectedMessage, result.Value.ToString());
+        }
+
+        [Fact]
+        public async Task CheckUserAssignment_WhenAssignmentExist_ReturnOkObjectResult()
+        {
+            //Arrange
+            var staffCode = "SD0001";
+            User user = new User() { Id = 1, StaffCode = "SD0001", Assignments = new List<Assignment>() { new Assignment { Id = 1 }, new Assignment { Id = 2 } } };
+            var assignmentState = true;
+            var expectedMessage = "Assignment not empty";
+
+            var mockUserManager = new Mock<FakeUserManager>();
+            var mockRoleRepository = new Mock<IRoleRepository>();
+
+            var userRepositoryMock = new Mock<IUserRepository>();
+            userRepositoryMock.Setup(x => x.CheckUserAssignmentAsync(staffCode)).Returns(Task.FromResult(assignmentState));
+            userRepositoryMock.Setup(x => x.GetUserByStaffCodeAsync(staffCode)).Returns(Task.FromResult(user));
+
+
+            var mapperMock = new Mock<IMapper>();
+
+            var controller = new UserController(mockUserManager.Object, mapperMock.Object, mockRoleRepository.Object, userRepositoryMock.Object);
+
+            // Act
+            var result = (await controller.CheckUserAssignment(staffCode)) as OkObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(expectedMessage, result.Value.ToString());
+        }
+
+        [Fact]
+        public async Task CheckUserAssignment_WhenAssignmentEmpty_ReturnOkObjectResult()
+        {
+            //Arrange
+            var staffCode = "SD0001";
+            User user = new User() { Id = 1, StaffCode = "SD0001", Assignments = new List<Assignment>() { new Assignment { Id = 1 }, new Assignment { Id = 2 } } };
+            var assignmentState = false;
+            var expectedMessage = "Assignment empty";
+
+            var mockUserManager = new Mock<FakeUserManager>();
+            var mockRoleRepository = new Mock<IRoleRepository>();
+
+            var userRepositoryMock = new Mock<IUserRepository>();
+            userRepositoryMock.Setup(x => x.CheckUserAssignmentAsync(staffCode)).Returns(Task.FromResult(assignmentState));
+            userRepositoryMock.Setup(x => x.GetUserByStaffCodeAsync(staffCode)).Returns(Task.FromResult(user));
+
+
+            var mapperMock = new Mock<IMapper>();
+
+            var controller = new UserController(mockUserManager.Object, mapperMock.Object, mockRoleRepository.Object, userRepositoryMock.Object);
+
+            // Act
+            var result = (await controller.CheckUserAssignment(staffCode)) as OkObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(expectedMessage, result.Value.ToString());
+        }
+
+        [Fact]
+        public async Task CheckUserAssignment_WhenUserNotFound_ReturnNotFoundObjectResult()
+        {
+            //Arrange
+            var staffCode = "SD0001";
+            User user = new User() { Id = 1, StaffCode = "SD0001", Assignments = new List<Assignment>() { new Assignment { Id = 1 }, new Assignment { Id = 2 } } };
+            var assignmentState = false;
+            var expectedMessage = "User not found";
+
+            var mockUserManager = new Mock<FakeUserManager>();
+            var mockRoleRepository = new Mock<IRoleRepository>();
+
+            var userRepositoryMock = new Mock<IUserRepository>();
+            userRepositoryMock.Setup(x => x.CheckUserAssignmentAsync(staffCode)).Returns(Task.FromResult(assignmentState));
+            userRepositoryMock.Setup(x => x.GetUserByStaffCodeAsync(staffCode));
+
+
+            var mapperMock = new Mock<IMapper>();
+
+            var controller = new UserController(mockUserManager.Object, mapperMock.Object, mockRoleRepository.Object, userRepositoryMock.Object);
+
+            // Act
+            var result = (await controller.CheckUserAssignment(staffCode)) as NotFoundObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(expectedMessage, result.Value.ToString());
+        }
+
+        [Fact]
+        public async Task CheckUserAssignment_WhenThrowErrors_ReturnBadRequestObjectResult()
+        {
+            //Arrange
+            var staffCode = "SD0001";
+            User user = new User() { Id = 1, StaffCode = "SD0001", Assignments = new List<Assignment>() { new Assignment { Id = 1 }, new Assignment { Id = 2 } } };
+            var assignmentState = false;
+            var expectedMessage = "Something went wrong";
+
+            var mockUserManager = new Mock<FakeUserManager>();
+            var mockRoleRepository = new Mock<IRoleRepository>();
+
+            var userRepositoryMock = new Mock<IUserRepository>();
+            userRepositoryMock.Setup(x => x.CheckUserAssignmentAsync(staffCode)).Throws(new Exception(expectedMessage));
+            userRepositoryMock.Setup(x => x.GetUserByStaffCodeAsync(staffCode)).Throws(new Exception(expectedMessage));
+
+
+            var mapperMock = new Mock<IMapper>();
+
+            var controller = new UserController(mockUserManager.Object, mapperMock.Object, mockRoleRepository.Object, userRepositoryMock.Object);
+
+            // Act
+            var result = (await controller.CheckUserAssignment(staffCode)) as BadRequestObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(expectedMessage, result.Value.ToString());
+        }
     }
 }

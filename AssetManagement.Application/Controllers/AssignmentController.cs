@@ -41,7 +41,7 @@ namespace AssetManagement.Application.Controllers
             {
                 var getAssignments = await _assignmentRepository.GetAsync(assignmentParameters.Searching, assignmentParameters.AssignDate, assignmentParameters.State, assignmentParameters.OrderBy);
                 if (!getAssignments.Any()) return NotFound("Assignment List Empty");
-                var assignmentListDTO = _mapper.Map<List<AssignmentDTO>>(getAssignments);
+                var assignmentListDTO = _mapper.Map<List<AssignmentViewDTO>>(getAssignments);
                 return Ok(assignmentListDTO);
             }
             catch
@@ -178,7 +178,7 @@ namespace AssetManagement.Application.Controllers
             {
                 return NotFound();
             }
-            var dto = _mapper.Map<AssignmentDTO>(data);
+            var dto = _mapper.Map<AssignmentViewDTO>(data);
             return Ok(dto);
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AssetManagement.Contracts.AssignmentDTO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -27,5 +28,6 @@ namespace AssetManagement.Contracts.UserDTO
 
         public int LocationId { get; set; }
         public string LocationName { get; set; }
+        public List<AssignmentViewDTO>? Assignments { get; set; }
     }
 }
