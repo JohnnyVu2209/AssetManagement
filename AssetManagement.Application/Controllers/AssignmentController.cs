@@ -182,5 +182,22 @@ namespace AssetManagement.Application.Controllers
             return Ok(dto);
         }
 
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAssignment(int id)
+        {
+            try
+            {
+                var getAssignment = await _assignmentRepository.GetAssignmentAsync(id);
+                if (getAssignment == null) return NotFound("Assignment not found");
+                if (getAssignment.AssignedState != AssignmentStateEnums.Waiting) return BadRequest("Assignment state not correct");
+                await _assignmentRepository.DeleteAssignment(id);
+                return Ok("Assignment deleted");
+            }
+            catch
+            {
+                return BadRequest("Something went wrong");
+            }
+        }
     }
 }

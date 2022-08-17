@@ -19,118 +19,169 @@ import Checkbox from "@mui/material/Checkbox";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { CustomPagination } from "../components/CustomPagination";
-import { getAssignmentList } from "../services/assignmentService/assignmentManagement";
+import {
+  getAssignmentList,
+  deleteAssignmentById,
+} from "../services/assignmentService/assignmentManagement";
 import { format } from "date-fns";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import Modal from "react-modal";
 import AssignmentDetail from "../components/Modal_AssignmentDetail";
 import getAssignmentDetail from "../services/assignmentService/assignmentDetail";
 import ReplayIcon from "@mui/icons-material/Replay";
-import Swal from "sweetalert2";
 import { createReturingRequest } from "../services/assignmentService/assignmentManagement";
-
-function openReturnRequestPopup(id: any, e: any) {
-  e.stopPropagation();
-  Swal.fire({
-    title: "Are you sure?",
-    text: "Do you want to create a returning request for this asset?",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Yes",
-  })
-    .then(async (result) => {
-      if (result.isConfirmed) {
-        await createReturingRequest(id);
-      }
-    })
-    .then(() => {
-      window.location.reload();
-    });
-  return;
-}
-
-const columns: GridColDef[] = [
-  { field: "id", headerName: "No", width: 120 },
-  {
-    field: "assetCode",
-    headerName: "Asset Code",
-    flex: 1,
-  },
-  {
-    field: "assetName",
-    headerName: "Asset Name",
-    flex: 1,
-  },
-  {
-    field: "assignedTo",
-    headerName: "Assigned to",
-    flex: 1,
-  },
-  {
-    field: "assignedBy",
-    headerName: "Assigned by",
-    flex: 1,
-  },
-  {
-    field: "assignedDate",
-    headerName: "Assigned Date",
-    flex: 1,
-    type: "date",
-    valueFormatter: (params) => {
-      const valueFormatted = format(new Date(params.value), "dd/MM/yyyy");
-      return `${valueFormatted}`;
-    },
-  },
-  {
-    field: "assignedState",
-    headerName: "State",
-    flex: 1,
-    valueFormatter: (params) => {
-      const valueFormatted =
-        params.value === 1
-          ? "Accepted"
-          : params.value === 3
-          ? "Declined"
-          : params.value === 4
-          ? "Waiting for returning"
-          : "Waiting for acceptance";
-      return `${valueFormatted}`;
-    },
-  },
-  {
-    field: "",
-    type: "actions",
-    flex: 1,
-
-    renderCell: (params) => {
-      return (
-        <div className={params.row.assignedState !== 2 ? "disable-action" : ""}>
-          {/* {console.log("from gird ",params)} */}
-          <Link to={`/assignment/edit/${params.row.id}`}>
-            <EditIcon style={{ color: "black" }} />
-          </Link>
-          <Link to={"/assignment-list"}>
-            <HighlightOffIcon style={{ color: "red" }} />
-          </Link>
-          <ReplayIcon
-            className={params.row.assignedState === 1 ? "" : "disable-action"}
-            style={{ color: "CornflowerBlue" }}
-            onClick={(e) => {
-              openReturnRequestPopup(params.row.id, e);
-            }}
-          />
-        </div>
-      );
-    },
-  },
-];
-
-interface ParamsType {
-  sort: string;
-}
+import Swal from "sweetalert2";
 
 function AssignmentList() {
+  const [deletedAssignmentState, setDeletedAssignmentState] = useState(true);
+
+  const deleteAssignment = (e: any, id: number) => {
+    e.stopPropagation();
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to delete the assignment?",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+      customClass: {
+        confirmButton: "button button-spacing",
+        cancelButton: "button-reverse button-spacing",
+      },
+      buttonsStyling: false,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteAssignmentById(id).then((res) => {
+          if (res.data == "Assignment deleted") {
+            Swal.fire({
+              text: "Assignment deleted",
+              customClass: {
+                confirmButton: "button",
+              },
+              buttonsStyling: false,
+            }).then((res) => {
+              setDeletedAssignmentState(!deletedAssignmentState);
+            });
+          } else {
+            Swal.fire({
+              text: "Error occured",
+              customClass: {
+                confirmButton: "button",
+              },
+              buttonsStyling: false,
+            });
+          }
+        });
+      }
+    });
+  };
+
+  function openReturnRequestPopup(id: any, e: any) {
+    e.stopPropagation();
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to create a returning request for this asset?",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    })
+      .then(async (result) => {
+        if (result.isConfirmed) {
+          await createReturingRequest(id);
+        }
+      })
+      .then(() => {
+        window.location.reload();
+      });
+    return;
+  }
+
+  const columns: GridColDef[] = [
+    { field: "id", headerName: "No", width: 120 },
+    {
+      field: "assetCode",
+      headerName: "Asset Code",
+      flex: 1,
+    },
+    {
+      field: "assetName",
+      headerName: "Asset Name",
+      flex: 1,
+    },
+    {
+      field: "assignedTo",
+      headerName: "Assigned to",
+      flex: 1,
+    },
+    {
+      field: "assignedBy",
+      headerName: "Assigned by",
+      flex: 1,
+    },
+    {
+      field: "assignedDate",
+      headerName: "Assigned Date",
+      flex: 1,
+      type: "date",
+      valueFormatter: (params) => {
+        const valueFormatted = format(new Date(params.value), "dd/MM/yyyy");
+        return `${valueFormatted}`;
+      },
+    },
+    {
+      field: "assignedState",
+      headerName: "State",
+      flex: 1,
+      valueFormatter: (params) => {
+        const valueFormatted =
+          params.value === 1
+            ? "Accepted"
+            : params.value === 3
+            ? "Declined"
+            : params.value === 4
+            ? "Waiting for returning"
+            : "Waiting for acceptance";
+        return `${valueFormatted}`;
+      },
+    },
+    {
+      field: "",
+      type: "actions",
+      flex: 1,
+
+      renderCell: (params) => {
+        return (
+          <div
+            className={params.row.assignedState !== 2 ? "disable-action" : ""}
+            style={{ display: "flex" }}
+          >
+            {/* {console.log("from gird ",params)} */}
+            <Link to={`/assignment/edit/${params.row.id}`}>
+              <EditIcon style={{ color: "black" }} />
+            </Link>
+            <div
+              style={{ cursor: "pointer" }}
+              onClick={(e) => deleteAssignment(e, params.row.id)}
+            >
+              <HighlightOffIcon style={{ color: "red" }} />
+            </div>
+            <ReplayIcon
+              className={params.row.assignedState === 1 ? "" : "disable-action"}
+              style={{ color: "CornflowerBlue" }}
+              onClick={(e) => {
+                openReturnRequestPopup(params.row.id, e);
+              }}
+            />
+          </div>
+        );
+      },
+    },
+  ];
+
+  interface ParamsType {
+    sort: string;
+  }
+
   const { sort } = useParams<ParamsType>();
   const [filterContent, setFilterContent] = useState({
     assignDate: "",
@@ -163,6 +214,7 @@ function AssignmentList() {
     filterContent.state,
     filterContent.orderBy,
     sort,
+    deletedAssignmentState,
   ]);
 
   const testSearch = (e: any) => {

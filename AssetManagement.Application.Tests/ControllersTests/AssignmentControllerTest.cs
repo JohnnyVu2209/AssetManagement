@@ -1266,5 +1266,113 @@ namespace AssetManagement.Application.Tests.ControllersTests
             Assert.IsType<BadRequestObjectResult>(result);
             Assert.Equal(ErrorCode.EDIT_ASSIGNMENT_FAILED, result.Value);
         }
+
+        [Fact]
+        public async Task DeleteAssignmet_WhenSuccess_ReturnOkObject()
+        {
+            //Arrange
+            Assignment assignmentDummy = new Assignment() { Id = 1,AssetId=1,AssignedState=AssignmentStateEnums.Waiting };
+            var id = 1;
+            var expectedMessage = "Assignment deleted";
+
+            var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
+            assignmentRepositoryMock.Setup(x => x.DeleteAssignment(id)).Returns(Task.FromResult(assignmentDummy));
+            assignmentRepositoryMock.Setup(x => x.GetAssignmentAsync(id)).Returns(Task.FromResult(assignmentDummy));
+
+            var mapperMock = new Mock<IMapper>();
+            var mockLogger = new Mock<ILogger<AssignmentController>>();
+            var mockAssetRepository = new Mock<IAssetRepository>();
+            var mockUserManager = new Mock<FakeUserManager>();
+
+            var controller = new AssignmentController(assignmentRepositoryMock.Object, mockAssetRepository.Object, mockUserManager.Object, mapperMock.Object, mockLogger.Object);
+
+            // Act
+            var result = (await controller.DeleteAssignment(id)) as OkObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(expectedMessage, result.Value.ToString());
+        }
+
+        [Fact]
+        public async Task DeleteAssignmet_WhenAssignmentNotFound_ReturnNotFoundObject()
+        {
+            //Arrange
+            Assignment assignmentDummy = new Assignment() { Id = 1, AssetId = 1, AssignedState = AssignmentStateEnums.Waiting };
+            var id = 1;
+            var expectedMessage = "Assignment not found";
+
+            var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
+            assignmentRepositoryMock.Setup(x => x.DeleteAssignment(id)).Returns(Task.FromResult(assignmentDummy));
+            assignmentRepositoryMock.Setup(x => x.GetAssignmentAsync(id));
+
+            var mapperMock = new Mock<IMapper>();
+            var mockLogger = new Mock<ILogger<AssignmentController>>();
+            var mockAssetRepository = new Mock<IAssetRepository>();
+            var mockUserManager = new Mock<FakeUserManager>();
+
+            var controller = new AssignmentController(assignmentRepositoryMock.Object, mockAssetRepository.Object, mockUserManager.Object, mapperMock.Object, mockLogger.Object);
+
+            // Act
+            var result = (await controller.DeleteAssignment(id)) as NotFoundObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(expectedMessage, result.Value.ToString());
+        }
+
+        [Fact]
+        public async Task DeleteAssignmet_WhenAssignmentStateNotCorrect_ReturnBadRequestObject()
+        {
+            //Arrange
+            Assignment assignmentDummy = new Assignment() { Id = 1, AssetId = 1, AssignedState = AssignmentStateEnums.Accepted };
+            var id = 1;
+            var expectedMessage = "Assignment state not correct";
+
+            var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
+            assignmentRepositoryMock.Setup(x => x.DeleteAssignment(id)).Returns(Task.FromResult(assignmentDummy));
+            assignmentRepositoryMock.Setup(x => x.GetAssignmentAsync(id)).Returns(Task.FromResult(assignmentDummy));
+
+            var mapperMock = new Mock<IMapper>();
+            var mockLogger = new Mock<ILogger<AssignmentController>>();
+            var mockAssetRepository = new Mock<IAssetRepository>();
+            var mockUserManager = new Mock<FakeUserManager>();
+
+            var controller = new AssignmentController(assignmentRepositoryMock.Object, mockAssetRepository.Object, mockUserManager.Object, mapperMock.Object, mockLogger.Object);
+
+            // Act
+            var result = (await controller.DeleteAssignment(id)) as BadRequestObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(expectedMessage, result.Value.ToString());
+        }
+
+        [Fact]
+        public async Task DeleteAssignmet_WhenThrowErrors_ReturnBadRequestObject()
+        {
+            //Arrange
+            Assignment assignmentDummy = new Assignment() { Id = 1, AssetId = 1, AssignedState = AssignmentStateEnums.Accepted };
+            var id = 1;
+            var expectedMessage = "Something went wrong";
+
+            var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
+            assignmentRepositoryMock.Setup(x => x.DeleteAssignment(id)).Throws(new Exception());
+            assignmentRepositoryMock.Setup(x => x.GetAssignmentAsync(id)).Throws(new Exception());
+
+            var mapperMock = new Mock<IMapper>();
+            var mockLogger = new Mock<ILogger<AssignmentController>>();
+            var mockAssetRepository = new Mock<IAssetRepository>();
+            var mockUserManager = new Mock<FakeUserManager>();
+
+            var controller = new AssignmentController(assignmentRepositoryMock.Object, mockAssetRepository.Object, mockUserManager.Object, mapperMock.Object, mockLogger.Object);
+
+            // Act
+            var result = (await controller.DeleteAssignment(id)) as BadRequestObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(expectedMessage, result.Value.ToString());
+        }
     }
 }

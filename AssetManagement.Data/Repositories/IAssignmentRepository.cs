@@ -19,5 +19,6 @@ namespace AssetManagement.Data.Repositories
         Task<Assignment> CreateAssignment(User assignedBy, User assignedTo, Asset asset, DateTime assignedDate, string note);
         Task<Assignment> GetAssignmentAsync(int id);
         Task UpdateAssignment(Asset asset, User assignTo, Assignment updateAssignment);
+        Task DeleteAssignment(int id);
     }
 }

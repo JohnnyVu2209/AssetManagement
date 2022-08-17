@@ -74,6 +74,14 @@ function ManageUser() {
             });
           }
         });
+      } else {
+        Swal.fire({
+          text: "Error occured",
+          customClass: {
+            confirmButton: "button",
+          },
+          buttonsStyling: false,
+        });
       }
     });
   };

@@ -294,5 +294,12 @@ namespace AssetManagement.Data.Repositories.Implementations
             _context.Assignments.Update(updateAssignment);
             await _context.SaveChangesAsync();
         }
+
+        public async Task DeleteAssignment(int id)
+        {
+            var getAssignment = await _context.Assignments.FirstOrDefaultAsync(x => x.Id == id);
+            _context.Assignments.Remove(getAssignment);
+            await _context.SaveChangesAsync();
+        }
     }
 }

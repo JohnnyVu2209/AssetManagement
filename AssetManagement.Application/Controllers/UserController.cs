@@ -193,6 +193,7 @@ namespace AssetManagement.Application.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("checkAssignment/{staffCode}")]
         public async Task<ActionResult> CheckUserAssignment(string staffCode)
         {
