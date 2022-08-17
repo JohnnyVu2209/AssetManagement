@@ -5,7 +5,7 @@ import "../assets/css/ListView.css";
 //import Modal from "../components/Modal";
 import { Link, useParams } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import CloseIcon from "@mui/icons-material/Close";
 import TextField from "@mui/material/TextField";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
@@ -163,7 +163,7 @@ function AssignmentList() {
               style={{ cursor: "pointer" }}
               onClick={(e) => deleteAssignment(e, params.row.id)}
             >
-              <HighlightOffIcon style={{ color: "red" }} />
+              <CloseIcon style={{ color: "red" }} />
             </div>
             <ReplayIcon
               className={params.row.assignedState === 1 ? "" : "disable-action"}

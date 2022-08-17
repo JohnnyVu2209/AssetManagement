@@ -11,7 +11,7 @@ import { UserDetailContextType } from "../@types/UserDetail";
 import UserDetail from "../components/UserDetail";
 import SearchIcon from "@mui/icons-material/Search";
 import EditIcon from "@mui/icons-material/Edit";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import CloseIcon from "@mui/icons-material/Close";
 import { Link, useParams } from "react-router-dom";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
@@ -155,7 +155,7 @@ function ManageUser() {
                 disableUser(e, value.row.staffCode);
               }}
             >
-              <HighlightOffIcon style={{ color: "red" }} />
+              <CloseIcon style={{ color: "red" }} />
             </div>
           </div>
         );
