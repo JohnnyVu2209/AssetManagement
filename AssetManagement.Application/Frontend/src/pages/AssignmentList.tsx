@@ -27,9 +27,7 @@ import AssignmentDetail from "../components/Modal_AssignmentDetail";
 import getAssignmentDetail from "../services/assignmentService/assignmentDetail";
 import ReplayIcon from "@mui/icons-material/Replay";
 import Swal from "sweetalert2";
-import {
-  createReturingRequest,
-} from "../services/assignmentService/assignmentManagement";
+import { createReturingRequest } from "../services/assignmentService/assignmentManagement";
 
 function openReturnRequestPopup(id: any, e: any) {
   e.stopPropagation();
@@ -40,13 +38,15 @@ function openReturnRequestPopup(id: any, e: any) {
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
     confirmButtonText: "Yes",
-  }).then(async (result) => {
-    if (result.isConfirmed) {
-      await createReturingRequest(id);
-    }
-  }).then(() => {
-    window.location.reload();
-  });
+  })
+    .then(async (result) => {
+      if (result.isConfirmed) {
+        await createReturingRequest(id);
+      }
+    })
+    .then(() => {
+      window.location.reload();
+    });
   return;
 }
 
@@ -88,7 +88,13 @@ const columns: GridColDef[] = [
     flex: 1,
     valueFormatter: (params) => {
       const valueFormatted =
-        params.value === 1 ? "Accepted" : (params.value === 3 ? "Declined" : (params.value === 4 ? "Waiting for returning" : "Waiting for acceptance"));
+        params.value === 1
+          ? "Accepted"
+          : params.value === 3
+          ? "Declined"
+          : params.value === 4
+          ? "Waiting for returning"
+          : "Waiting for acceptance";
       return `${valueFormatted}`;
     },
   },
@@ -107,14 +113,14 @@ const columns: GridColDef[] = [
           <Link to={"/assignment-list"}>
             <HighlightOffIcon style={{ color: "red" }} />
           </Link>
-              <ReplayIcon
-                  className={params.row.assignedState === 1 ? "" : "disable-action"}
+          <ReplayIcon
+            className={params.row.assignedState === 1 ? "" : "disable-action"}
             style={{ color: "CornflowerBlue" }}
-                  onClick={(e) => {
-                      openReturnRequestPopup(params.row.id, e);
+            onClick={(e) => {
+              openReturnRequestPopup(params.row.id, e);
             }}
           />
-        </>
+        </div>
       );
     },
   },
@@ -201,8 +207,8 @@ function AssignmentList() {
   useEffect(() => {
     if (performance.navigation.type === 1) {
       window.location.href = "/assignment-list";
-    } 
-  },[])
+    }
+  }, []);
 
   return (
     <>
@@ -224,7 +230,9 @@ function AssignmentList() {
                   selected.forEach((element) => {
                     element === 1
                       ? test.push("Accepted")
-                      : (element === 3 ? test.push("Declined") : test.push("Waiting for acceptance"));
+                      : element === 3
+                      ? test.push("Declined")
+                      : test.push("Waiting for acceptance");
                   });
                   return test.join(", ");
                 }}
@@ -247,7 +255,11 @@ function AssignmentList() {
                     </ListItemIcon>
                     <ListItemText
                       primary={
-                        option === 1 ? "Accept" : (option === 3 ? "Declined" : "Waiting for acceptance")
+                        option === 1
+                          ? "Accept"
+                          : option === 3
+                          ? "Declined"
+                          : "Waiting for acceptance"
                       }
                     />
                   </MenuItem>
@@ -315,7 +327,6 @@ function AssignmentList() {
             rows={assignmentList}
             columns={columns}
             pageSize={8}
-            
             // rowsPerPageOptions={[5]}
             disableSelectionOnClick
             disableColumnMenu
