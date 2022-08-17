@@ -24,5 +24,7 @@ namespace AssetManagement.Domain.Model
         public Assignment Assignment { get; set; }
         public int AssetId { get; set; }
         public Asset Asset { get; set; }
+        public int AssignedById { get; set; }
+        public User AssignedBy { get; set; }
     }
 }

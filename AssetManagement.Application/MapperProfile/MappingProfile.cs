@@ -32,7 +32,12 @@ namespace AssetManagement.Application.MapperProfile
                 .ForMember(dto => dto.Location, cfg => cfg.MapFrom(ol => ol.Location == null ? string.Empty : ol.Location.LocationName));
             
             CreateMap<Asset, AssetDetailDTO>()
-                .IncludeBase<Asset, AssetDTO>();
+                .IncludeBase<Asset, AssetDTO>()
+                .ForMember(d => d.History, opt => opt.MapFrom(s => s.Historical));
+
+            CreateMap<ReturnRequest, Historical>()
+                .ForMember(d => d.Date, opt => opt.MapFrom(s => s.AssignedDate))
+                .ForMember(d => d.AssignedTo, opt => opt.MapFrom(s => s.RequestedBy.UserName));
 
             CreateMap<EditAssetDTO, Asset>();
         }

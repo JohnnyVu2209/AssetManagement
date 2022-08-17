@@ -10,7 +10,16 @@ export type Asset = {
     stateID: number,
     installedDate: Date,
     specification: string,
+    location:string;
+    history: History[]
 }
+
+export type History = {
+    date: string;
+    assignedTo: string;
+    assignedBy: string;
+    returnedDate: string;
+  }
 
 export type FilterSelect = {
     id: number;
@@ -21,7 +30,7 @@ type InitialState = {
     assetList: Asset[],
     categories: FilterSelect[],
     states: FilterSelect[],
-    asset: Asset
+    asset: Asset | null
 }
 
 export const getCategories = createAsyncThunk("asset/categories", async () => {
@@ -71,16 +80,7 @@ const initialState: InitialState = {
             name: "Not available",
         },
     ],
-    asset: {
-        name: "",
-        code: "",
-        category: "",
-        state: "",
-        categoryID: 0,
-        stateID: 0,
-        installedDate: new Date(),
-        specification: "",
-    }
+    asset: null
 }
 
 export const assetSlice = createSlice({

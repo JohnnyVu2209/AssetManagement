@@ -52,28 +52,30 @@ const EditAsset = () => {
     }, [id])
 
     useEffect(() => {
-        if (asset.stateID === 1) {
-            Swal.fire({
-                text: "this asset have been already assigned",
-                customClass: {
-                    confirmButton: "button",
-                },
-                buttonsStyling: false,
-            }).then(() => {
-                window.location.href = "/manage-asset";
-                // window.location.href = "/manage-user";
-            });
+        if (asset) {
+            if (asset.stateID === 1) {
+                Swal.fire({
+                    text: "this asset have been already assigned",
+                    customClass: {
+                        confirmButton: "button",
+                    },
+                    buttonsStyling: false,
+                }).then(() => {
+                    window.location.href = "/manage-asset";
+                    // window.location.href = "/manage-user";
+                });
+            }
+            setData(asset);
+            setStateId(asset.stateID);
+            setName(asset.name);
+            setSpecification(asset.specification);
+            setInstalledDate(asset.installedDate);
         }
-        setData(asset);
-        setStateId(asset.stateID);
-        setName(asset.name);
-        setSpecification(asset.specification);
-        setInstalledDate(asset.installedDate);
     }, [asset])
 
     const enableSaveButton = () => {
         console.log("from check ", typeof specification)
-        if (typeof name === 'string' && name.trim().length !== 0 && typeof specification === 'string' && specification.trim().length !== 0 &&
+        if (typeof name === 'string' && name.trim().length !== 0 && typeof specification === 'string' && specification.trim().length !== 0 && asset &&
             (name !== asset.name ||
                 specification !== asset.specification ||
                 installedDate &&
@@ -94,11 +96,11 @@ const EditAsset = () => {
     }
 
     useEffect(() => {
-        if (name !== asset.name ||
+        if (asset && (name !== asset.name ||
             specification !== asset.specification ||
             installedDate &&
             !CheckEqualDate(installedDate, asset.installedDate) ||
-            stateId !== asset.stateID)
+            stateId !== asset.stateID))
             setCheck(false);
         else
             setCheck(true);

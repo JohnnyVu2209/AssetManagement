@@ -16,6 +16,14 @@ namespace AssetManagement.Contracts.AssetDTO
         [Required]
         public DateTime InstalledDate { get; set; }
 
-        public string? History { get; set; }
+        public List<Historical> History { get; set; }
+    }
+
+    public class Historical
+    {
+        public DateTime Date { get; set; }
+        public string AssignedTo { get; set; }
+        public string AssignedBy { get; set; }
+        public DateTime ReturnedDate { get; set; }
     }
 }

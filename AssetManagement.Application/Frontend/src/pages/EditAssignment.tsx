@@ -160,7 +160,7 @@ const EditAssignment = () => {
     const assetEmptyRows = assetPage > 1 && assetPagination ? Math.max(0, assetPage * 5 - assetPagination.TotalCount) : 0;
 
     useEffect(() => {
-        setAssignedDate(new Date(assignment.assignedDate));
+        assignment && assignment.assignedDate && setAssignedDate(new Date(assignment.assignedDate));
         setNote(assignment.note);
         DefaultAsset();
         getUsersBySearching(assignment.assignedTo)
@@ -188,12 +188,12 @@ const EditAssignment = () => {
     }
 
     useEffect(() => {
-        if (defaultUser && defaultAsset && assignedDate &&
-            (
+        if (defaultUser && defaultAsset && assignedDate && assignment && typeof note === 'string' && note.trim().length !== 0 &&
+            ( 
                 userSelected.id !== defaultUser.id ||
                 assetSelected.id !== defaultAsset.id ||
                 note != assignment.note ||
-                !CheckEqualDate(assignedDate, assignment.assignedDate)
+                !CheckEqualDate(assignedDate, assignment.assignedDate as Date)
             )
         )
             setCheck(false);
@@ -444,7 +444,7 @@ const EditAssignment = () => {
                             <LocalizationProvider dateAdapter={AdapterDateFns}>
                                 <DesktopDatePicker
                                     value={assignedDate}
-                                    minDate={new Date()}
+                                    minDate={assignment && assignment.assignedDate && new Date(assignment.assignedDate)}
                                     onChange={(newValue) => {
                                         setAssignedDate(newValue);
                                         // enableSaveButton();

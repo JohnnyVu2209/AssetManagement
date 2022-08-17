@@ -4,7 +4,7 @@ import { getAssignmentDetail } from "../services/assignmentService/assignmentMan
 export type Assignment = {
   assetCode: string;
   assignedTo: string,
-  assignedDate: Date,
+  assignedDate: Date | null,
   note: string,
 }
 
@@ -15,7 +15,7 @@ type InitialState = {
 const initialState: InitialState = {
     assignment: {
         assetCode:"",
-        assignedDate: new Date(),
+        assignedDate: null,
         assignedTo: "",
         note:""
     }

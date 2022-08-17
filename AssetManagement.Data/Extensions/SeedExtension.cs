@@ -30,6 +30,250 @@ namespace AssetManagement.Data.Extensions
                 new Category { Id = 3, Name = "Personal Computer", Prefix = "PC" }
             };
 
+        private static readonly List<Assignment> assignments = new()
+        {
+            new Assignment
+                        {
+                            Id = 1,
+                            CreatedDate = DateTime.Now.AddDays(-2),
+                            UpdatedDate = DateTime.Now.AddDays(-2),
+                            AssetId = 1,
+                            AssignedById = 1,
+                            AssignedToId = 4,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now.AddDays(-2),
+                        },
+                        new Assignment
+                        {
+                            Id = 2,
+                            CreatedDate = DateTime.Now.AddDays(-2),
+                            UpdatedDate = DateTime.Now.AddDays(-2),
+                            AssetId = 2,
+                            AssignedById = 1,
+                            AssignedToId = 4,
+                            AssignedState = AssignmentStateEnums.Accepted,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now.AddDays(-2),
+                        },
+                        new Assignment
+                        {
+                            Id = 3,
+                            CreatedDate = DateTime.Now.AddDays(-2),
+                            UpdatedDate = DateTime.Now.AddDays(-2),
+                            AssetId = 3,
+                            AssignedById = 1,
+                            AssignedToId = 4,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now.AddDays(-2),
+                        },
+                        new Assignment
+                        {
+                            Id = 4,
+                            CreatedDate = DateTime.Now.AddDays(-2),
+                            UpdatedDate = DateTime.Now.AddDays(-2),
+                            AssetId = 4,
+                            AssignedById = 1,
+                            AssignedToId = 6,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now.AddDays(-2),
+                        },
+                        new Assignment
+                        {
+                            Id = 5,
+                            CreatedDate = DateTime.Now.AddDays(-2),
+                            UpdatedDate = DateTime.Now.AddDays(-2),
+                            AssetId = 5,
+                            AssignedById = 1,
+                            AssignedToId = 6,
+                            AssignedState = AssignmentStateEnums.Accepted,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now.AddDays(-2),
+                        },
+                        new Assignment
+                        {
+                            Id = 6,
+                            CreatedDate = DateTime.Now.AddDays(-2),
+                            UpdatedDate = DateTime.Now.AddDays(-2),
+                            AssetId = 6,
+                            AssignedById = 1,
+                            AssignedToId = 6,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now.AddDays(-2),
+                        },
+                        new Assignment
+                        {
+                            Id = 7,
+                            CreatedDate = DateTime.Now.AddDays(-2),
+                            UpdatedDate = DateTime.Now.AddDays(-2),
+                            AssetId = 7,
+                            AssignedById = 1,
+                            AssignedToId = 8,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now.AddDays(-2),
+                        },
+                        new Assignment
+                        {
+                            Id = 8,
+                            CreatedDate = DateTime.Now.AddDays(-2),
+                            UpdatedDate = DateTime.Now.AddDays(-2),
+                            AssetId = 8,
+                            AssignedById = 1,
+                            AssignedToId = 8,
+                            AssignedState = AssignmentStateEnums.Accepted,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now.AddDays(-2),
+                        },
+                        new Assignment
+                        {
+                            Id = 9,
+                            CreatedDate = DateTime.Now.AddDays(-2),
+                            UpdatedDate = DateTime.Now.AddDays(-2),
+                            AssetId = 9,
+                            AssignedById = 1,
+                            AssignedToId = 8,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now.AddDays(-2),
+                        },
+                        new Assignment
+                        {
+                            Id = 10,
+                            CreatedDate = DateTime.Now.AddDays(-2),
+                            UpdatedDate = DateTime.Now.AddDays(-2),
+                            AssetId = 10,
+                            AssignedById = 1,
+                            AssignedToId = 10,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now.AddDays(-2),
+                        },
+                        new Assignment
+                        {
+                            Id = 11,
+                            CreatedDate = DateTime.Now.AddDays(-2),
+                            UpdatedDate = DateTime.Now.AddDays(-2),
+                            AssetId = 11,
+                            AssignedById = 1,
+                            AssignedToId = 10,
+                            AssignedState = AssignmentStateEnums.Accepted,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now.AddDays(-2),
+                        },
+                        new Assignment
+                        {
+                            Id = 12,
+                            CreatedDate = DateTime.Now.AddDays(-2),
+                            UpdatedDate = DateTime.Now.AddDays(-2),
+                            AssetId = 12,
+                            AssignedById = 1,
+                            AssignedToId = 10,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now.AddDays(-2),
+                        },
+                        new Assignment
+                        {
+                            Id = 13,
+                            CreatedDate = DateTime.Now.AddDays(-2),
+                            UpdatedDate = DateTime.Now.AddDays(-2),
+                            AssetId = 13,
+                            AssignedById = 1,
+                            AssignedToId = 12,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now.AddDays(-2),
+                        },
+                        new Assignment
+                        {
+                            Id = 14,
+                            CreatedDate = DateTime.Now.AddDays(-2),
+                            UpdatedDate = DateTime.Now.AddDays(-2),
+                            AssetId = 14,
+                            AssignedById = 1,
+                            AssignedToId = 12,
+                            AssignedState = AssignmentStateEnums.Accepted,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now.AddDays(-2),
+                        },
+                        new Assignment
+                        {
+                            Id = 15,
+                            CreatedDate = DateTime.Now.AddDays(-2),
+                            UpdatedDate = DateTime.Now.AddDays(-2),
+                            AssetId = 15,
+                            AssignedById = 1,
+                            AssignedToId = 12,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now.AddDays(-2),
+                        },
+                        new Assignment
+                        {
+                            Id = 16,
+                            CreatedDate = DateTime.Now.AddDays(-2),
+                            UpdatedDate = DateTime.Now.AddDays(-2),
+                            AssetId = 16,
+                            AssignedById = 1,
+                            AssignedToId = 13,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now.AddDays(-2),
+                        },
+                        new Assignment
+                        {
+                            Id = 17,
+                            CreatedDate = DateTime.Now.AddDays(-2),
+                            UpdatedDate = DateTime.Now.AddDays(-2),
+                            AssetId = 17,
+                            AssignedById = 1,
+                            AssignedToId = 13,
+                            AssignedState = AssignmentStateEnums.Accepted,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now.AddDays(-2),
+                        },
+                        new Assignment
+                        {
+                            Id = 18,
+                            CreatedDate = DateTime.Now.AddDays(-2),
+                            UpdatedDate = DateTime.Now.AddDays(-2),
+                            AssetId = 18,
+                            AssignedById = 1,
+                            AssignedToId = 13,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now.AddDays(-2),
+                        },
+                        new Assignment
+                        {
+                            Id = 19,
+                            CreatedDate = DateTime.Now.AddDays(-2),
+                            UpdatedDate = DateTime.Now.AddDays(-2),
+                            AssetId = 19,
+                            AssignedById = 1,
+                            AssignedToId = 14,
+                            AssignedState = AssignmentStateEnums.Accepted,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now.AddDays(-2),
+                        },
+                        new Assignment
+                        {
+                            Id = 20,
+                            CreatedDate = DateTime.Now.AddDays(-2),
+                            UpdatedDate = DateTime.Now.AddDays(-2),
+                            AssetId = 20,
+                            AssignedById = 1,
+                            AssignedToId = 14,
+                            AssignedState = AssignmentStateEnums.Waiting,
+                            Note = "Provide new Laptop",
+                            AssignedDate = DateTime.Now.AddDays(-2),
+                        }
+        };
+
         #region User & Role & Location
         public static void SeedUser(this ModelBuilder modelBuilder)
         {
@@ -124,7 +368,7 @@ namespace AssetManagement.Data.Extensions
                 CreatedDate = DateTime.Now.AddDays(-2),
                 UpdatedDate = DateTime.Now.AddDays(-2),
                 UserName = "vinhbx",
-                NormalizedUserName =  "VINHBX",
+                NormalizedUserName = "VINHBX",
                 SecurityStamp = Guid.NewGuid().ToString("D"),
                 LocationId = 1,
                 StaffCode = "SD0004",
@@ -134,7 +378,7 @@ namespace AssetManagement.Data.Extensions
                 Id = 5,
                 FirstName = "Huong Khon",
                 LastName = "Vu",
-                FullName =  "Huong Khon Vu",
+                FullName = "Huong Khon Vu",
                 CreatedDate = DateTime.Now.AddDays(-2),
                 UpdatedDate = DateTime.Now.AddDays(-2),
                 UserName = "vuhk",
@@ -190,7 +434,7 @@ namespace AssetManagement.Data.Extensions
                 Id = 9,
                 FirstName = "Trieu Tu",
                 LastName = "Long",
-                FullName  =  "Trieu Tu Long",
+                FullName = "Trieu Tu Long",
                 CreatedDate = DateTime.Now.AddDays(-2),
                 UpdatedDate = DateTime.Now.AddDays(-2),
                 UserName = "longtt",
@@ -289,7 +533,7 @@ namespace AssetManagement.Data.Extensions
             modelBuilder.Entity<UserRole>(b =>
             {
                 b.ToTable("UserRoles");
-                b.HasKey(ur => new { ur.UserId, ur.RoleId});
+                b.HasKey(ur => new { ur.UserId, ur.RoleId });
                 b.HasOne(ur => ur.Role)
                 .WithMany(r => r.UserRoles)
                 .HasForeignKey(ur => ur.RoleId)
@@ -369,7 +613,7 @@ namespace AssetManagement.Data.Extensions
             modelBuilder.Entity<Asset>(
                 entity => entity.HasData
                 (
-                    #region HCM
+                #region HCM
                         new Asset
                         {
                             Id = 1,
@@ -630,8 +874,8 @@ namespace AssetManagement.Data.Extensions
                             CreatedDate = DateTime.Now.AddDays(-2),
                             UpdatedDate = DateTime.Now.AddDays(-2),
                         },
-                    #endregion
-                    #region DN
+                #endregion
+                #region DN
                         new Asset
                         {
                             Id = 21,
@@ -892,8 +1136,8 @@ namespace AssetManagement.Data.Extensions
                             CreatedDate = DateTime.Now.AddDays(-2),
                             UpdatedDate = DateTime.Now.AddDays(-2),
                         },
-                    #endregion
-                    #region HN
+                #endregion
+                #region HN
                         new Asset
                         {
                             Id = 41,
@@ -1154,7 +1398,7 @@ namespace AssetManagement.Data.Extensions
                             CreatedDate = DateTime.Now.AddDays(-2),
                             UpdatedDate = DateTime.Now.AddDays(-2),
                         }
-                    #endregion
+                        #endregion
                 )
             );
         }
@@ -1187,248 +1431,7 @@ namespace AssetManagement.Data.Extensions
             modelBuilder.Entity<Assignment>(
                 entity =>
                 {
-                    entity.HasData(
-                        new Assignment
-                        {
-                            Id = 1,
-                            CreatedDate = DateTime.Now.AddDays(-2),
-                            UpdatedDate = DateTime.Now.AddDays(-2),
-                            AssetId = 1,
-                            AssignedById = 1,
-                            AssignedToId = 4,
-                            AssignedState = AssignmentStateEnums.Waiting,
-                            Note = "Provide new Laptop",
-                            AssignedDate = DateTime.Now.AddDays(-2),
-                        },
-                        new Assignment
-                        {
-                            Id = 2,
-                            CreatedDate = DateTime.Now.AddDays(-2),
-                            UpdatedDate = DateTime.Now.AddDays(-2),
-                            AssetId = 2,
-                            AssignedById = 1,
-                            AssignedToId = 4,
-                            AssignedState = AssignmentStateEnums.Accepted,
-                            Note = "Provide new Laptop",
-                            AssignedDate = DateTime.Now.AddDays(-2),
-                        },
-                        new Assignment
-                        {
-                            Id = 3,
-                            CreatedDate = DateTime.Now.AddDays(-2),
-                            UpdatedDate = DateTime.Now.AddDays(-2),
-                            AssetId = 3,
-                            AssignedById = 1,
-                            AssignedToId = 4,
-                            AssignedState = AssignmentStateEnums.Waiting,
-                            Note = "Provide new Laptop",
-                            AssignedDate = DateTime.Now.AddDays(-2),
-                        },
-                        new Assignment
-                        {
-                            Id = 4,
-                            CreatedDate = DateTime.Now.AddDays(-2),
-                            UpdatedDate = DateTime.Now.AddDays(-2),
-                            AssetId = 4,
-                            AssignedById = 1,
-                            AssignedToId = 6,
-                            AssignedState = AssignmentStateEnums.Waiting,
-                            Note = "Provide new Laptop",
-                            AssignedDate = DateTime.Now.AddDays(-2),
-                        },
-                        new Assignment
-                        {
-                            Id = 5,
-                            CreatedDate = DateTime.Now.AddDays(-2),
-                            UpdatedDate = DateTime.Now.AddDays(-2),
-                            AssetId = 5,
-                            AssignedById = 1,
-                            AssignedToId = 6,
-                            AssignedState = AssignmentStateEnums.Accepted,
-                            Note = "Provide new Laptop",
-                            AssignedDate = DateTime.Now.AddDays(-2),
-                        },
-                        new Assignment
-                        {
-                            Id = 6,
-                            CreatedDate = DateTime.Now.AddDays(-2),
-                            UpdatedDate = DateTime.Now.AddDays(-2),
-                            AssetId = 6,
-                            AssignedById = 1,
-                            AssignedToId = 6,
-                            AssignedState = AssignmentStateEnums.Waiting,
-                            Note = "Provide new Laptop",
-                            AssignedDate = DateTime.Now.AddDays(-2),
-                        },
-                        new Assignment
-                        {
-                            Id = 7,
-                            CreatedDate = DateTime.Now.AddDays(-2),
-                            UpdatedDate = DateTime.Now.AddDays(-2),
-                            AssetId = 7,
-                            AssignedById = 1,
-                            AssignedToId = 8,
-                            AssignedState = AssignmentStateEnums.Waiting,
-                            Note = "Provide new Laptop",
-                            AssignedDate = DateTime.Now.AddDays(-2),
-                        },
-                        new Assignment
-                        {
-                            Id = 8,
-                            CreatedDate = DateTime.Now.AddDays(-2),
-                            UpdatedDate = DateTime.Now.AddDays(-2),
-                            AssetId = 8,
-                            AssignedById = 1,
-                            AssignedToId = 8,
-                            AssignedState = AssignmentStateEnums.Accepted,
-                            Note = "Provide new Laptop",
-                            AssignedDate = DateTime.Now.AddDays(-2),
-                        },
-                        new Assignment
-                        {
-                            Id = 9,
-                            CreatedDate = DateTime.Now.AddDays(-2),
-                            UpdatedDate = DateTime.Now.AddDays(-2),
-                            AssetId = 9,
-                            AssignedById = 1,
-                            AssignedToId = 8,
-                            AssignedState = AssignmentStateEnums.Waiting,
-                            Note = "Provide new Laptop",
-                            AssignedDate = DateTime.Now.AddDays(-2),
-                        },
-                        new Assignment
-                        {
-                            Id = 10,
-                            CreatedDate = DateTime.Now.AddDays(-2),
-                            UpdatedDate = DateTime.Now.AddDays(-2),
-                            AssetId = 10,
-                            AssignedById = 1,
-                            AssignedToId = 10,
-                            AssignedState = AssignmentStateEnums.Waiting,
-                            Note = "Provide new Laptop",
-                            AssignedDate = DateTime.Now.AddDays(-2),
-                        },
-                        new Assignment
-                        {
-                            Id = 11,
-                            CreatedDate = DateTime.Now.AddDays(-2),
-                            UpdatedDate = DateTime.Now.AddDays(-2),
-                            AssetId = 11,
-                            AssignedById = 1,
-                            AssignedToId = 10,
-                            AssignedState = AssignmentStateEnums.Accepted,
-                            Note = "Provide new Laptop",
-                            AssignedDate = DateTime.Now.AddDays(-2),
-                        },
-                        new Assignment
-                        {
-                            Id = 12,
-                            CreatedDate = DateTime.Now.AddDays(-2),
-                            UpdatedDate = DateTime.Now.AddDays(-2),
-                            AssetId = 12,
-                            AssignedById = 1,
-                            AssignedToId = 10,
-                            AssignedState = AssignmentStateEnums.Waiting,
-                            Note = "Provide new Laptop",
-                            AssignedDate = DateTime.Now.AddDays(-2),
-                        },
-                        new Assignment
-                        {
-                            Id = 13,
-                            CreatedDate = DateTime.Now.AddDays(-2),
-                            UpdatedDate = DateTime.Now.AddDays(-2),
-                            AssetId = 13,
-                            AssignedById = 1,
-                            AssignedToId = 12,
-                            AssignedState = AssignmentStateEnums.Waiting,
-                            Note = "Provide new Laptop",
-                            AssignedDate = DateTime.Now.AddDays(-2),
-                        },
-                        new Assignment
-                        {
-                            Id = 14,
-                            CreatedDate = DateTime.Now.AddDays(-2),
-                            UpdatedDate = DateTime.Now.AddDays(-2),
-                            AssetId = 14,
-                            AssignedById = 1,
-                            AssignedToId = 12,
-                            AssignedState = AssignmentStateEnums.Accepted,
-                            Note = "Provide new Laptop",
-                            AssignedDate = DateTime.Now.AddDays(-2),
-                        },
-                        new Assignment
-                        {
-                            Id = 15,
-                            CreatedDate = DateTime.Now.AddDays(-2),
-                            UpdatedDate = DateTime.Now.AddDays(-2),
-                            AssetId = 15,
-                            AssignedById = 1,
-                            AssignedToId = 12,
-                            AssignedState = AssignmentStateEnums.Waiting,
-                            Note = "Provide new Laptop",
-                            AssignedDate = DateTime.Now.AddDays(-2),
-                        },
-                        new Assignment
-                        {
-                            Id = 16,
-                            CreatedDate = DateTime.Now.AddDays(-2),
-                            UpdatedDate = DateTime.Now.AddDays(-2),
-                            AssetId = 16,
-                            AssignedById = 1,
-                            AssignedToId = 13,
-                            AssignedState = AssignmentStateEnums.Waiting,
-                            Note = "Provide new Laptop",
-                            AssignedDate = DateTime.Now.AddDays(-2),
-                        },
-                        new Assignment
-                        {
-                            Id = 17,
-                            CreatedDate = DateTime.Now.AddDays(-2),
-                            UpdatedDate = DateTime.Now.AddDays(-2),
-                            AssetId = 17,
-                            AssignedById = 1,
-                            AssignedToId = 13,
-                            AssignedState = AssignmentStateEnums.Accepted,
-                            Note = "Provide new Laptop",
-                            AssignedDate = DateTime.Now.AddDays(-2),
-                        },
-                        new Assignment
-                        {
-                            Id = 18,
-                            CreatedDate = DateTime.Now.AddDays(-2),
-                            UpdatedDate = DateTime.Now.AddDays(-2),
-                            AssetId = 18,
-                            AssignedById = 1,
-                            AssignedToId = 13,
-                            AssignedState = AssignmentStateEnums.Waiting,
-                            Note = "Provide new Laptop",
-                            AssignedDate = DateTime.Now.AddDays(-2),
-                        },
-                        new Assignment
-                        {
-                            Id = 19,
-                            CreatedDate = DateTime.Now.AddDays(-2),
-                            UpdatedDate = DateTime.Now.AddDays(-2),
-                            AssetId = 19,
-                            AssignedById = 1,
-                            AssignedToId = 14,
-                            AssignedState = AssignmentStateEnums.Accepted,
-                            Note = "Provide new Laptop",
-                            AssignedDate = DateTime.Now.AddDays(-2),
-                        },
-                        new Assignment
-                        {
-                            Id = 20,
-                            CreatedDate = DateTime.Now.AddDays(-2),
-                            UpdatedDate = DateTime.Now.AddDays(-2),
-                            AssetId = 20,
-                            AssignedById = 1,
-                            AssignedToId = 14,
-                            AssignedState = AssignmentStateEnums.Waiting,
-                            Note = "Provide new Laptop",
-                            AssignedDate = DateTime.Now.AddDays(-2),
-                        }
-                    );
+                    entity.HasData(assignments);
                 }
             );
         }
@@ -1451,10 +1454,14 @@ namespace AssetManagement.Data.Extensions
                       .WithMany(x => x.ReturnRequests)
                       .OnDelete(DeleteBehavior.NoAction);
 
+                    entity.HasOne(x => x.AssignedBy)
+                    .WithMany(x => x.AssignedBy)
+                    .OnDelete(DeleteBehavior.NoAction);
+
 
                     entity.HasOne(x => x.Assignment)
                         .WithOne(x => x.ReturnRequest)
-                        .HasForeignKey<Assignment>(x=>x.ReturnRequestId).OnDelete(DeleteBehavior.NoAction);
+                        .HasForeignKey<Assignment>(x => x.ReturnRequestId).OnDelete(DeleteBehavior.NoAction);
                 }
             );
 
@@ -1465,48 +1472,55 @@ namespace AssetManagement.Data.Extensions
                         new ReturnRequest
                         {
                             Id = 1,
-                            AcceptedById=1,
-                            RequestedById=4,
+                            AcceptedById = 1,
+                            RequestedById = 4,
                             ReturnedDate = DateTime.Now.AddDays(-2).AddDays(-1),
-                            AssignmentId = 2,
-                            AssetId=2,
-                            State=ReturnRequestStateEnums.Completed
-                        }, 
+                            AssignmentId = assignments[1].Id,
+                            AssignedDate = assignments[1].AssignedDate,
+                            AssignedById = assignments[1].AssignedById,
+                            AssetId = 2,
+                            State = ReturnRequestStateEnums.Completed
+                        },
                         new ReturnRequest
                         {
                             Id = 2,
                             RequestedById = 6,
-                            ReturnedDate = DateTime.Now.AddDays(-2),
                             AssignmentId = 5,
-                            AssetId=5,
+                            AssetId = 5,
+                            AssignedDate = assignments[4].AssignedDate,
+                            AssignedById= assignments[4].AssignedById,
                             State = ReturnRequestStateEnums.Waiting
                         },
                          new ReturnRequest
                          {
                              Id = 3,
                              RequestedById = 8,
-                             ReturnedDate = DateTime.Now.AddDays(-2).AddDays(1),
                              AssignmentId = 8,
                              AssetId = 8,
+                             AssignedById = assignments[7].AssignedById,
+                             AssignedDate = assignments[7].AssignedDate,
                              State = ReturnRequestStateEnums.Waiting
                          },
                           new ReturnRequest
                           {
                               Id = 4,
                               RequestedById = 10,
-                              AcceptedById=1,
+                              AcceptedById = 1,
                               ReturnedDate = DateTime.Now.AddDays(-2).AddDays(2),
                               AssignmentId = 11,
                               AssetId = 11,
+                              AssignedDate = assignments[10].AssignedDate,
+                              AssignedById = assignments[10].AssignedById,
                               State = ReturnRequestStateEnums.Completed
                           },
                           new ReturnRequest
                           {
                               Id = 5,
                               RequestedById = 13,
-                              ReturnedDate = DateTime.Now.AddDays(-2),
                               AssignmentId = 17,
                               AssetId = 17,
+                              AssignedDate = assignments[16].AssignedDate,
+                              AssignedById = assignments[16].AssignedById,
                               State = ReturnRequestStateEnums.Waiting
                           }
                         );
@@ -1514,7 +1528,7 @@ namespace AssetManagement.Data.Extensions
                 );
         }
 
-            #endregion
+        #endregion
 
-        }
+    }
 }

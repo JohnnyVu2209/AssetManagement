@@ -3,6 +3,7 @@ using AssetManagement.Contracts.Constant;
 using AssetManagement.Contracts.Constant.Enums;
 using AssetManagement.Data.Repositories.Extensions;
 using AssetManagement.Domain.Model;
+using AssetManagement.Domain.Model.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace AssetManagement.Data.Repositories.Implementations
@@ -142,7 +143,16 @@ namespace AssetManagement.Data.Repositories.Implementations
 
         public Task<Asset?> GetAssetByIdAllIncludeAsync(int id)
         {
-            return context.Assets.Include(x => x.Historical).Include(x => x.Location).Include(x => x.State).Include(x => x.Category).Where(x => x.Id == id).FirstOrDefaultAsync();
+            return context.Assets
+                .Include(x => x.Historical.Where(y => y.State == ReturnRequestStateEnums.Completed).OrderBy(y => y.AssignedDate))
+                .ThenInclude(x => x.RequestedBy)
+                .Include(x => x.Historical.Where(y => y.State == ReturnRequestStateEnums.Completed).OrderBy(y => y.AssignedDate))
+                .ThenInclude(x => x.AssignedBy)
+                .Include(x => x.Location)
+                .Include(x => x.State)
+                .Include(x => x.Category)
+                .Where(x => x.Id == id)
+                .FirstOrDefaultAsync();
         }
 
         public async Task SetAssetAvailable(Asset asset)

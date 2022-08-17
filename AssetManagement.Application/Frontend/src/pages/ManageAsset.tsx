@@ -2,6 +2,10 @@ import {
   Box,
   Checkbox,
   createTheme,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   FormControl,
   FormControlLabel,
   Grid,
@@ -15,7 +19,9 @@ import {
   PaginationProps,
   Paper,
   Select,
+  Slide,
   Stack,
+  styled,
   Table,
   TableBody,
   TableCell,
@@ -34,14 +40,17 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SearchIcon from '@mui/icons-material/Search';
 import CheckIcon from '@mui/icons-material/Check';
 import EditIcon from "@mui/icons-material/Edit";
+import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import TableHeader, { getComparator, Order, stableSort } from '../components/TableHeader';
 import "../assets/css/Pagination.css";
 import { useAppDispatch, useAppSelector } from '../features/hooks';
-import { getCategories, FilterSelect, getStates } from '../features/AssetSlice';
+import { getCategories, FilterSelect, getStates, getAssetDetails, History } from '../features/AssetSlice';
 import assetService from '../services/assetService';
 import Swal from "sweetalert2";
 import { deleteAsset } from '../services/assetService/assetManagement';
+import { TransitionProps } from '@mui/material/transitions';
+import { format } from 'date-fns';
 
 
 const assetMockData = [
@@ -117,12 +126,34 @@ const assetMockData = [
   },
 ];
 
+const assetHistoryMock = [
+  {
+    date: '12/10/2018',
+    assignedTo: 'hungtv1',
+    assignedBy: 'binhnv',
+    returnedDate: '07/03/2019'
+  },
+  {
+    date: '10/03/2019',
+    assignedTo: 'thinhptx',
+    assignedBy: 'tuanha',
+    returnedDate: '22/03/2020'
+  },
+]
+
 const TABLE_HEAD = [
   { id: "code", label: "Asset Code" },
   { id: "name", label: "Asset Name" },
   { id: "category", label: "Category" },
   { id: "state", label: "State" },
   { id: "", label: "" },
+]
+
+const HISTORY_HEAD = [
+  { id: "date", label: "Date" },
+  { id: "assignedTo", label: "Assigned To" },
+  { id: "assignedBy", label: "Assigned By" },
+  { id: "returnedDate", label: "Returned Date" },
 ]
 
 interface AssetData {
@@ -155,9 +186,81 @@ interface ParamsType {
   sort: string
 }
 
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement<any, any>;
+  },
+  ref: React.Ref<unknown>,
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  '& .MuiDialogContent-root': {
+    padding: theme.spacing(2),
+  },
+  // '& .MuiDialogActions-root': {
+  //   padding: theme.spacing(1),
+  // },
+}));
+
+export interface DialogTitleProps {
+  id: string;
+  children?: React.ReactNode;
+  onClose: () => void;
+}
+
+const BootstrapDialogTitle = (props: DialogTitleProps) => {
+  const { children, onClose, ...other } = props;
+
+  return (
+    <DialogTitle sx={{ m: 0, p: 2, color: '#cf2338', backgroundColor: "#eff1f5", fontWeight: "bold" }} {...other}>
+      {children}
+      {onClose ? (
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: '#e63d47',
+          }}
+        >
+          <CancelPresentationIcon />
+        </IconButton>
+      ) : null}
+    </DialogTitle>
+  );
+};
+
+interface AssetProps {
+  fieldName: string;
+  fieldValue: any;
+}
+
+const AssetField = (props: AssetProps) => {
+  return (
+    <>
+      <Grid item xs={1} />
+      <Grid item xs={3}>
+        <Typography variant="h6" gutterBottom component="div">
+          {props.fieldName}
+        </Typography>
+      </Grid>
+      <Grid item xs={6}>
+        <Typography variant="h6" gutterBottom component="div">
+          {props.fieldValue}
+        </Typography>
+      </Grid>
+      <Grid item xs={2} />
+    </>
+  )
+}
+
 
 const ManageAsset = () => {
-  const { categories, states } = useAppSelector(state => state.assets);
+  const { categories, states, asset } = useAppSelector(state => state.assets);
   const dispatch = useAppDispatch();
   const { sort } = useParams<ParamsType>();
   const [stateData, setStateData] = useState<SelectData[]>([
@@ -177,22 +280,40 @@ const ManageAsset = () => {
       check: true
     },
   ]);
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = (id: number) => {
+    setAssetId(id);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const [assetId, setAssetId] = useState<number>();
   const [assetData, setAssetData] = useState<AssetData[]>([]);
   const [categoryData, setCategoryData] = useState<SelectData[]>([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
-  const [totalCount, setTotalCount] = useState(0);
-  const [totalPages, setTotalPages] = useState(1);
   const [pagination, setPagination] = useState<Pagination>();
   const [filterName, setFilterName] = useState('');
   const [order, setOrder] = React.useState<Order>('asc');
   const [orderBy, setOrderBy] = React.useState<keyof AssetData>('code');
   const [returnAssetState, setReturnRequestState] = useState(true);
+  const [historyOrder, setHistoryOrder] = useState<Order>('asc');
+  const [historyOrderBy, setHistoryOrderBy] = useState<keyof History>('date');
 
   useEffect(() => {
     dispatch(getCategories());
     dispatch(getStates());
   }, []);
+
+  useEffect(() => {
+    if (assetId)
+      dispatch(getAssetDetails(assetId));
+  }, [assetId]);
 
   useEffect(() => {
     if (performance.navigation.type === 1) {
@@ -295,6 +416,15 @@ const ManageAsset = () => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
+  };
+
+  const handleHistoryRequestSort = (
+    event: React.MouseEvent<unknown>,
+    property: keyof History,
+  ) => {
+    const isAsc = historyOrderBy === property && historyOrder === 'asc';
+    setHistoryOrder(isAsc ? 'desc' : 'asc');
+    setHistoryOrderBy(property);
   };
 
   const handleStateChange = (event: any) => {
@@ -442,7 +572,7 @@ const ManageAsset = () => {
             />
             <TableBody>
               {assetData.map(item => (
-                <TableRow key={item.id}>
+                <TableRow key={item.id} onClick={() => handleClickOpen(item.id)}>
                   <TableCell>{item.code}</TableCell>
                   <TableCell>{item.name}</TableCell>
                   <TableCell>{item.category}</TableCell>
@@ -505,7 +635,63 @@ const ManageAsset = () => {
           </Table>
         </TableContainer>
       </Box>
-
+      <BootstrapDialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        maxWidth='md'
+        fullWidth
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <BootstrapDialogTitle id="demo" onClose={handleClose}>Detailed Asset Information</BootstrapDialogTitle>
+        {asset && (
+          <DialogContent dividers>
+            <DialogContentText id="alert-dialog-slide-description">
+              <Grid container spacing={2}>
+                <AssetField fieldName='Asset Code' fieldValue={asset.code} />
+                <AssetField fieldName='Asset Name' fieldValue={asset.name} />
+                <AssetField fieldName='Category' fieldValue={asset.category} />
+                <AssetField fieldName='Installed Date' fieldValue={format(new Date(asset.installedDate), "dd/MM/yyyy")} />
+                <AssetField fieldName='State' fieldValue={asset.state} />
+                <AssetField fieldName='Location' fieldValue={asset.location} />
+                <AssetField fieldName='Specification' fieldValue={asset.specification} />
+                <Grid item xs={1} />
+                <Grid item xs={3}>
+                  <Typography variant="h6" gutterBottom component="div">
+                    History
+                  </Typography>
+                </Grid>
+                {asset.history.length > 0 && (
+                  <Grid item xs={8}>
+                    <TableContainer>
+                      <Table aria-label="simple table">
+                        <TableHeader
+                          headLabel={HISTORY_HEAD}
+                          onRequestSort={handleHistoryRequestSort}
+                          order={historyOrder}
+                          orderBy={historyOrderBy}
+                        />
+                        <TableBody>
+                          {stableSort(asset.history, getComparator(historyOrder, historyOrderBy))
+                            .map((row, index) => (
+                              <TableRow key={index}>
+                                <TableCell>{format(new Date(row.date), "dd/MM/yyyy")}</TableCell>
+                                <TableCell>{row.assignedTo}</TableCell>
+                                <TableCell>{row.assignedBy}</TableCell>
+                                <TableCell>{format(new Date(row.returnedDate), "dd/MM/yyyy")}</TableCell>
+                              </TableRow>
+                            ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                  </Grid>
+                )}
+              </Grid>
+            </DialogContentText>
+          </DialogContent>
+        )}
+      </BootstrapDialog>
     </div>
   )
 }
