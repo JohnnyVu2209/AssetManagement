@@ -23,7 +23,7 @@ namespace AssetManagement.Contracts.AssetDTO
     {
         public DateTime Date { get; set; }
         public string AssignedTo { get; set; }
-        public string AssignedBy { get; set; }
+        public string? AssignedBy { get; set; }
         public DateTime ReturnedDate { get; set; }
     }
 }

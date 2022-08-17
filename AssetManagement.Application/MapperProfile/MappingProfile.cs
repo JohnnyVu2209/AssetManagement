@@ -37,7 +37,8 @@ namespace AssetManagement.Application.MapperProfile
 
             CreateMap<ReturnRequest, Historical>()
                 .ForMember(d => d.Date, opt => opt.MapFrom(s => s.AssignedDate))
-                .ForMember(d => d.AssignedTo, opt => opt.MapFrom(s => s.RequestedBy.UserName));
+                .ForMember(d => d.AssignedTo, opt => opt.MapFrom(s => s.RequestedBy.UserName))
+                .ForMember(d => d.AssignedBy, opt => opt.MapFrom(s => s.AssignedBy != null ? s.AssignedBy.UserName : null));
 
             CreateMap<EditAssetDTO, Asset>();
         }

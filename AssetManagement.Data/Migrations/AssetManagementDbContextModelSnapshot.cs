@@ -76,780 +76,780 @@ namespace AssetManagement.Data.Migrations
                             Id = 1,
                             CategoryID = 1,
                             Code = "LA000001",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2908),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2887),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(593),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(568),
                             LocationID = 1,
                             Name = "Laptop HP Probook 450 G1",
                             Specification = "Dummy Spec 1",
                             StateID = 1,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2910)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(595)
                         },
                         new
                         {
                             Id = 2,
                             CategoryID = 2,
                             Code = "MO000001",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2914),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2912),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(600),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(598),
                             LocationID = 1,
                             Name = "Moninor Dell UltraSharp",
                             Specification = "Dummy Spec 2",
                             StateID = 1,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2915)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(601)
                         },
                         new
                         {
                             Id = 3,
                             CategoryID = 3,
                             Code = "PC000001",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2959),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2957),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(606),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(605),
                             LocationID = 1,
                             Name = "Personal Computer",
                             Specification = "Dummy Spec 3",
                             StateID = 1,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2959)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(607)
                         },
                         new
                         {
                             Id = 4,
                             CategoryID = 1,
                             Code = "LA000002",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2962),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2961),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(610),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(608),
                             LocationID = 1,
                             Name = "Laptop Dell XPS 17 9710",
                             Specification = "Core i9-11980HK, RAM 16GB, 1TB SSD, RTX 3060, 17″ 4k Touch",
                             StateID = 1,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2963)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(610)
                         },
                         new
                         {
                             Id = 5,
                             CategoryID = 2,
                             Code = "MO000002",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2966),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2964),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(613),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(612),
                             LocationID = 1,
                             Name = "Viewsonic VA2432-H",
                             Specification = "24INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
                             StateID = 1,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2967)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(613)
                         },
                         new
                         {
                             Id = 6,
                             CategoryID = 3,
                             Code = "PC000002",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2969),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2968),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(617),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(616),
                             LocationID = 1,
                             Name = "MXWT2 – iMac 2020 27 inch 5K",
                             Specification = "Core i5 3.1GHz/ Radeon Pro 5300",
                             StateID = 1,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2970)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(617)
                         },
                         new
                         {
                             Id = 7,
                             CategoryID = 1,
                             Code = "LA000003",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2973),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2971),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(620),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(619),
                             LocationID = 1,
                             Name = "Laptop Dell XPS 18 9710",
                             Specification = "Core i7-11980HK, RAM 16GB, 1TB SSD, RTX 3060, 17″ 4k Touch",
                             StateID = 1,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2973)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(620)
                         },
                         new
                         {
                             Id = 8,
                             CategoryID = 2,
                             Code = "MO000003",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2976),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2975),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(624),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(622),
                             LocationID = 1,
                             Name = "Viewsonic VA2434-H",
                             Specification = "20INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
                             StateID = 1,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2976)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(624)
                         },
                         new
                         {
                             Id = 9,
                             CategoryID = 3,
                             Code = "PC000003",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2979),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2978),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(627),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(626),
                             LocationID = 1,
                             Name = "MXWT2 – iMac 2021 27 inch 5K",
                             Specification = "Core i7 3.1GHz/ Radeon Pro 5300",
                             StateID = 1,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2979)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(627)
                         },
                         new
                         {
                             Id = 10,
                             CategoryID = 1,
                             Code = "LA000004",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2982),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2981),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(631),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(630),
                             LocationID = 1,
                             Name = "Laptop Dell XPS 18 9715",
                             Specification = "Core i9-11980HK, RAM 16GB, 1TB SSD, RTX 3060, 17″ 4k Touch",
                             StateID = 1,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2983)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(637)
                         },
                         new
                         {
                             Id = 11,
                             CategoryID = 2,
                             Code = "MO000004",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2985),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2984),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(664),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(663),
                             LocationID = 1,
                             Name = "Viewsonic VA2436-H",
                             Specification = "21INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
                             StateID = 1,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2986)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(665)
                         },
                         new
                         {
                             Id = 12,
                             CategoryID = 3,
                             Code = "PC000004",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2989),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2987),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(667),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(666),
                             LocationID = 1,
                             Name = "MXWT2 – iMac 2022 29 inch 5K",
                             Specification = "Core i9 3.1GHz/ Radeon Pro 5300",
                             StateID = 1,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2990)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(668)
                         },
                         new
                         {
                             Id = 13,
                             CategoryID = 1,
                             Code = "LA000005",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2992),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2991),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(673),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(669),
                             LocationID = 1,
                             Name = "Laptop Dell XPS 19 9715",
                             Specification = "Core i5-11980HK, RAM 128GB, 1TB SSD, RTX 3060, 17″ 4k Touch",
                             StateID = 1,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2993)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(673)
                         },
                         new
                         {
                             Id = 14,
                             CategoryID = 2,
                             Code = "MO000005",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2995),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2994),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(676),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(674),
                             LocationID = 1,
                             Name = "Viewsonic VA2436-H",
                             Specification = "22INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
                             StateID = 1,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2996)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(676)
                         },
                         new
                         {
                             Id = 15,
                             CategoryID = 3,
                             Code = "PC000005",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2998),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2997),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(679),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(678),
                             LocationID = 1,
                             Name = "MXWT3 – iMac 2022 26 inch 5K",
                             Specification = "Core i7 3.1GHz/ Radeon Pro 5300",
                             StateID = 1,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(2999)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(679)
                         },
                         new
                         {
                             Id = 16,
                             CategoryID = 1,
                             Code = "LA000006",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3001),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3000),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(682),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(681),
                             LocationID = 1,
                             Name = "Laptop Dell XPS 19 9815",
                             Specification = "Core i7-11980HK, RAM 128GB, 4TB SSD, RTX 3060, 17″ 4k Touch",
                             StateID = 1,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3002)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(683)
                         },
                         new
                         {
                             Id = 17,
                             CategoryID = 2,
                             Code = "MO000006",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3005),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3003),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(686),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(684),
                             LocationID = 1,
                             Name = "Viewsonic VA2440-H",
                             Specification = "22INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
                             StateID = 1,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3005)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(686)
                         },
                         new
                         {
                             Id = 18,
                             CategoryID = 3,
                             Code = "PC000006",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3008),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3007),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(689),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(687),
                             LocationID = 1,
                             Name = "MXWT3 – iMac 2022 39 inch 5K",
                             Specification = "Core i9 3.1GHz/ Radeon Pro 5300",
                             StateID = 1,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3008)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(690)
                         },
                         new
                         {
                             Id = 19,
                             CategoryID = 2,
                             Code = "MO000007",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3012),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3010),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(693),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(691),
                             LocationID = 1,
                             Name = "Viewsonic VA2440-H",
                             Specification = "22INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
                             StateID = 1,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3012)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(693)
                         },
                         new
                         {
                             Id = 20,
                             CategoryID = 3,
                             Code = "PC000007",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3015),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3014),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(696),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(694),
                             LocationID = 1,
                             Name = "MXWT3 – iMac 2022 39 inch 5K",
                             Specification = "Core i9 3.1GHz/ Radeon Pro 5300",
                             StateID = 1,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3015)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(696)
                         },
                         new
                         {
                             Id = 21,
                             CategoryID = 1,
                             Code = "LA000007",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3018),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3017),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(699),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(698),
                             LocationID = 2,
                             Name = "Laptop HP Probook 450 G1",
                             Specification = "Dummy Spec 1",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3018)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(700)
                         },
                         new
                         {
                             Id = 22,
                             CategoryID = 2,
                             Code = "MO000008",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3021),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3020),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(702),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(701),
                             LocationID = 2,
                             Name = "Moninor Dell UltraSharp",
                             Specification = "Dummy Spec 2",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3021)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(703)
                         },
                         new
                         {
                             Id = 23,
                             CategoryID = 3,
                             Code = "PC000008",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3024),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3023),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(705),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(704),
                             LocationID = 2,
                             Name = "Personal Computer",
                             Specification = "Dummy Spec 3",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3024)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(707)
                         },
                         new
                         {
                             Id = 24,
                             CategoryID = 1,
                             Code = "LA000008",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3027),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3026),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(709),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(708),
                             LocationID = 2,
                             Name = "Laptop Dell XPS 17 9710",
                             Specification = "Core i9-11980HK, RAM 16GB, 1TB SSD, RTX 3060, 17″ 4k Touch",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3028)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(710)
                         },
                         new
                         {
                             Id = 25,
                             CategoryID = 2,
                             Code = "MO000009",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3030),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3029),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(712),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(711),
                             LocationID = 2,
                             Name = "Viewsonic VA2432-H",
                             Specification = "24INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3031)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(713)
                         },
                         new
                         {
                             Id = 26,
                             CategoryID = 3,
                             Code = "PC000009",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3036),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3035),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(716),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(714),
                             LocationID = 2,
                             Name = "MXWT2 – iMac 2020 27 inch 5K",
                             Specification = "Core i5 3.1GHz/ Radeon Pro 5300",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3037)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(716)
                         },
                         new
                         {
                             Id = 27,
                             CategoryID = 1,
                             Code = "LA000009",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3039),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3038),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(719),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(717),
                             LocationID = 2,
                             Name = "Laptop Dell XPS 18 9710",
                             Specification = "Core i7-11980HK, RAM 16GB, 1TB SSD, RTX 3060, 17″ 4k Touch",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3040)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(719)
                         },
                         new
                         {
                             Id = 28,
                             CategoryID = 2,
                             Code = "MO000010",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3042),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3041),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(722),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(721),
                             LocationID = 2,
                             Name = "Viewsonic VA2434-H",
                             Specification = "20INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3043)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(722)
                         },
                         new
                         {
                             Id = 29,
                             CategoryID = 3,
                             Code = "PC000010",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3045),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3044),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(772),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(770),
                             LocationID = 2,
                             Name = "MXWT2 – iMac 2021 27 inch 5K",
                             Specification = "Core i7 3.1GHz/ Radeon Pro 5300",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3046)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(772)
                         },
                         new
                         {
                             Id = 30,
                             CategoryID = 1,
                             Code = "LA000010",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3048),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3047),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(776),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(774),
                             LocationID = 2,
                             Name = "Laptop Dell XPS 18 9715",
                             Specification = "Core i9-11980HK, RAM 16GB, 1TB SSD, RTX 3060, 17″ 4k Touch",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3049)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(776)
                         },
                         new
                         {
                             Id = 31,
                             CategoryID = 2,
                             Code = "MO000011",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3051),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3050),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(779),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(778),
                             LocationID = 2,
                             Name = "Viewsonic VA2436-H",
                             Specification = "21INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3052)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(780)
                         },
                         new
                         {
                             Id = 32,
                             CategoryID = 3,
                             Code = "PC000011",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3054),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3053),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(782),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(781),
                             LocationID = 2,
                             Name = "MXWT2 – iMac 2022 29 inch 5K",
                             Specification = "Core i9 3.1GHz/ Radeon Pro 5300",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3055)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(783)
                         },
                         new
                         {
                             Id = 33,
                             CategoryID = 1,
                             Code = "LA000011",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3059),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3057),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(785),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(784),
                             LocationID = 2,
                             Name = "Laptop Dell XPS 19 9715",
                             Specification = "Core i5-11980HK, RAM 128GB, 1TB SSD, RTX 3060, 17″ 4k Touch",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3059)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(786)
                         },
                         new
                         {
                             Id = 34,
                             CategoryID = 2,
                             Code = "MO000012",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3062),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3061),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(789),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(787),
                             LocationID = 2,
                             Name = "Viewsonic VA2436-H",
                             Specification = "22INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3062)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(789)
                         },
                         new
                         {
                             Id = 35,
                             CategoryID = 3,
                             Code = "PC000012",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3065),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3064),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(792),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(791),
                             LocationID = 2,
                             Name = "MXWT3 – iMac 2022 26 inch 5K",
                             Specification = "Core i7 3.1GHz/ Radeon Pro 5300",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3065)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(792)
                         },
                         new
                         {
                             Id = 36,
                             CategoryID = 1,
                             Code = "LA000012",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3068),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3067),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(795),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(794),
                             LocationID = 2,
                             Name = "Laptop Dell XPS 19 9815",
                             Specification = "Core i7-11980HK, RAM 128GB, 4TB SSD, RTX 3060, 17″ 4k Touch",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3068)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(795)
                         },
                         new
                         {
                             Id = 37,
                             CategoryID = 2,
                             Code = "MO000013",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3071),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3070),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(800),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(798),
                             LocationID = 2,
                             Name = "Viewsonic VA2440-H",
                             Specification = "22INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3071)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(800)
                         },
                         new
                         {
                             Id = 38,
                             CategoryID = 3,
                             Code = "PC000013",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3074),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3073),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(803),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(802),
                             LocationID = 2,
                             Name = "MXWT3 – iMac 2022 39 inch 5K",
                             Specification = "Core i9 3.1GHz/ Radeon Pro 5300",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3074)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(803)
                         },
                         new
                         {
                             Id = 39,
                             CategoryID = 2,
                             Code = "MO000014",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3078),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3076),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(806),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(805),
                             LocationID = 2,
                             Name = "Viewsonic VA2440-H",
                             Specification = "22INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3079)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(807)
                         },
                         new
                         {
                             Id = 40,
                             CategoryID = 3,
                             Code = "PC000014",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3081),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3080),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(809),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(808),
                             LocationID = 2,
                             Name = "MXWT3 – iMac 2022 39 inch 5K",
                             Specification = "Core i9 3.1GHz/ Radeon Pro 5300",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3082)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(810)
                         },
                         new
                         {
                             Id = 41,
                             CategoryID = 1,
                             Code = "LA000013",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3084),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3083),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(813),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(811),
                             LocationID = 3,
                             Name = "Laptop HP Probook 450 G1",
                             Specification = "Dummy Spec 1",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3085)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(814)
                         },
                         new
                         {
                             Id = 42,
                             CategoryID = 2,
                             Code = "MO000015",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3087),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3086),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(818),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(816),
                             LocationID = 3,
                             Name = "Moninor Dell UltraSharp",
                             Specification = "Dummy Spec 2",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3088)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(818)
                         },
                         new
                         {
                             Id = 43,
                             CategoryID = 3,
                             Code = "PC000015",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3090),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3089),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(821),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(820),
                             LocationID = 3,
                             Name = "Personal Computer",
                             Specification = "Dummy Spec 3",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3091)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(821)
                         },
                         new
                         {
                             Id = 44,
                             CategoryID = 1,
                             Code = "LA000014",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3093),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3092),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(825),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(824),
                             LocationID = 3,
                             Name = "Laptop Dell XPS 17 9710",
                             Specification = "Core i9-11980HK, RAM 16GB, 1TB SSD, RTX 3060, 17″ 4k Touch",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3094)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(826)
                         },
                         new
                         {
                             Id = 45,
                             CategoryID = 2,
                             Code = "MO000016",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3130),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3128),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(828),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(827),
                             LocationID = 3,
                             Name = "Viewsonic VA2432-H",
                             Specification = "24INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3130)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(829)
                         },
                         new
                         {
                             Id = 46,
                             CategoryID = 3,
                             Code = "PC000016",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3134),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3131),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(831),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(830),
                             LocationID = 3,
                             Name = "MXWT2 – iMac 2020 27 inch 5K",
                             Specification = "Core i5 3.1GHz/ Radeon Pro 5300",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3134)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(832)
                         },
                         new
                         {
                             Id = 47,
                             CategoryID = 1,
                             Code = "LA000015",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3137),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3135),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(834),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(833),
                             LocationID = 3,
                             Name = "Laptop Dell XPS 18 9710",
                             Specification = "Core i7-11980HK, RAM 16GB, 1TB SSD, RTX 3060, 17″ 4k Touch",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3137)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(835)
                         },
                         new
                         {
                             Id = 48,
                             CategoryID = 2,
                             Code = "MO000017",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3140),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3139),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(837),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(836),
                             LocationID = 3,
                             Name = "Viewsonic VA2434-H",
                             Specification = "20INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3140)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(838)
                         },
                         new
                         {
                             Id = 49,
                             CategoryID = 3,
                             Code = "PC000017",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3143),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3141),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(840),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(839),
                             LocationID = 3,
                             Name = "MXWT2 – iMac 2021 27 inch 5K",
                             Specification = "Core i7 3.1GHz/ Radeon Pro 5300",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3143)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(841)
                         },
                         new
                         {
                             Id = 50,
                             CategoryID = 1,
                             Code = "LA000016",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3146),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3144),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(844),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(842),
                             LocationID = 3,
                             Name = "Laptop Dell XPS 18 9715",
                             Specification = "Core i9-11980HK, RAM 16GB, 1TB SSD, RTX 3060, 17″ 4k Touch",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3146)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(844)
                         },
                         new
                         {
                             Id = 51,
                             CategoryID = 2,
                             Code = "MO000018",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3149),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3147),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(848),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(847),
                             LocationID = 3,
                             Name = "Viewsonic VA2436-H",
                             Specification = "21INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3149)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(848)
                         },
                         new
                         {
                             Id = 52,
                             CategoryID = 3,
                             Code = "PC000018",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3152),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3150),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(851),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(850),
                             LocationID = 3,
                             Name = "MXWT2 – iMac 2022 29 inch 5K",
                             Specification = "Core i9 3.1GHz/ Radeon Pro 5300",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3152)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(852)
                         },
                         new
                         {
                             Id = 53,
                             CategoryID = 1,
                             Code = "LA000017",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3155),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3153),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(855),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(854),
                             LocationID = 3,
                             Name = "Laptop Dell XPS 19 9715",
                             Specification = "Core i5-11980HK, RAM 128GB, 1TB SSD, RTX 3060, 17″ 4k Touch",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3156)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(856)
                         },
                         new
                         {
                             Id = 54,
                             CategoryID = 2,
                             Code = "MO000019",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3158),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3157),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(858),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(857),
                             LocationID = 3,
                             Name = "Viewsonic VA2436-H",
                             Specification = "22INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3159)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(859)
                         },
                         new
                         {
                             Id = 55,
                             CategoryID = 3,
                             Code = "PC000019",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3161),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3160),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(861),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(860),
                             LocationID = 3,
                             Name = "MXWT3 – iMac 2022 26 inch 5K",
                             Specification = "Core i7 3.1GHz/ Radeon Pro 5300",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3162)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(862)
                         },
                         new
                         {
                             Id = 56,
                             CategoryID = 1,
                             Code = "LA000018",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3165),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3163),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(865),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(863),
                             LocationID = 3,
                             Name = "Laptop Dell XPS 19 9815",
                             Specification = "Core i7-11980HK, RAM 128GB, 4TB SSD, RTX 3060, 17″ 4k Touch",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3166)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(865)
                         },
                         new
                         {
                             Id = 57,
                             CategoryID = 2,
                             Code = "MO000020",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3168),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3167),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(868),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(867),
                             LocationID = 3,
                             Name = "Viewsonic VA2440-H",
                             Specification = "22INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3169)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(869)
                         },
                         new
                         {
                             Id = 58,
                             CategoryID = 3,
                             Code = "PC000020",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3171),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3170),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(871),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(870),
                             LocationID = 3,
                             Name = "MXWT3 – iMac 2022 39 inch 5K",
                             Specification = "Core i9 3.1GHz/ Radeon Pro 5300",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3172)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(872)
                         },
                         new
                         {
                             Id = 59,
                             CategoryID = 2,
                             Code = "MO000021",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3174),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3173),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(874),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(873),
                             LocationID = 3,
                             Name = "Viewsonic VA2440-H",
                             Specification = "22INCH/IPS/FHD/75HZ/4MS/HDMI/VGA",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3175)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(875)
                         },
                         new
                         {
                             Id = 60,
                             CategoryID = 3,
                             Code = "PC000021",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3178),
-                            InstalledDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3177),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(878),
+                            InstalledDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(876),
                             LocationID = 3,
                             Name = "MXWT3 – iMac 2022 39 inch 5K",
                             Specification = "Core i9 3.1GHz/ Radeon Pro 5300",
                             StateID = 2,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 975, DateTimeKind.Local).AddTicks(3179)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 115, DateTimeKind.Local).AddTicks(878)
                         });
                 });
 
@@ -909,240 +909,240 @@ namespace AssetManagement.Data.Migrations
                             Id = 1,
                             AssetId = 1,
                             AssignedById = 1,
-                            AssignedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1610),
+                            AssignedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(8792),
                             AssignedState = 2,
                             AssignedToId = 4,
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 302, DateTimeKind.Local).AddTicks(7885),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 485, DateTimeKind.Local).AddTicks(4803),
                             Note = "Provide new Laptop",
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 303, DateTimeKind.Local).AddTicks(9976)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(7091)
                         },
                         new
                         {
                             Id = 2,
                             AssetId = 2,
                             AssignedById = 1,
-                            AssignedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1914),
+                            AssignedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9104),
                             AssignedState = 1,
                             AssignedToId = 4,
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1909),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9099),
                             Note = "Provide new Laptop",
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1912)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9102)
                         },
                         new
                         {
                             Id = 3,
                             AssetId = 3,
                             AssignedById = 1,
-                            AssignedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1917),
+                            AssignedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9107),
                             AssignedState = 2,
                             AssignedToId = 4,
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1915),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9105),
                             Note = "Provide new Laptop",
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1916)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9106)
                         },
                         new
                         {
                             Id = 4,
                             AssetId = 4,
                             AssignedById = 1,
-                            AssignedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1919),
+                            AssignedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9109),
                             AssignedState = 2,
                             AssignedToId = 6,
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1918),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9108),
                             Note = "Provide new Laptop",
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1918)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9108)
                         },
                         new
                         {
                             Id = 5,
                             AssetId = 5,
                             AssignedById = 1,
-                            AssignedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1922),
+                            AssignedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9112),
                             AssignedState = 1,
                             AssignedToId = 6,
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1920),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9110),
                             Note = "Provide new Laptop",
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1921)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9111)
                         },
                         new
                         {
                             Id = 6,
                             AssetId = 6,
                             AssignedById = 1,
-                            AssignedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1931),
+                            AssignedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9120),
                             AssignedState = 2,
                             AssignedToId = 6,
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1929),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9119),
                             Note = "Provide new Laptop",
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1930)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9119)
                         },
                         new
                         {
                             Id = 7,
                             AssetId = 7,
                             AssignedById = 1,
-                            AssignedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1934),
+                            AssignedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9123),
                             AssignedState = 2,
                             AssignedToId = 8,
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1932),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9121),
                             Note = "Provide new Laptop",
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1932)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9122)
                         },
                         new
                         {
                             Id = 8,
                             AssetId = 8,
                             AssignedById = 1,
-                            AssignedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1936),
+                            AssignedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9125),
                             AssignedState = 1,
                             AssignedToId = 8,
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1935),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9123),
                             Note = "Provide new Laptop",
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1935)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9124)
                         },
                         new
                         {
                             Id = 9,
                             AssetId = 9,
                             AssignedById = 1,
-                            AssignedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1938),
+                            AssignedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9127),
                             AssignedState = 2,
                             AssignedToId = 8,
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1937),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9126),
                             Note = "Provide new Laptop",
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1938)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9126)
                         },
                         new
                         {
                             Id = 10,
                             AssetId = 10,
                             AssignedById = 1,
-                            AssignedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1942),
+                            AssignedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9132),
                             AssignedState = 2,
                             AssignedToId = 10,
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1940),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9130),
                             Note = "Provide new Laptop",
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1941)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9131)
                         },
                         new
                         {
                             Id = 11,
                             AssetId = 11,
                             AssignedById = 1,
-                            AssignedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1944),
+                            AssignedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9134),
                             AssignedState = 1,
                             AssignedToId = 10,
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1943),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9133),
                             Note = "Provide new Laptop",
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1943)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9133)
                         },
                         new
                         {
                             Id = 12,
                             AssetId = 12,
                             AssignedById = 1,
-                            AssignedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1947),
+                            AssignedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9137),
                             AssignedState = 2,
                             AssignedToId = 10,
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1945),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9135),
                             Note = "Provide new Laptop",
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1946)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9136)
                         },
                         new
                         {
                             Id = 13,
                             AssetId = 13,
                             AssignedById = 1,
-                            AssignedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1949),
+                            AssignedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9139),
                             AssignedState = 2,
                             AssignedToId = 12,
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1948),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9137),
                             Note = "Provide new Laptop",
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1948)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9138)
                         },
                         new
                         {
                             Id = 14,
                             AssetId = 14,
                             AssignedById = 1,
-                            AssignedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1951),
+                            AssignedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9141),
                             AssignedState = 1,
                             AssignedToId = 12,
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1950),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9140),
                             Note = "Provide new Laptop",
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1951)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9140)
                         },
                         new
                         {
                             Id = 15,
                             AssetId = 15,
                             AssignedById = 1,
-                            AssignedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1953),
+                            AssignedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9144),
                             AssignedState = 2,
                             AssignedToId = 12,
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1952),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9142),
                             Note = "Provide new Laptop",
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1953)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9143)
                         },
                         new
                         {
                             Id = 16,
                             AssetId = 16,
                             AssignedById = 1,
-                            AssignedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1956),
+                            AssignedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9146),
                             AssignedState = 2,
                             AssignedToId = 13,
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1954),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9144),
                             Note = "Provide new Laptop",
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1955)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9145)
                         },
                         new
                         {
                             Id = 17,
                             AssetId = 17,
                             AssignedById = 1,
-                            AssignedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1958),
+                            AssignedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9148),
                             AssignedState = 1,
                             AssignedToId = 13,
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1957),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9147),
                             Note = "Provide new Laptop",
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1957)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9147)
                         },
                         new
                         {
                             Id = 18,
                             AssetId = 18,
                             AssignedById = 1,
-                            AssignedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1962),
+                            AssignedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9151),
                             AssignedState = 2,
                             AssignedToId = 13,
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1960),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9150),
                             Note = "Provide new Laptop",
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1961)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9151)
                         },
                         new
                         {
                             Id = 19,
                             AssetId = 19,
                             AssignedById = 1,
-                            AssignedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1964),
+                            AssignedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9154),
                             AssignedState = 1,
                             AssignedToId = 14,
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1962),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9152),
                             Note = "Provide new Laptop",
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1963)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9153)
                         },
                         new
                         {
                             Id = 20,
                             AssetId = 20,
                             AssignedById = 1,
-                            AssignedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(2076),
+                            AssignedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9156),
                             AssignedState = 2,
                             AssignedToId = 14,
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(2074),
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9155),
                             Note = "Provide new Laptop",
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(2075)
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9155)
                         });
                 });
 
@@ -1247,7 +1247,7 @@ namespace AssetManagement.Data.Migrations
                     b.Property<int>("AssetId")
                         .HasColumnType("int");
 
-                    b.Property<int>("AssignedById")
+                    b.Property<int?>("AssignedById")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("AssignedDate")
@@ -1284,10 +1284,10 @@ namespace AssetManagement.Data.Migrations
                             AcceptedById = 1,
                             AssetId = 2,
                             AssignedById = 1,
-                            AssignedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1914),
+                            AssignedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9104),
                             AssignmentId = 2,
                             RequestedById = 4,
-                            ReturnedDate = new DateTime(2022, 8, 14, 12, 45, 43, 984, DateTimeKind.Local).AddTicks(4610),
+                            ReturnedDate = new DateTime(2022, 8, 14, 13, 49, 39, 125, DateTimeKind.Local).AddTicks(387),
                             State = 1
                         },
                         new
@@ -1295,7 +1295,7 @@ namespace AssetManagement.Data.Migrations
                             Id = 2,
                             AssetId = 5,
                             AssignedById = 1,
-                            AssignedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1922),
+                            AssignedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9112),
                             AssignmentId = 5,
                             RequestedById = 6,
                             State = 2
@@ -1305,7 +1305,7 @@ namespace AssetManagement.Data.Migrations
                             Id = 3,
                             AssetId = 8,
                             AssignedById = 1,
-                            AssignedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1936),
+                            AssignedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9125),
                             AssignmentId = 8,
                             RequestedById = 8,
                             State = 2
@@ -1316,10 +1316,10 @@ namespace AssetManagement.Data.Migrations
                             AcceptedById = 1,
                             AssetId = 11,
                             AssignedById = 1,
-                            AssignedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1944),
+                            AssignedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9134),
                             AssignmentId = 11,
                             RequestedById = 10,
-                            ReturnedDate = new DateTime(2022, 8, 17, 12, 45, 43, 984, DateTimeKind.Local).AddTicks(4637),
+                            ReturnedDate = new DateTime(2022, 8, 17, 13, 49, 39, 125, DateTimeKind.Local).AddTicks(417),
                             State = 1
                         },
                         new
@@ -1327,7 +1327,7 @@ namespace AssetManagement.Data.Migrations
                             Id = 5,
                             AssetId = 17,
                             AssignedById = 1,
-                            AssignedDate = new DateTime(2022, 8, 15, 12, 45, 43, 304, DateTimeKind.Local).AddTicks(1958),
+                            AssignedDate = new DateTime(2022, 8, 15, 13, 49, 38, 486, DateTimeKind.Local).AddTicks(9148),
                             AssignmentId = 17,
                             RequestedById = 13,
                             State = 2
@@ -1367,14 +1367,14 @@ namespace AssetManagement.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "b3973079-f90f-4184-bf0e-5ed17d173a95",
+                            ConcurrencyStamp = "2e872961-058f-40e9-91b4-773ab1c8bec9",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "472f9a87-ed33-4b59-a376-5fd3ff1a8c94",
+                            ConcurrencyStamp = "1a2af296-0e02-4c13-9eb6-3121422373c3",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -1550,8 +1550,8 @@ namespace AssetManagement.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b30ebfe1-4eb5-426b-891c-f6abc25080ac",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9817),
+                            ConcurrencyStamp = "022ea215-331d-47f4-82f1-47be742a9e2e",
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1437),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             FirstName = "Nghia",
@@ -1564,20 +1564,20 @@ namespace AssetManagement.Data.Migrations
                             LocationId = 1,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMINHCM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFnsfAOpdmIqYHt3HRWzI6tkBG6DK/ij14ul0VGmi3hIU+frNp8J9ryJTyxAqKhQmQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGsFJd4Kmwnc8Fz1CIlWx5/lJ2LenFMl8E3M9A0PzypHDl1SzX5S0h5dAS+FBL6K+A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "aee14242-f47c-413f-9704-5a4f74cdee73",
+                            SecurityStamp = "46ba04b7-4efb-4003-baf9-bc7bc8706004",
                             StaffCode = "SD0001",
                             TwoFactorEnabled = false,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9831),
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1449),
                             UserName = "AdminHCM"
                         },
                         new
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b41208a6-cd39-425c-b967-5099cd357771",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9840),
+                            ConcurrencyStamp = "cff009f9-8fe7-4a1a-908f-a61d6167f69b",
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1458),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             FirstName = "Thanh",
@@ -1590,20 +1590,20 @@ namespace AssetManagement.Data.Migrations
                             LocationId = 2,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMINDN",
-                            PasswordHash = "AQAAAAEAACcQAAAAELyVL28Qq9EEKcLqntmMN1xRjq0hl3JYusMKNKrhQVwR0Ro+Zvakm6tLFAl3R8d2zw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDTShgbuL+FUxD5aWiEU1d0O6VfF51K2roiWkJ2aHlpjXAC1ogNC7GEUbUjeWIEpBQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b82146b9-1bb2-42ec-a9ab-4b123919d6f5",
+                            SecurityStamp = "d63486ec-f7cc-4e92-a296-73dae53b2a1d",
                             StaffCode = "SD0002",
                             TwoFactorEnabled = false,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9841),
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1459),
                             UserName = "AdminDN"
                         },
                         new
                         {
                             Id = 3,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4b0d6ac7-6415-4b55-8609-06b838d795af",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9848),
+                            ConcurrencyStamp = "54bc3911-a1e1-45bd-aa54-3c094b5b936a",
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1466),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             FirstName = "Yen",
@@ -1616,20 +1616,20 @@ namespace AssetManagement.Data.Migrations
                             LocationId = 3,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMINHN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEP87ovOaJM16L440IvR0biC3+mpYclZWi7fv7cjaXUknK0M2sa/hrXzuICfLcEo5yw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFSnay4r0XciWE05Or2cDf7pNJY8WyR9hJZTTCtXNwFp/RlZs1Yj+RjiDXA8/EA9jA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "bf537231-5f56-45dc-9259-6c2dd3851524",
+                            SecurityStamp = "f56fb9db-b386-43bd-b395-d25b8dca86a7",
                             StaffCode = "SD0003",
                             TwoFactorEnabled = false,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9848),
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1467),
                             UserName = "AdminHN"
                         },
                         new
                         {
                             Id = 4,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "da6ed239-20af-42a6-a228-9cd4e9eadb5b",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9872),
+                            ConcurrencyStamp = "f120967f-69b9-45a8-a2e6-9e7a9a1c76af",
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1479),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             FirstName = "Bui Xuan",
@@ -1642,20 +1642,20 @@ namespace AssetManagement.Data.Migrations
                             LocationId = 1,
                             LockoutEnabled = false,
                             NormalizedUserName = "VINHBX",
-                            PasswordHash = "AQAAAAEAACcQAAAAEANBdItmGQ6vVovXLCgxGkWJWpUTRO+5xoUOxALZyOudnmj/ZvbogSP0KIZRwRZSGQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHH4RT8f0LyXCU+LYv3kQ5seq1dof+WwivWld+h/yihZZtup4voKtGeNTIcv5h9/MA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b16e063a-bc5b-47fa-85d3-b62972972d84",
+                            SecurityStamp = "0dd00327-c3ac-4545-a8c6-85e57fda2e8a",
                             StaffCode = "SD0004",
                             TwoFactorEnabled = false,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9873),
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1479),
                             UserName = "vinhbx"
                         },
                         new
                         {
                             Id = 5,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d620260e-6a55-46c4-b18c-73f68722d139",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9879),
+                            ConcurrencyStamp = "6ba446cc-dfad-4a15-8638-3577a9cfd465",
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1487),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             FirstName = "Huong Khon",
@@ -1668,20 +1668,20 @@ namespace AssetManagement.Data.Migrations
                             LocationId = 2,
                             LockoutEnabled = false,
                             NormalizedUserName = "VUHK",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEyHUzUg6MeJUR+th7Vk+A2l73803BfrFRrCw9Iaa/CoFl+nRplEsCk3NRQhU7G6dw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECA07jaYQMouJsQY713FiMFKE0ApRcNq3rL9LCbzWvH+6ax8p+tJ9/i16rwf8fMtng==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6d076fb5-f8d4-44d2-9d70-24dadac33684",
+                            SecurityStamp = "fa180085-1eb8-44bf-9915-56a29110646b",
                             StaffCode = "SD0005",
                             TwoFactorEnabled = false,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9880),
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1487),
                             UserName = "vuhk"
                         },
                         new
                         {
                             Id = 6,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b70f8dd6-83a8-43f9-83e8-9224ead575c9",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9887),
+                            ConcurrencyStamp = "8e6711b9-544f-4183-8e45-5fcdf8644371",
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1494),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             FirstName = "Hau Diem",
@@ -1694,20 +1694,20 @@ namespace AssetManagement.Data.Migrations
                             LocationId = 1,
                             LockoutEnabled = false,
                             NormalizedUserName = "XUANHD",
-                            PasswordHash = "AQAAAAEAACcQAAAAEH220MbR1AUAQND9lCclx1MpplER6kMGDK5lckcC6WtR29yBoaUcpbXZDjnUOsgDWA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKAn9S7Fw00rK/Xjy/mjqQmF2YM/I0V0xHqektkxHRrXp8dunEwXt7MwYzzT1nVCdA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fa6da2c8-eef5-4354-af99-fcda8b7f24fa",
+                            SecurityStamp = "835205fb-9e00-40ce-abc1-36c8461f2fbc",
                             StaffCode = "SD0006",
                             TwoFactorEnabled = false,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9887),
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1494),
                             UserName = "xuanhd"
                         },
                         new
                         {
                             Id = 7,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "48f3560b-869f-470f-9e92-721253217f7d",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9894),
+                            ConcurrencyStamp = "ef0655c9-9bd6-47f4-bf89-8ac7a6b06ae2",
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1503),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             FirstName = "Luu Huyen",
@@ -1720,20 +1720,20 @@ namespace AssetManagement.Data.Migrations
                             LocationId = 2,
                             LockoutEnabled = false,
                             NormalizedUserName = "DUCLH",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEkLzNkEgr5vFeNYehD723PhFwin7quHUEEfWupxxRC6u/zJIUQ5NJynw7QEfENtNQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJc3vEJiBMpLjAR70mRTBQaVNzhsjzQDXQC/RIqpMHwZJZAVLvVYrGjKJtUKjN/wBQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c2819b65-1b0e-4d6e-a2bd-40e9a9c87d8a",
+                            SecurityStamp = "8cb14c88-a072-4cdc-9441-5a1d3d235de3",
                             StaffCode = "SD0007",
                             TwoFactorEnabled = false,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9895),
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1503),
                             UserName = "duclh"
                         },
                         new
                         {
                             Id = 8,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f97e5b0a-5e38-4ad2-a1bf-738869e14541",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9904),
+                            ConcurrencyStamp = "1b724aa6-6023-4b37-b003-fc789ae1291c",
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1512),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             FirstName = "Quang Van",
@@ -1746,20 +1746,20 @@ namespace AssetManagement.Data.Migrations
                             LocationId = 1,
                             LockoutEnabled = false,
                             NormalizedUserName = "TRUONGQV",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJU2hjUY8LiEMRWFZQElRrDuYyEryw0O3V5LqBrkLiyHv0pgoKpO6+dhfzyM8uhnCw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBN+1pmiTYZ+VXSWyW+IweEWZ85Z4HAgUTDlMz2GSWr6mEpAxVKrGZjK47Q+bHsP8w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f2f85eef-2509-4357-876f-5ae1fe4b584a",
+                            SecurityStamp = "6bddbbaa-64d5-4327-83e7-1ecc9e7e842b",
                             StaffCode = "SD0008",
                             TwoFactorEnabled = false,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9905),
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1512),
                             UserName = "truongqv"
                         },
                         new
                         {
                             Id = 9,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "53532005-3e88-46dc-8f33-373908bf25e1",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9911),
+                            ConcurrencyStamp = "1816df9f-28ce-4001-8535-b3e334668a0c",
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1563),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             FirstName = "Trieu Tu",
@@ -1772,20 +1772,20 @@ namespace AssetManagement.Data.Migrations
                             LocationId = 3,
                             LockoutEnabled = false,
                             NormalizedUserName = "LONGTT",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAMXIIaiPJG1bagKFyjhK4MX3+OSREyDWjkWpAjO171zF2bhclbb+PTnU7ICnsWr/g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECMh5r33WuTgw4mr5rKS8iHEdPmZVa9pmCedkwDqAsgL5uvXWQ2mPT48z+l8hLmjmg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "12932caa-fce7-4ac4-ac0a-db857ee662cc",
+                            SecurityStamp = "45133418-a0ac-4c61-be73-4c6372eed962",
                             StaffCode = "SD0009",
                             TwoFactorEnabled = false,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9911),
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1563),
                             UserName = "longtt"
                         },
                         new
                         {
                             Id = 10,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b582bda1-f0b8-4316-9a8c-9095024db877",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9917),
+                            ConcurrencyStamp = "9856cce7-b79b-4b46-aed7-b3ea062f8ecf",
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1572),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             FirstName = "Gia Cat",
@@ -1798,20 +1798,20 @@ namespace AssetManagement.Data.Migrations
                             LocationId = 1,
                             LockoutEnabled = false,
                             NormalizedUserName = "LUONGGC",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKbNh0flfFtdDOWrWBvElJcreiQ7zzNamEy1Ta7u+r40MnXb69V2rWicCV0Ltl2Lwg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMuJh0jzmVKTQxLZu6cTdqa04s3NU+fVM4g7DCvtsM5LnZ6sxuxfi44MZeh23OONkg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d11ffef1-f3e9-46c8-9679-9c5c287c2dc0",
+                            SecurityStamp = "a02b1fa9-1330-409d-907d-6878600628a3",
                             StaffCode = "SD0010",
                             TwoFactorEnabled = false,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9918),
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1572),
                             UserName = "luonggc"
                         },
                         new
                         {
                             Id = 12,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a97beffc-8779-46a1-b5e0-2d023f3228b2",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9924),
+                            ConcurrencyStamp = "948f5024-6e5a-4d22-95e9-092b1015b273",
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1579),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             FirstName = "Minh Khai",
@@ -1824,20 +1824,20 @@ namespace AssetManagement.Data.Migrations
                             LocationId = 1,
                             LockoutEnabled = false,
                             NormalizedUserName = "MINHKHAINT",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJanumVgoRVcNsI/xMhiraMs15aTSH59W6d2/CadIMZbHSSIOg3XqhCzMW1e8YUtXQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEE45DIqoPB0YhCT8rZgZz2dMrxCsfcBtCS03op+Nk6I5bi5vwywJLKFWf63GnBVAOQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9f13b30d-add6-4c63-be90-facf24b09ce5",
+                            SecurityStamp = "12022ce3-27c8-4370-a1e0-b5c3271d12d0",
                             StaffCode = "SD0012",
                             TwoFactorEnabled = false,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9925),
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1579),
                             UserName = "minhkhaint"
                         },
                         new
                         {
                             Id = 13,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d3760e82-dfc5-42e0-8ddc-d3fe5fa52f4f",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9937),
+                            ConcurrencyStamp = "3e140884-d228-4b1c-98d0-4c21f877c19d",
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1587),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             FirstName = "Lan Ong",
@@ -1850,20 +1850,20 @@ namespace AssetManagement.Data.Migrations
                             LocationId = 1,
                             LockoutEnabled = false,
                             NormalizedUserName = "LANONGHT",
-                            PasswordHash = "AQAAAAEAACcQAAAAECfvQfGyakuYn924uKfN04mV+/NB3vlsMP0qyEmUpFgwrIqzRThbgWVn8Gh1W0sTkQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAws80V8zN1opUExgLycXofUpDhYxuAG2/z6z4qTCzkwUIvsUoVqE9UC9Dn6w0XVmQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1708c89e-1af9-4d59-8fbb-bca2c090d013",
+                            SecurityStamp = "099321b5-5c65-4db9-922f-5d0c51af1c29",
                             StaffCode = "SD0013",
                             TwoFactorEnabled = false,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9937),
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1588),
                             UserName = "lanonght"
                         },
                         new
                         {
                             Id = 14,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "aaa45835-b32e-4808-9abe-47384f216d4b",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9944),
+                            ConcurrencyStamp = "0fcfe6cb-fc57-4f59-8459-a231dec6ab8d",
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1594),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             FirstName = "Hoang",
@@ -1876,20 +1876,20 @@ namespace AssetManagement.Data.Migrations
                             LocationId = 1,
                             LockoutEnabled = false,
                             NormalizedUserName = "HOANGLC",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO8goHEzZ8ExNAnrGkkQbIlKLVI67F8Qj3j4YKzEtpVUineCkwbWfZXViZMjdkUVcw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBINkczeiaPTb4Lg5ikiN9a4aYpt1I9LmMLRTiS/JOZnsd1Yz8w9D9M7Zjc5dZOzEw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a046421a-489d-4672-9457-f4ddcb7d71db",
+                            SecurityStamp = "be2fb936-ea51-4377-9809-182db1f128f5",
                             StaffCode = "SD0014",
                             TwoFactorEnabled = false,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9944),
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1595),
                             UserName = "hoanglc"
                         },
                         new
                         {
                             Id = 11,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2f2b33c8-e946-4d33-bee3-11dd652d27fc",
-                            CreatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9951),
+                            ConcurrencyStamp = "948720db-1493-45e5-a990-6cc399dc11ee",
+                            CreatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1601),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             Gender = false,
@@ -1899,12 +1899,12 @@ namespace AssetManagement.Data.Migrations
                             LocationId = 1,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMINDISABLE",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAjufjnlm005ha2Sfqmz5vXC8lTwHax5OGSD+uJwdQK8P0NF9lSTnEKRXscE1nXwWA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJCnGry1GMN9YSqRUMA3CXr8kremR43M1TQY4MkqoinvurNlGIvU21MW9bMJd16tjA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9f349ac3-ea4f-491e-bec7-873ad2a07f23",
+                            SecurityStamp = "d1175ede-aed0-4437-8d9e-f4dcb3d94b09",
                             StaffCode = "SD0011",
                             TwoFactorEnabled = false,
-                            UpdatedDate = new DateTime(2022, 8, 15, 12, 45, 43, 875, DateTimeKind.Local).AddTicks(9951),
+                            UpdatedDate = new DateTime(2022, 8, 15, 13, 49, 39, 16, DateTimeKind.Local).AddTicks(1601),
                             UserName = "AdminDisable"
                         });
                 });
@@ -2161,8 +2161,7 @@ namespace AssetManagement.Data.Migrations
                     b.HasOne("AssetManagement.Domain.Model.User", "AssignedBy")
                         .WithMany("AssignedBy")
                         .HasForeignKey("AssignedById")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("AssetManagement.Domain.Model.User", "RequestedBy")
                         .WithMany("ReturnRequests")

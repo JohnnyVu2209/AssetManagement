@@ -678,7 +678,7 @@ const ManageAsset = () => {
                               <TableRow key={index}>
                                 <TableCell>{format(new Date(row.date), "dd/MM/yyyy")}</TableCell>
                                 <TableCell>{row.assignedTo}</TableCell>
-                                <TableCell>{row.assignedBy}</TableCell>
+                                <TableCell>{row.assignedBy && row.assignedBy}</TableCell>
                                 <TableCell>{format(new Date(row.returnedDate), "dd/MM/yyyy")}</TableCell>
                               </TableRow>
                             ))}
