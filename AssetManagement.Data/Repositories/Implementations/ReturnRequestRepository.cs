@@ -82,7 +82,8 @@ namespace AssetManagement.Data.Repositories.Implementations
                 AssetId = a.AssetId,
                 RequestedById = getUser.Id,
                 AssignedDate = getAssignment.AssignedDate,
-                State = ReturnRequestStateEnums.Waiting
+                State = ReturnRequestStateEnums.Waiting,
+                AssignedById = getAssignment.AssignedById
             }).FirstOrDefaultAsync();
 
             if (returnRequest != null)
