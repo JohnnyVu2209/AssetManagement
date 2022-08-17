@@ -321,9 +321,9 @@ namespace AssetManagement.Application.Tests.ControllersTests
                     Id = i,
                     ReturnedDate = DateTime.Now,
                     State = ReturnRequestStateEnums.Completed,
-                    Assignment = new Assignment { Id = 1 ,Asset = new Asset() { Id=1,Code="LA00001"},AssignedTo=new User() { Id=1} },
+                    Assignment = new Assignment { Id = 1, Asset = new Asset() { Id = 1, Code = "LA00001" }, AssignedTo = new User() { Id = 1 } },
                 });
-                
+
             }
             return list;
         }
@@ -347,7 +347,7 @@ namespace AssetManagement.Application.Tests.ControllersTests
             };
 
             var assignmentRepositoryMock = new Mock<IReturnRequestRepository>();
-            assignmentRepositoryMock.Setup(x => x.CreateAsync(It.IsAny<CreateReturnRequestDTO>())).Returns(Task.FromResult(expectedResult));
+            assignmentRepositoryMock.Setup(x => x.CreateAsync(It.IsAny<int>())).Returns(Task.FromResult(expectedResult));
 
             var mapperMock = new Mock<IMapper>();
             mapperMock.Setup(s => s.Map<IEnumerable<ReturnRequestDTO>>(returnRequestList)).Returns(returnRequestListDTO);
@@ -355,7 +355,7 @@ namespace AssetManagement.Application.Tests.ControllersTests
             var controller = new ReturnRequestController(assignmentRepositoryMock.Object, mapperMock.Object);
 
             //Act
-            var result = (await controller.CreateReturnRequest(new CreateReturnRequestDTO())) as OkObjectResult;
+            var result = (await controller.CreateReturnRequest(1)) as OkObjectResult;
 
             //Assert
             Assert.IsType<OkObjectResult>(result);
@@ -382,7 +382,7 @@ namespace AssetManagement.Application.Tests.ControllersTests
             };
 
             var assignmentRepositoryMock = new Mock<IReturnRequestRepository>();
-            assignmentRepositoryMock.Setup(x => x.CreateAsync(It.IsAny<CreateReturnRequestDTO>())).Returns(Task.FromResult(expectedResult));
+            assignmentRepositoryMock.Setup(x => x.CreateAsync(It.IsAny<int>())).Returns(Task.FromResult(expectedResult));
 
             var mapperMock = new Mock<IMapper>();
             mapperMock.Setup(s => s.Map<IEnumerable<ReturnRequestDTO>>(returnRequestList)).Returns(returnRequestListDTO);
@@ -390,7 +390,7 @@ namespace AssetManagement.Application.Tests.ControllersTests
             var controller = new ReturnRequestController(assignmentRepositoryMock.Object, mapperMock.Object);
 
             //Act
-            var result = (await controller.CreateReturnRequest(new CreateReturnRequestDTO())) as BadRequestObjectResult;
+            var result = (await controller.CreateReturnRequest(1)) as BadRequestObjectResult;
 
             //Assert
             Assert.IsType<BadRequestObjectResult>(result);
