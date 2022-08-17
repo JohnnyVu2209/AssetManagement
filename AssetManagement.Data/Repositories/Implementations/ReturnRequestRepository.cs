@@ -75,12 +75,13 @@ namespace AssetManagement.Data.Repositories.Implementations
         {
             var user = _currentUser.UserName;
             var getUser = await _context.Users.FirstOrDefaultAsync(x => x.UserName == user);
+            var getAssignment = await _context.Assignments.FirstOrDefaultAsync(x=>x.Id==assignmentId);
             var returnRequest = await _context.Assignments.Where(a => a.Id == assignmentId && a.AssignedState == AssignmentStateEnums.Accepted).Select(a => new ReturnRequest()
             {
                 AssignmentId = a.Id,
                 AssetId = a.AssetId,
                 RequestedById = getUser.Id,
-                ReturnedDate = DateTime.Now,
+                AssignedDate = getAssignment.AssignedDate,
                 State = ReturnRequestStateEnums.Waiting
             }).FirstOrDefaultAsync();
 
