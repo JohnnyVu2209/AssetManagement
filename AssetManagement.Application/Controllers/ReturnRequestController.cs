@@ -74,5 +74,16 @@ namespace AssetManagement.Application.Controllers
             }
         }
 
+        [HttpPost("{assignmentId}")]
+        [Authorize]
+        public async Task<IActionResult> CreateReturnRequest(int assignmentId)
+        {
+            var result = await _returnRequestRepository.CreateAsync(assignmentId);
+            if (result.StatusCode == 200)
+            {
+                return Ok(result.Message);
+            }
+            return BadRequest(result.Message);
+        }
     }
 }

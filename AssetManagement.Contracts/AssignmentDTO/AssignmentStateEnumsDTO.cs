@@ -15,5 +15,7 @@ namespace AssetManagement.Contracts.AssignmentDTO
         Waiting = 2,
         [Description("Declined")]
         Declined = 3,
+        [Description("Waiting for returning")]
+        Returned = 4,
     }
 }

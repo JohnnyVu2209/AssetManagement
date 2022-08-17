@@ -1,4 +1,6 @@
-﻿using AssetManagement.Domain.Model;
+﻿using AssetManagement.Contracts.Constant;
+using AssetManagement.Contracts.ReturnRequestDTO;
+using AssetManagement.Domain.Model;
 using AssetManagement.Domain.Model.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -69,5 +71,40 @@ namespace AssetManagement.Data.Repositories.Implementations
             await _context.SaveChangesAsync();
         }
 
+        public async Task<ApiResult<bool>> CreateAsync(int assignmentId)
+        {
+            var user = _currentUser.UserName;
+            var getUser = await _context.Users.FirstOrDefaultAsync(x => x.UserName == user);
+            var returnRequest = await _context.Assignments.Where(a => a.Id == assignmentId && a.AssignedState == AssignmentStateEnums.Accepted).Select(a => new ReturnRequest()
+            {
+                AssignmentId = a.Id,
+                AssetId = a.AssetId,
+                RequestedById = getUser.Id,
+                ReturnedDate = DateTime.Now,
+                State = ReturnRequestStateEnums.Waiting
+            }).FirstOrDefaultAsync();
+
+            if (returnRequest != null)
+            {
+                await _context.ReturnRequests.AddAsync(returnRequest);
+
+                var assignment = await _context.Assignments.Where(a => a.Id == assignmentId).FirstOrDefaultAsync();
+                assignment.AssignedState = AssignmentStateEnums.Returned;
+
+                await _context.SaveChangesAsync();
+
+                return new ApiResult<bool>(true)
+                {
+                    StatusCode = 200,
+                    Message = "Create return request successfully!"
+                };
+            }
+
+            return new ApiResult<bool>(true)
+            {
+                StatusCode = 400,
+                Message = "Can not find assigment or assignment state is wrong!"
+            };
+        }
     }
 }

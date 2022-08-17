@@ -11,11 +11,13 @@ import {
   getAssignmentByUserLogin,
   acceptAssignment,
   declineAssignment,
+  createReturingRequest,
 } from "../services/assignmentService/assignmentManagement";
 import { format, setISODay } from "date-fns";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
+import ReplayIcon from "@mui/icons-material/Replay";
 import Swal from "sweetalert2";
 import Modal from "react-modal";
 import AssignmentDetail from "../components/Modal_AssignmentDetail";
@@ -61,6 +63,24 @@ function ListAssignmentView() {
     return;
   }
 
+  function openReturnRequestPopup(id: any, e: any) {
+    e.stopPropagation();
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to create a returning request for this asset?",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await createReturingRequest(id);
+        setNeedReload(!needReload);
+      }
+    });
+    return;
+  }
+
   const columns: GridColDef[] = [
     {
       field: "assetCode",
@@ -93,7 +113,8 @@ function ListAssignmentView() {
       flex: 1,
       valueFormatter: (param) => {
         if (param.value == 1) return "Accepted";
-        else return "Waiting for acceptance";
+        else if(param.value == 2 ) return "Waiting for acceptance";
+            else return "Waiting for returning" 
       },
     },
     {
@@ -102,28 +123,29 @@ function ListAssignmentView() {
       flex: 1,
       renderCell: (obj) => {
         return (
-          <>
-            <CheckIcon
-              className={obj.row.state === 1 ? "disable-action" : ""}
-              style={{ color: "red" }}
-              onClick={(e) => {
-                openAcceptPopup(obj.id, e);
-              }}
-            />
-            <CloseIcon
-              className={obj.row.state === 1 ? "disable-action" : ""}
-              style={{ color: "black" }}
-              onClick={(e) => {
-                openDeclinePopup(obj.id, e);
-              }}
-            />
-            <Link
-              to={"/user-home"}
-              className={obj.row.state === 1 ? "" : "disable-action"}
-            >
-              <RestartAltIcon style={{ color: "CornflowerBlue" }} />
-            </Link>
-          </>
+            <>
+              <CheckIcon
+                className={(obj.row.state === 2) ? "" : "disable-action"}
+                style={{ color: "red" }}
+                onClick={(e) => {
+                  openAcceptPopup(obj.id, e);
+                }}
+              />
+              <CloseIcon
+                className={obj.row.state === 2 ? "" : "disable-action"}
+                style={{ color: "black" }}
+                onClick={(e) => {
+                  openDeclinePopup(obj.id, e);
+                }}
+              />
+              <ReplayIcon
+                className={obj.row.state === 1 ? "" : "disable-action"}
+                style={{ color: "CornflowerBlue" }}
+                onClick={(e) => {
+                  openReturnRequestPopup(obj.id, e);
+                }}
+              />
+            </>
         );
       },
     },

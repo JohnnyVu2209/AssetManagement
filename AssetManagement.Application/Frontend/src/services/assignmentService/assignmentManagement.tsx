@@ -95,8 +95,14 @@ async function getAssignmentByUserLogin(){
 async function acceptAssignment(id: number){
   return await axiosInstance
     .put(`Assignment/Accept/${id}`)
-    .then((res) => {
-      return res;
+    .then(() => {
+      Swal.fire({
+        text:"Accept this assignment successfully!",
+        customClass: {
+          confirmButton:"button"
+        },
+        buttonsStyling: false,
+      });
     })
     .catch((error) => {
       return error;
@@ -106,12 +112,35 @@ async function acceptAssignment(id: number){
 async function declineAssignment(id: number){
   return await axiosInstance
     .put(`Assignment/Decline/${id}`)
-    .then((res) => {
-      return res;
+    .then(() => {
+      Swal.fire({
+        text:"Decline this assignment successfully!",
+        customClass: {
+          confirmButton:"button"
+        },
+        buttonsStyling: false,
+      });
     })
     .catch((error) => {
       return error;
     });
 }
 
-export { getAssignmentList, getAssignmentByUserLogin, acceptAssignment, declineAssignment, createAssignment, getAssignmentDetail, updateAssignment };
+async function createReturingRequest(assignmentId: any){
+  return await axiosInstance
+    .post(`ReturnRequest/${assignmentId}`)
+    .then(() => {
+      Swal.fire({
+        text:"Create returning request for this assignment successfully!",
+        customClass: {
+          confirmButton:"button"
+        },
+        buttonsStyling: false,
+      });
+    })
+    .catch((error) => {
+      return error;
+    });
+}
+
+export { getAssignmentList, getAssignmentByUserLogin, acceptAssignment, declineAssignment, createAssignment, getAssignmentDetail, updateAssignment, createReturingRequest };

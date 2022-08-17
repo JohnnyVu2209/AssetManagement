@@ -25,6 +25,30 @@ import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import Modal from "react-modal";
 import AssignmentDetail from "../components/Modal_AssignmentDetail";
 import getAssignmentDetail from "../services/assignmentService/assignmentDetail";
+import ReplayIcon from "@mui/icons-material/Replay";
+import Swal from "sweetalert2";
+import {
+  createReturingRequest,
+} from "../services/assignmentService/assignmentManagement";
+
+function openReturnRequestPopup(id: any, e: any) {
+  e.stopPropagation();
+  Swal.fire({
+    title: "Are you sure?",
+    text: "Do you want to create a returning request for this asset?",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      await createReturingRequest(id);
+    }
+  }).then(() => {
+    window.location.reload();
+  });
+  return;
+}
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "No", width: 120 },
@@ -64,7 +88,7 @@ const columns: GridColDef[] = [
     flex: 1,
     valueFormatter: (params) => {
       const valueFormatted =
-        params.value === 1 ? "Accepted" : (params.value === 3 ? "Declined" : "Waiting for acceptance");
+        params.value === 1 ? "Accepted" : (params.value === 3 ? "Declined" : (params.value === 4 ? "Waiting for returning" : "Waiting for acceptance"));
       return `${valueFormatted}`;
     },
   },
@@ -83,10 +107,14 @@ const columns: GridColDef[] = [
           <Link to={"/assignment-list"}>
             <HighlightOffIcon style={{ color: "red" }} />
           </Link>
-          <Link to={"/assignment-list"}>
-            <RestartAltIcon style={{ color: "CornflowerBlue" }} />
-          </Link>
-        </div>
+              <ReplayIcon
+                  className={params.row.assignedState === 1 ? "" : "disable-action"}
+            style={{ color: "CornflowerBlue" }}
+                  onClick={(e) => {
+                      openReturnRequestPopup(params.row.id, e);
+            }}
+          />
+        </>
       );
     },
   },

@@ -1,4 +1,5 @@
 ﻿using AssetManagement.Application.Controllers;
+using AssetManagement.Contracts.Constant;
 using AssetManagement.Contracts.ReturnRequestDTO;
 using AssetManagement.Data.Repositories;
 using AssetManagement.Domain.Model;
@@ -325,6 +326,76 @@ namespace AssetManagement.Application.Tests.ControllersTests
                 
             }
             return list;
+        }
+
+        [Fact]
+        public async Task CreateReturnRequest_Ok()
+        {
+            //Arrange
+            IEnumerable<ReturnRequest> returnRequestList = GenerateListReturnRequests(10).AsEnumerable();
+
+            IEnumerable<ReturnRequestDTO> returnRequestListDTO = new List<ReturnRequestDTO>()
+            {
+                new ReturnRequestDTO{Id=1,AssetCode="LA000001",AssetName="Laptop"},
+                new ReturnRequestDTO{Id=1,AssetCode="LA000001",AssetName="Laptop"}
+            };
+
+            var expectedResult = new ApiResult<bool>(true)
+            {
+                StatusCode = 200,
+                Message = "Create new return request successfully!"
+            };
+
+            var assignmentRepositoryMock = new Mock<IReturnRequestRepository>();
+            assignmentRepositoryMock.Setup(x => x.CreateAsync(It.IsAny<CreateReturnRequestDTO>())).Returns(Task.FromResult(expectedResult));
+
+            var mapperMock = new Mock<IMapper>();
+            mapperMock.Setup(s => s.Map<IEnumerable<ReturnRequestDTO>>(returnRequestList)).Returns(returnRequestListDTO);
+
+            var controller = new ReturnRequestController(assignmentRepositoryMock.Object, mapperMock.Object);
+
+            //Act
+            var result = (await controller.CreateReturnRequest(new CreateReturnRequestDTO())) as OkObjectResult;
+
+            //Assert
+            Assert.IsType<OkObjectResult>(result);
+            Assert.Equal("Create new return request successfully!", result.Value.ToString());
+            Assert.Equal(200, result.StatusCode);
+        }
+
+        [Fact]
+        public async Task CreateReturnRequest_BadRequest()
+        {
+            //Arrange
+            IEnumerable<ReturnRequest> returnRequestList = GenerateListReturnRequests(10).AsEnumerable();
+
+            IEnumerable<ReturnRequestDTO> returnRequestListDTO = new List<ReturnRequestDTO>()
+            {
+                new ReturnRequestDTO{Id=1,AssetCode="LA000001",AssetName="Laptop"},
+                new ReturnRequestDTO{Id=1,AssetCode="LA000001",AssetName="Laptop"}
+            };
+
+            var expectedResult = new ApiResult<bool>(true)
+            {
+                StatusCode = 400,
+                Message = "Create new return request failly!"
+            };
+
+            var assignmentRepositoryMock = new Mock<IReturnRequestRepository>();
+            assignmentRepositoryMock.Setup(x => x.CreateAsync(It.IsAny<CreateReturnRequestDTO>())).Returns(Task.FromResult(expectedResult));
+
+            var mapperMock = new Mock<IMapper>();
+            mapperMock.Setup(s => s.Map<IEnumerable<ReturnRequestDTO>>(returnRequestList)).Returns(returnRequestListDTO);
+
+            var controller = new ReturnRequestController(assignmentRepositoryMock.Object, mapperMock.Object);
+
+            //Act
+            var result = (await controller.CreateReturnRequest(new CreateReturnRequestDTO())) as BadRequestObjectResult;
+
+            //Assert
+            Assert.IsType<BadRequestObjectResult>(result);
+            Assert.Equal("Create new return request failly!", result.Value.ToString());
+            Assert.Equal(400, result.StatusCode);
         }
     }
 }
