@@ -151,5 +151,12 @@ namespace AssetManagement.Data.Repositories.Implementations
             context.Assets.Update(asset);
             await context.SaveChangesAsync();
         }
+
+        public async Task DeleteAsync(int id)
+        {
+            var result = await context.Assets.FirstOrDefaultAsync(x => x.Id == id);
+            context.Assets.Remove(result);
+            await context.SaveChangesAsync();
+        }
     }
 }

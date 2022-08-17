@@ -35,7 +35,7 @@ namespace AssetManagement.Application.Controllers
             this.assetRepository = assetRepository;
             this.stateRepository = stateRepository;
             this.categoryRepository = categoryRepository;
-            this.logger = logger;   
+            this.logger = logger;
         }
         [HttpGet("getAssetsList")]
         [Authorize(Roles = "Admin")]
@@ -99,7 +99,7 @@ namespace AssetManagement.Application.Controllers
 
         [HttpPut("update/{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> UpdateAsset(int id,[FromBody]EditAssetDTO editAssetDTO)
+        public async Task<IActionResult> UpdateAsset(int id, [FromBody] EditAssetDTO editAssetDTO)
         {
             try
             {
@@ -135,6 +135,26 @@ namespace AssetManagement.Application.Controllers
                 return BadRequest(result.Message);
             }
             return Ok(result.Message);
+        }
+
+        [HttpDelete("delete/{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteAsset(int id)
+        {
+            try
+            {
+                var asset = await assetRepository.GetAssetByIdAsync(id);
+                if (asset == null)
+                {
+                    return NotFound("There's no asset");
+                }
+                await assetRepository.DeleteAsync(id);
+                return Ok("Delete Successfully.");
+            }
+            catch
+            {
+                return BadRequest("Delete failed.");
+            }
         }
     }
 }

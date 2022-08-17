@@ -40,6 +40,9 @@ import "../assets/css/Pagination.css";
 import { useAppDispatch, useAppSelector } from '../features/hooks';
 import { getCategories, FilterSelect, getStates } from '../features/AssetSlice';
 import assetService from '../services/assetService';
+import Swal from "sweetalert2";
+import { deleteAsset } from '../services/assetService/assetManagement';
+
 
 const assetMockData = [
   {
@@ -184,6 +187,7 @@ const ManageAsset = () => {
   const [filterName, setFilterName] = useState('');
   const [order, setOrder] = React.useState<Order>('asc');
   const [orderBy, setOrderBy] = React.useState<keyof AssetData>('code');
+  const [returnAssetState, setReturnRequestState] = useState(true);
 
   useEffect(() => {
     dispatch(getCategories());
@@ -323,6 +327,28 @@ const ManageAsset = () => {
     setPage(page);
   }
 
+  const handleDelete = (id:number) => {
+    Swal.fire({
+      title:"Are you sure?",
+      text:"Do you want to delete this asset?",
+      showCancelButton:true,
+      confirmButtonText:"Delete",
+      cancelButtonText:"Cancel",
+      customClass: {
+        confirmButton: "button button-spacing",
+        cancelButton: "button-reverse button-spacing",
+      },
+      buttonsStyling: false,
+    }).then((result)=>{
+      if(result.isConfirmed){
+        deleteAsset(id).then((res) => {
+          window.location.reload();
+          //console.log(res);
+        });
+      }
+    });
+  }
+
   const isDataNotFound = assetData.length === 0;
 
   const emptyRows = page > 1 && pagination ? Math.max(0, page * pageSize - pagination.TotalCount) : 0;
@@ -430,7 +456,8 @@ const ManageAsset = () => {
                       </Link>
                     </IconButton>
                     <IconButton disabled={item.state === stateData[1].name} >
-                      <HighlightOffIcon style={item.state === stateData[1].name ? { color: "#dc6b79" } : { color: "red" }} />
+                      <HighlightOffIcon style={item.state === stateData[1].name ? { color: "#dc6b79" } : { color: "red" }} 
+                                        onClick={(e) => handleDelete(item.id)}/>
                       {/* <Link to={"/manage-asset/"} >
                       </Link> */}
                     </IconButton>

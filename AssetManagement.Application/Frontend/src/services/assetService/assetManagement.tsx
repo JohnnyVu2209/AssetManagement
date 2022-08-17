@@ -142,5 +142,20 @@ async function getCategories() {
     });
 }
 
+async function deleteAsset(id:number/* ,state:boolean */){
+  return await axiosInstance
+    .delete(`/Asset/delete/${id}`)
+    .then((res) => {
+      Swal.fire({
+        text:"Asset has been deleted",
+        customClass: {
+          confirmButton: "button",
+        },
+        buttonsStyling: false,
+      }).then(()=>{
+        return;
+      });
+    });
+}
 
-export { createAsset, createCategory, getCategories, updateAsset };
+export { createAsset, createCategory, getCategories, updateAsset, deleteAsset };
