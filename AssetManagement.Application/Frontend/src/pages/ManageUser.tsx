@@ -46,8 +46,7 @@ function ManageUser() {
           showCloseButton: true,
           showConfirmButton: false,
         });
-      }
-      if (res.data == "Assignment empty") {
+      } else if (res.data == "Assignment empty") {
         Swal.fire({
           title: "Are you sure?",
           text: "Do you want to disable this user?",
