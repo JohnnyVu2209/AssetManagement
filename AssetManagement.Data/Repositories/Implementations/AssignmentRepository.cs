@@ -298,6 +298,8 @@ namespace AssetManagement.Data.Repositories.Implementations
         public async Task DeleteAssignment(int id)
         {
             var getAssignment = await _context.Assignments.FirstOrDefaultAsync(x => x.Id == id);
+            var getAsset = await _context.Assets.FirstOrDefaultAsync(x => x.Id == getAssignment.AssetId);
+            getAsset.StateID = (int)AssetState.Available;
             _context.Assignments.Remove(getAssignment);
             await _context.SaveChangesAsync();
         }
