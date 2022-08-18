@@ -17,7 +17,7 @@ namespace AssetManagement.Application.Tests.ControllersTests
         {
             var mockReportRepository = new Mock<IReportRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger>();
+            var mockLogger = new Mock<ILogger<ReportController>>();
 
             var report = new List<Report>()
             {
@@ -47,7 +47,8 @@ namespace AssetManagement.Application.Tests.ControllersTests
         {
             var mockReportRepository = new Mock<IReportRepository>();
             var mockMapper = new Mock<IMapper>();
-            var mockLogger = new Mock<ILogger>();
+            var mockLogger = new Mock<ILogger<ReportController>>();
+
 
             mockReportRepository.Setup(r => r.GetReport()).Throws(new Exception());
 

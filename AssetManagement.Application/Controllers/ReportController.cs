@@ -14,8 +14,8 @@ namespace AssetManagement.Application.Controllers
     {
         private readonly IReportRepository _reportRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger _logger;
-        public ReportController(IReportRepository reportRepository, IMapper mapper, ILogger logger)
+        private readonly ILogger<ReportController> _logger;
+        public ReportController(IReportRepository reportRepository, IMapper mapper, ILogger<ReportController> logger)
         {
             _reportRepository = reportRepository;
             _mapper = mapper;
