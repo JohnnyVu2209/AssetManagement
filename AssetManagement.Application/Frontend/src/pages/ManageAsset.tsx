@@ -58,7 +58,10 @@ import {
 } from "../features/AssetSlice";
 import assetService from "../services/assetService";
 import Swal from "sweetalert2";
-import { deleteAsset } from "../services/assetService/assetManagement";
+import {
+  checkAssetReturningRequest,
+  deleteAsset,
+} from "../services/assetService/assetManagement";
 import { TransitionProps } from "@mui/material/transitions";
 import { format } from "date-fns";
 
@@ -322,6 +325,8 @@ const ManageAsset = () => {
   const [historyOrder, setHistoryOrder] = useState<Order>("asc");
   const [historyOrderBy, setHistoryOrderBy] = useState<keyof History>("date");
 
+  const [deleteAssetState, setDeleteAssetState] = useState(false); //
+
   useEffect(() => {
     dispatch(getCategories());
     dispatch(getStates());
@@ -372,6 +377,7 @@ const ManageAsset = () => {
     stateData,
     categoryData,
     sort,
+    deleteAssetState,
   ]);
 
   useEffect(() => {
@@ -484,8 +490,58 @@ const ManageAsset = () => {
     setPage(page);
   };
 
-  const handleDelete = (id: number) => {
-    Swal.fire({
+  const handleDelete = (e: any, assetCode: string) => {
+    e.stopPropagation();
+    checkAssetReturningRequest(assetCode).then((res) => {
+      console.log(res);
+      if (res.data == "Asset has returning request") {
+        Swal.fire({
+          title: "Cannot Delete Asset",
+          text:
+            "Cannot delete the asset because it belongs to one or more historical assignments. If the asset is not able to be used anymore, please update its state in Edit Asset page",
+          showCloseButton: true,
+          showConfirmButton: false,
+        });
+      } else if (res.data == "No returning request") {
+        Swal.fire({
+          title: "Are you sure?",
+          text: "Do you want to delete this asset?",
+          showCancelButton: true,
+          confirmButtonText: "Delete",
+          cancelButtonText: "Cancel",
+          customClass: {
+            confirmButton: "button button-spacing",
+            cancelButton: "button-reverse button-spacing",
+          },
+          buttonsStyling: false,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            deleteAsset(assetCode).then((res) => {
+              //window.location.reload();
+              //console.log(res);
+              Swal.fire({
+                text: "Asset deleted",
+                customClass: {
+                  confirmButton: "button",
+                },
+                buttonsStyling: false,
+              }).then((res) => {
+                setDeleteAssetState(!deleteAssetState);
+              });
+            });
+          }
+        });
+      } else {
+        Swal.fire({
+          text: "Error occured",
+          customClass: {
+            confirmButton: "button",
+          },
+          buttonsStyling: false,
+        });
+      }
+    });
+    /* Swal.fire({
       title: "Are you sure?",
       text: "Do you want to delete this asset?",
       showCancelButton: true,
@@ -498,12 +554,12 @@ const ManageAsset = () => {
       buttonsStyling: false,
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteAsset(id).then((res) => {
+        deleteAsset(assetCode).then((res) => {
           window.location.reload();
           //console.log(res);
         });
       }
-    });
+    }); */
   };
 
   const isDataNotFound = assetData.length === 0;
@@ -639,7 +695,7 @@ const ManageAsset = () => {
                             ? { color: "#dc6b79" }
                             : { color: "red" }
                         }
-                        onClick={(e) => handleDelete(item.id)}
+                        onClick={(e) => handleDelete(e, item.code)}
                       />
                       {/* <Link to={"/manage-asset/"} >
                       </Link> */}

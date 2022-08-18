@@ -142,9 +142,9 @@ async function getCategories() {
     });
 }
 
-async function deleteAsset(id:number/* ,state:boolean */){
+async function deleteAsset(assetCode:string){
   return await axiosInstance
-    .delete(`/Asset/delete/${id}`)
+    .delete(`/Asset/delete/${assetCode}`)
     .then((res) => {
       Swal.fire({
         text:"Asset has been deleted",
@@ -155,7 +155,32 @@ async function deleteAsset(id:number/* ,state:boolean */){
       }).then(()=>{
         return;
       });
+    })
+    /* .catch((error) => {
+      Swal.fire({
+        text:"Cannot Delete Asset",
+      }).then(() => {
+        window.location.reload();
+      })
+    }) */;
+}
+
+async function checkAssetReturningRequest(assetCode:string){
+  return await axiosInstance
+    .get("Asset/checkAsset/" + assetCode)
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      return error;
     });
 }
 
-export { createAsset, createCategory, getCategories, updateAsset, deleteAsset };
+export { 
+  createAsset, 
+  createCategory, 
+  getCategories, 
+  updateAsset, 
+  deleteAsset,
+  checkAssetReturningRequest,
+};

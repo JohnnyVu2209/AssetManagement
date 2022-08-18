@@ -162,11 +162,19 @@ namespace AssetManagement.Data.Repositories.Implementations
             await context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(string assetCode)
         {
-            var result = await context.Assets.FirstOrDefaultAsync(x => x.Id == id);
+            var result = await context.Assets.FirstOrDefaultAsync(x => x.Code == assetCode);
             context.Assets.Remove(result);
             await context.SaveChangesAsync();
+        }
+
+        public async Task<bool> CheckAssetReturningRequestAsync(string assetCode)
+        {
+
+            var assetHistorical = await context.Assets.Include(x => x.Historical).FirstOrDefaultAsync(x => x.Code == assetCode);
+            if (assetHistorical.Historical.Any()) return true;
+            else return false;
         }
     }
 }

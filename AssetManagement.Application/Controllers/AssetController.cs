@@ -137,9 +137,9 @@ namespace AssetManagement.Application.Controllers
             return Ok(result.Message);
         }
 
-        [HttpDelete("delete/{id}")]
+        /*[HttpDelete("delete/{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteAsset(int id)
+        public async Task<IActionResult> DeleteAsset(int id)//bpi31
         {
             try
             {
@@ -154,6 +154,52 @@ namespace AssetManagement.Application.Controllers
             catch
             {
                 return BadRequest("Delete failed.");
+            }
+        }*/
+
+        [HttpDelete("delete/{assetCode}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteAsset(string assetCode)
+        {
+            try
+            {
+                var asset = await assetRepository.GetByAssetCodeAsync(assetCode);
+                if (asset == null)
+                {
+                    return NotFound("There's no asset");
+                }
+                var assetHistoricalStatus = await assetRepository.CheckAssetReturningRequestAsync(assetCode);
+                if (assetHistoricalStatus == true)
+                {
+                    return Ok("Unable to delete asset because of being assigned");
+                }
+                else
+                {
+                    await assetRepository.DeleteAsync(assetCode);
+                    return Ok("Delete Successfully.");
+                }
+            }
+            catch
+            {
+                return BadRequest("Delete failed.");
+            }
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("checkAsset/{assetCode}")]
+        public async Task<ActionResult> CheckHistoricalAsset(string assetCode)
+        {
+            try
+            {
+                var getAsset = await assetRepository.GetByAssetCodeAsync(assetCode);
+                if (getAsset == null) return NotFound("Asset not found");
+                var assetHistoricalStatus = await assetRepository.CheckAssetReturningRequestAsync(assetCode);
+                if (assetHistoricalStatus == true) return Ok("Asset has returning request");
+                else return Ok("No returning request");
+            }
+            catch
+            {
+                return BadRequest("Something went wrong");
             }
         }
     }

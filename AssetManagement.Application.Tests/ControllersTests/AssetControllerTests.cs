@@ -545,7 +545,55 @@ namespace AssetManagement.Application.Tests
         }
 
         [Fact]
-        public async Task DeleteAsset_WhenSuccess_ReturnOk()
+        public async Task DeleteAsset_WhenSuccess_ReturnOk_UnableDelete()
+        {
+            var mockMapper = new Mock<IMapper>();
+            var mockAssetRepository = new Mock<IAssetRepository>();
+            var mockLogger = new Mock<ILogger<AssetController>>();
+            var mockCategoryRepository = new Mock<ICategoryRepository>();
+            var mockStateRepository = new Mock<IStateRepository>();
+            var mockUserManager = new Mock<FakeUserManager>();
+            var mockHistoricalRepository = new Mock<IReturnRequestRepository>();
+
+            var asset = new Asset()
+            {
+                Id = 1,
+                Code = "MO000001",
+                Name = "XYZ",
+                Specification = "unit testing",
+                StateID = 1,
+                InstalledDate = DateTime.Now.AddDays(-10),
+                Historical = new List<ReturnRequest>()
+                {
+                    new ReturnRequest() { Id = 1}
+                }
+            };
+
+            var expectedMessage = "Unable to delete asset because of being assigned";
+
+            //mockUserManager.Setup(u => u.FindByNameAsync(It.IsAny<string>())).Returns(Task.FromResult(admin));
+            //mockUserManager.Setup(u => u.FindByIdAsync(It.IsAny<string>())).Returns(Task.FromResult(user));
+            mockAssetRepository.Setup(m => m.GetByAssetCodeAsync(It.IsAny<string>())).Returns(Task.FromResult(asset));
+            mockMapper.Setup(m => m.Map(It.IsAny<AssetDTO>(), It.IsAny<Asset>())).Returns(asset);
+            mockAssetRepository.Setup(m => m.CheckAssetReturningRequestAsync(It.IsAny<string>())).Returns(Task.FromResult(true));
+
+            mockAssetRepository.Setup(m => m.DeleteAsync(It.IsAny<string>()));
+
+            var controller = new AssetController(mockAssetRepository.Object,
+                                                 mockCategoryRepository.Object,
+                                                 mockStateRepository.Object,
+                                                 mockUserManager.Object,
+                                                 mockMapper.Object,
+                                                 mockLogger.Object);
+
+            var result = await controller.DeleteAsset("MO000001") as OkObjectResult;
+
+            Assert.IsType<OkObjectResult>(result);
+            Assert.Equal(expectedMessage, result.Value);
+        }
+
+        [Fact]
+        public async Task DeleteAsset_WhenSuccess_ReturnOk_Successfully()
         {
             var mockMapper = new Mock<IMapper>();
             var mockAssetRepository = new Mock<IAssetRepository>();
@@ -557,16 +605,18 @@ namespace AssetManagement.Application.Tests
             var asset = new Asset()
             {
                 Id = 1,
+                Code = "MO000001",
                 Name = "XYZ",
                 Specification = "unit testing",
                 StateID = 2,
-                InstalledDate = DateTime.Now.AddDays(-10)
+                InstalledDate = DateTime.Now.AddDays(-10),
+                Assignments = new List<Assignment>()//empty
             };
             var expectedMessage = "Delete Successfully.";
 
-            mockAssetRepository.Setup(m => m.GetAssetByIdAsync(It.IsAny<int>())).Returns(Task.FromResult(asset));
+            mockAssetRepository.Setup(m => m.GetByAssetCodeAsync(It.IsAny<string>())).Returns(Task.FromResult(asset));
             mockMapper.Setup(m => m.Map(It.IsAny<AssetDTO>(), It.IsAny<Asset>())).Returns(asset);
-            mockAssetRepository.Setup(m => m.DeleteAsync(It.IsAny<int>()));
+            mockAssetRepository.Setup(m => m.DeleteAsync(It.IsAny<string>()));
 
             var controller = new AssetController(mockAssetRepository.Object,
                                                  mockCategoryRepository.Object,
@@ -575,7 +625,7 @@ namespace AssetManagement.Application.Tests
                                                  mockMapper.Object,
                                                  mockLogger.Object);
 
-            var result = await controller.DeleteAsset(1) as OkObjectResult;
+            var result = await controller.DeleteAsset("MO000001") as OkObjectResult;
 
             Assert.IsType<OkObjectResult>(result);
             Assert.Equal(expectedMessage, result.Value);
@@ -594,6 +644,7 @@ namespace AssetManagement.Application.Tests
             var asset = new Asset()
             {
                 Id = 1,
+                Code = "MO000001",
                 Name = "XYZ",
                 Specification = "unit testing",
                 StateID = 2,
@@ -601,8 +652,8 @@ namespace AssetManagement.Application.Tests
             };
             var expectedMessage = "There's no asset";
 
-            mockAssetRepository.Setup(m => m.GetAssetByIdAsync(1));
-            mockAssetRepository.Setup(m => m.DeleteAsync(1));
+            mockAssetRepository.Setup(m => m.GetByAssetCodeAsync("MO000001"));
+            mockAssetRepository.Setup(m => m.DeleteAsync("MO000001"));
 
             var controller = new AssetController(mockAssetRepository.Object,
                                                  mockCategoryRepository.Object,
@@ -611,10 +662,9 @@ namespace AssetManagement.Application.Tests
                                                  mockMapper.Object,
                                                  mockLogger.Object);
 
-            var result = (await controller.DeleteAsset(1)) as NotFoundObjectResult;
+            var result = (await controller.DeleteAsset("MO000001")) as NotFoundObjectResult;
 
             Assert.IsType<NotFoundObjectResult>(result);
-            //Assert.NotNull(result);
             Assert.Equal(expectedMessage, result.Value.ToString());
 
         }
@@ -632,6 +682,7 @@ namespace AssetManagement.Application.Tests
             var asset = new Asset()
             {
                 Id = 1,
+                Code = "MO000001",
                 Name = "XYZ",
                 Specification = "unit testing",
                 StateID = 2,
@@ -639,9 +690,9 @@ namespace AssetManagement.Application.Tests
             };
             var expectedMessage = "Delete failed.";
 
-            mockAssetRepository.Setup(m => m.GetAssetByIdAsync(It.IsAny<int>())).Throws(new Exception());
+            mockAssetRepository.Setup(m => m.GetByAssetCodeAsync(It.IsAny<string>())).Throws(new Exception());
             mockMapper.Setup(m => m.Map(It.IsAny<AssetDTO>(), It.IsAny<Asset>())).Throws(new Exception());
-            mockAssetRepository.Setup(m => m.DeleteAsync(It.IsAny<int>()));
+            mockAssetRepository.Setup(m => m.DeleteAsync(It.IsAny<string>()));
 
             var controller = new AssetController(mockAssetRepository.Object,
                                                  mockCategoryRepository.Object,
@@ -650,7 +701,7 @@ namespace AssetManagement.Application.Tests
                                                  mockMapper.Object,
                                                  mockLogger.Object);
 
-            var result = await controller.DeleteAsset(1) as BadRequestObjectResult;
+            var result = await controller.DeleteAsset("MO000001") as BadRequestObjectResult;
 
             Assert.IsType<BadRequestObjectResult>(result);
             Assert.Equal(expectedMessage, result.Value);
