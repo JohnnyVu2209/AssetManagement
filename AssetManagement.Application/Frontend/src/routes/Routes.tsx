@@ -21,6 +21,7 @@ import ReturnRequestList from "../pages/ReturnRequestList";
 import CreateAssigment from "../pages/CreateAssigment";
 import EditAsset from "../pages/EditAsset";
 import EditAssignment from "../pages/EditAssignment";
+import Report from "../pages/Report";
 
 function Routes() {
   return (
@@ -52,6 +53,7 @@ function Routes() {
             <RouteGuard path="/assignment/edit/:id" component={EditAssignment} />
             <RouteGuard path="/create-asset" component={CreateAsset} />
             <RouteGuard path="/edit-asset/:id" component={EditAsset} />
+            <RouteGuard path="/reports" component={Report} />
             <UserDetailProvider>
               <ManageUserProvider>
                 <RouteGuard path="/manage-user/:isSort?" component={ManageUser} />

@@ -5,6 +5,7 @@ using AssetManagement.Contracts.Constant;
 using AssetManagement.Contracts.UserDTO;
 using AssetManagement.Domain.Model;
 using AutoMapper;
+using AssetManagement.Contracts.ReportDTO;
 
 namespace AssetManagement.Application.MapperProfile
 {
@@ -79,6 +80,15 @@ namespace AssetManagement.Application.MapperProfile
             .ForMember(d => d.AssetCode, opt => opt.MapFrom(s => s.Asset.Code))
             .ForMember(d => d.AssetName, opt => opt.MapFrom(s => s.Asset.Name));
             CreateMap<ReturnRequestDTO, ReturnRequest>();
+        }
+    }
+
+    public class ReportProfile : Profile
+    {
+        public ReportProfile()
+        {
+            CreateMap<Report, ReportDTO>()
+                .ForMember(d => d.Category, opt => opt.MapFrom(s => s.Category.Name));
         }
     }
 }

@@ -14,6 +14,8 @@
 
         public const string ASSET_NOT_FOUND = "ASSET_NOT_FOUND";
 
+        public const string GET_REPORT_FAILED = "GET_REPORT_FAILED";
+
         public const string ASSIGNMENT_NOT_FOUND = "ASSIGNMENT_NOT_FOUND";
 
         public const string ASSIGNMENT_NOT_IN_WAITING_STATE = "ASSIGNMENT_NOT_IN_WAITING_STATE";

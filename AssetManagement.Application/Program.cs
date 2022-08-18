@@ -52,6 +52,7 @@ builder.Services.AddTransient<ICurrentUser, CurrentUser>();
 builder.Services.AddTransient<IAssignmentRepository, AssignmentRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IReturnRequestRepository, ReturnRequestRepository>();
+builder.Services.AddTransient<IReportRepository, ReportRepository>();
 
 
 //Add HttpContextAccessor

@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AssetManagement.Contracts.Constant;
+using AssetManagement.Contracts.ReportDTO;
+using AssetManagement.Data.Repositories;
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AssetManagement.Application.Controllers
@@ -7,9 +12,32 @@ namespace AssetManagement.Application.Controllers
     [ApiController]
     public class ReportController : ControllerBase
     {
-        public ReportController()
+        private readonly IReportRepository _reportRepository;
+        private readonly IMapper _mapper;
+        private readonly ILogger _logger;
+        public ReportController(IReportRepository reportRepository, IMapper mapper, ILogger logger)
         {
+            _reportRepository = reportRepository;
+            _mapper = mapper;
+            _logger = logger;
+        }
 
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetReport()
+        {
+            try
+            {
+                var report = await _reportRepository.GetReport();
+                var reportDto = _mapper.Map<List<ReportDTO>>(report);
+                return Ok(reportDto);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Error from Report", e.Message);
+                return BadRequest(ErrorCode.GET_REPORT_FAILED);
+            }
+            
         }
     }
 }
