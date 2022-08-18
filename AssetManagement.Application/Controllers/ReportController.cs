@@ -5,6 +5,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace AssetManagement.Application.Controllers
 {
@@ -28,7 +29,8 @@ namespace AssetManagement.Application.Controllers
         {
             try
             {
-                var report = await _reportRepository.GetReport();
+                var adminUsername = HttpContext.User.Claims.Single(x => x.Type == ClaimTypes.Name).Value;
+                var report = await _reportRepository.GetReport(adminUsername);
                 var reportDto = _mapper.Map<List<ReportDTO>>(report);
                 return Ok(reportDto);
             }

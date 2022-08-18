@@ -15,10 +15,12 @@ namespace AssetManagement.Data.Repositories.Implementations
         {
             _context = context;
         }
-        public async Task<List<Report>> GetReport()
+        public async Task<List<Report>> GetReport(string username)
         {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == username);
+
             var categories = await _context.Categories
-                .Include(x => x.Assets)
+                .Include(x => x.Assets.Where(y => y.LocationID == user.LocationId))
                 .ThenInclude(x => x.State).ToListAsync();
             var report = new List<Report>();
             foreach (var item in categories)

@@ -4,9 +4,12 @@ using AssetManagement.Contracts.ReportDTO;
 using AssetManagement.Data.Repositories;
 using AssetManagement.Domain.Model;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
+using System.Security.Claims;
+using System.Security.Principal;
 
 namespace AssetManagement.Application.Tests.ControllersTests
 {
@@ -31,11 +34,31 @@ namespace AssetManagement.Application.Tests.ControllersTests
                 new ReportDTO{ Category = report[1].Category.Name, Assigned = report[1].Assigned, Available = report[1].Available, Recycled = report[1].Recycled}
             };
 
-            mockReportRepository.Setup(r => r.GetReport()).Returns(Task.FromResult(report));
+            mockReportRepository.Setup(r => r.GetReport(It.IsAny<string>())).Returns(Task.FromResult(report));
 
             mockMapper.Setup(m => m.Map<List<ReportDTO>>(It.IsAny<List<Report>>())).Returns(reportDTO);
 
-            var controller = new ReportController(mockReportRepository.Object, mockMapper.Object, mockLogger.Object);
+            var claimUser = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+            {
+                new Claim(ClaimTypes.Name, "Admin"),
+                new Claim(ClaimTypes.NameIdentifier, "1"),
+            }, "mock"));
+
+            var identity = new GenericIdentity(ClaimTypes.Name, "AdminHCM");
+
+            identity.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
+
+            var httpContext = new DefaultHttpContext()
+            {
+                User = claimUser,
+            };
+
+            var controllerContext = new ControllerContext()
+            {
+                HttpContext = httpContext,
+            };
+
+            var controller = new ReportController(mockReportRepository.Object, mockMapper.Object, mockLogger.Object) { ControllerContext = controllerContext };
 
             var result = await controller.GetReport() as OkObjectResult;
 
@@ -50,9 +73,29 @@ namespace AssetManagement.Application.Tests.ControllersTests
             var mockLogger = new Mock<ILogger<ReportController>>();
 
 
-            mockReportRepository.Setup(r => r.GetReport()).Throws(new Exception());
+            mockReportRepository.Setup(r => r.GetReport(It.IsAny<string>())).Throws(new Exception());
 
-            var controller = new ReportController(mockReportRepository.Object, mockMapper.Object, mockLogger.Object);
+            var claimUser = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+            {
+                new Claim(ClaimTypes.Name, "Admin"),
+                new Claim(ClaimTypes.NameIdentifier, "1"),
+            }, "mock"));
+
+            var identity = new GenericIdentity(ClaimTypes.Name, "AdminHCM");
+
+            identity.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
+
+            var httpContext = new DefaultHttpContext()
+            {
+                User = claimUser,
+            };
+
+            var controllerContext = new ControllerContext()
+            {
+                HttpContext = httpContext,
+            };
+
+            var controller = new ReportController(mockReportRepository.Object, mockMapper.Object, mockLogger.Object) { ControllerContext = controllerContext };
 
             var result = await controller.GetReport() as BadRequestObjectResult;
 

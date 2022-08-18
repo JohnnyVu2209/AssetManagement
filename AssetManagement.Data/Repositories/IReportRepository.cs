@@ -9,6 +9,6 @@ namespace AssetManagement.Data.Repositories
 {
     public interface IReportRepository
     {
-        Task<List<Report>> GetReport();
+        Task<List<Report>> GetReport(string username);
     }
 }
