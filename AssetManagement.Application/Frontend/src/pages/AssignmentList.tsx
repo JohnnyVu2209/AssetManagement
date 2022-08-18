@@ -41,8 +41,8 @@ function AssignmentList() {
       title: "Are you sure?",
       text: "Do you want to delete the assignment?",
       showCancelButton: true,
-      confirmButtonText: "Yes",
-      cancelButtonText: "No",
+      confirmButtonText: "Delete",
+      cancelButtonText: "Cancel",
       customClass: {
         confirmButton: "button button-spacing",
         cancelButton: "button-reverse button-spacing",
