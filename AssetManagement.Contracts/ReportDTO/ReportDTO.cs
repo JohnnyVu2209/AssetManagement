@@ -8,7 +8,7 @@ namespace AssetManagement.Contracts.ReportDTO
 {
     public class ReportDTO
     {
-        public string Category { get; set; }
+        public string? Category { get; set; }
         public int Total { get; set; }
         public int Assigned { get; set; }
         public int Available { get; set; }

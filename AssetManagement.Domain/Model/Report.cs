@@ -2,7 +2,7 @@
 {
     public class Report
     {
-        public Category Category { get; set; }
+        public Category? Category { get; set; }
         public int Total { get; set; }
         public int Assigned { get; set; }
         public int Available { get; set; }

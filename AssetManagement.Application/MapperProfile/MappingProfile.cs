@@ -88,7 +88,7 @@ namespace AssetManagement.Application.MapperProfile
         public ReportProfile()
         {
             CreateMap<Report, ReportDTO>()
-                .ForMember(d => d.Category, opt => opt.MapFrom(s => s.Category.Name));
+                .ForMember(d => d.Category, opt => opt.MapFrom(s => s.Category != null ? s.Category.Name : null));
         }
     }
 }
