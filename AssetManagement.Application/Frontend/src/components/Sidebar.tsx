@@ -55,11 +55,11 @@ function Sidebar() {
           <i className="fa-solid fa-apple-whole"></i>List View
         </Link> */}
         </div>
-        <div className="sidebar-buttons">
+        {/* <div className="sidebar-buttons">
           <button className="button" onClick={() => logout()}>
             LOGOUT
           </button>
-        </div>
+        </div> */}
       </div>
     );
 }

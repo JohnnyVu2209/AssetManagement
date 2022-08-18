@@ -16,6 +16,7 @@ function login(Username: string, Password: string) {
       const token = response.data.token;
       const role = response.data.role;
       const isPasswordChanged = response.data.isPasswordChanged;
+      const userName = response.data.username;
       //   console.log(token);
       // if (role === "User") {
       //   Swal.fire({
@@ -31,6 +32,7 @@ function login(Username: string, Password: string) {
       // Set JWT token to local
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);
+      localStorage.setItem("username", userName);
       if (!isPasswordChanged)
         localStorage.setItem("isPasswordChanged", "false");
 
